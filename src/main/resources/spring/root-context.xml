@@ -13,20 +13,12 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	<!-- sqlSessionTemplate 필요한 경우(옛날 방식) -->
-	<!-- <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory"/>
-	</bean> -->
-	
-	
-	
  	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 	
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="MISSINGITNOW" />
@@ -34,8 +26,7 @@
 		<property name="defaultAutoCommit" value="false" />
 	</bean>
 	
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
@@ -45,8 +36,11 @@
 			<tx:method name="search*" read-only="true" rollback-for="Exception" />
 			<tx:method name="select*" read-only="true" rollback-for="Exception" />
 			<tx:method name="regist*" rollback-for="Exception" propagation="REQUIRED" isolation="SERIALIZABLE"/>
+			<tx:method name="insert*" rollback-for="Exception" propagation="REQUIRED" isolation="SERIALIZABLE"/>
 			<tx:method name="modify*" rollback-for="Exception" propagation="REQUIRED" isolation="SERIALIZABLE" />
+			<tx:method name="update*" rollback-for="Exception" propagation="REQUIRED" isolation="SERIALIZABLE" />
 			<tx:method name="remove*" rollback-for="Exception" propagation="REQUIRED" isolation="SERIALIZABLE" />
+			<tx:method name="delete*" rollback-for="Exception" propagation="REQUIRED" isolation="SERIALIZABLE" />
 		</tx:attributes>
 	</tx:advice> 
 	
@@ -57,7 +51,9 @@
 			advice-ref="txAdvice" />
 	</aop:config> 
 	
-	 <!-- <mybatis-spring:scan base-package="com.finalproj.missingitnow.[.....].model.dao" /> 
-	 		각 파트별 해당 폴더는 [] 안에 추가해서 base-package -->
+	<!-- base-package 추가하실분은 ,찍어서 추가하시구용~ -->
+	<mybatis-spring:scan base-package="com.finalproj.missingitnow.corpMng.model.dao"/>
+	
+	
 </beans>
 

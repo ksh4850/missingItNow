@@ -3,9 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
  <configuration>
- 	
  	<typeAliases>
- 		
+ 		<typeAlias alias="ProdMngProductDTO" type="com.missingItNow.self.corpMng.model.dto.ProdMngProductDTO"/>
+ 		<typeAlias alias="ProdMngCategoryDTO" type="com.missingItNow.self.corpMng.model.dto.ProdMngCategoryDTO"/>
+ 		<typeAlias alias="ProdMngProductImgDTO" type="com.missingItNow.self.corpMng.model.dto.ProdMngProductImgDTO"/>
  		
  	</typeAliases>
+ 	
  </configuration>
