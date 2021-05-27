@@ -33,18 +33,19 @@ public class ProdMngController {
 		this.prodMngService = prodMngService;
 	}
 
-	// 전체 상품 조회 (해당 기업이 등록한) * 세션 작업 아직 안함 *
+	// 전체 상품 조회 (해당 기업이 등록한) ** 세션 작업 아직 안함 **
 	@GetMapping("/selectProduct")
 	public String selectProduct(Model model) {
 		
 		List<ProdMngProductDTO> productList = prodMngService.selectProductList();
-//		for(ProdMngProductDTO a : productList) {
-//			System.out.println(a);
-//		}
+		for(ProdMngProductDTO a : productList) {
+			System.out.println(a);
+		}
 		model.addAttribute("productList", productList);
 		
-		return "prodMng-selectProduct";
+		return "/corpMng/prodMng-selectProduct";
 	}
+	
 	
 	// 카테고리별 등록 상품 조회
 	@PostMapping("/selectProductByCtg")
@@ -58,8 +59,9 @@ public class ProdMngController {
 //		}
 		model.addAttribute("productList", productList);
 		
-		return "prodMng-selectProduct";
+		return "/corpMng/prodMng-selectProduct";
 	}
+	
 	
 	// 상품명별 등록 상품 조회 
 	@PostMapping("/selectProductByProdName")
@@ -76,8 +78,9 @@ public class ProdMngController {
 
 	@GetMapping("/insertProduct")
 	public String insertForm() {
-		return "prodMng-insertProduct";
+		return "/corpMng/prodMng-insertProduct";
 	}
+	
 	
 	// 상품등록 
 	@PostMapping("/insertProduct")
@@ -129,11 +132,11 @@ public class ProdMngController {
 		
 		if(insertProductInfo > 0 && insertProdImg > 0) {
 			model.addAttribute("successCode", "insertProduct");
-			return "success";
+			return "/common/success";
 			
 		} else {
 			model.addAttribute("failedCode", "insertProduct");
-			return "failed";
+			return "/common/failed";
 		}
 		
 	}	// insertProduct 종료
@@ -150,7 +153,7 @@ public class ProdMngController {
 		}
 		model.addAttribute("productList", productList);
 		
-		return "prodMng-updateProduct";
+		return "/corpMng/prodMng-updateProduct";
 	}
 	
 	// 상품별 정보 수정
@@ -213,11 +216,11 @@ public class ProdMngController {
 		
 		if (updateProductInfo > 0 && updateProdImg > 0) {
 			model.addAttribute("successCode", "updateProduct");
-			return "success";
+			return "/common/success";
 			
 		} else {
 			model.addAttribute("failedCode", "updateProduct");
-			return "failed";
+			return "/common/failed";
 		}
 		
 	}
