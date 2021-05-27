@@ -38,9 +38,9 @@ public class ProdMngController {
 	public String selectProduct(Model model) {
 		
 		List<ProdMngProductDTO> productList = prodMngService.selectProductList();
-		for(ProdMngProductDTO a : productList) {
-			System.out.println(a);
-		}
+//		for(ProdMngProductDTO a : productList) {
+//			System.out.println(a);
+//		}
 		model.addAttribute("productList", productList);
 		
 		return "/corpMng/prodMng-selectProduct";
