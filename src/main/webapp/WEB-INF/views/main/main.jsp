@@ -7,6 +7,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h1>main.jsp 확인</h1>
+	
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
