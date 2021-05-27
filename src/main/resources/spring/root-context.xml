@@ -44,15 +44,15 @@
 		</tx:attributes>
 	</tx:advice> 
 	
-	<!-- <aop:config proxy-target-class="true">
+ 	<aop:config proxy-target-class="true">
 		<aop:pointcut id="serviceMethod"
 			expression="execution(* com.finalproj.missingitnow..*ServiceImpl.*(..))" />
 		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceMethod"
 			advice-ref="txAdvice" />
-	</aop:config>  -->
+	</aop:config>
 	
 	<!-- base-package 추가하실분은 ,찍어서 추가하시구용~ -->
-	<!-- <mybatis-spring:scan base-package="com.finalproj.missingitnow.corpMng.model.dao"/> -->
+	<mybatis-spring:scan base-package="com.finalproj.missingitnow.corpMng.model.dao"/>
 	
 	
 </beans>

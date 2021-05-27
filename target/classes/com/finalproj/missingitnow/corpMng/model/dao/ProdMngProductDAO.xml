@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.finalproj.missingitnow.corpMng.model.dao.ProdMngProductDAO">
+
+	<resultMap id="prodMngProductResultSet" type="ProdMngProductDTO">
+		<id property="prodNo" column="PROD_NO"/>
+		<result property="prodName" column="PROD_NAME"/>
+		<result property="prodPrice" column="PROD_PRICE"/>
+		<result property="prodDetails" column="PROD_DETAILS"/>
+		<result property="prodUploadDate" column="PROD_UPLOAD_DATE"/>
+		<result property="prodTerminateDate" column="PROD_TERMINATE_DATE"/>
+		<result property="prodDiscountRate" column="PROD_DISCOUNT_RATE"/>
+		<result property="prodDiscountPeriod" column="PROD_DISCOUNT_PERIOD"/>
+		<result property="prodManufacturer" column="PROD_MANUFACTURER"/>
+		<result property="stockQuantity" column="STOCK_QUANTITY"/>
+		<result property="prodDisplayChk" column="PROD_DISPLAY_CHK"/>
+		<result property="prodCtgNo" column="PROD_CTG_NO"/>
+		<result property="corpNo" column="CORP_NO"/>
+		<result property="prodHits" column="PROD_HITS"/>
+		<association property="category" javaType="ProdMngCategoryDTO">
+			<id property="prodCtgNo" column="PROD_CTG_NO"/>	
+			<result property="prodCtgName" column="PROD_CTG_NAME"/>	
+		</association>
+		<collection property="prodImgList" ofType="ProdMngProductImgDTO" autoMapping="false">
+			<id property="prodImgNo" column="PROD_IMG_NO"/>	
+			<result property="prodNo" column="PROD_NO"/>	
+			<result property="prodImgOriginName" column="PROD_IMG_ORIGIN_NAME"/>
+			<result property="prodImgRename" column="PROD_IMG_RENAME"/>	
+			<result property="prodImgThnName" column="PROD_IMG_THN_NAME"/>
+			<result property="prodImgPath" column="PROD_IMG_PATH"/>	
+		</collection>
+	</resultMap>
+	
+	<select id="selectProductList" resultMap="prodMngProductResultSet">
+		SELECT 
+		       A.PROD_NO
+		     , A.PROD_NAME
+		     , A.PROD_PRICE
+		     , A.PROD_DETAILS
+		     , A.PROD_UPLOAD_DATE
+		     , A.PROD_TERMINATE_DATE
+		     , A.PROD_DISCOUNT_RATE
+		     , A.PROD_DISCOUNT_PERIOD
+		     , A.PROD_MANUFACTURER
+		     , A.STOCK_QUANTITY
+		     , A.PROD_DISPLAY_CHK
+             , B.PROD_CTG_NO
+		     , B.PROD_CTG_NAME
+		     , A.CORP_NO
+		     , A.PROD_HITS
+		     , C.PROD_IMG_NO
+		  FROM TBL_PRODUCT A
+		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
+		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
+		 ORDER BY A.PROD_NO
+	</select>
+	
+	<insert id="insertProductInfo" parameterType="ProdMngProductDTO">
+		INSERT
+		  INTO TBL_PRODUCT A
+		(
+		  A.PROD_NO, A.PROD_NAME, A.PROD_PRICE, A.PROD_DETAILS
+		, A.PROD_UPLOAD_DATE, A.PROD_TERMINATE_DATE, A.PROD_MANUFACTURER
+		, A.STOCK_QUANTITY, A.PROD_CTG_NO, A.CORP_NO
+		)
+		VALUES
+		(
+		  'PROD' || LPAD(SEQ_PRODUCT.NEXTVAL,4,0), #{prodName}, #{prodPrice}
+		, #{prodDetails}, SYSDATE, #{prodTerminateDate}, #{prodManufacturer}
+		, #{stockQuantity}, #{prodCtgNo}, 'CORP0005'
+		)
+	</insert>
+	
+	<insert id="insertProdImg" parameterType="hashmap">
+		<selectKey keyProperty="prodNo" order="BEFORE" resultType="string">
+	 		SELECT
+	 			   'PROD' || LPAD(SEQ_PRODUCT.CURRVAL,4,0)
+	 		  FROM DUAL
+	 	</selectKey>
+		INSERT
+		  INTO TBL_PROD_IMG A
+		(
+		  A.PROD_IMG_NO, A.PROD_NO, A.PROD_IMG_ORIGIN_NAME
+		, A.PROD_IMG_RENAME, A.PROD_IMG_THN_NAME, A.PROD_IMG_PATH
+		)
+		VALUES
+		(
+		  'PRDI' || LPAD(SEQ_PROD_IMG.NEXTVAL,4,0), #{prodNo}, #{originFileName}
+		, #{changeName}, 'thnName', #{filePath}
+		)
+	</insert>
+	
+	<select id="selectProductByCtg" resultMap="prodMngProductResultSet">
+		SELECT 
+		       A.PROD_NO
+		     , A.PROD_NAME
+		     , A.PROD_PRICE
+		     , A.PROD_DETAILS
+		     , A.PROD_UPLOAD_DATE
+		     , A.PROD_TERMINATE_DATE
+		     , A.PROD_DISCOUNT_RATE
+		     , A.PROD_DISCOUNT_PERIOD
+		     , A.PROD_MANUFACTURER
+		     , A.STOCK_QUANTITY
+		     , A.PROD_DISPLAY_CHK
+             , B.PROD_CTG_NO
+		     , B.PROD_CTG_NAME
+		     , A.CORP_NO
+		     , A.PROD_HITS
+		     , C.PROD_IMG_NO
+		  FROM TBL_PRODUCT A
+		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
+		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
+		 WHERE B.PROD_CTG_NO = #{prodCtgNo}
+		 ORDER BY A.PROD_NO
+	</select>
+	
+	<select id="selectProductByName" resultMap="prodMngProductResultSet">
+		SELECT 
+		       A.PROD_NO
+		     , A.PROD_NAME
+		     , A.PROD_PRICE
+		     , A.PROD_DETAILS
+		     , A.PROD_UPLOAD_DATE
+		     , A.PROD_TERMINATE_DATE
+		     , A.PROD_DISCOUNT_RATE
+		     , A.PROD_DISCOUNT_PERIOD
+		     , A.PROD_MANUFACTURER
+		     , A.STOCK_QUANTITY
+		     , A.PROD_DISPLAY_CHK
+             , B.PROD_CTG_NO
+		     , B.PROD_CTG_NAME
+		     , A.CORP_NO
+		     , A.PROD_HITS
+		     , C.PROD_IMG_NO
+		  FROM TBL_PRODUCT A
+		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
+		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
+		 WHERE A.PROD_NAME LIKE '%' || #{prodName} || '%'
+		 ORDER BY A.PROD_NO
+	</select>
+	
+	<select id="selectProductForUpdate" resultMap="prodMngProductResultSet">
+		SELECT 
+		       A.PROD_NO
+		     , A.PROD_NAME
+		     , A.PROD_PRICE
+		     , A.PROD_DETAILS
+		     , A.PROD_UPLOAD_DATE
+		     , A.PROD_TERMINATE_DATE
+		     , A.PROD_DISCOUNT_RATE
+		     , A.PROD_DISCOUNT_PERIOD
+		     , A.PROD_MANUFACTURER
+		     , A.STOCK_QUANTITY
+		     , A.PROD_DISPLAY_CHK
+             , B.PROD_CTG_NO
+		     , B.PROD_CTG_NAME
+		     , A.CORP_NO
+		     , A.PROD_HITS
+		     , C.PROD_IMG_NO
+		  FROM TBL_PRODUCT A
+		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
+		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
+		 WHERE A.PROD_NO = #{prodNo}
+	</select>
+	
+	<update id="updateProductInfo" parameterType="ProdMngProductDTO">
+		UPDATE TBL_PRODUCT A 
+		   SET A.PROD_DISPLAY_CHK = #{prodDisplayChk}
+		   	 , A.PROD_DISCOUNT_RATE = #{prodDiscountRate}
+		     , A.PROD_DISCOUNT_PERIOD = #{prodDiscountPeriod}
+		     , A.STOCK_QUANTITY = #{stockQuantity}
+		     , A.PROD_CTG_NO = #{prodCtgNo}
+		     , A.PROD_DETAILS = #{prodDetails}
+		     , A.PROD_TERMINATE_DATE = #{prodTerminateDate}
+		   <if test="prodDiscountRate != 0">
+		     , A.PROD_PRICE = #{prodPrice} * (1 - #{prodDiscountRate}/100)
+		   </if>
+		 WHERE A.PROD_NO = #{prodNo}
+	</update>
+	
+	<delete id="deleteProdImg" parameterType="string">
+		DELETE
+		   FROM TBL_PROD_IMG A
+		  WHERE A.PROD_NO = #{prodNo}
+	</delete>
+		
+	<insert id="updateProdImg" parameterType="hashmap">
+		INSERT
+		  INTO TBL_PROD_IMG A
+		(
+		  A.PROD_IMG_NO, A.PROD_NO, A.PROD_IMG_ORIGIN_NAME
+		, A.PROD_IMG_RENAME, A.PROD_IMG_THN_NAME, A.PROD_IMG_PATH
+		)
+		VALUES
+		(
+		  'PRDI' || LPAD(SEQ_PROD_IMG.NEXTVAL,4,0), #{prodNo}, #{originFileName}
+		, #{changeName}, 'thnName', #{filePath}
+		)
+	</insert>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
