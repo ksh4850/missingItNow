@@ -53,6 +53,7 @@
 	
 	<!-- base-package 추가하실분은 ,찍어서 추가하시구용~ -->
 	<mybatis-spring:scan base-package="com.finalproj.missingitnow.corpMng.model.dao"/>
+	<mybatis-spring:scan base-package="com.finalproj.missingitnow.admin.qna.model.dao"/>
 	
 	
 </beans>

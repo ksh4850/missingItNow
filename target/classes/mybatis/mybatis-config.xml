@@ -7,6 +7,9 @@
  		<typeAlias alias="ProdMngProductDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductDTO"/>
  		<typeAlias alias="ProdMngCategoryDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdMngCategoryDTO"/>
  		<typeAlias alias="ProdMngProductImgDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductImgDTO"/>
+ 		<typeAlias alias="qnaDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.QNADTO"/>
+ 		<typeAlias alias="userDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.UserDTO"/>
+ 		<typeAlias alias="manageSearchDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.ManageSearchDTO"/>
+ 		<typeAlias alias="searchDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.SearchDTO"/>
  	</typeAliases>
- 	
  </configuration>

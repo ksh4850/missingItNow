@@ -1,0 +1,61 @@
+header {width: 100%; height: 110px; border-bottom: 1px solid #F4F4F4;}
+
+/* 네비 전체 틀 */
+.nav {width: 1200px; height: 110px;  margin: 0 auto; }
+
+/* 햄버거 버튼 */
+.menu {width: 60px; height: 110px; float: left;}
+
+
+/* 로고 */
+.logo {width: 130px; height: 110px;  float: left; text-align: center;  }
+.logo-png{margin-top: 15px;}
+
+/* 검색 바 */
+.search {width: 540px; height: 110px; float: left; line-height: 1; margin-top: 30px;}
+.search_bar {width: 510px; height: 40px; background: #FDFDFD; border : 2px solid #C7C7C7; border-radius: 50px;}
+.search_size {width: 400px; height: 30px; margin-top: 5px;margin-left: 15px;}
+.search_img {float:right; margin-right: 10px; margin-top: 5px;}
+
+/* 인기차트 */
+.charts {width: 210px; height: 110px;  float: left; line-height: 110px; text-align: center;}
+.charts_rank {color: red;}
+
+/* 아이콘 */
+.icons {width: 260px; height: 110px;  float: left; text-align: center;}
+.icons_img {margin-top: 35px;}
+
+/* 햄버거 버튼 구동 */
+input[id="menuicon"] {display:none;}
+input[id="menuicon"] + label {display:block; margin-top:40px; width:30px; height:20px;position:relative;cursor:pointer;}
+input[id="menuicon"] + label span {display:block;position:absolute;width:100%;height:2px; border-radius:30px;background:#000;transition:all .35s;}
+input[id="menuicon"] + label span:nth-child(1) {top:0;}
+input[id="menuicon"] + label span:nth-child(2) {top:50%;transform:translateY(-50%);} 
+input[id="menuicon"] + label span:nth-child(3) {bottom:0;}
+input[id="menuicon"]:checked + label {z-index:2;}
+input[id="menuicon"]:checked + label span {background:#000;}
+input[id="menuicon"]:checked + label span:nth-child(1) {top:50%;transform:translateY(-50%) rotate(45deg);}
+input[id="menuicon"]:checked + label span:nth-child(2) {opacity:0;}
+input[id="menuicon"]:checked + label span:nth-child(3) {bottom:50%;transform:translateY(50%) rotate(-45deg);}
+div[class="sidebar"] {width:410px; height:100%; background:#DBDBDB; position:fixed; top:0; left:-410px; z-index:1; transition:all .35s; }
+div[class="test"] { width:410px; height:88%; position:fixed; z-index:3; overflow-y: scroll;}
+input[id="menuicon"]:checked + label + div {left:0;}
+
+
+/* 햄버거 메뉴 정보 부분 */
+.test::-webkit-scrollbar{ display:none;}
+
+
+.blank {height: 35px;width: 410px;}
+
+.information {width:410px; height: 110px; background: #fff;}
+.profile {margin-top: 10px;text-align: center; width: 120px; float: left;}
+.user-name {line-height: 110px; float: left;}
+
+.category {width: 410px; background: #fff;}
+.category-name {width: 390px; height: 60px; margin: 0 auto; font-size: 15pt; line-height: 60px; border-bottom: 1px solid #000000; font-weight: 600;}
+.category-title {width: 410px; height: 45px; line-height: 45px; margin: 0 auto;}
+.category-title:hover {background: #EF3F43; color: #fff;}
+.category-title-style {width: 380px; margin: 0 auto; font-weight: 500;} 
+
+.event{width: 410px; height: 130px; background: #FA8D8D; line-height: 130px; text-align: center; color: #fff;}

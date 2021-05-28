@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+
+/* 기본적인 구문 */
+* {
+  margin: 0;
+  padding: 0;
+  vertical-align: top; /* 세로정렬 : top */
+  border:0; /* 테두리 설정 */
+  outline: 0; /* 테두리 설정 */
+}
+html {overflow-y:scroll;}
+/* html5에서 지원하지 않는 브라우저에서도 이 태그들을 사용했을때 적용 가능하게 해주는 구문 */
+article, aside, details, figcaption, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/* 리스트 스타일 삭제 구문 */
+ul, ol, dl { 
+  list-style: none;
+}
+
+/* 반응형 이미지 */
+img, video{
+  max-width: 100%;
+}
+
+/* 링크 스타일 삭제 구문 */
+a{
+  text-decoration: none;
+  color: #000;
+}
+
+/* 폰트 관련 기본 설정 */
+body {
+  font-family: "Malgun Gothic",serif; /* 맑은 고딕 */
+  font-size: 100%; /* 글자 크기를 기본적으로 16px 설정 */
+  line-height: 1; /* 기본적인 행간을 100%비율로 설정 */
+}
+
+header,main,section,footer,nav {display:block;}
+/* 테이블 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+button{
+  background: inherit;
+  border:none;
+  box-shadow:none;
+  border-radius:0;
+  padding:0;
+  overflow:visible;
+  cursor:pointer;
+}
+
+/* 문자 태그 셋팅 */
+blockquote, p{
+  quotes: none;
+}
+
+
+
+.cf::after {
+  content: " ";
+  display: block;
+  clear: both;
+}
