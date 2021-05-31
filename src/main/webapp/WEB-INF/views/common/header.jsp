@@ -1,28 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
+    <title>Insert title here</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/header.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
 </head>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script>
-    $(document).ready(function () {
-        $(".hamberger-wrap").click(function () {
-            $(".hamberger-wrap").toggleClass("active");
-        });
-    })
-
-    function inputImg(obj) {
-        obj.style.backgroundImage = "";
-        obj.onkeydown = obj.onmousedown = null;
-    }
-
-</script>
 
 <body>
     <header>
@@ -38,8 +24,10 @@
                     <span></span>
                 </label>
                 <div class="sidebar">
-                    <div class="information">
-                        <div id="goAdminMain" class="profile"><img src="${ pageContext.servletContext.contextPath }/resources/images/header/profile.png" alt=""></div>
+                    <div class="header-information">
+                        <div class="profile"><img
+                                src="${ pageContext.servletContext.contextPath }/resources/img/header/profile.png"
+                                alt=""></div>
                         <div class="user-name">송준원님</div>
                     </div>
                     <div class="test">
@@ -47,40 +35,57 @@
 
                         <div class="category">
                             <div class="category-name">카테고리</div>
-                            <ul>
-                                <li class="category-title">
-                                    <div class="category-title-style">소파/거실</div>
-                                </li>
-                                <li class="category-title">
-                                    <div class="category-title-style">침실가구</div>
-                                </li>
-                                <li class="category-title">
-                                    <div class="category-title-style">드레스룸</div>
-                                </li>
-                                <li class="category-title">
-                                    <div class="category-title-style">주방가구</div>
-                                </li>
-                                <li class="category-title">
-                                    <div class="category-title-style">학생/서재가구</div>
-                                </li>
-                                <li class="category-title">
-                                    <div class="category-title-style">유아동가구</div>
-                                </li>
-                                <li class="category-title">
-                                    <div class="category-title-style">화장대/거울</div>
-                                </li>
-                                <li class="category-title">
-                                    <div class="category-title-style">식탁/테이블</div>
-                                </li>
-                                <li class="category-title">
-                                    <div class="category-title-style">의자/스툴</div>
-                                </li>
-                                <li class="category-title">
-                                    <div class="category-title-style">수납가구</div>
-                                </li>
-                                <li class="category-title">
-                                    <div class="category-title-style">병풍/파티션</div>
-                                </li>
+                            <ul><a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0001">
+                                    <li class="category-title">
+                                        <div class="category-title-style">거실/침실가구</div>
+                                    </li>
+                                </a>
+                                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0002">
+                                    <li class="category-title">
+                                        <div class="category-title-style">학생/서재가구</div>
+                                    </li>
+                                </a>
+                                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0003">
+                                    <li class="category-title">
+                                        <div class="category-title-style">테이블/의자</div>
+                                    </li>
+                                </a>
+                                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0004">
+                                    <li class="category-title">
+                                        <div class="category-title-style">침구/커튼</div>
+                                    </li>
+                                </a>
+                                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0005">
+                                    <li class="category-title">
+                                        <div class="category-title-style">쿠션/방석</div>
+                                    </li>
+                                </a>
+                                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0006">
+                                    <li class="category-title">
+                                        <div class="category-title-style">가전</div>
+                                    </li>
+                                </a>
+                                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0007">
+                                    <li class="category-title">
+                                        <div class="category-title-style">수납/정리</div>
+                                    </li>
+                                </a>
+                                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0008">
+                                    <li class="category-title">
+                                        <div class="category-title-style">조명</div>
+                                    </li>
+                                </a>
+                                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0009">
+                                    <li class="category-title">
+                                        <div class="category-title-style">홈데코</div>
+                                    </li>
+                                </a>
+                                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT00010">
+                                    <li class="category-title">
+                                        <div class="category-title-style">생활용품</div>
+                                    </li>
+                                </a>
+                             
                             </ul>
                         </div>
 
@@ -88,19 +93,26 @@
 
                         <div class="category">
                             <div class="category-name">주요서비스</div>
-                            <ul>
-                                <li class="category-title">
-                                    <div class="category-title-style">쿠폰존</div>
-                                </li>
-                                <li class="category-title">
-                                    <div class="category-title-style">이벤트 / 기획전</div>
-                                </li>
-                                <li class="category-title">
-                                    <div class="category-title-style">MY PAGE</div>
-                                </li>
-                                <li class="category-title">
-                                    <div class="category-title-style">커뮤니티</div>
-                                </li>
+                            <ul><a href="#">
+                                    <li class="category-title">
+                                        <div class="category-title-style">쿠폰존</div>
+                                    </li>
+                                </a>
+                                <a href="#">
+                                    <li class="category-title">
+                                        <div class="category-title-style">이벤트 / 기획전</div>
+                                    </li>
+                                </a>
+                                <a href="#">
+                                    <li class="category-title">
+                                        <div class="category-title-style">MY PAGE</div>
+                                    </li>
+                                </a>
+                                <a href="#">
+                                    <li class="category-title">
+                                        <div class="category-title-style">커뮤니티</div>
+                                    </li>
+                                </a>
                             </ul>
                         </div>
 
@@ -117,7 +129,8 @@
             </div>
             <!-- 로고 -->
             <div class="logo">
-                <img class="logo-png" src="${ pageContext.servletContext.contextPath }/resources/images/logo.png" class="icons_img" alt="" width="80px" >
+                <img class="logo-png" src="${ pageContext.servletContext.contextPath }/resources/img/logo.png"
+                    class="icons_img" alt="" width="80px">
             </div>
 
             <!-- 검색바 -->
@@ -125,7 +138,9 @@
                 <!-- <form method="post"> -->
                 <div class="search_bar">
                     <input class="search_size" type="text" title="검색">
-                    <a href="#" type="submit"><img src="${ pageContext.servletContext.contextPath }/resources/images/search.png" class="search_img" alt=""></a>
+                    <a href="#" type="submit"><img
+                            src="${ pageContext.servletContext.contextPath }/resources/img/search.png"
+                            class="search_img" alt=""></a>
                 </div>
                 <!-- </form> -->
             </div>
@@ -137,18 +152,10 @@
 
             <!-- 아이콘 -->
             <div class="icons">
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/ic.png" class="icons_img" alt="">
+                <a href="${ pageContext.servletContext.contextPath}/controller/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/img/ic.PNG" class="icons_img" alt=""></a>
             </div>
-
         </div>
     </header>
-
-<script>
-	$("#goAdminMain").click(function(){
-		
-		location.href="${pageContext.request.contextPath}/admin/main";
-		
-	})
-</script>
+    <div class="space"></div>
 </body>
 </html>

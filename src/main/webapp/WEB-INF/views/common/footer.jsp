@@ -5,10 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <title>footer</title>
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/footer.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
 </head>
 <body>
+	<div class="v"></div>
     <footer>
         <div class="footer_01">
             지금 보고싶다 소개 멘트

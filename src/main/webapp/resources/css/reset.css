@@ -16,7 +16,7 @@ article, aside, details, figcaption, footer, header, hgroup, menu, nav, section 
 }
 
 /* 리스트 스타일 삭제 구문 */
-ul, ol, dl { 
+ul, ol, dl, li { 
   list-style: none;
 }
 

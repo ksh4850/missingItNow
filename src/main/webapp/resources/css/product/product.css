@@ -1,0 +1,87 @@
+.product{width: 1200px; margin: 0 auto; }
+
+
+/* 상단 css */
+/* 상품 상단 정보 부분 */
+.information{width: 660px; height: 540px; float: left;}
+.title{width: 580px; height:90px; line-height: 90px;margin: 0 auto; font-size: 20pt; font-weight: 530;}
+.price{width: 580px; height:90px; margin: 0 auto; font-size: 20pt; font-weight: 530;}
+.sale{width: 115px; height:90px; color: #EF3F43; font-size: 30pt; font-weight: 600; line-height: 90px;float: left;}
+.cost-price{width: 465px; height: 25px; float: left; font-size: 13pt; color: #A0A0A0;}
+.sales{width: 465px; height: 65px; float: left; font-size: 30pt; font-weight: 600;}
+.parcel{width: 580px; height: 110px;background: #F4F6F9; margin: 0 auto;}
+.name{color: #5C5C5C;line-height: 35px; margin-left: 10px; width: 110px;float: left;}
+.name-contest{color: #5C5C5C;line-height: 35px; float: left; width: 300px;}
+.final-price{width: 580px; height: 110px; margin: 0 auto;}
+.final-left{width: 400px; float: left; text-align: left;}
+.final-right{width: 130px; float: right; text-align: right;}
+.final-top{height: 60px; line-height: 50px; margin-top: 40px; }
+.final-bottom{font-weight: 600; font-family: 'Roboto'; font-size: 21px;}
+.product-button{width: 400px; height: 110px; margin: 0 auto;}
+
+/* 상품 썸네일 이미지 */
+.thumbnail{width: 540px; height: 540px; float: left;}
+.one-button{width: 180px; height: 50px; border: 1px solid #B0B0B0; font-family: 'Roboto'; font-weight: 600; font-size: 21px; float: left; margin-top: 50px;}
+.two-button{width: 180px; height: 50px; background: #EF3F43; font-weight: 600; font-size: 21px; color: #fff; float: right; margin-top: 50px;}
+.thumbnail-img{width: 85px; height: 85px; margin: 8.2px; border: 1px solid #434343;}
+
+/* 중단 css */
+/* 기획전 부분 */
+.section2{width: 1200px; margin: 0 auto; margin-top: 50px; max-height: 255px; overflow:auto;}
+.section2::-webkit-scrollbar{ display:none;}
+.exhibitions{height: 255px; width: 600px; float: left;}
+
+.exhibitions-right{height: 30px; width: 500px; float: left; font-family: 'Roboto'; font-weight: 550; font-size: 18px;}
+.exhibitions-left{height: 30px; width: 100px; float: left;font-family: 'Roboto'; font-weight: 500; font-size: 15px;}
+.exhibitions-img{text-align: center;line-height: 22px; float: left; margin-left: 10px; margin-right: 10px;}
+.exhibitions-img > img {width: 120px; height: 120px; border: 1px solid #434343;}
+.exhibitions-font{color: #8B8B8B;}
+.exhibitions-price{color: #000;}
+
+/* 중간 네비 css */
+.section3{width: 1200px; margin: 0 auto;  height: auto; clear: both; }
+.section-name{line-height: 50px;}
+.path{width: 1200px; border-top: 2px solid #454545; margin: 0 auto;}
+.path-button{background: rgb(148, 4, 4); width: 300px; height: 75px; color: #fff; font-size: 18px; font-weight: 600; line-height: 75px; text-align: center; float: left;}
+.path-button2{background: #fff; width: 300px; height: 75px; font-size: 18px; font-weight: 600; line-height: 75px; text-align: center; float: left;}
+.notations{width: 1200px; height:auto; }
+
+/* 필수표기정보 */
+table{ line-height: 50px;  text-align: left; }
+th{width: 200px; height: 50px; background: #F3F3F3;padding-left: 20px;}
+td{width: 400px; height: 50px; background: rgb(255, 255, 255);padding-left: 20px;}
+
+/* 상세페이지 이미지 */
+.notations2{ text-align: center; height:auto; width: 1200px; }
+
+/* 배송안내 */
+.section4{width: 1200px; height:1000px; margin: 0 auto; background: #000; }
+.section3-table{border: 1px solid #F4F4F4;}
+.table-rowspan-2{line-height: 100px;}
+.table-rowspan-3{line-height: 150px;}
+.section3-td{width: 1000px;}
+.section3-contest{font-size:12px; line-height: 20px;}
+.section3-bold{font-size:12px;font-weight: 700; line-height: 30px;}
+.section3-warning{font-size: 12px; color: #888888;line-height: 30px;}
+
+/* 상품리뷰 */
+.section4_rv{font-size: 23px; font-weight: 700; margin-top: 60px;}
+.section4_rv_contest{width: 920px; height: 210px;  margin: 0 auto;}
+.section4_star{width: 310px; height: 210px; text-align: center; padding-top: 45px; float: left; }
+.section4_star_1{font-size: 15px; font-weight: 600; line-height: 20px;}
+.section4_star_2{font-size: 35px; font-weight: 700; line-height: 60px;}
+
+.section4_point{width: 309px; height: 210px; text-align: center; float: left; padding-top:32px; border-left: 1px solid #C4C4C4;  }
+.section4_test{width: 299px; height: 210px; text-align: center; float: left; border-left: 1px solid #C4C4C4; }
+table{width: 1200px;}
+.table_bottom{width: 1200px; height:300px; border-bottom: 1px solid #434343;}
+.table_right{text-align: right;}
+
+
+
+/* test */
+.a{width: 170px; height: 20px; border-radius: 50px; background: #F4F4F4; overflow: hidden; float:left;}
+.b{ height: 20px; background-color: #459FE9;}
+.section4_point_1{float:left;}
+.section4_point_2{float:left;}
+.section4_point_5{clear: both;padding-top:10px; margin-left: 45px; }

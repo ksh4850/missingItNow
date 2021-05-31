@@ -20,5 +20,11 @@
  		<typeAlias alias="userDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.UserDTO"/>
  		<typeAlias alias="manageSearchDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.ManageSearchDTO"/>
  		<typeAlias alias="searchDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.SearchDTO"/>
+ 		
+ 		<!-- product -->
+ 		<typeAlias alias="ProductDTO" type="com.finalproj.missingitnow.product.model.dto.ProductDTO"/>
+ 		<typeAlias alias="CorpDTO" type="com.finalproj.missingitnow.product.model.dto.CorpDTO"/>
+ 		<typeAlias alias="ProductImgDTO" type="com.finalproj.missingitnow.product.model.dto.ProductImgDTO"/>
+ 		<typeAlias alias="ReviewDTO" type="com.finalproj.missingitnow.product.model.dto.ReviewDTO"/>
  	</typeAliases>
  </configuration>

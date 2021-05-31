@@ -1,4 +1,5 @@
-header {width: 100%; height: 110px; border-bottom: 1px solid #F4F4F4;}
+.space{width: 100%; height: 110px; clear: both;}
+header {width: 100%; height: 110px; border-bottom: 1px solid #F4F4F4; position: fixed; z-index: 1; background: #fff;}
 
 /* 네비 전체 틀 */
 .nav {width: 1200px; height: 110px;  margin: 0 auto; }
@@ -48,7 +49,7 @@ input[id="menuicon"]:checked + label + div {left:0;}
 
 .blank {height: 35px;width: 410px;}
 
-.information {width:410px; height: 110px; background: #fff;}
+.header-information {width:410px; height: 110px; background: #fff;}
 .profile {margin-top: 10px;text-align: center; width: 120px; float: left;}
 .user-name {line-height: 110px; float: left;}
 

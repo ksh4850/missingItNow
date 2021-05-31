@@ -1,0 +1,119 @@
+button{
+
+    background-color: #7E65F5;
+    color: white;
+    height: 30px;
+    width: 100px;
+    border: 1px solid #5F0080;
+    border-radius: 10px;
+    margin-bottom: 15px;
+
+}
+
+.btns{
+
+    text-align: center;
+
+}
+
+.submit-button{
+
+    width: 300px;
+    height: 60px;
+    margin-top: 30px;
+    margin-bottom: 0px;
+
+}
+
+.regist-button{
+
+    width: 300px;
+    height: 60px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+.find-button{
+
+    width: 300px;
+    height: 60px;
+    background-color: white;
+    color: black;
+
+}
+
+.member-login-box{
+
+    width: 800px;
+    height: 800px;
+    margin: 0 auto;
+
+}
+
+.input-label{
+
+    width: 150px;
+    height: 32px;
+    text-align: right;
+    line-height: 32px;
+    margin-left: 100px;
+    margin-right: 10px;
+    float: left;
+
+}
+
+.select-option-div{
+
+    display: flex;
+    justify-content: center;
+
+}
+
+#memberLoginForm > div > input[type=text]{
+
+    border: 1px solid black;
+    width: 300px;
+    height: 30px;
+    padding-left: 5px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+
+
+}
+
+#memberLoginForm > div > input[type=password]{
+
+    border: 1px solid black;
+    width: 300px;
+    height: 30px;
+    padding-left: 5px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+
+
+}
+
+#memberLoginForm > div > input[type=checkbox]{
+
+    border: 1px solid black;
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    vertical-align: middle;
+    margin-left: 15px;
+    margin-right: 5px;
+
+}
+
+#memberLoginForm > div > input[type=radio]{
+
+    border: 1px solid black;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-left: 15px;
+    margin-right: 5px;
+
+}
