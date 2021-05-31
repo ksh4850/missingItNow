@@ -180,11 +180,8 @@
 				url:'/missingitnow/settleMng/chkLastEndDate',
 				type: 'post',
 				success:function(data1){
-					/* const lastEndDate = data1.lastEndDate; */
-					/* console.log(lastEndDate);
-					console.log(startDate); */
 					
-					 if (data1.lastEndDate == null || startDate >= data1.lastEndDate) {
+					 if (data1 == null || startDate >= data1.lastEndDate) {
 						$.ajax({
 							url:'/missingitnow/salesMng/selectExpectedTotalSettlement',
 							type:'post',
@@ -214,6 +211,7 @@
 								console.log(error);
 							}
 						}); /*	결과 조회 ajax 종료  */
+						
 					} else if (startDate < data1.lastEndDate){
 						alert('시작 일자를 마지막 정산 종료일자 이전으로 설정 할 수 없습니다.');
 					}
