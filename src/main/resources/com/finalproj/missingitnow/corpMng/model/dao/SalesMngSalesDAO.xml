@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.finalproj.missingitnow.corpMng.model.dao.SalesMngSalesDAO">
+
+	<resultMap id="salesMngOrderListResultSet" type="SalesMngOrderDTO">
+		<id property="orderNo" column="ORDER_NO"/>
+		<result property="corpNo" column="CORP_NO"/>
+		<result property="prodNo" column="PROD_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="orderPrice" column="ORDER_PRICE"/>
+		<result property="dealingStatus" column="DEALING_STATUS"/>
+		<result property="orderStatus" column="ORDER_STATUS"/>
+		<result property="orderQuantity" column="ORDER_QUANTITY"/>
+		<result property="orderDate" column="ORDER_DATE"/>
+		<association property="corpUser" javaType="CorpUserDTO">
+			<id property="corpNo" column="CORP_NO"/>
+		</association>
+		<association property="prodMngProduct" javaType="ProdMngProductDTO">
+			<id property="prodNo" column="PROD_NO"/>
+			<result property="prodName" column="PROD_NAME"/>
+		</association>
+		<association property="user" javaType="UserDTO(forCorpMng)">
+			<id property="userNo" column="USER_NO"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectOrderList" resultMap="salesMngOrderListResultSet">
+			SELECT
+			       A.ORDER_NO
+			     , C.PROD_NAME
+			     , D.USER_NO
+			     , A.ORDER_PRICE
+			     , A.DEALING_STATUS
+			     , A.ORDER_STATUS
+			     , A.ORDER_QUANTITY
+			     , A.ORDER_DATE
+			  FROM TBL_ORDER A
+			  JOIN TBL_CORP_USER B ON (A.CORP_NO = B.CORP_NO)
+			  JOIN TBL_PRODUCT C ON (A.PROD_NO = C.PROD_NO)
+			  JOIN TBL_USER D ON (A.USER_NO = D.USER_NO)
+			 WHERE B.CORP_NO = 'CORP0002'
+			 ORDER BY A.ORDER_NO DESC
+	</select>
+	
+	<select id="selectOrderListByDate" resultMap="salesMngOrderListResultSet">
+		SELECT
+		       A.ORDER_NO
+		     , C.PROD_NAME
+		     , D.USER_NO
+		     , A.ORDER_PRICE
+		     , A.DEALING_STATUS
+		     , A.ORDER_STATUS
+		     , A.ORDER_QUANTITY
+		     , A.ORDER_DATE
+		  FROM TBL_ORDER A
+		  JOIN TBL_CORP_USER B ON (A.CORP_NO = B.CORP_NO)
+		  JOIN TBL_PRODUCT C ON (A.PROD_NO = C.PROD_NO)
+		  JOIN TBL_USER D ON (A.USER_NO = D.USER_NO)
+		 WHERE B.CORP_NO = 'CORP0002'
+		   AND A.ORDER_DATE BETWEEN #{startDate} AND #{endDate}
+		 ORDER BY A.ORDER_NO DESC
+	</select>
+	
+	<resultMap id="salesMngSalesListResultSet" type="SalesMngSalesDTO">
+		<id property="salesNo" column="SALES_NO"/>
+		<result property="corpNo" column="CORP_NO"/>
+		<result property="prodNo" column="PROD_NO"/>
+		<result property="orderNo" column="ORDER_NO"/>
+		<result property="salesDate" column="SALES_DATE"/>
+		<result property="salesQuantity" column="SALES_QUANTITY"/>
+		<result property="salesAmt" column="SALES_AMT"/>
+		<result property="totalSales" column="TOTAL_SALES"/>
+		<result property="commissionBySales" column="COMMISSION_BY_SALES"/>
+		<result property="settlementAmt" column="SETTLEMENT_AMT"/>
+		<association property="corpUser" javaType="CorpUserDTO">
+			<id property="corpNo" column="CORP_NO"/>
+			<result property="corpCommission" column="CORP_COMMISSION"/>
+		</association>
+		<association property="prodMngProduct" javaType="ProdMngProductDTO">
+			<id property="prodNo" column="PROD_NO"/>
+			<result property="prodName" column="PROD_NAME"/>
+		</association>
+		<association property="salesMngOrder" javaType="SalesMngOrderDTO">
+			<id property="orderNo" column="ORDER_NO"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectSalesList" resultMap="salesMngSalesListResultSet">
+		SELECT 
+		       A.SALES_NO
+		     , B.PROD_NAME
+		     , A.ORDER_NO
+		     , A.SALES_DATE
+		     , A.SALES_QUANTITY
+		     , A.SALES_AMT
+		  FROM TBL_SALES A
+		  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+		 WHERE A.CORP_NO = 'CORP0002'
+		 ORDER BY A.SALES_NO DESC, A.SALES_DATE DESC
+	</select>
+	
+	<select id="selectSalesListByDate" resultMap="salesMngSalesListResultSet">
+		SELECT 
+		       A.SALES_NO
+		     , B.PROD_NAME
+		     , A.ORDER_NO
+		     , A.SALES_DATE
+		     , A.SALES_QUANTITY
+		     , A.SALES_AMT
+		  FROM TBL_SALES A
+		  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+		 WHERE A.CORP_NO = 'CORP0002'
+		   AND A.SALES_DATE BETWEEN #{startDate} AND #{endDate}
+		 ORDER BY A.SALES_NO DESC, A.SALES_DATE DESC
+	</select>
+	
+	<select id="expectedSettlementList" resultMap="salesMngSalesListResultSet">
+		SELECT 
+		        D.TOTAL AS TOTAL_SALES
+		      , D.TOTAL * D.CORP_COMMISSION AS COMMISSION_BY_SALES
+		      , D.TOTAL * (1 - D.CORP_COMMISSION) AS SETTLEMENT_AMT
+		   FROM (SELECT 
+		                SUM(C.SALES_AMT) AS TOTAL
+		              , C.CORP_NO
+		              , C.CORP_COMMISSION
+		           FROM (SELECT 
+		                        A.SALES_AMT
+		                      , B.CORP_NO
+		                      , B.CORP_COMMISSION
+		                   FROM TBL_SALES A
+		                   JOIN TBL_CORP_USER B ON (A.CORP_NO = B.CORP_NO)
+		                  WHERE A.CORP_NO = 'CORP0002'
+		                    AND A.SALES_DATE BETWEEN #{startDate} AND #{endDate}) C
+		        GROUP BY C.CORP_NO, C.CORP_COMMISSION
+		        ) D
+	</select>
+	
+</mapper>

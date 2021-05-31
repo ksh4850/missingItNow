@@ -24,6 +24,11 @@
 				movePath = "${ pageContext.servletContext.contextPath }/prodMng/selectProduct";
 				break;	
 				
+			case "insertSettlement" :
+				successMessage = "정산 요청이 완료되었습니다!";
+				movePath = "${ pageContext.servletContext.contextPath }/settleMng/selectSettlementList";
+				break;	
+				
 		}
 		
 		alert(successMessage);

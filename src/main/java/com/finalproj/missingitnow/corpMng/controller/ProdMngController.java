@@ -73,7 +73,7 @@ public class ProdMngController {
 //		}
 		model.addAttribute("productList", productList);
 		
-		return "prodMng-selectProduct";
+		return "/corpMng/prodMng-selectProduct";
 	}
 
 	@GetMapping("/insertProduct")

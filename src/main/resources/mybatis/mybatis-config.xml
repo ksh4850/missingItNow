@@ -4,9 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
  <configuration>
  	<typeAliases>
- 		<typeAlias alias="ProdMngProductDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductDTO"/>
+ 		<!-- corpMng -->
+		<typeAlias alias="ProdMngProductDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductDTO"/>
  		<typeAlias alias="ProdMngCategoryDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdMngCategoryDTO"/>
  		<typeAlias alias="ProdMngProductImgDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductImgDTO"/>
+ 		<typeAlias alias="SalesMngOrderDTO" type="com.finalproj.missingitnow.corpMng.model.dto.SalesMngOrderDTO"/>
+ 		<typeAlias alias="SalesMngSalesDTO" type="com.finalproj.missingitnow.corpMng.model.dto.SalesMngSalesDTO"/>
+ 		<typeAlias alias="CorpUserDTO" type="com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO"/>
+ 		<typeAlias alias="UserDTO(forCorpMng)" type="com.finalproj.missingitnow.corpMng.model.dto.UserDTO"/>
+ 		<typeAlias alias="CorpDepositDTO" type="com.finalproj.missingitnow.corpMng.model.dto.CorpDepositDTO"/>
+ 		<typeAlias alias="SettleMngSettlementDTO" type="com.finalproj.missingitnow.corpMng.model.dto.SettleMngSettlementDTO"/>
+ 		
+ 		<!-- systemAdmin -->
  		<typeAlias alias="qnaDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.QNADTO"/>
  		<typeAlias alias="userDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.UserDTO"/>
  		<typeAlias alias="manageSearchDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.ManageSearchDTO"/>

@@ -60,15 +60,16 @@
             <div class="naviListDetails">                
                 <li id="insertProduct">상품등록</li>
                 <li id="selectProduct">상품조회/수정</li>
-                <li id="relatedProductMng">연관상품관리</li>
+                <li id="relatedProductMng" style="color: red;">연관상품관리(공사중)</li>
             </div>
             <div class="naviListTitle">
                 <h2>판매관리</h2>
             </div>
             <div class="naviListDetails">                
-                <li id="productOrderList">주문내역</li>
-                <li id="prodcutCancelReturnList">취소/반품/교환 내역</li>
-                <li id="">판매방해 고객관리</li>
+                <li id="selectOrderList">주문내역</li>
+                <li id="selectSalesList">매출내역</li>
+                <li id="selectCancelReturnList" style="color: red;">취소/반품/교환 내역(공사중)</li>
+                <li id="insertBlackUser" style="color: red;">판매방해 고객관리(공사중)</li>
             </div>
             <div class="naviListTitle">
                 <h2>정산관리</h2>
@@ -94,9 +95,25 @@
 		$("#insertProduct").click(function(){
 			location.href="${ pageContext.servletContext.contextPath }/prodMng/insertProduct";
 		})
+		
 		$("#selectProduct").click(function(){
 			location.href="${ pageContext.servletContext.contextPath }/prodMng/selectProduct";
 		})
+		
+		$("#selectOrderList").click(function(){
+			location.href="${ pageContext.servletContext.contextPath }/salesMng/selectOrderList";
+		})
+		
+		$("#selectSalesList").click(function(){
+			location.href="${ pageContext.servletContext.contextPath }/salesMng/selectSalesList";
+		})
+		
+		$("#settlementNList").click(function(){
+			location.href="${ pageContext.servletContext.contextPath }/settleMng/selectSettlementList";
+		})
+		
+		
+		
 	</script>
 	
 </body>

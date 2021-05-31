@@ -53,7 +53,7 @@
 		  FROM TBL_PRODUCT A
 		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
 		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
-		 ORDER BY A.PROD_NO
+		 ORDER BY A.PROD_NO DESC
 	</select>
 	
 	<insert id="insertProductInfo" parameterType="ProdMngProductDTO">
@@ -113,7 +113,7 @@
 		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
 		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
 		 WHERE B.PROD_CTG_NO = #{prodCtgNo}
-		 ORDER BY A.PROD_NO
+		 ORDER BY A.PROD_NO DESC
 	</select>
 	
 	<select id="selectProductByName" resultMap="prodMngProductResultSet">
@@ -138,7 +138,7 @@
 		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
 		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
 		 WHERE A.PROD_NAME LIKE '%' || #{prodName} || '%'
-		 ORDER BY A.PROD_NO
+		 ORDER BY A.PROD_NO DESC
 	</select>
 	
 	<select id="selectProductForUpdate" resultMap="prodMngProductResultSet">

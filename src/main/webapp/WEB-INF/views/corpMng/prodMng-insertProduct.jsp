@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
 	body{
         width: 1920px;
@@ -29,10 +29,10 @@
     }
 
     .insertProductTable td{
+    	/* border: 1px solid black; */
         height: 60px;
         font-size: 20px;
     }
-    
     
     .footer{
         width: 1920px;
@@ -87,8 +87,8 @@
                         <td style="text-align: right;">* 상품 이미지 : <br>
                             <p style="margin: 0; font-size: 14px;">(최소 1개/최대 10개)&nbsp;</p>
                         </td>
-                        <td style="text-indent: 20px; height: 100px;">
-                            <input type="file" name="prodImg" style="height: 30px; font-size: 18px;" multiple required>
+                        <td style="text-indent: 20px;">
+                        	<input type="file" name="prodImg" style="width: 95px; height: 30px; font-size: 18px;" multiple required>
                         </td>
                     </tr>
                     <tr>

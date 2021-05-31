@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,7 +98,7 @@
                     <td style="width: 180px">카테고리명</td>
                     <td style="width: 180px">상품번호</td>
                     <td>상품명</td>
-                    <td style="width: 130px">판매가(원)</td>
+                    <td style="width: 150px">판매가 (원)</td>
                     <td style="width: 180px">등록일</td>
                     <td style="width: 180px">판매종료일</td>
                     <td style="width: 100px">노출여부</td>
@@ -113,8 +114,8 @@
                 <tr>
                     <td><c:out value="${ list.category.prodCtgName }"/></td>
                     <td><c:out value="${ list.prodNo }"/></td>
-                    <td style="text-align: left; text-indent: 20px;"><c:out value="${ list.prodName }"/></td>
-                    <td><c:out value="${ list.prodPrice }"/></td>
+                    <td style="text-align: left; padding-left: 20px;"><c:out value="${ list.prodName }"/></td>
+                    <td style="text-align: right; padding-right: 20px;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ list.prodPrice }"/></td>
                     <td><c:out value="${ list.prodUploadDate }"/></td>
                     <td><c:out value="${ list.prodTerminateDate }"/></td>
                     <td><c:out value="${ list.prodDisplayChk }"/></td>

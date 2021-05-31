@@ -23,6 +23,11 @@
 				failedMessage = "상품 수정에 실패하셨습니다!";
 				movePath = "${ pageContext.servletContext.contextPath }/prodMng/selectProduct";
 				break;	
+				
+			case "insertSettlement" :
+				failedMessage = "정산 요청에 실패하셨습니다!";
+				movePath = "${ pageContext.servletContext.contextPath }/settleMng/selectSettlementList"";
+				break;		
 
 		}
 		

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.finalproj.missingitnow.corpMng.model.dao.SettleMngSettlementDAO">
+	<resultMap id="settleMngSettlementResultSet" type="SettleMngSettlementDTO">
+		<id property="settlementNo" column="SETTLEMENT_NO"/>
+		<result property="corpNo" column="CORP_NO"/>
+		<result property="salesNo" column="SALES_NO"/>
+		<result property="settlementStartDate" column="SETTLEMENT_START_DATE"/>
+		<result property="settlementEndDate" column="SETTLEMENT_END_DATE"/>
+		<result property="totalSales" column="TOTAL_SALES"/>
+		<result property="commissionBySales" column="COMMISSION_BY_SALES"/>
+		<result property="settlementAmt" column="SETTLEMENT_AMT"/>
+		<result property="settlementDate" column="SETTLEMENT_DATE"/>
+		<result property="settlementChk" column="SETTLEMENT_CHK"/>
+		<result property="lastEndDate" column="LAST_END_DATE"/>
+		<association property="corpUser" javaType="CorpUserDTO">
+			<id property="corpNo" column="CORP_NO"/>
+		</association>
+		<association property="sales" javaType="SalesMngSalesDTO">
+			<id property="salesNo" column="CORP_NO"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectSettlementList" resultMap="settleMngSettlementResultSet">
+		SELECT
+		       A.SETTLEMENT_NO
+		     , A.SETTLEMENT_START_DATE
+		     , A.SETTLEMENT_END_DATE
+		     , A.TOTAL_SALES
+		     , A.COMMISSION_BY_SALES
+		     , A.SETTLEMENT_AMT
+		     , A.SETTLEMENT_DATE
+		     , A.SETTLEMENT_CHK
+		  FROM TBL_SETTLEMENT A
+		 WHERE A.CORP_NO = 'CORP0002'
+		 ORDER BY A.SETTLEMENT_NO DESC
+	</select>
+	
+	<insert id="insertSettlement" parameterType="SettleMngSettlementDTO">
+		INSERT 
+		  INTO TBL_SETTLEMENT A
+		(
+		  A.SETTLEMENT_NO, A.CORP_NO, A.SETTLEMENT_START_DATE
+		, A.SETTLEMENT_END_DATE, A.TOTAL_SALES , A.COMMISSION_BY_SALES
+		, A.SETTLEMENT_AMT, A.SETTLEMENT_DATE
+		)
+		VALUES
+		(
+		  'SETT' || LPAD(SEQ_SETTLEMENT.NEXTVAL,4,0), 'CORP0002', #{settlementStartDate}
+		, #{settlementEndDate}, ${totalSales}, #{commissionBySales}
+		, #{settlementAmt}, SYSDATE
+		)
+	</insert>
+
+	<select id="chkLastEndDate" resultMap="settleMngSettlementResultSet">
+		SELECT
+		       MAX(A.SETTLEMENT_END_DATE) AS LAST_END_DATE
+		  FROM TBL_SETTLEMENT A
+		 WHERE A.CORP_NO = 'CORP0002'
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
