@@ -1,18 +1,13 @@
 package com.finalproj.missingitnow.corporation.model.dao;
 
-import java.util.List;
-
-import com.finalproj.missingitnow.product.model.dto.CorpDTO;
-import com.finalproj.missingitnow.product.model.dto.ProductDTO;
-import com.finalproj.missingitnow.product.model.dto.ProductImgDTO;
-import com.finalproj.missingitnow.product.model.dto.ReviewDTO;
-
-
+import com.finalproj.missingitnow.corporation.model.dto.MemberDTO;
 
 public interface CorporationDAO {
 
-	String selectEncPassword(CorpDTO member);
+//	String selectEncPassword(MemberDTO member);
+//
+//	MemberDTO login(MemberDTO member);
 
-	CorpDTO login(CorpDTO member);
+	int insertMember(MemberDTO member);
 
 }

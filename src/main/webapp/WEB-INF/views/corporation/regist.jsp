@@ -18,34 +18,34 @@
             </div>
             <hr style="background-color: black; height: 2px;">
             <br>
-            <form id="memberRegistForm" action="#" method="POST">
+            <form action="${ pageContext.servletContext.contextPath }/corporation/regist" method="post" enctype="multipart/form-data">
                 <div>
                     <div class="input-label">아이디 : </div>
-                    <input type="text" name="id" placeholder="아이디를 입력해 주세요">
+                    <input type="text" name="corpId" placeholder="아이디를 입력해 주세요">
                 </div>
                 <div>
                     <div class="input-label">비밀번호 : </div>
-                    <input type="password" name="pwd" placeholder="비밀번호를 입력해 주세요">
+                    <input type="password" name="corpPwd" placeholder="비밀번호를 입력해 주세요">
                 </div>
                 <div>
                     <div class="input-label">비밀번호 재확인 : </div>
-                    <input type="password" name="checkPwd" placeholder="비밀번호를 다시 입력해 주세요">
+                    <input type="password" name="corpPwd2" placeholder="비밀번호를 다시 입력해 주세요">
                 </div>
                 <div>
                     <div class="input-label">이메일 : </div>
-                    <input type="email" name="email" placeholder="이메일을 입력해 주세요">
+                    <input type="email" name="corpEmail" placeholder="이메일을 입력해 주세요">
                 </div>
                 <div>
                     <div class="input-label">대표 번호 : </div>
-                    <input type="text" name="phone" placeholder="휴대폰 번호를 '-'없이 입력해 주세요">
+                    <input type="text" name="corpContacts" placeholder="휴대폰 번호를 '-'없이 입력해 주세요">
                 </div>
                 <div>
-                    <div class="input-label">스토어명 : </div>
-                    <input type="text" name="storeName" placeholder="스토어명을 입력해 주세요">
+                    <div class="input-label">회사명 : </div>
+                    <input type="text" name="corpName" placeholder="스토어명을 입력해 주세요">
                 </div>
                 <div>
                     <div class="input-label">사업자 등록번호 : </div>
-                    <input name="corporateRegistrationNumber1" type="text" style="width: 77px;">
+                    <input name="corpRegistrationNo" type="text" style="width: 77px;">
                     <span style="font-weight: bold; line-height: 32px;">-</span>
                     <input name="corporateRegistrationNumber2" type="text" style="width: 57px;">
                     <span style="font-weight: bold; line-height: 32px;">-</span>
@@ -57,9 +57,9 @@
                     <input type="text" name="zipCode" id="zipCode" readonly>
                     <button type="button" id="searchZipCode">검색</button>
                     <div class="input-label">주소 : </div>
-                    <input type="text" name="address1" id="address1" readonly>
+                    <input type="text" name="corpAddress" id="address1" readonly>
                     <div class="input-label">상세주소 : </div>
-                    <input type="text" name="address2" id="address2" placeholder="상세주소를 입력해 주세요">
+                    <input type="text" name="corpAddress2" id="address2" placeholder="상세주소를 입력해 주세요">
                 </div>
                 <div>
                 

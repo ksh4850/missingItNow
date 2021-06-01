@@ -1,14 +1,13 @@
 package com.finalproj.missingitnow.corporation.model.service;
 
-import java.util.List;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.finalproj.missingitnow.common.exception.LoginFailedException;
 import com.finalproj.missingitnow.corporation.model.dao.CorporationDAO;
-import com.finalproj.missingitnow.product.model.dto.CorpDTO;
+import com.finalproj.missingitnow.corporation.model.dto.MemberDTO;
+
 
 
 
@@ -18,19 +17,24 @@ public class CorporationServiceImpl implements CorporationService {
 	private final CorporationDAO corporationDAO;
 	
 	@Autowired
-	public CorporationServiceImpl(CorporationDAO corporationDAO) {
+	public CorporationServiceImpl(CorporationDAO corporationDAO, BCryptPasswordEncoder passwordEncoder) {
 		this.corporationDAO = corporationDAO;
 		this.passwordEncoder = passwordEncoder;
 	}
 
+//	@Override
+//	public MemberDTO loginMember(MemberDTO member) throws LoginFailedException {
+//		System.out.println(member);
+//		if(!passwordEncoder.matches(member.getCorpPwd(), corporationDAO.selectEncPassword(member))){
+//			throw new LoginFailedException("로그인 실패!");
+//		}
+//		
+//		return corporationDAO.login(member);
+//	}
+//
 	@Override
-	public CorpDTO loginMember(CorpDTO member) throws LoginFailedException {
-		
-		if(!passwordEncoder.matches(member.getCorpPwd(), corporationDAO.selectEncPassword(member))){
-			throw new LoginFailedException("로그인 실패!");
-		}
-		
-		return corporationDAO.login(member);
+	public boolean registMember(MemberDTO member) {
+		return corporationDAO.insertMember(member) > 0? true: false;
 	}
 
 	

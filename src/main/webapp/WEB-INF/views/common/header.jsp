@@ -152,7 +152,7 @@
 
             <!-- 아이콘 -->
             <div class="icons">
-                <a href="${ pageContext.servletContext.contextPath}/controller/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/img/ic.PNG" class="icons_img" alt=""></a>
+                <a href="${ pageContext.servletContext.contextPath}/controller/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/ic.png" class="icons_img" alt=""></a>
             </div>
         </div>
     </header>

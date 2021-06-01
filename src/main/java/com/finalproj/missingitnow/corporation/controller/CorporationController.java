@@ -1,5 +1,8 @@
 package com.finalproj.missingitnow.corporation.controller;
 
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -8,13 +11,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.finalproj.missingitnow.common.exception.LoginFailedException;
+import com.finalproj.missingitnow.common.exception.MemberRegistException;
+import com.finalproj.missingitnow.corporation.model.dto.MemberDTO;
 import com.finalproj.missingitnow.corporation.model.service.CorporationService;
-import com.finalproj.missingitnow.product.model.dto.CorpDTO;
+
 
 @Controller
-@RequestMapping("/controller")
+@RequestMapping("/corporation")
 public class CorporationController {
 	
 	private final CorporationService corporationService;
@@ -31,21 +39,35 @@ public class CorporationController {
 		return "/corporation/login";
 	}
 	
+
+//	@PostMapping("/login")
+//	public String login(@ModelAttribute MemberDTO member, Model model) throws LoginFailedException {
+//			
+//		model.addAttribute("member", corporationService.loginMember(member));
+//				
+//		return "main/main";
+//	}
+//	
+	
+	/* 회원가입 */
 	@GetMapping("/regist")
-	public String regist() {
-		return "/corporation/regist";
-	}
+	public void registForm() {}
 	
-	@GetMapping("/login")
-	public String login() {
-		return "/main/main";
-	}
-	
-	@PostMapping("/login")
-	public String login(@ModelAttribute CorpDTO member, Model model) throws LoginFailedException {
-			
-		model.addAttribute("loginMember", ((CorporationService) passwordEncoder).loginMember(member));
-				
-		return "main/main";
+	@PostMapping("/regist")
+	public String registMember(@ModelAttribute MemberDTO member, HttpServletRequest request, RedirectAttributes rttr) 
+		throws MemberRegistException {
+		System.out.println(member);
+
+		member.setCorpPwd(passwordEncoder.encode(member.getCorpPwd()));
+		System.out.println(member.getCorpPwd());
+		
+		if(!corporationService.registMember(member)) {
+
+			throw new MemberRegistException("당신은 우리와 함께 할 수 없습니다.");
+		}
+		
+//		rttr.addFlashAttribute("message", "회원 가입에 성공하셨습니다.");
+		
+		return "corporation/login";
 	}
 }

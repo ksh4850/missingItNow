@@ -1,15 +1,16 @@
 package com.finalproj.missingitnow.corporation.model.service;
 
-import java.util.List;
-
 import com.finalproj.missingitnow.common.exception.LoginFailedException;
-import com.finalproj.missingitnow.product.model.dto.CorpDTO;
+import com.finalproj.missingitnow.corporation.model.dto.MemberDTO;
+
 
 
 
 public interface CorporationService {
 	
-	CorpDTO loginMember(CorpDTO member) throws LoginFailedException;
+//	MemberDTO loginMember(MemberDTO member) throws LoginFailedException;
+//
+	boolean registMember(MemberDTO member);
 
 
 

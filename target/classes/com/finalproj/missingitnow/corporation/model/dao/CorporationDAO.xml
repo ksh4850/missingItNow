@@ -21,7 +21,7 @@
 	</resultMap>
 
 
-	<select id="selectEncPassword" resultMap="CorpResultSet" parameterType="string">
+<!-- 	<select id="selectEncPassword" resultMap="CorpResultSet" parameterType="string">
 		SELECT 
 		       A.CORP_PWD
 		  FROM TBL_CORP_USER A
@@ -35,9 +35,23 @@
 		  FROM TBL_CORP_USER A
 		 WHERE A.CORP_ID = #{corpId}
 		   AND A.CORP_LEAVE_CHK='N'
-	</select>
+	</select> -->
 
-	
+	<insert id="insertMember" parameterType="MemberDTO">
+        INSERT 
+          INTO TBL_CORP_USER A
+        (
+          A.*
+        ) 
+		VALUES
+		(
+		  'no3', #{ corpId }, #{ corpPwd }
+		, #{ corpName }, #{ corpContacts }, #{ corpAddress }
+		, #{ corpEmail }, #{ corpRegistrationNo }, 'NO1'
+		, 0.05, 0, SYSDATE
+		, 'N', 'N'
+		)
+	</insert>
 </mapper>
 
 
