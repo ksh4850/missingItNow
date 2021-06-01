@@ -70,4 +70,12 @@ public class CorporationController {
 		
 		return "corporation/login";
 	}
+	
+	@GetMapping("/mypage")
+	public String login() {
+			
+		
+				
+		return "corpMng/corpMngMain";
+	}
 }

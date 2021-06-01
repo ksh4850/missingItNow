@@ -103,7 +103,7 @@
                                         <div class="category-title-style">이벤트 / 기획전</div>
                                     </li>
                                 </a>
-                                <a href="#">
+                                <a href="${ pageContext.servletContext.contextPath}/corporation/mypage">
                                     <li class="category-title">
                                         <div class="category-title-style">MY PAGE</div>
                                     </li>
@@ -129,8 +129,7 @@
             </div>
             <!-- 로고 -->
             <div class="logo">
-                <img class="logo-png" src="${ pageContext.servletContext.contextPath }/resources/img/logo.png"
-                    class="icons_img" alt="" width="80px">
+                <img class="logo-png" src="${ pageContext.servletContext.contextPath }/resources/img/logo.png" class="icons_img" alt="" width="80px">
             </div>
 
             <!-- 검색바 -->
