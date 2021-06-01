@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.finalproj.missingitnow.member.model.dao.MemberMapper">
+
+	<resultMap id="memberResultSet" type="privateMemeberDTO">
+		<id column="USER_NO" property="userNo" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_PWD" property="userPwd" />
+		<result column="USER_NAME" property="userName" />
+		<result column="USER_BIRTH" property="userBirth" />
+		<result column="USER_ADDRESS" property="userAddress" />
+		<result column="USER_CONTACTS" property="userContacts" />
+		<result column="USER_EMAIL" property="userEmail" />
+		<result column="USER_MKT_ACCEPT_CHK" property="user_Mkt_Accepct_Chk" />
+		<result column="USER_REGST_DATE" property="user_Regst_Date" />
+		<result column="USER_LEAVE_CHK" property="user_Leave_Chk" />
+	</resultMap>
+	
+	<insert id="insertMember" parameterType="UserDTO">
+        INSERT 
+          INTO TBL_USER A
+        (
+          A.USER_NO, A.USER_ID, A.USER_PWD
+        , A.USER_NAME, A.USER_BIRTH, A.USER_ADDRESS
+        , A.USER_CONTACTS, A.USER_EMAIL, A.USER_MKT_ACCEPT_CHK
+        , A.USER_REGST_DATE, A.USER_LEAVE_CHK
+        ) 
+		VALUES
+		(
+		  SEQ_USER_NO.NEXTVAL, #{ userId }, #{ userPwd }
+		, #{ userName }, #{ userBirth }, #{ userAddress }
+		, #{ userContacts }, #{ userEmail }, #{ user_Mkt_Accepct_Chk }
+		, SYSDATE , DEFAULT
+		)
+	</insert>
+	
+	<select id="selectEncPassword" resultType="java.lang.String" parameterType="privateMemeberDTO">
+        SELECT 
+               A.USER_PWD 
+          FROM TBL_USER A 
+         WHERE A.USER_ID = #{userId} 
+           AND A.USER_LEAVE_CHK='N'
+	</select>
+	
+	<select id="selectMember" resultMap="memberResultSet" parameterType="privateMemeberDTO">
+        SELECT 
+               A.USER_NO
+             , A.USER_ID
+             , A.USER_PWD
+             , A.USER_NAME
+             , A.USER_BIRTH
+             , A.USER_ADDRESS
+             , A.USER_CONTACTS
+             , A.USER_EMAIL
+             , A.USER_MKT_ACCEPT_CHK
+             , A.USER_REGST_DATE
+             , A.USER_LEAVE_CHK
+          FROM TBL_USER A 
+         WHERE A.USER_ID = #{userId} 
+           AND A.USER_LEAVE_CHK='N'
+	</select>
+	
+	<update id="userUpdate">
+		UPDATE TBL_USER
+		   SET
+		   USER_ADDRESS = #{userAddress}
+		 , USER_CONTACTS = #{userContacts}
+		 , USER_EMAIL = #{userEmail}	
+	     WHERE USER_ID = #{userId}
+	</update>
+
+	<update id="userQuit">
+		UPDATE TBL_USER
+		   SET
+		   USER_LEAVE_CHK = 'Y'	
+	     WHERE USER_ID = #{userId}
+	</update>
+	
+</mapper>

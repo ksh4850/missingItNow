@@ -18,6 +18,12 @@
 <body>
     <div id="wrap">
 <jsp:include page="../common/header.jsp"/>
+
+        <a href="${ pageContext.servletContext.contextPath }/login">로그인</a>
+        <a href="${ pageContext.servletContext.contextPath }/member/regist">회원가입</a>
+        <a href="${ pageContext.servletContext.contextPath }/member/myPageMain">마이페이지 메인</a>
+        <a href="${ pageContext.servletContext.contextPath }/member/myPageCart">장바구니</a>
+
         <main id="main">
             <section id="section1">
                 <div class="wrap">

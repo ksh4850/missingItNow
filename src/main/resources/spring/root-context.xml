@@ -56,7 +56,7 @@
 	<mybatis-spring:scan base-package="com.finalproj.missingitnow.admin.qna.model.dao"/>
 	<mybatis-spring:scan base-package="com.finalproj.missingitnow.product.model.dao"/>
 	<mybatis-spring:scan base-package="com.finalproj.missingitnow.corporation.model.dao"/>
-	
+	<mybatis-spring:scan base-package="com.finalproj.missingitnow.member.model.dao"/>
 	
 </beans>
 

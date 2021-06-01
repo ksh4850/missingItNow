@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Mon May 17 20:49:05 KST 2021
+servlet-api-2.4.jar>central=
+servlet-api-2.4.pom>central=
+servlet-api-2.4-sources.jar>central=
