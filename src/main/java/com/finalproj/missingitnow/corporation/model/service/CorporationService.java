@@ -6,9 +6,10 @@ import com.finalproj.missingitnow.corporation.model.dto.MemberDTO;
 
 
 
+
 public interface CorporationService {
 	
-//	MemberDTO loginMember(MemberDTO member) throws LoginFailedException;
+	MemberDTO loginMember(MemberDTO member) throws LoginFailedException;
 //
 	boolean registMember(MemberDTO member);
 

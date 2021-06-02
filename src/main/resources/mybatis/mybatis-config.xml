@@ -27,7 +27,7 @@
  		<typeAlias alias="ProductImgDTO" type="com.finalproj.missingitnow.product.model.dto.ProductImgDTO"/>
  		<typeAlias alias="ReviewDTO" type="com.finalproj.missingitnow.product.model.dto.ReviewDTO"/>
  		
- 		<typeAlias alias="MemberDTO" type="com.finalproj.missingitnow.corporation.model.dto.MemberDTO"/>
+ 		<typeAlias alias="memberDTO" type="com.finalproj.missingitnow.corporation.model.dto.MemberDTO"/>
  		<typeAlias alias="privateMemeberDTO" type="com.finalproj.missingitnow.member.model.dto.MemberDTO" />
  	</typeAliases>
  </configuration>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,6 +24,7 @@ import com.finalproj.missingitnow.corporation.model.service.CorporationService;
 
 @Controller
 @RequestMapping("/corporation")
+@SessionAttributes("memberLogin")
 public class CorporationController {
 	
 	private final CorporationService corporationService;
@@ -40,14 +42,16 @@ public class CorporationController {
 	}
 	
 
-//	@PostMapping("/login")
-//	public String login(@ModelAttribute MemberDTO member, Model model) throws LoginFailedException {
-//			
-//		model.addAttribute("member", corporationService.loginMember(member));
-//				
-//		return "main/main";
-//	}
-//	
+	@PostMapping("/login")
+	public String login(@ModelAttribute MemberDTO member, Model model) throws LoginFailedException {
+		
+		MemberDTO memberLogin = corporationService.loginMember(member);
+		System.out.println(memberLogin);
+		model.addAttribute("memberLogin", memberLogin);
+				
+		return "redirect:/";
+	}
+	
 	
 	/* 회원가입 */
 	@GetMapping("/regist")
@@ -73,9 +77,7 @@ public class CorporationController {
 	
 	@GetMapping("/mypage")
 	public String login() {
-			
-		
-				
+	
 		return "corpMng/corpMngMain";
 	}
 }

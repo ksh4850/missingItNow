@@ -1,7 +1,11 @@
 package com.finalproj.missingitnow.corporation.model.dto;
 
-public class MemberDTO {
+import java.io.Serializable;
+
+public class MemberDTO implements Serializable {
 	
+	
+	private static final long serialVersionUID = -5312901922333065903L;
 	private String corpNo;
 	private String corpId;
 	private String corpPwd;
@@ -38,6 +42,10 @@ public class MemberDTO {
 		this.corpRegstDate = corpRegstDate;
 		this.corpRegstAccepted = corpRegstAccepted;
 		this.corpLeaveChk = corpLeaveChk;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public String getCorpNo() {

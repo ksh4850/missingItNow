@@ -3,7 +3,7 @@
 
 <mapper namespace="com.finalproj.missingitnow.corporation.model.dao.CorporationDAO">
 
-	<resultMap id="CorpResultSet" type="CorpDTO">
+	 <resultMap id="CorpMemberResultSet" type="memberDTO">
 		<id property="corpNo" column="CORP_NO"/>
 		<result property="corpId" column="CORP_ID"/>
 		<result property="corpPwd" column="CORP_PWD"/>
@@ -13,44 +13,65 @@
 		<result property="corpEmail" column="CORP_EMAIL"/>
 		<result property="corpRegistrationNo" column="CORP_REGISTRATION_NO"/>
 		<result property="corpLvNo" column="CORP_LV_NO"/>
-		<result property="corpCommisson" column="CORP_COMMISSION"/>
+		<result property="corpCommission" column="CORP_COMMISSION"/>
 		<result property="depositAmt" column="DEPOSIT_AMT"/>
 		<result property="corpRegstDate" column="CORP_REGST_DATE"/>
-		<result property="corpRegstAccpeted" column="CORP_REGST_ACCPETED"/>
+		<result property="corpRegstAccepted" column="CORP_REGST_ACCPETED"/>
 		<result property="corpLeaveChk" column="CORP_LEAVE_CHK"/>
-	</resultMap>
+	</resultMap> 
 
 
-<!-- 	<select id="selectEncPassword" resultMap="CorpResultSet" parameterType="string">
+
+ 	<select id="selectEncPassword" resultType="java.lang.String" parameterType="string">
 		SELECT 
-		       A.CORP_PWD
-		  FROM TBL_CORP_USER A
-		 WHERE A.CORP_ID = #{corpId}
-		   AND A.CORP_LEAVE_CHK='N'
+		       CORP_PWD
+		  FROM TBL_CORP_USER 
+		 WHERE CORP_ID = #{ corpId }
+		   AND CORP_LEAVE_CHK='N'
 	</select>
 	
-	<select id="login" resultMap="CorpResultSet" parameterType="string">
+	<select id="login" resultMap="CorpMemberResultSet" parameterType="string">
 		SELECT 
-		       A.*
+		       CORP_NO
+             , CORP_ID
+             , CORP_PWD
+             , CORP_NAME
+             , CORP_CONTACTS
+             , CORP_ADDRESS
+             , CORP_EMAIL
+             , CORP_REGISTRATION_NO
+             , CORP_LV_NO
+             , CORP_COMMISSION
+             , DEPOSIT_AMT
+             , CORP_REGST_DATE
+             , CORP_REGST_ACCEPTED
+             , CORP_LEAVE_CHK
 		  FROM TBL_CORP_USER A
-		 WHERE A.CORP_ID = #{corpId}
+		 WHERE A.CORP_ID = #{ corpId }
 		   AND A.CORP_LEAVE_CHK='N'
-	</select> -->
+	</select>  
 
 	<insert id="insertMember" parameterType="MemberDTO">
         INSERT 
-          INTO TBL_CORP_USER A
+          INTO TBL_CORP_USER
         (
-          A.*
+          CORP_NO, CORP_ID, CORP_PWD
+        , CORP_NAME, CORP_CONTACTS, CORP_ADDRESS
+        , CORP_EMAIL, CORP_REGISTRATION_NO
+        , CORP_LV_NO
+        , CORP_COMMISSION, DEPOSIT_AMT, CORP_REGST_DATE
+        , CORP_REGST_ACCEPTED, CORP_LEAVE_CHK
         ) 
-		VALUES
-		(
-		  'no3', #{ corpId }, #{ corpPwd }
-		, #{ corpName }, #{ corpContacts }, #{ corpAddress }
-		, #{ corpEmail }, #{ corpRegistrationNo }, 'NO1'
-		, 0.05, 0, SYSDATE
-		, 'N', 'N'
-		)
+      VALUES
+      (
+        'no3', #{ corpId }, #{ corpPwd }
+      , #{ corpName }, #{ corpContacts }, #{ corpAddress }
+      , #{ corpEmail }, #{ corpRegistrationNo }
+      , 'NO1'
+      , 0.05, 0 , SYSDATE
+      , 'N', 'N'
+      )
+
 	</insert>
 </mapper>
 

@@ -22,15 +22,14 @@ public class CorporationServiceImpl implements CorporationService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-//	@Override
-//	public MemberDTO loginMember(MemberDTO member) throws LoginFailedException {
-//		System.out.println(member);
-//		if(!passwordEncoder.matches(member.getCorpPwd(), corporationDAO.selectEncPassword(member))){
-//			throw new LoginFailedException("로그인 실패!");
-//		}
-//		
-//		return corporationDAO.login(member);
-//	}
+	@Override
+	public MemberDTO loginMember(MemberDTO member) throws LoginFailedException {
+		String a = member.getCorpId();
+		if(!passwordEncoder.matches(member.getCorpPwd(), corporationDAO.selectEncPassword(a))){
+			throw new LoginFailedException("로그인 실패!");
+		}
+		return corporationDAO.login(a);
+	}
 //
 	@Override
 	public boolean registMember(MemberDTO member) {
