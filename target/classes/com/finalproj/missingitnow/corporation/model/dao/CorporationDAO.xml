@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.finalproj.missingitnow.corporation.model.dao.CorporationDAO">
+
+	 <resultMap id="CorpMemberResultSet" type="memberDTO">
+		<id property="corpNo" column="CORP_NO"/>
+		<result property="corpId" column="CORP_ID"/>
+		<result property="corpPwd" column="CORP_PWD"/>
+		<result property="corpName" column="CORP_NAME"/>
+		<result property="corpContacts" column="CORP_CONTACTS"/>
+		<result property="corpAddress" column="CORP_ADDRESS"/>
+		<result property="corpEmail" column="CORP_EMAIL"/>
+		<result property="corpRegistrationNo" column="CORP_REGISTRATION_NO"/>
+		<result property="corpLvNo" column="CORP_LV_NO"/>
+		<result property="corpCommission" column="CORP_COMMISSION"/>
+		<result property="depositAmt" column="DEPOSIT_AMT"/>
+		<result property="corpRegstDate" column="CORP_REGST_DATE"/>
+		<result property="corpRegstAccepted" column="CORP_REGST_ACCPETED"/>
+		<result property="corpLeaveChk" column="CORP_LEAVE_CHK"/>
+	</resultMap> 
+
+
+
+ 	<select id="selectEncPassword" resultType="java.lang.String" parameterType="string">
+		SELECT 
+		       CORP_PWD
+		  FROM TBL_CORP_USER 
+		 WHERE CORP_ID = #{ corpId }
+		   AND CORP_LEAVE_CHK='N'
+	</select>
+	
+	<select id="login" resultMap="CorpMemberResultSet" parameterType="string">
+		SELECT 
+		       CORP_NO
+             , CORP_ID
+             , CORP_PWD
+             , CORP_NAME
+             , CORP_CONTACTS
+             , CORP_ADDRESS
+             , CORP_EMAIL
+             , CORP_REGISTRATION_NO
+             , CORP_LV_NO
+             , CORP_COMMISSION
+             , DEPOSIT_AMT
+             , CORP_REGST_DATE
+             , CORP_REGST_ACCEPTED
+             , CORP_LEAVE_CHK
+		  FROM TBL_CORP_USER A
+		 WHERE A.CORP_ID = #{ corpId }
+		   AND A.CORP_LEAVE_CHK='N'
+	</select>  
+
+	<insert id="insertMember" parameterType="MemberDTO">
+        INSERT 
+          INTO TBL_CORP_USER
+        (
+          CORP_NO, CORP_ID, CORP_PWD
+        , CORP_NAME, CORP_CONTACTS, CORP_ADDRESS
+        , CORP_EMAIL, CORP_REGISTRATION_NO
+        , CORP_LV_NO
+        , CORP_COMMISSION, DEPOSIT_AMT, CORP_REGST_DATE
+        , CORP_REGST_ACCEPTED, CORP_LEAVE_CHK
+        ) 
+      VALUES
+      (
+        'no3', #{ corpId }, #{ corpPwd }
+      , #{ corpName }, #{ corpContacts }, #{ corpAddress }
+      , #{ corpEmail }, #{ corpRegistrationNo }
+      , 'NO1'
+      , 0.05, 0 , SYSDATE
+      , 'N', 'N'
+      )
+
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
