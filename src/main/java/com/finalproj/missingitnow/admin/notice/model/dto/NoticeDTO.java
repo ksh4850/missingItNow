@@ -1,25 +1,28 @@
 package com.finalproj.missingitnow.admin.notice.model.dto;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class NoticeDTO {
+public class NoticeDTO implements Serializable{
 
+	private static final long serialVersionUID = -2557496376966345194L;
+	
 	private String no;
 	private String title;
 	private String details;
 	private java.sql.Date date;
 	private String displayChk;
-	private String imgNo;
+	private String status;
 	private int hits;
 	
 	public NoticeDTO() {}
-	public NoticeDTO(String no, String title, String details, Date date, String displayChk, String imgNo, int hits) {
+	public NoticeDTO(String no, String title, String details, Date date, String displayChk, String status, int hits) {
 		this.no = no;
 		this.title = title;
 		this.details = details;
 		this.date = date;
 		this.displayChk = displayChk;
-		this.imgNo = imgNo;
+		this.status = status;
 		this.hits = hits;
 	}
 	
@@ -53,11 +56,11 @@ public class NoticeDTO {
 	public void setDisplayChk(String displayChk) {
 		this.displayChk = displayChk;
 	}
-	public String getImgNo() {
-		return imgNo;
+	public String getStatus() {
+		return status;
 	}
-	public void setImgNo(String imgNo) {
-		this.imgNo = imgNo;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	public int getHits() {
 		return hits;
@@ -69,7 +72,7 @@ public class NoticeDTO {
 	@Override
 	public String toString() {
 		return "NoticeDTO [no=" + no + ", title=" + title + ", details=" + details + ", date=" + date + ", displayChk="
-				+ displayChk + ", imgNo=" + imgNo + ", hits=" + hits + "]";
+				+ displayChk + ", status=" + status + ", hits=" + hits + "]";
 	}
 	
 }

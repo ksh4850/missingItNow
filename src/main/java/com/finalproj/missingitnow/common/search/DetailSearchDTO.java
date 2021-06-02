@@ -1,11 +1,11 @@
-package com.finalproj.missingitnow.admin.qna.model.dto;
+package com.finalproj.missingitnow.common.search;
 
 import java.io.Serializable;
 import java.sql.Date;
 
 import com.finalproj.missingitnow.common.page.PageInfoDTO;
 
-public class ManageSearchDTO implements Serializable{
+public class DetailSearchDTO implements Serializable{
 
 	private static final long serialVersionUID = 19518848977111787L;
 	
@@ -16,8 +16,8 @@ public class ManageSearchDTO implements Serializable{
 	private String smallSearchCondition;
 	private String searchValue;
 	
-	public ManageSearchDTO() {}
-	public ManageSearchDTO(PageInfoDTO pageInfo, Date searchWriteDateStart, Date searchWriteDateEnd,
+	public DetailSearchDTO() {}
+	public DetailSearchDTO(PageInfoDTO pageInfo, Date searchWriteDateStart, Date searchWriteDateEnd,
 			String largeSearchCondition, String smallSearchCondition, String searchValue) {
 		this.pageInfo = pageInfo;
 		this.searchWriteDateStart = searchWriteDateStart;

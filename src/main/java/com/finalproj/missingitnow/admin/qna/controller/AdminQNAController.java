@@ -20,16 +20,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.finalproj.missingitnow.admin.qna.model.dto.ManageSearchDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finalproj.missingitnow.admin.qna.model.dto.QNADTO;
-import com.finalproj.missingitnow.admin.qna.model.dto.SearchDTO;
 import com.finalproj.missingitnow.admin.qna.model.service.QNAService;
 import com.finalproj.missingitnow.common.page.PageInfoDTO;
 import com.finalproj.missingitnow.common.page.Pagenation;
+import com.finalproj.missingitnow.common.search.DetailSearchDTO;
+import com.finalproj.missingitnow.common.search.SearchDTO;
 
 @Controller
 @RequestMapping("/admin/qna")
@@ -156,7 +156,7 @@ public class AdminQNAController {
 
 			}
 		}
-		ManageSearchDTO search = new ManageSearchDTO(null, searchWriteDateStart, searchWriteDateEnd, largeSearchCondition, smallSearchCondition, searchValue);;
+		DetailSearchDTO search = new DetailSearchDTO(null, searchWriteDateStart, searchWriteDateEnd, largeSearchCondition, smallSearchCondition, searchValue);
 
 		int totalCount = qnaService.selectSearchTotalCount(search);
 		
@@ -279,11 +279,10 @@ public class AdminQNAController {
 	}
 	
 	@PostMapping("/fileUpload")
-	@ResponseBody
 	public void maltiFileUploadAjax(
-			@ModelAttribute List<MultipartFile> data,
+			@ModelAttribute List<MultipartFile> uploadFiles,
 			HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println(data);
+		System.out.println(uploadFiles);
 
 		/* 경로 설정 */
 		String root = request.getSession().getServletContext().getRealPath("resources");
@@ -300,9 +299,9 @@ public class AdminQNAController {
 		}
 		
 		List<Map<String, String>> files = new ArrayList<>();
-		for(int i = 0 ; i < data.size() ; i++) {
+		for(int i = 0 ; i < uploadFiles.size() ; i++) {
 			/* 파일명 변경 처리 */
-			String originName = data.get(i).getOriginalFilename();
+			String originName = uploadFiles.get(i).getOriginalFilename();
 			String ext = originName.substring(originName.lastIndexOf("."));
 			String rename = UUID.randomUUID().toString().replace("-", "") + ext;
 			
@@ -315,19 +314,19 @@ public class AdminQNAController {
 			files.add(file);
 		} 
 		
-		List<String> urlList = new ArrayList<>();
+		List<Map<String, String>> urlList = new ArrayList<>();
 		
 		try {
 			
 			/* 파일을 저장한다 */
 				
-			for(int i  = 0; i < data.size() ; i++) {
+			for(int i  = 0; i < uploadFiles.size() ; i++) {
 				Map<String, String> file = files.get(i);
-				
-				String url = path + "\\" + file.get("saveName");
-				urlList.add(url);
-				
-				data.get(i).transferTo(new File(path + "\\" + file.get("saveName")));
+				Map<String, String> urlMap = new HashMap<>();
+				String url = path + "\\" + file.get("rename");
+				urlMap.put("url", url);
+				urlList.add(urlMap);
+				uploadFiles.get(i).transferTo(new File(path + "\\" + file.get("rename")));
 			}
 			
 		} catch (IllegalStateException | IOException e) {
@@ -335,18 +334,20 @@ public class AdminQNAController {
 			e.printStackTrace();
 			
 			/* 실패시 파일 삭제 */
-			for(int i = 0 ; i < data.size() ; i++) {
+			for(int i = 0 ; i < uploadFiles.size() ; i++) {
 				
 				Map<String, String> file = files.get(i);
 				
-				new File(path + "\\" + file.get("saveName")).delete();
+				new File(path + "\\" + file.get("rename")).delete();
 				
 			}
 			
 		}
-			
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
 		PrintWriter out = response.getWriter();
-		out.print(urlList);
+		out.print(mapper.writeValueAsString(urlList));
 		
 		out.flush();
 		out.close();

@@ -1,4 +1,4 @@
-package com.finalproj.missingitnow.admin.qna.model.dto;
+package com.finalproj.missingitnow.common.search;
 
 import java.io.Serializable;
 

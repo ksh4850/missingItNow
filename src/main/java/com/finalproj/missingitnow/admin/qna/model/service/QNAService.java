@@ -2,21 +2,21 @@ package com.finalproj.missingitnow.admin.qna.model.service;
 
 import java.util.List;
 
-import com.finalproj.missingitnow.admin.qna.model.dto.ManageSearchDTO;
 import com.finalproj.missingitnow.admin.qna.model.dto.QNADTO;
-import com.finalproj.missingitnow.admin.qna.model.dto.SearchDTO;
+import com.finalproj.missingitnow.common.search.DetailSearchDTO;
+import com.finalproj.missingitnow.common.search.SearchDTO;
 
 public interface QNAService {
 
 	int selectTotalCount();
 	
-	int selectSearchTotalCount(ManageSearchDTO search);
+	int selectSearchTotalCount(DetailSearchDTO search);
 
 	List<QNADTO> selectList(SearchDTO search);
 
 	boolean insertQNA(QNADTO qnaDTO);
 
-	List<QNADTO> selectAllList(ManageSearchDTO search);
+	List<QNADTO> selectAllList(DetailSearchDTO search);
 
 	QNADTO selectDetail(int no);
 

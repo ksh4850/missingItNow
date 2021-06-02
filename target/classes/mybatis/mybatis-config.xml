@@ -16,10 +16,12 @@
  		<typeAlias alias="SettleMngSettlementDTO" type="com.finalproj.missingitnow.corpMng.model.dto.SettleMngSettlementDTO"/>
  		
  		<!-- systemAdmin -->
- 		<typeAlias alias="qnaDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.QNADTO"/>
- 		<typeAlias alias="userDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.UserDTO"/>
- 		<typeAlias alias="manageSearchDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.ManageSearchDTO"/>
- 		<typeAlias alias="searchDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.SearchDTO"/>
+ 		<typeAlias type="com.finalproj.missingitnow.admin.qna.model.dto.QNADTO" alias="qnaDTO"/>
+		<typeAlias type="com.finalproj.missingitnow.admin.qna.model.dto.UserDTO" alias="userDTO"/>
+		<typeAlias type="com.finalproj.missingitnow.admin.notice.model.dto.NoticeDTO" alias="noticeDTO"/>
+		<typeAlias type="com.finalproj.missingitnow.common.search.DetailSearchDTO" alias="detailSearchDTO"/>
+		<typeAlias type="com.finalproj.missingitnow.common.search.MoreSearchDTO" alias="moreSearchDTO"/>
+		<typeAlias type="com.finalproj.missingitnow.common.search.SearchDTO" alias="searchDTO"/>
  		
  		<!-- product -->
  		<typeAlias alias="ProductDTO" type="com.finalproj.missingitnow.product.model.dto.ProductDTO"/>

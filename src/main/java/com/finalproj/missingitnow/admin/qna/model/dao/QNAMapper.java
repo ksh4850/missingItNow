@@ -2,21 +2,21 @@ package com.finalproj.missingitnow.admin.qna.model.dao;
 
 import java.util.List;
 
-import com.finalproj.missingitnow.admin.qna.model.dto.ManageSearchDTO;
 import com.finalproj.missingitnow.admin.qna.model.dto.QNADTO;
-import com.finalproj.missingitnow.admin.qna.model.dto.SearchDTO;
+import com.finalproj.missingitnow.common.search.DetailSearchDTO;
+import com.finalproj.missingitnow.common.search.SearchDTO;
 
 public interface QNAMapper{
 
 	int selectTotalCount();
 	
-	int selectSearchTotalCount(ManageSearchDTO search);
+	int selectSearchTotalCount(DetailSearchDTO search);
 
 	List<QNADTO> selectList(SearchDTO search);
 
 	int insertQNA(QNADTO qnaDTO);
 
-	List<QNADTO> selectAllList(ManageSearchDTO search);
+	List<QNADTO> selectAllList(DetailSearchDTO search);
 
 	int increamentBoardCount(int no);
 

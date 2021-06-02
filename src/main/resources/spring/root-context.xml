@@ -53,7 +53,12 @@
 	
 	<!-- base-package 추가하실분은 ,찍어서 추가하시구용~ -->
 	<mybatis-spring:scan base-package="com.finalproj.missingitnow.corpMng.model.dao"/>
-	<mybatis-spring:scan base-package="com.finalproj.missingitnow.admin.qna.model.dao"/>
+	
+	<!-- admin 빈 스캔 -->
+	<mybatis-spring:scan base-package="com.finalproj.missingitnow.admin.qna.model.dao,
+	                                   com.finalproj.missingitnow.admin.notice.model.dao,
+	                                   com.finalproj.missingitnow.admin.settlement.model.dao"/>
+	
 	<mybatis-spring:scan base-package="com.finalproj.missingitnow.product.model.dao"/>
 	<mybatis-spring:scan base-package="com.finalproj.missingitnow.corporation.model.dao"/>
 	<mybatis-spring:scan base-package="com.finalproj.missingitnow.member.model.dao"/>

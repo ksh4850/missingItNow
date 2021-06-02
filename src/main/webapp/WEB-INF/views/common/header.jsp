@@ -26,8 +26,8 @@
                 <div class="sidebar">
                     <div class="header-information">
                         <div class="profile"><img
-                                src="${ pageContext.servletContext.contextPath }/resources/img/header/profile.png"
-                                alt=""></div>
+                                src="${ pageContext.servletContext.contextPath }/resources/images/header/profile.png"
+                                alt="" id="goAdminMain"></div>
                         <div class="user-name">송준원님</div>
                     </div>
                     <div class="test">
@@ -129,7 +129,7 @@
             </div>
             <!-- 로고 -->
             <div class="logo">
-                <img class="logo-png" src="${ pageContext.servletContext.contextPath }/resources/img/logo.png" class="icons_img" alt="" width="80px">
+                <img class="logo-png" src="${ pageContext.servletContext.contextPath }/resources/images/logo.png" class="icons_img" alt="" width="80px">
             </div>
 
             <!-- 검색바 -->
@@ -138,7 +138,7 @@
                 <div class="search_bar">
                     <input class="search_size" type="text" title="검색">
                     <a href="#" type="submit"><img
-                            src="${ pageContext.servletContext.contextPath }/resources/img/search.png"
+                            src="${ pageContext.servletContext.contextPath }/resources/images/search.png"
                             class="search_img" alt=""></a>
                 </div>
                 <!-- </form> -->
@@ -156,5 +156,13 @@
         </div>
     </header>
     <div class="space"></div>
+<!-- admin페이지 테스트용 링크 -->
+<script>
+	$("#goAdminMain").click(function(){
+		
+		location.href="${pageContext.request.contextPath}/admin/main";
+		
+	})
+</script>
 </body>
 </html>

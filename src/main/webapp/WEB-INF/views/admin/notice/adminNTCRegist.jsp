@@ -9,29 +9,29 @@
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin_main.css">
 
     <style>
-          .system-qnaDetail-head{
+        .system-ntcDetail-head{
             margin-left: 20px;
             font-size: 30px;
             padding: 15px;
-            border-bottom: 2px solid rgb(119, 94, 238);
+            border-bottom: 2px solid rgb(119, 94, 238) ;
             color: rgb(119, 94, 238);
 
         }
 
-        .system-qnaDetail-form{
+        .system-ntcDetail-form{
             
             margin-top: 30px;
             margin-left: 500px;
         }
 
-        .system-qnaDetail-form label{
+        .system-ntcDetail-form label{
             font-size: 25px;
             color: rgb(119, 94, 238);
             
 
         }
 
-        .system-qnaDetail-form input[type="text"]{
+        .system-ntcDetail-form input[type="text"]{
             margin-top: 10px;
             margin-bottom: 20px;
             line-height: 1;
@@ -42,7 +42,7 @@
 
         }
 
-        .system-qnaDetail-detail{
+        .system-ntcDetail-detail{
             border: 2px solid rgb(119, 94, 238);
             width: 600px;
             height: 600px;
@@ -50,12 +50,12 @@
         }
 
        
-        .system-qnaDetail-bottom{
+        .system-ntcDetail-bottom{
             margin-top: 40px;
             margin-left: 200px;
         }
 
-        .system-qnaDetail-bottom input{
+        .system-ntcDetail-bottom input{
             background-color: rgb(119, 94, 238);
             border-radius: 5px;
             color: white;
@@ -74,22 +74,21 @@
 		<jsp:include page="../../common/corpMngNavi.jsp"/>
     </aside>
     <section>
-        <div class="system-qnaDetail-head">Q&amp;A 작성하기</div>
+        <div class="system-ntcDetail-head">공지사항 작성하기</div>
         <br>
 
-        <div class="system-qnaDetail-form">
-        <form action="${pageContext.request.contextPath}/admin/qna/update" method="post">
-        	<input type="hidden" name="no" value="${ qna.no }">
-            <label for="">Q&amp;A 제목</label><br>
-            <input type="text" name="title" value="${ qna.title }">
+        <div class="system-ntcDetail-form">
+        <form action="${pageContext.request.contextPath}/admin/ntc/regist" method="post">
+            <label for="">공지사항 제목</label><br>
+            <input type="text" name="title">
             <br>
-            <label for="">Q&amp;A 내용</label>
+            <label for="">공지사항 내용</label>
             <br>
-            <textarea rows="5" cols="10" name="details" class="system-qnaDetail-detail">${ qna.details }</textarea>
+            <div name="details" class="system-ntcDetail-detail" contenteditable="true"></div>
             <br>
-            <div class="system-qnaDetail-bottom">
-                <input type="submit" value="수정하기">
-                <input type="button" id="cancleButton" value="수정취소">
+            <div class="system-ntcDetail-bottom">
+                <input type="submit" value="작성하기">
+                <input type="button" id="cancleButton" value="작성취소">
             </div>
 
             
@@ -99,7 +98,7 @@
 <script>
 	$("#cancleButton").click(function(){
 		
-		location.href = "${pageContext.request.contextPath}/admin/qna/detail?no=" + ${ no };
+		location.href = "${pageContext.request.contextPath}/admin/ntc/list";
 		
 	});
 </script>

@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.finalproj.missingitnow.admin.qna.model.dao.QNAMapper;
-import com.finalproj.missingitnow.admin.qna.model.dto.ManageSearchDTO;
 import com.finalproj.missingitnow.admin.qna.model.dto.QNADTO;
-import com.finalproj.missingitnow.admin.qna.model.dto.SearchDTO;
+import com.finalproj.missingitnow.common.search.DetailSearchDTO;
+import com.finalproj.missingitnow.common.search.SearchDTO;
 
 @Service("QNAService")
 public class QNAServiceImpl implements QNAService{
@@ -49,7 +49,7 @@ public class QNAServiceImpl implements QNAService{
 	}
 
 	@Override
-	public List<QNADTO> selectAllList(ManageSearchDTO search) {
+	public List<QNADTO> selectAllList(DetailSearchDTO search) {
 		
 		List<QNADTO> boardList = mapper.selectAllList(search);
 		
@@ -57,7 +57,7 @@ public class QNAServiceImpl implements QNAService{
 	}
 
 	@Override
-	public int selectSearchTotalCount(ManageSearchDTO search) {
+	public int selectSearchTotalCount(DetailSearchDTO search) {
 		
 		return mapper.selectSearchTotalCount(search);
 		
