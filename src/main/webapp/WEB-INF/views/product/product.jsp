@@ -18,7 +18,7 @@
     <section1>
         <div class="product intro">
             <div class="thumbnail">
-                <img id="img" src="${ pageContext.servletContext.contextPath }/resources/img/product/<c:out value="${ productList[0].prodImgRename }" />" alt="" width="540px">
+                <img id="img" src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[0].prodImgRename }" />" alt="" width="540px">
             </div>
             <div class="information">
                 <div class="title">
@@ -60,28 +60,28 @@
                 </div>
             </div>
             <div>
-                <button onclick="Img1()"><img src="${ pageContext.servletContext.contextPath }/resources/img/product/<c:out value="${ productList[0].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Img2()"><img src="${ pageContext.servletContext.contextPath }/resources/img/product/<c:out value="${ productList[1].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Img3()"><img src="${ pageContext.servletContext.contextPath }/resources/img/product/<c:out value="${ productList[2].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Img4()"><img src="${ pageContext.servletContext.contextPath }/resources/img/product/<c:out value="${ productList[3].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Img5()"><img src="${ pageContext.servletContext.contextPath }/resources/img/product/<c:out value="${ productList[4].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Img1()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[0].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Img2()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[1].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Img3()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[2].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Img4()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[3].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Img5()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[4].prodImgRename }" />" alt="" class="thumbnail-img"></button>
             </div>
         </div>
         <script>
             function Img1() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/img/product/<c:out value="${ productList[0].prodImgRename } " />";
+                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[0].prodImgRename } " />";
             }
             function Img2() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/img/product/<c:out value="${ productList[1].prodImgRename } " />";
+                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[1].prodImgRename } " />";
             }
             function Img3() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/img/product/<c:out value="${ productList[2].prodImgRename } " />";
+                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[2].prodImgRename } " />";
             }
             function Img4() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/img/product/<c:out value="${ productList[3].prodImgRename } " />";
+                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[3].prodImgRename } " />";
             }
             function Img5() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/img/product/<c:out value="${ productList[4].prodImgRename } " />";
+                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[4].prodImgRename } " />";
             }
         </script>
     </section1>
@@ -91,7 +91,7 @@
                 <div class="exhibitions-right">신나는 램프 기획전</div>
                 <div class="exhibitions-left"><a href="#">더보기 +</a></div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/1.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/1.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/2.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/2.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/3.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/3.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -115,7 +115,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/4.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/4.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -128,7 +128,7 @@
                 <div class="exhibitions-right">화나는 램프 기획전</div>
                 <div class="exhibitions-left"><a href="#">더보기 +</a></div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/5.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/5.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -136,7 +136,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/10.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/10.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -144,7 +144,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/1.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/1.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -152,7 +152,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/2.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/2.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -164,7 +164,7 @@
                 <div class="exhibitions-right">확인만 할깨요</div>
                 <div class="exhibitions-left"><a href="#">더보기 +</a></div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/3.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/3.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -172,7 +172,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/7.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/7.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -180,7 +180,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/8.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/8.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -188,7 +188,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/9.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/9.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -200,7 +200,7 @@
                 <div class="exhibitions-right">넘어가는거 확인용</div>
                 <div class="exhibitions-left"><a href="#">더보기 +</a></div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/6.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/6.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -208,7 +208,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/7.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/7.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -216,7 +216,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/8.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/8.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -224,7 +224,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/img/product/10.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/10.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -282,7 +282,7 @@
                 <br><br><br>
                 <div class="notations2" id="click1">
                     <c:forEach var="List" items="${ productImgList }" begin="0">
-                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/test/<c:out value="
+                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/test/<c:out value="
                             ${ List.prodImgRename }" />" alt="">
                     </c:forEach>
 
@@ -366,85 +366,85 @@
                     </span><br>
                     <c:if test="${ average eq '5'}">
                         <span>
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
                         </span>
                     </c:if>
                     <c:if test="${ average eq '4'}">
                         <span>
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
                         </span>
                     </c:if>
                     <c:if test="${ average eq '3'}">
                         <span>
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
                         </span>
                     </c:if>
                     <c:if test="${ average eq '2'}">
                         <span>
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
                         </span>
                     </c:if>
                     <c:if test="${ average eq '1'}">
                         <span>
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
                         </span>
                     </c:if>
                     <c:if test="${ average eq '0'}">
                         <span>
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                 alt="">
                         </span>
                     </c:if>
@@ -515,11 +515,11 @@
             <div class="section4_rv">전체 리뷰 총 <c:out value="${ count }" />건</div>
             <form action="${ pageContext.servletContext.contextPath }/product/insertReview" method="post" encType="multipart/form-data">
 				<span>
-   					<button onclick="Img1()" type="button"><img id="star1" src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg" alt="" ></button>
-    				<button onclick="Img2()" type="button"><img id="star2" src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg" alt="" ></button>
-    				<button onclick="Img3()" type="button"><img id="star3" src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg" alt="" ></button>
-    				<button onclick="Img4()" type="button"><img id="star4" src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg" alt="" ></button>
-    				<button onclick="Img5()" type="button"><img id="star5" src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg" alt="" ></button>
+   					<button onclick="Img1()" type="button"><img id="star1" src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg" alt="" ></button>
+    				<button onclick="Img2()" type="button"><img id="star2" src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg" alt="" ></button>
+    				<button onclick="Img3()" type="button"><img id="star3" src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg" alt="" ></button>
+    				<button onclick="Img4()" type="button"><img id="star4" src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg" alt="" ></button>
+    				<button onclick="Img5()" type="button"><img id="star5" src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg" alt="" ></button>
 				</span>
 
 				별점 :  <input type="text" value="3" name="stars" id="starsValue"><br>
@@ -544,90 +544,90 @@
                             <td colspan="2">
                                 <c:if test="${ reviewList.reviewScore eq '5'}">
                                     <span>
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
                                         5
                                     </span>
                                 </c:if>
                                 <c:if test="${ reviewList.reviewScore eq '4'}">
                                     <span>
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
                                         4
                                     </span>
                                 </c:if>
                                 <c:if test="${ reviewList.reviewScore eq '3'}">
                                     <span>
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
                                         3
                                     </span>
                                 </c:if>
                                 <c:if test="${ reviewList.reviewScore eq '2'}">
                                     <span>
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
                                         2
                                     </span>
                                 </c:if>
                                 <c:if test="${ reviewList.reviewScore eq '1'}">
                                     <span>
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
                                         1
                                     </span>
                                 </c:if>
                                 <c:if test="${ reviewList.reviewScore eq '0'}">
                                     <span>
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg"
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
                                             alt="" width="25">
                                         0
                                     </span>
@@ -641,7 +641,7 @@
                         </tr>
                         <tr class="table_bottom">
                             <td colspan="2"><span><img
-                                        src="${ pageContext.servletContext.contextPath }/resources/img/product/2.jpg"
+                                        src="${ pageContext.servletContext.contextPath }/resources/images/product/2.jpg"
                                         alt="" width="200px"></span></td>
                         </tr>
                     </c:forEach>
@@ -652,43 +652,43 @@
     <jsp:include page="../common/footer.jsp" />
      <script>
     function Img1() {
-        document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
-        document.getElementById("star2").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg";
-        document.getElementById("star3").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg";
-        document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg";
-        document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg";
+        document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
+        document.getElementById("star2").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
+        document.getElementById("star3").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
+        document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
+        document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
         document.getElementById("starsValue").value = "1";
     }
     function Img2() {
-        document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
-        document.getElementById("star2").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
-        document.getElementById("star3").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg";
-        document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg";
-        document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg";
+        document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
+        document.getElementById("star2").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
+        document.getElementById("star3").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
+        document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
+        document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
         document.getElementById("starsValue").value = "2";
     }
     function Img3() {
-        document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
-        document.getElementById("star2").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
-        document.getElementById("star3").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
-        document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg";
-        document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg";
+        document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
+        document.getElementById("star2").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
+        document.getElementById("star3").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
+        document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
+        document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
         document.getElementById("starsValue").value = "3";
     }
     function Img4() {
-        document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
-        document.getElementById("star2").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
-        document.getElementById("star3").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
-        document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
-        document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars2.jpg";
+        document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
+        document.getElementById("star2").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
+        document.getElementById("star3").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
+        document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
+        document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
         document.getElementById("starsValue").value = "4";
     }
     function Img5() {
-        document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
-        document.getElementById("star2").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
-        document.getElementById("star3").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
-        document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
-        document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/img/product/stars1.jpg";
+        document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
+        document.getElementById("star2").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
+        document.getElementById("star3").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
+        document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
+        document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
         document.getElementById("starsValue").value = "5";
     }
 </script>

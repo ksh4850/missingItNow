@@ -47,7 +47,7 @@
 
                 <table class="product-table">
                     <tr>
-                        <td class="product-table-row-1"><img src="${ pageContext.servletContext.contextPath }/resources/img/product/1.jpg" alt="" width="130px"></td>
+                        <td class="product-table-row-1"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/1.jpg" alt="" width="130px"></td>
                         <td class="product-table-row-2">미나 LED 미니 버섯램프_LH60 11colors</td>
                         <td class="product-table-row-3">1개</td>
                         <td class="product-table-row-4">8,000원<br><span class="product-price"><del>10,000원</del></span>
