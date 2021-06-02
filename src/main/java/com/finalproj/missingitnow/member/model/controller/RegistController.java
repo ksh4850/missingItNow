@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.finalproj.missingitnow.common.exception.MemberRegistException;
-import com.finalproj.missingitnow.member.model.dto.MemberDTO;
+import com.finalproj.missingitnow.member.model.dto.PrivateMemberDTO;
 import com.finalproj.missingitnow.member.model.service.MemberService;
 
 @Controller
@@ -32,7 +32,7 @@ public class RegistController {
 	}
 	
 	@PostMapping
-	public String registProcess(@ModelAttribute MemberDTO member, BCryptPasswordEncoder passwordEncoder
+	public String registProcess(@ModelAttribute PrivateMemberDTO member, BCryptPasswordEncoder passwordEncoder
 			,RedirectAttributes rttr) {
 		
 		//System.out.println(member); 
@@ -41,7 +41,9 @@ public class RegistController {
 		
 		member.setUserPwd(passwordEncoder.encode(member.getUserPwd()));
 		
-		System.out.println("암호화 이후 : " + member); 
+		//System.out.println("암호화 이후 : " + member); 
+		
+		
 		
 		/*userNo의 null 값 -> 시퀀스 처리 */
 		

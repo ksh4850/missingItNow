@@ -1,17 +1,19 @@
 package com.finalproj.missingitnow.member.model.dao;
 
-import com.finalproj.missingitnow.member.model.dto.MemberDTO;
+import com.finalproj.missingitnow.member.model.dto.PrivateMemberDTO;
 
 public interface MemberMapper {
 
-	int insertMember(MemberDTO member);
+	int insertMember(PrivateMemberDTO member);
 
-	String selectEncPassword(MemberDTO member);
+	String selectEncPassword(PrivateMemberDTO member);
 
-	MemberDTO selectMember(MemberDTO member);
+	PrivateMemberDTO selectMember(PrivateMemberDTO member);
 
-	void userUpdate(MemberDTO member);
+	void userUpdate(PrivateMemberDTO member);
 
-	void userQuit(MemberDTO member);
+	void userQuit(PrivateMemberDTO member);
+
+	void pwdChange(PrivateMemberDTO member);
 	
 }

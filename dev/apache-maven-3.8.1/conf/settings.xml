@@ -52,7 +52,7 @@ under the License.
    | Default: ${user.home}/.m2/repository
   <localRepository>D:\Users\Clientes-hoon\Desktop\development\lecture-src\08.spring\springMVCProject\dev\apache-maven-3.8.1\repository</localRepository>
   -->
-<localRepository>D:\Users\Clientes-hoon\Desktop\finalP\missingItNow 2\missingItNow\dev\apache-maven-3.8.1\repository</localRepository>
+<localRepository>D:\Users\Clientes-hoon\Desktop\finalP\missingitnow3\MIN3\dev\apache-maven-3.8.1\repository</localRepository>
 
   <!-- interactiveMode
    | This will determine whether maven prompts you when it needs input. If set to false,

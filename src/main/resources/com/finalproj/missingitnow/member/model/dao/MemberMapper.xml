@@ -78,4 +78,11 @@
 	     WHERE USER_ID = #{userId}
 	</update>
 	
+	<update id="pwdChange">
+		UPDATE TBL_USER
+		   SET
+		   USER_PWD = #{userPwd}	
+	     WHERE USER_ID = #{userId}
+	</update>
+	
 </mapper>

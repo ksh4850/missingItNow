@@ -1,16 +1,18 @@
 package com.finalproj.missingitnow.member.model.service;
 
 import com.finalproj.missingitnow.common.exception.LoginFailedException;
-import com.finalproj.missingitnow.member.model.dto.MemberDTO;
+import com.finalproj.missingitnow.member.model.dto.PrivateMemberDTO;
 
 public interface MemberService {
 
-	boolean registMember(MemberDTO member);
+	boolean registMember(PrivateMemberDTO member);
 
-	MemberDTO loginMember(MemberDTO member) throws LoginFailedException;
+	PrivateMemberDTO loginMember(PrivateMemberDTO member) throws LoginFailedException;
 
-	void userUpdate(MemberDTO member);
+	void userUpdate(PrivateMemberDTO member);
 
-	void userQuit(MemberDTO member);
+	void userQuit(PrivateMemberDTO member);
+
+	void pwdChange(PrivateMemberDTO member);
 
 }

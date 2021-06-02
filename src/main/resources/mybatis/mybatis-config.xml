@@ -28,6 +28,6 @@
  		<typeAlias alias="ReviewDTO" type="com.finalproj.missingitnow.product.model.dto.ReviewDTO"/>
  		
  		<typeAlias alias="memberDTO" type="com.finalproj.missingitnow.corporation.model.dto.MemberDTO"/>
- 		<typeAlias alias="privateMemeberDTO" type="com.finalproj.missingitnow.member.model.dto.MemberDTO" />
+ 		<typeAlias alias="privateMemeberDTO" type="com.finalproj.missingitnow.member.model.dto.PrivateMemberDTO" />
  	</typeAliases>
  </configuration>

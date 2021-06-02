@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.finalproj.missingitnow.member.model.dto.MemberDTO;
+import com.finalproj.missingitnow.member.model.dto.PrivateMemberDTO;
 import com.finalproj.missingitnow.member.model.service.MemberService;
 
 @Controller
@@ -34,7 +34,7 @@ public class MyPageQuitController {
 	
 
 	@PostMapping
-	public String myPageQuitProcess(@ModelAttribute MemberDTO member, HttpSession session) {
+	public String myPageQuitProcess(@ModelAttribute PrivateMemberDTO member, HttpSession session) {
 		
 		memberService.userQuit(member);
 		

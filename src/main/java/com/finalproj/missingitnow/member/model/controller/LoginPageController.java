@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.finalproj.missingitnow.common.exception.LoginFailedException;
-import com.finalproj.missingitnow.member.model.dto.MemberDTO;
+import com.finalproj.missingitnow.member.model.dto.PrivateMemberDTO;
 import com.finalproj.missingitnow.member.model.service.MemberService;
 
 @Controller
@@ -20,12 +20,10 @@ import com.finalproj.missingitnow.member.model.service.MemberService;
 public class LoginPageController {
 	
 	private final MemberService memberService;
-	private final BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
-	public LoginPageController(MemberService memberService, BCryptPasswordEncoder passwordEncoder) {
+	public LoginPageController(MemberService memberService) {
 		this.memberService = memberService;
-		this.passwordEncoder = passwordEncoder;
 	}
 	
 	
@@ -36,17 +34,7 @@ public class LoginPageController {
 	}
 	
 	@PostMapping("memlogin")
-	public String login(@ModelAttribute MemberDTO member, Model model, HttpSession session) throws LoginFailedException {
-		
-		
-		
-		//입력된 정보 확인 
-		//System.out.println(member.toString());
-		
-		
-		//model.addAttribute("loginMember", memberService.loginMember(member));
-		
-		//System.out.println("컨트롤러 테스트" + memberService.loginMember(member));
+	public String login(@ModelAttribute PrivateMemberDTO member, Model model, HttpSession session) throws LoginFailedException {
 		
 		
 		session.setAttribute("loginMember", memberService.loginMember(member));
