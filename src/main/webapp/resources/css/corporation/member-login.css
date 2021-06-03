@@ -1,13 +1,41 @@
-button{
+/* 라디오 버튼 */
 
-    background-color: #7E65F5;
-    color: white;
-    height: 30px;
-    width: 100px;
-    border: 1px solid #5F0080;
-    border-radius: 10px;
-    margin-bottom: 15px;
+input[type="radio"] + label {
+    color:#000000;
+    font-family:Arial, sans-serif;
+}
 
+input[type="radio"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-2px 10px 0 0;
+    vertical-align:middle;
+    background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -38px top no-repeat;
+    cursor:pointer;
+}
+
+input[type="radio"]:checked + label span {
+    background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -57px top no-repeat;
+}
+
+input[type="checkbox"] + label {
+    color:#000000;
+    font-family:Arial, sans-serif;
+}
+
+input[type="checkbox"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-2px 10px 0 0;
+    vertical-align:middle;
+    background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -38px top no-repeat;
+    cursor:pointer;
+}
+
+input[type="checkbox"]:checked + label span {
+    background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -57px top no-repeat;
 }
 
 .btns{
@@ -17,7 +45,12 @@ button{
 }
 
 .submit-button{
+	background: #7E65F5;
+    color: white;
 
+    
+    border-radius: 10px;
+    margin-bottom: 15px;
     width: 300px;
     height: 60px;
     margin-top: 30px;
@@ -26,7 +59,10 @@ button{
 }
 
 .regist-button{
-
+	background: #7E65F5;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 15px;
     width: 300px;
     height: 60px;
     margin-top: 10px;
@@ -36,9 +72,14 @@ button{
 
 .find-button{
 
+
+    border: 1px solid #5F0080;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    
     width: 300px;
     height: 60px;
-    background-color: white;
+    background: white;
     color: black;
 
 }
@@ -96,11 +137,7 @@ button{
 
 #memberLoginForm > div > input[type=checkbox]{
 
-    border: 1px solid black;
-    width: 15px;
-    height: 15px;
-    border-radius: 3px;
-    vertical-align: middle;
+   
     margin-left: 15px;
     margin-right: 5px;
 
@@ -108,11 +145,8 @@ button{
 
 #memberLoginForm > div > input[type=radio]{
 
-    border: 1px solid black;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    vertical-align: middle;
+   
+    
     margin-left: 15px;
     margin-right: 5px;
 

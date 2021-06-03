@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -27,7 +28,7 @@
                     <div class="header-information">
                         <div class="profile"><img
                                 src="${ pageContext.servletContext.contextPath }/resources/images/header/profile.png"
-                                alt="" id="goAdminMain"></div>
+                                alt=""></div>
                         <div class="user-name">송준원님</div>
                     </div>
                     <div class="test">
@@ -93,7 +94,7 @@
 
                         <div class="category">
                             <div class="category-name">주요서비스</div>
-                            <ul><a href="#">
+                            <ul><a href="${ pageContext.servletContext.contextPath}/corporation/test">
                                     <li class="category-title">
                                         <div class="category-title-style">쿠폰존</div>
                                     </li>
@@ -113,6 +114,14 @@
                                         <div class="category-title-style">커뮤니티</div>
                                     </li>
                                 </a>
+                                    <li class="category-title">
+                                        <div class="category-title-style"><c:out value="${ sessionScope.memberLogin.corpName }님 환영합니다."/>z</div>
+                                    </li>
+                                    <a href="${ pageContext.servletContext.contextPath }/corporation/logout">
+                                    <li class="category-title">
+                                        <div class="category-title-style">로그아웃 임시 방편</div>
+                                    </li>
+                                    </a>
                             </ul>
                         </div>
 
@@ -129,7 +138,7 @@
             </div>
             <!-- 로고 -->
             <div class="logo">
-                <img class="logo-png" src="${ pageContext.servletContext.contextPath }/resources/images/logo.png" class="icons_img" alt="" width="80px">
+                <a href="${ pageContext.servletContext.contextPath }"><img class="logo-png" src="${ pageContext.servletContext.contextPath }/resources/images/logo.png" class="icons_img" alt="" width="80px"></a>
             </div>
 
             <!-- 검색바 -->
@@ -137,9 +146,7 @@
                 <!-- <form method="post"> -->
                 <div class="search_bar">
                     <input class="search_size" type="text" title="검색">
-                    <a href="#" type="submit"><img
-                            src="${ pageContext.servletContext.contextPath }/resources/images/search.png"
-                            class="search_img" alt=""></a>
+                    <a href="#" type="submit"><img src="${ pageContext.servletContext.contextPath }/resources/images/search.png" class="search_img" alt=""></a>
                 </div>
                 <!-- </form> -->
             </div>
@@ -156,13 +163,5 @@
         </div>
     </header>
     <div class="space"></div>
-<!-- admin페이지 테스트용 링크 -->
-<script>
-	$("#goAdminMain").click(function(){
-		
-		location.href="${pageContext.request.contextPath}/admin/main";
-		
-	})
-</script>
 </body>
 </html>

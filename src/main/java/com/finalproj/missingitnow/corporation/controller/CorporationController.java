@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -34,6 +35,11 @@ public class CorporationController {
 	public CorporationController(CorporationService corporationService, BCryptPasswordEncoder passwordEncoder) {
 		this.corporationService = corporationService;
 		this.passwordEncoder = passwordEncoder;
+	}
+	
+	@GetMapping("/test")
+	public String test() {
+		return "/main/test";
 	}
 	
 	@GetMapping("/loginPage")
@@ -79,5 +85,14 @@ public class CorporationController {
 	public String login() {
 	
 		return "corpMng/corpMngMain";
+	}
+	
+	/* 로그아웃 */
+	@GetMapping("/logout")
+	public String logout(SessionStatus status) {
+		
+		status.setComplete();
+		
+		return "redirect:/";
 	}
 }
