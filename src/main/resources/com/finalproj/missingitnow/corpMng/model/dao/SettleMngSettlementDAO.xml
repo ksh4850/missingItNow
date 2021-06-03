@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.finalproj.missingitnow.corpMng.model.dao.SettleMngSettlementDAO">
+	
 	<resultMap id="settleMngSettlementResultSet" type="SettleMngSettlementDTO">
 		<id property="settlementNo" column="SETTLEMENT_NO"/>
 		<result property="corpNo" column="CORP_NO"/>
@@ -33,7 +34,7 @@
 		     , A.SETTLEMENT_DATE
 		     , A.SETTLEMENT_CHK
 		  FROM TBL_SETTLEMENT A
-		 WHERE A.CORP_NO = 'CORP0002'
+		 WHERE A.CORP_NO = 'CORP0001'
 		 ORDER BY A.SETTLEMENT_NO DESC
 	</select>
 	
@@ -47,7 +48,7 @@
 		)
 		VALUES
 		(
-		  'SETT' || LPAD(SEQ_SETTLEMENT.NEXTVAL,4,0), 'CORP0002', #{settlementStartDate}
+		  'SETT' || LPAD(SEQ_SETTLEMENT.NEXTVAL,4,0), 'CORP0001', #{settlementStartDate}
 		, #{settlementEndDate}, ${totalSales}, #{commissionBySales}
 		, #{settlementAmt}, SYSDATE
 		)
@@ -57,8 +58,81 @@
 		SELECT
 		       MAX(A.SETTLEMENT_END_DATE) AS LAST_END_DATE
 		  FROM TBL_SETTLEMENT A
-		 WHERE A.CORP_NO = 'CORP0002'
+		 WHERE A.CORP_NO = 'CORP0001'
 	</select>
+	
+	<resultMap id="settleMngDepositListResultSet" type="SettleMngDepositDTO">
+		<id property="depositNo" column="DEPOSIT_NO"/>
+		<result property="corpNo" column="CORP_NO"/>
+		<result property="depositSort" column="DEPOSIT_SORT"/>
+		<result property="amount" column="AMOUNT"/>
+		<result property="depositDate" column="DEPOSIT_DATE"/>
+		<result property="depositDetails" column="DEPOSIT_DETAILS"/>
+		<association property="corpUser" javaType="CorpUserDTO">
+			<id property="corpNo" column="CORP_NO"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectDepositList" resultMap="settleMngDepositListResultSet">
+		SELECT 
+		       A.DEPOSIT_NO
+		     , A.CORP_NO
+		     , A.DEPOSIT_SORT
+		     , A.AMOUNT
+		     , A.DEPOSIT_DATE
+		     , A.DEPOSIT_DETAILS
+		  FROM TBL_DEPOSIT A
+		 WHERE A.CORP_NO = 'CORP0001'
+		 ORDER BY A.DEPOSIT_NO DESC
+	</select>
+	
+	<resultMap id="corpUserInfoResultSet" type="CorpUserDTO">
+		<id property="corpNo" column="CORP_NO"/>
+		<result property="corpName" column="CORP_NAME"/>
+		<result property="corpContacts" column="CORP_CONTACTS"/>
+		<result property="corpEmail" column="CORP_EMAIL"/>
+	</resultMap>	
+	
+	<select id="selectCorpUserForPay" resultMap="corpUserInfoResultSet">
+		SELECT
+		       A.CORP_NO
+		     , A.CORP_NAME
+		     , A.CORP_CONTACTS
+		     , A.CORP_EMAIL
+		  FROM TBL_CORP_USER A
+		 WHERE A.CORP_NO = 'CORP0001'
+	</select>
+	
+	<insert id="insertPayment" parameterType="hashmap">
+		INSERT
+		  INTO TBL_CORP_PAYMENT A
+		(
+		  A.CORP_PAY_NO, A.CORP_PAY_UID, A.CORP_NO
+		, A.CORP_PAY_METHOD, A.CORP_PAY_DETAILS
+		, A.CORP_PAY_AMOUNT, A.CORP_PAY_DATE
+		)
+		VALUES
+		(
+		  'CRPP' || LPAD(SEQ_CORP_PAYMENT.NEXTVAL,4,0)
+		, #{merchant_uid}, #{buyer_name}, #{pay_method}
+		, #{name}, #{paid_amount}, SYSDATE
+		)
+	</insert>
+	
+	<insert id="insertDepositCharge" parameterType="hashmap">
+		INSERT
+		  INTO TBL_DEPOSIT A
+		(
+		  A.DEPOSIT_NO, A.CORP_NO, A.DEPOSIT_SORT
+		, A.AMOUNT, A.DEPOSIT_DATE, A.DEPOSIT_DETAILS
+		)
+		VALUES
+		(
+		  'DEPO' || LPAD(SEQ_DEPOSIT.NEXTVAL,4,0), #{buyer_name}, '충전'
+		, #{paid_amount}, SYSDATE, #{name}
+		)
+	</insert>
+	
 </mapper>
 
 

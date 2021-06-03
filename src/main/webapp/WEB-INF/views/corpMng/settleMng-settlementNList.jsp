@@ -127,14 +127,14 @@
             <br>
             <table class="settlementListTable">
                 <tr>
-                    <td>정산번호</td>
-                    <td>정산시작일자</td> 
-                    <td>정산종료일자</td>
+                    <td style="width: 180px">정산번호</td>
+                    <td style="width: 180px">정산시작일자</td> 
+                    <td style="width: 180px">정산종료일자</td>
                     <td>매출액 (원)</td>
-                    <td>수수료금액 (원)</td>
-                    <td>정산금액 (원)</td>
-                    <td>정산일자</td>
-                    <td>정산여부</td>
+                    <td style="width: 180px">수수료금액 (원)</td>
+                    <td style="width: 180px">정산금액 (원)</td>
+                    <td style="width: 180px">정산일자</td>
+                    <td style="width: 120px">정산여부</td>
                 </tr>
                 <c:if test="${ empty settlementList }">
                 	<tr>
@@ -213,7 +213,7 @@
 						}); /*	결과 조회 ajax 종료  */
 						
 					} else if (startDate < data1.lastEndDate){
-						alert('시작 일자를 마지막 정산 종료일자 이전으로 설정 할 수 없습니다.');
+						alert('시작일자를 마지막 정산종료일자 이후로 선택하여 주시기 바랍니다.');
 					}
 					
 				}, error: function(error){

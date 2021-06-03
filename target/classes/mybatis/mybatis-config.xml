@@ -14,6 +14,8 @@
  		<typeAlias alias="UserDTO(forCorpMng)" type="com.finalproj.missingitnow.corpMng.model.dto.UserDTO"/>
  		<typeAlias alias="CorpDepositDTO" type="com.finalproj.missingitnow.corpMng.model.dto.CorpDepositDTO"/>
  		<typeAlias alias="SettleMngSettlementDTO" type="com.finalproj.missingitnow.corpMng.model.dto.SettleMngSettlementDTO"/>
+ 		<typeAlias alias="SettleMngDepositDTO" type="com.finalproj.missingitnow.corpMng.model.dto.SettleMngDepositDTO"/>
+ 		<typeAlias alias="CorpMngStatisticsDTO" type="com.finalproj.missingitnow.corpMng.model.dto.CorpMngStatisticsDTO"/>
  		
  		<!-- systemAdmin -->
  		<typeAlias type="com.finalproj.missingitnow.admin.qna.model.dto.QNADTO" alias="qnaDTO"/>

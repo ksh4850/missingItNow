@@ -53,6 +53,7 @@
 		  FROM TBL_PRODUCT A
 		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
 		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
+	     WHERE A.CORP_NO = 'CORP0001'
 		 ORDER BY A.PROD_NO DESC
 	</select>
 	
@@ -68,7 +69,7 @@
 		(
 		  'PROD' || LPAD(SEQ_PRODUCT.NEXTVAL,4,0), #{prodName}, #{prodPrice}
 		, #{prodDetails}, SYSDATE, #{prodTerminateDate}, #{prodManufacturer}
-		, #{stockQuantity}, #{prodCtgNo}, 'CORP0005'
+		, #{stockQuantity}, #{prodCtgNo}, 'CORP0001'
 		)
 	</insert>
 	
@@ -113,6 +114,7 @@
 		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
 		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
 		 WHERE B.PROD_CTG_NO = #{prodCtgNo}
+		   AND A.CORP_NO = 'CORP0001'
 		 ORDER BY A.PROD_NO DESC
 	</select>
 	
@@ -138,6 +140,7 @@
 		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
 		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
 		 WHERE A.PROD_NAME LIKE '%' || #{prodName} || '%'
+		   AND A.CORP_NO = 'CORP0001'
 		 ORDER BY A.PROD_NO DESC
 	</select>
 	
@@ -163,6 +166,7 @@
 		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
 		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
 		 WHERE A.PROD_NO = #{prodNo}
+		   AND A.CORP_NO = 'CORP0001'
 	</select>
 	
 	<update id="updateProductInfo" parameterType="ProdMngProductDTO">
@@ -178,12 +182,14 @@
 		     , A.PROD_PRICE = #{prodPrice} * (1 - #{prodDiscountRate}/100)
 		   </if>
 		 WHERE A.PROD_NO = #{prodNo}
+		   AND A.CORP_NO = 'CORP0001'
 	</update>
 	
 	<delete id="deleteProdImg" parameterType="string">
 		DELETE
 		   FROM TBL_PROD_IMG A
 		  WHERE A.PROD_NO = #{prodNo}
+		    AND A.CORP_NO = 'CORP0001'
 	</delete>
 		
 	<insert id="updateProdImg" parameterType="hashmap">

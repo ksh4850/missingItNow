@@ -77,6 +77,7 @@
             <div class="naviListDetails">                
                 <li id="settlementNList">정산 및 내역</li>
                 <li id="depositMng">예치금관리</li>
+                <li id="paymentList" style="color: red;">결제내역(공사중)</li>
             </div>
             <div class="naviListTitle">
                 <h2 id="qnaNReviewMng">문의/리뷰관리</h2>
@@ -112,7 +113,17 @@
 			location.href="${ pageContext.servletContext.contextPath }/settleMng/selectSettlementList";
 		})
 		
+		$("#depositMng").click(function(){
+			location.href="${ pageContext.servletContext.contextPath }/settleMng/selectDepositList";
+		})
 		
+		
+		
+		
+		
+		$("#statistics").click(function(){
+			location.href="${ pageContext.servletContext.contextPath }/statistics/selectAllStatistics";
+		})
 		
 	</script>
 	

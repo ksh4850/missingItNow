@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.finalproj.missingitnow.corpMng.model.dao.CorpMngStatisticsDAO">
+	
+	<resultMap id="statisticsResultSet" type="CorpMngStatisticsDTO">
+		<id property="corpNo" column="CORP_NO"/>
+		<result property="dailyDate" column="DAILY_DATE"/>
+		<result property="dailyTotal" column="DAILY_TOTAL"/>
+		<result property="weeklyDate" column="WEEKLY_DATE"/>
+		<result property="weeklyTotal" column="WEEKLY_TOTAL"/>
+	</resultMap>
+
+	<select id="selectDailyStatistics" resultMap="statisticsResultSet">
+		SELECT 
+		       A.DAILY_DATE
+		     , 'CORP0001' AS CORP_NO
+		     , NVL(SUM(B.SALES_AMT),0) AS DAILY_TOTAL
+		  FROM (
+		  		<![CDATA[
+		  		SELECT 
+		               TO_DATE(SYSDATE,'RRRR-MM-DD') + (- LEVEL) AS DAILY_DATE
+		             , LEVEL
+		          FROM DUAL
+		          CONNECT BY LEVEL <= 15
+		          ]]>
+		          ) A
+		  LEFT JOIN (SELECT * FROM TBL_SALES C WHERE C.CORP_NO = 'CORP0001') B ON (A.DAILY_DATE = B.SALES_DATE)
+		  GROUP BY A.DAILY_DATE, B.CORP_NO
+		  ORDER BY 1 ASC
+	</select>
+	
+	<select id="selectWeeklyStatistics" resultMap="statisticsResultSet">
+		SELECT
+		       A.CORP_NO
+		     , A.WEEKLY_DATE
+		     , A.WEEKLY_TOTAL
+		  FROM (SELECT 
+		                ROWNUM RNUM
+		              , B.*
+		         FROM (SELECT
+		                      'CORP0001' AS CORP_NO
+		                    , NEXT_DAY(A.SALES_DATE,1) AS WEEKLY_DATE
+		                    , NVL(SUM(A.SALES_AMT),0) AS WEEKLY_TOTAL
+		                 FROM TBL_SALES A
+		                WHERE A.CORP_NO = 'CORP0001'
+		                GROUP BY NEXT_DAY(A.SALES_DATE,1)
+		                ORDER BY NEXT_DAY(A.SALES_DATE,1) DESC
+		              ) B
+		        )A
+		 WHERE A.RNUM BETWEEN 1 AND 6
+		 ORDER BY A.RNUM DESC
+	</select>
+	
+
+
+
+</mapper>
