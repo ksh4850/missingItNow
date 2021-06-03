@@ -57,12 +57,12 @@
 	<!-- admin 빈 스캔 -->
 	<mybatis-spring:scan base-package="com.finalproj.missingitnow.admin.qna.model.dao,
 	                                   com.finalproj.missingitnow.admin.notice.model.dao,
-	                                   com.finalproj.missingitnow.admin.settlement.model.dao,
-	                                   com.finalproj.missingitnow.admin.membermanage.model.dao"/>
+	                                   com.finalproj.missingitnow.admin.settlement.model.dao"/>
 	
 	<mybatis-spring:scan base-package="com.finalproj.missingitnow.product.model.dao"/>
 	<mybatis-spring:scan base-package="com.finalproj.missingitnow.corporation.model.dao"/>
 	<mybatis-spring:scan base-package="com.finalproj.missingitnow.member.model.dao"/>
 	
+	<mybatis-spring:scan base-package="com.finalproj.missingitnow.system.model.dao" />
 </beans>
 

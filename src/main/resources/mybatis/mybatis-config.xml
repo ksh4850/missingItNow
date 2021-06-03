@@ -19,19 +19,12 @@
  		<typeAlias alias="CorpUserImgDTO" type="com.finalproj.missingitnow.corpMng.model.dto.CorpUserImgDTO"/>
  		
  		<!-- systemAdmin -->
- 		<typeAlias alias="qnaDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.QNADTO"/>
-		<typeAlias alias="userDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.UserDTO"/>
-		<typeAlias alias="noticeDTO" type="com.finalproj.missingitnow.admin.notice.model.dto.NoticeDTO"/>
-		<typeAlias alias="detailSearchDTO" type="com.finalproj.missingitnow.common.search.DetailSearchDTO"/>
-		<typeAlias alias="moreSearchDTO" type="com.finalproj.missingitnow.common.search.MoreSearchDTO"/>
-		<typeAlias alias="searchDTO" type="com.finalproj.missingitnow.common.search.SearchDTO"/>
- 		<typeAlias alias="orderDTO" type="com.finalproj.missingitnow.admin.membermanage.model.dto.OrderDTO"/>
- 		<typeAlias alias="orderCorpUserDTO" type="com.finalproj.missingitnow.admin.membermanage.model.dto.CorpUserDTO"/>
- 		<typeAlias alias="orderCorpUserLvDTO" type="com.finalproj.missingitnow.admin.membermanage.model.dto.CorpUserLvDTO"/>
- 		<typeAlias alias="orderProdMngProductDTO" type="com.finalproj.missingitnow.admin.membermanage.model.dto.ProdMngProductDTO"/>
- 		<typeAlias alias="orderProdMngCategoryDTO" type="com.finalproj.missingitnow.admin.membermanage.model.dto.ProdMngCategoryDTO"/>
- 		<typeAlias alias="orderProdMngProductImgDTO" type="com.finalproj.missingitnow.admin.membermanage.model.dto.ProdMngProductImgDTO"/>
- 		<typeAlias alias="orderUserDTO" type="com.finalproj.missingitnow.admin.membermanage.model.dto.UserDTO"/>
+ 		<typeAlias type="com.finalproj.missingitnow.admin.qna.model.dto.QNADTO" alias="qnaDTO"/>
+		<typeAlias type="com.finalproj.missingitnow.admin.qna.model.dto.UserDTO" alias="userDTO"/>
+		<typeAlias type="com.finalproj.missingitnow.admin.notice.model.dto.NoticeDTO" alias="noticeDTO"/>
+		<typeAlias type="com.finalproj.missingitnow.common.search.DetailSearchDTO" alias="detailSearchDTO"/>
+		<typeAlias type="com.finalproj.missingitnow.common.search.MoreSearchDTO" alias="moreSearchDTO"/>
+		<typeAlias type="com.finalproj.missingitnow.common.search.SearchDTO" alias="searchDTO"/>
  		
  		<!-- product -->
  		<typeAlias alias="ProductDTO" type="com.finalproj.missingitnow.product.model.dto.ProductDTO"/>
@@ -41,5 +34,21 @@
  		
  		<typeAlias alias="memberDTO" type="com.finalproj.missingitnow.corporation.model.dto.MemberDTO"/>
  		<typeAlias alias="privateMemeberDTO" type="com.finalproj.missingitnow.member.model.dto.PrivateMemberDTO" />
+ 		
+ 		<!-- system -->
+ 		<typeAlias alias="SCorpDTO" type="com.finalproj.missingitnow.system.model.dto.SCorpDTO"/>
+ 		<typeAlias alias="SCorpLvDTO" type="com.finalproj.missingitnow.system.model.dto.SCorpLvDTO"/>
+ 		<typeAlias alias="CorpPageDTO" type="com.finalproj.missingitnow.system.model.dto.CorpPageDTO"/>
+ 		<typeAlias alias="SDepositDTO" type="com.finalproj.missingitnow.system.model.dto.SDepositDTO"/>
+ 		<typeAlias alias="DepositPageDTO" type="com.finalproj.missingitnow.system.model.dto.DepositPageDTO"/>
+ 		<typeAlias alias="SOrderDTO" type="com.finalproj.missingitnow.system.model.dto.SOrderDTO"/>
+ 		<typeAlias alias="SProductDTO" type="com.finalproj.missingitnow.system.model.dto.SProductDTO"/>
+ 		<typeAlias alias="SUserDTO" type="com.finalproj.missingitnow.system.model.dto.SUserDTO"/>
+ 		<typeAlias alias="SCategoryDTO" type="com.finalproj.missingitnow.system.model.dto.SCategoryDTO"/>
+ 		<typeAlias alias="OrderPageDTO" type="com.finalproj.missingitnow.system.model.dto.OrderPageDTO"/>
+ 		<typeAlias alias="CorpSellPageDTO" type="com.finalproj.missingitnow.system.model.dto.CorpSellPageDTO"/>
+ 		
+ 		
+ 		
  	</typeAliases>
  </configuration>
