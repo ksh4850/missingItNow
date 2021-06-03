@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.finalproj.missingitnow.admin.membermanage.model.dao.MemberManageMapper">
+	<resultMap type="orderDTO" id="orderResultSet">
+		<id column="ORDER_NO" property="no"/>
+		<result column="ORDER_PRICE" property="price"/>
+		<result column="DEALING_STATUS" property="dealingStatus"/>
+		<result column="ORDER_STATUS" property="status"/>
+		<result column="ORDER_QUANTITY" property="quantity"/>
+		<result column="ORDER_DATE" property="date"/>
+		<association property="corpUser" resultMap="corpUserResultSet"/>
+		<association property="product" resultMap="prodMngProductResultSet"/>
+		<association property="user" resultMap="UserResultSet"/>
+	</resultMap>
+	<resultMap type="orderCorpUserDTO" id="corpUserResultSet">
+		<id property="corpNo" column="CORP_NO"/>
+		<result property="corpId" column="CORP_ID"/>
+		<result property="corpPwd" column="CORP_PWD"/>
+		<result property="corpName" column="CORP_NAME"/>
+		<result property="corpContacts" column="CORP_CONTACTS"/>
+		<result property="corpAddress" column="CORP_ADDRESS"/>
+		<result property="corpEmail" column="CORP_EMAIL"/>
+		<result property="corpRegistrationNo" column="CORP_REGISTRATION_NO"/>
+		<result property="corpCommission" column="CORP_COMMISSION"/>
+		<result property="depositAmt" column="DEPOSIT_AMT"/>
+		<result property="corpRegstDate" column="CORP_REGST_DATE"/>
+		<result property="corpRegstAccepted" column="CORP_REGST_ACCPETED"/>
+		<result property="corpLeaveChk" column="CORP_LEAVE_CHK"/>
+		<association property="corpLv" resultMap="corpUserLvResultSet"/>
+	</resultMap> 
+	<resultMap type="orderCorpUserLvDTO" id="corpUserLvResultSet">
+		<id property="corpLvNo" column="CORP_LV_NO"></id>
+		<result property="corpLvName" column="CORP_LV_NAME"></result>
+	</resultMap>
+	<resultMap type="orderProdMngProductDTO" id="prodMngProductResultSet">
+		<id property="prodNo" column="PROD_NO"/>
+		<result property="prodName" column="PROD_NAME"/>
+		<result property="prodPrice" column="PROD_PRICE"/>
+		<result property="prodDetails" column="PROD_DETAILS"/>
+		<result property="prodUploadDate" column="PROD_UPLOAD_DATE"/>
+		<result property="prodTerminateDate" column="PROD_TERMINATE_DATE"/>
+		<result property="prodDiscountRate" column="PROD_DISCOUNT_RATE"/>
+		<result property="prodDiscountPeriod" column="PROD_DISCOUNT_PERIOD"/>
+		<result property="prodManufacturer" column="PROD_MANUFACTURER"/>
+		<result property="stockQuantity" column="STOCK_QUANTITY"/>
+		<result property="prodDisplayChk" column="PROD_DISPLAY_CHK"/>
+		<result property="prodCtgNo" column="PROD_CTG_NO"/>
+		<result property="corpNo" column="CORP_NO"/>
+		<result property="prodHits" column="PROD_HITS"/>
+		<association property="category" resultMap="prodCategoryResultSet"/>
+		<collection property="prodImgList" resultMap="prodImgResultSet"/>
+	</resultMap>
+	<resultMap type="orderProdMngCategoryDTO" id="prodCategoryResultSet">
+		<id property="prodCtgNo" column="PROD_CTG_NO"/>	
+		<result property="prodCtgName" column="PROD_CTG_NAME"/>	
+	</resultMap>
+	<resultMap type="orderProdMngProductImgDTO" id="prodImgResultSet">
+		<id property="prodImgNo" column="PROD_IMG_NO"/>	
+		<result property="prodNo" column="PROD_NO"/>	
+		<result property="prodImgOriginName" column="PROD_IMG_ORIGIN_NAME"/>
+		<result property="prodImgRename" column="PROD_IMG_RENAME"/>	
+		<result property="prodImgThnName" column="PROD_IMG_THN_NAME"/>
+		<result property="prodImgPath" column="PROD_IMG_PATH"/>	
+	</resultMap>
+	<resultMap type="orderUserDTO" id="UserResultSet">
+		<id column="USER_NO" property="no"/>
+		<result column="USER_ID" property="id"/>
+		<result column="USER_NAME" property="name"/>
+		<result column="USER_BIRTH" property="birth"/>
+		<result column="USER_ADDRESS" property="address"/>
+		<result column="USER_CONTACTS" property="contacts"/>
+		<result column="USER_EMAIL" property="email"/>
+		<result column="USER_REGST_DATE" property="registDate"/>
+		<result column="USER_LEAVE_CHK" property="leaveChk"/>
+	</resultMap>
+	<select id="selectUserList" resultMap="UserResultSet">
+	    SELECT
+	           A.RNUM
+	         , A.USER_NO
+	         , A.USER_ID
+	         , A.USER_NAME
+	         , A.USER_BIRTH
+	         , A.USER_ADDRESS
+	         , A.USER_CONTACTS
+	         , A.USER_EMAIL
+	         , A.USER_REGST_DATE
+	         , A.USER_LEAVE_CHK
+	      FROM (SELECT ROWNUM RNUM
+	                 , B.USER_NO
+			         , B.USER_ID
+			         , B.USER_NAME
+			         , B.USER_BIRTH
+			         , B.USER_ADDRESS
+			         , B.USER_CONTACTS
+			         , B.USER_EMAIL
+			         , B.USER_REGST_DATE
+			         , B.USER_LEAVE_CHK
+	              FROM ( SELECT C.USER_NO
+					          , C.USER_ID
+					          , C.USER_NAME
+					          , C.USER_BIRTH
+					          , C.USER_ADDRESS
+					          , C.USER_CONTACTS
+					          , C.USER_EMAIL
+					          , C.USER_REGST_DATE
+					          , C.USER_LEAVE_CHK
+	                       FROM TBL_USER C
+	                      ORDER BY C.USER_NO DESC
+	                   )B
+	             <trim prefix="WHERE" prefixOverrides="AND | OR">
+		             <choose>
+			             <when test="largeSearchCondition == 'active'">
+			             	 <choose>
+					             <when test="smallSearchCondition == 'id'">
+									B.USER_ID LIKE '%' || #{ searchValue } || '%'
+								 </when>
+								 <when test="smallSearchCondition == 'name'">
+									B.USER_NAME LIKE '%' || #{ searchValue } || '%'
+								 </when>
+								 <when test="smallSearchCondition == 'address'">
+									B.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
+								 </when>
+								 <when test="smallSearchCondition == 'contacts'">
+									B.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
+								 </when>
+							 </choose>
+							 AND B.USER_LEAVE_CHK = 'N'
+							 <choose>
+					             <when test="searchWriteDateStart != null and searchWriteDateEnd == null">
+									<![CDATA[
+										AND B.USER_REGST_DATE >= #{ searchWriteDateStart }
+									]]>
+								 </when>
+								 <when test="searchWriteDateStart == null and searchWriteDateEnd != null">
+								 	<![CDATA[
+										AND B.USER_REGST_DATE <= #{ searchWriteDateEnd }
+									]]>
+								 </when>
+								 <when test="searchWriteDateStart != null and searchWriteDateEnd != null">
+									AND B.USER_REGST_DATE BETWEEN #{ searchWriteDateStart } AND #{ searchWriteDateEnd }
+								 </when>
+							 </choose>
+			             </when>
+			             <when test="largeSearchCondition == 'leave'">
+				             <choose>
+					             <when test="smallSearchCondition == 'id'">
+									B.USER_ID LIKE '%' || #{ searchValue } || '%'
+								 </when>
+								 <when test="smallSearchCondition == 'name'">
+									B.USER_NAME LIKE '%' || #{ searchValue } || '%'
+								 </when>
+								 <when test="smallSearchCondition == 'address'">
+									B.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
+								 </when>
+								 <when test="smallSearchCondition == 'contacts'">
+									B.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
+								 </when>
+							 </choose>
+							 AND B.USER_LEAVE_CHK = 'Y'
+							 <choose>
+					             <when test="searchWriteDateStart != null and searchWriteDateEnd == null">
+									<![CDATA[
+										AND B.USER_REGST_DATE >= #{ searchWriteDateStart }
+									]]>
+								 </when>
+								 <when test="searchWriteDateStart == null and searchWriteDateEnd != null">
+								 	<![CDATA[
+										AND B.USER_REGST_DATE <= #{ searchWriteDateEnd }
+									]]>
+								 </when>
+								 <when test="searchWriteDateStart != null and searchWriteDateEnd != null">
+									AND B.USER_REGST_DATE BETWEEN #{ searchWriteDateStart } AND #{ searchWriteDateEnd }
+								 </when>
+							 </choose>
+			             </when>
+			             <otherwise>
+				             <choose>
+					             <when test="smallSearchCondition == 'id'">
+									B.USER_ID LIKE '%' || #{ searchValue } || '%'
+								 </when>
+								 <when test="smallSearchCondition == 'name'">
+									B.USER_NAME LIKE '%' || #{ searchValue } || '%'
+								 </when>
+								 <when test="smallSearchCondition == 'address'">
+									B.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
+								 </when>
+								 <when test="smallSearchCondition == 'contacts'">
+									B.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
+								 </when>
+							 </choose>
+							 <choose>
+					             <when test="searchWriteDateStart != null and searchWriteDateEnd == null">
+									<![CDATA[
+										AND B.USER_REGST_DATE >= #{ searchWriteDateStart }
+									]]>
+								 </when>
+								 <when test="searchWriteDateStart == null and searchWriteDateEnd != null">
+								 	<![CDATA[
+										AND B.USER_REGST_DATE <= #{ searchWriteDateEnd }
+									]]>
+								 </when>
+								 <when test="searchWriteDateStart != null and searchWriteDateEnd != null">
+									AND B.USER_REGST_DATE BETWEEN #{ searchWriteDateStart } AND #{ searchWriteDateEnd }
+								 </when>
+							 </choose>
+			             </otherwise>
+		             </choose>
+		         </trim>
+	           ) A
+	     WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }
+	</select>
+	<select id="selectTotalCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_USER A
+	     <trim prefix="WHERE" prefixOverrides="AND | OR">
+             <choose>
+	             <when test="largeSearchCondition == 'active'">
+	             	 <choose>
+			             <when test="smallSearchCondition == 'id'">
+							A.USER_ID LIKE '%' || #{ searchValue } || '%'
+						 </when>
+						 <when test="smallSearchCondition == 'name'">
+							A.USER_NAME LIKE '%' || #{ searchValue } || '%'
+						 </when>
+						 <when test="smallSearchCondition == 'address'">
+							A.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
+						 </when>
+						 <when test="smallSearchCondition == 'contacts'">
+							A.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
+						 </when>
+					 </choose>
+					 AND A.USER_LEAVE_CHK = 'N'
+					 <choose>
+			             <when test="searchWriteDateStart != null and searchWriteDateEnd == null">
+							<![CDATA[
+								AND A.USER_REGST_DATE >= #{ searchWriteDateStart }
+							]]>
+						 </when>
+						 <when test="searchWriteDateStart == null and searchWriteDateEnd != null">
+						 	<![CDATA[
+								AND A.USER_REGST_DATE <= #{ searchWriteDateEnd }
+							]]>
+						 </when>
+						 <when test="searchWriteDateStart != null and searchWriteDateEnd != null">
+							AND A.USER_REGST_DATE BETWEEN #{ searchWriteDateStart } AND #{ searchWriteDateEnd }
+						 </when>
+					 </choose>
+	             </when>
+	             <when test="largeSearchCondition == 'leave'">
+		             <choose>
+			             <when test="smallSearchCondition == 'id'">
+							A.USER_ID LIKE '%' || #{ searchValue } || '%'
+						 </when>
+						 <when test="smallSearchCondition == 'name'">
+							A.USER_NAME LIKE '%' || #{ searchValue } || '%'
+						 </when>
+						 <when test="smallSearchCondition == 'address'">
+							A.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
+						 </when>
+						 <when test="smallSearchCondition == 'contacts'">
+							A.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
+						 </when>
+					 </choose>
+					 AND A.USER_LEAVE_CHK = 'Y'
+					 <choose>
+			             <when test="searchWriteDateStart != null and searchWriteDateEnd == null">
+							<![CDATA[
+								AND A.USER_REGST_DATE >= #{ searchWriteDateStart }
+							]]>
+						 </when>
+						 <when test="searchWriteDateStart == null and searchWriteDateEnd != null">
+						 	<![CDATA[
+								AND A.USER_REGST_DATE <= #{ searchWriteDateEnd }
+							]]>
+						 </when>
+						 <when test="searchWriteDateStart != null and searchWriteDateEnd != null">
+							AND A.USER_REGST_DATE BETWEEN #{ searchWriteDateStart } AND #{ searchWriteDateEnd }
+						 </when>
+					 </choose>
+	             </when>
+	             <otherwise>
+		             <choose>
+			             <when test="smallSearchCondition == 'id'">
+							A.USER_ID LIKE '%' || #{ searchValue } || '%'
+						 </when>
+						 <when test="smallSearchCondition == 'name'">
+							A.USER_NAME LIKE '%' || #{ searchValue } || '%'
+						 </when>
+						 <when test="smallSearchCondition == 'address'">
+							A.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
+						 </when>
+						 <when test="smallSearchCondition == 'contacts'">
+							A.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
+						 </when>
+					 </choose>
+					 <choose>
+			             <when test="searchWriteDateStart != null and searchWriteDateEnd == null">
+							<![CDATA[
+								AND A.USER_REGST_DATE >= #{ searchWriteDateStart }
+							]]>
+						 </when>
+						 <when test="searchWriteDateStart == null and searchWriteDateEnd != null">
+						 	<![CDATA[
+								AND A.USER_REGST_DATE <= #{ searchWriteDateEnd }
+							]]>
+						 </when>
+						 <when test="searchWriteDateStart != null and searchWriteDateEnd != null">
+							AND A.USER_REGST_DATE BETWEEN #{ searchWriteDateStart } AND #{ searchWriteDateEnd }
+						 </when>
+					 </choose>
+	             </otherwise>
+             </choose>
+         </trim>
+	</select>
+	<select id="selectOrderTotalCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_ORDER A
+	      JOIN TBL_CORP_USER B ON(A.CORP_NO = B.CORP_NO)
+	      JOIN TBL_PRODUCT C ON(A.PROD_NO = C.PROD_NO)
+	      JOIN TBL_PROD_CATEGORY D ON(C.PROD_CTG_NO = D.PROD_CTG_NO)
+	      JOIN TBL_USER E ON(A.USER_NO = E.USER_NO)
+	     WHERE A.USER_NO = #{ no }
+	     <choose>
+             <when test="search.searchWriteDateStart != null and search.searchWriteDateEnd == null">
+				<![CDATA[
+					AND A.ORDER_DATE >= #{ search.searchWriteDateStart }
+				]]>
+			 </when>
+			 <when test="search.searchWriteDateStart == null and search.searchWriteDateEnd != null">
+			 	<![CDATA[
+					AND A.ORDER_DATE <= #{ search.searchWriteDateEnd }
+				]]>
+			 </when>
+			 <when test="search.searchWriteDateStart != null and search.searchWriteDateEnd != null">
+				AND A.ORDER_DATE BETWEEN #{ search.searchWriteDateStart } AND #{ search.searchWriteDateEnd }
+			 </when>
+		 </choose>
+	     <choose>
+             <when test="search.largeSearchCondition == 'all'">
+             
+             </when>
+             <otherwise>
+                 AND D.PROD_CTG_NO = #{ search.largeSearchCondition }
+             </otherwise>
+         </choose>
+         <choose>
+	         <when test="search.smallSearchCondition == 'prodName'">
+				C.PROD_NAME LIKE '%' || #{ search.searchValue } || '%'
+			 </when>
+			 <when test="search.smallSearchCondition == 'prodNo'">
+				C.PROD_NO LIKE '%' || #{ search.searchValue } || '%'
+			 </when>
+			 <when test="search.smallSearchCondition == 'orderNo'">
+				A.ORDER_NO LIKE '%' || #{ search.searchValue } || '%'
+			 </when>
+			 <when test="search.smallSearchCondition == 'corpId'">
+				B.CORP_ID LIKE '%' || #{ search.searchValue } || '%'
+			 </when>
+			 <when test="search.smallSearchCondition == 'corpName'">
+				B.CORP_NAME LIKE '%' || #{ search.searchValue } || '%'
+			 </when>
+		 </choose>
+	</select>
+	<select id="selectOrderList" resultMap="orderResultSet">
+	    SELECT 
+	           A.RNUM
+	         , A.ORDER_NO
+   	         , A.CORP_ID
+   	         , A.CORP_NAME
+   	         , A.PROD_NAME
+   	         , A.PROD_CTG_NAME
+   	         , A.USER_NO
+   	         , A.ORDER_PRICE
+   	         , A.ORDER_DATE
+   		     , A.DEALING_STATUS
+  		  FROM ( SELECT
+ 			            ROWNUM RNUM
+	    		      , B.ORDER_NO
+	    	          , B.CORP_ID
+	    	          , B.CORP_NAME
+	    	          , B.PROD_NAME
+	    	          , B.PROD_CTG_NAME
+	    	          , B.USER_NO
+	    	          , B.ORDER_PRICE
+	    	          , B.ORDER_DATE
+	    		      , B.DEALING_STATUS
+	    		   FROM ( SELECT
+	    			             C.ORDER_NO
+	    			           , D.CORP_ID
+	    			           , D.CORP_NAME
+	    			           , E.PROD_NAME
+	    			           , F.PROD_CTG_NAME
+	    			           , G.USER_NO
+	    			           , C.ORDER_PRICE
+	    			           , C.ORDER_DATE
+	     			           , C.DEALING_STATUS
+	    			        FROM TBL_ORDER C
+	    			        JOIN TBL_CORP_USER D ON(C.CORP_NO = D.CORP_NO)
+	    			        JOIN TBL_PRODUCT E ON(C.PROD_NO = E.PROD_NO)
+	    			        JOIN TBL_PROD_CATEGORY F ON(E.PROD_CTG_NO = F.PROD_CTG_NO)
+	    			        JOIN TBL_USER G ON(C.USER_NO = G.USER_NO)
+	    			       WHERE C.USER_NO = #{ no }
+	    			       ORDER BY C.ORDER_NO DESC
+	    		        ) B
+	    		 <trim prefix="WHERE" prefixOverrides="AND | OR">
+	    			 <choose>
+	    	              <when test="search.searchWriteDateStart != null and search.searchWriteDateEnd == null">
+	    				 	 <![CDATA[
+	    				 		 AND B.ORDER_DATE >= #{ search.searchWriteDateStart }
+	    				 	 ]]>
+	    				  </when>
+	    				  <when test="search.searchWriteDateStart == null and search.searchWriteDateEnd != null">
+	    				     <![CDATA[
+	    						 AND B.ORDER_DATE <= #{ search.searchWriteDateEnd }
+	    					 ]]>
+	    				  </when>
+	    				  <when test="search.searchWriteDateStart != null and search.searchWriteDateEnd != null">
+	    				      AND B.ORDER_DATE BETWEEN #{ search.searchWriteDateStart } AND #{ search.searchWriteDateEnd }
+	    				  </when>
+	    			  </choose>
+	    		      <choose>
+	    	              <when test="search.largeSearchCondition == 'all'">
+	    	             
+	    	              </when>
+	    	              <otherwise>
+	    	                  AND B.PROD_CTG_NO = #{ search.largeSearchCondition }
+	    	              </otherwise>
+	    	          </choose>
+	    	          <choose>
+	    		          <when test="search.smallSearchCondition == 'prodName'">
+	    					  AND B.PROD_NAME LIKE '%' || #{ search.searchValue } || '%'
+	    				  </when>
+	    				  <when test="search.smallSearchCondition == 'prodNo'">
+	    					  AND B.PROD_NO LIKE '%' || #{ search.searchValue } || '%'
+	    				  </when>
+	    				  <when test="search.smallSearchCondition == 'orderNo'">
+	    					  AND B.ORDER_NO LIKE '%' || #{ search.searchValue } || '%'
+	    				  </when>
+	    				  <when test="search.smallSearchCondition == 'corpId'">
+	    					  AND B.CORP_ID LIKE '%' || #{ search.searchValue } || '%'
+	    				  </when>
+	    				  <when test="search.smallSearchCondition == 'corpName'">
+	    					  AND B.CORP_NAME LIKE '%' || #{ search.searchValue } || '%'
+	    				  </when>
+	    			  </choose>
+	    		  </trim>
+  		       ) A
+		 WHERE A.RNUM BETWEEN #{ search.pageInfo.startRow } AND #{ search.pageInfo.endRow }
+	</select>
+</mapper>

@@ -23,6 +23,7 @@
         <a href="${ pageContext.servletContext.contextPath }/member/regist">회원가입</a>
         <a href="${ pageContext.servletContext.contextPath }/member/myPageMain">마이페이지 메인</a>
         <a href="${ pageContext.servletContext.contextPath }/member/myPageCart">장바구니</a>
+        <a href="${ pageContext.servletContext.contextPath }/admin/main">관리자페이지 임시링크</a>
 
         <main id="main">
             <section id="section1">

@@ -22,7 +22,8 @@
 	<a href="${pageContext.request.contextPath}/admin/qna/list">Q&amp;A리스트로 이동하기</a><br>
 	<a href="${pageContext.request.contextPath}/admin/qna/manage">Q&amp;A관리 페이지로 이동하기</a><br>
 	<a href="${pageContext.request.contextPath}/admin/ntc/list">공지사항리스트로 이동하기</a><br>
-	<a href="${pageContext.request.contextPath}/admin/settlement/breakdown">정산현황으로 이동하기</a>
+	<a href="${pageContext.request.contextPath}/admin/settlement/breakdown">정산현황으로 이동하기</a><br>
+	<a href="${pageContext.request.contextPath}/admin/userManage/list">사용자관리로 이동하기</a>
 	<div class="btns" style="width: 300px; height: 50px">
 		<button type="button" id="textColorButton">칼</button>
 		<button type="button" id="textBolderButton">두</button>
@@ -31,7 +32,7 @@
 		<button type="button" id="fileUploadButton"><a class="btn" href="#pop">파</a></button>
 	</div>
 	<form action="${pageContext.request.contextPath}/admin/test" method="post" id="testSubmit">
-	<div id="details" class="system-qnaDetail-detail" contenteditable="true" style="border: 1px solid black; width: 300px; height: 300px; overflow: hidden;">
+	<div id="details" class="system-qnaDetail-detail" contenteditable="true" style="border: 1px solid black; width: 300px; height: 300px;">
 		type here
 		<img src="${ pageContext.servletContext.contextPath }/resources/img/header/profile.png" alt="">
 	</div>
