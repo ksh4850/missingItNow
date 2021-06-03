@@ -28,6 +28,11 @@
 				successMessage = "정산 요청이 완료되었습니다!";
 				movePath = "${ pageContext.servletContext.contextPath }/settleMng/selectSettlementList";
 				break;	
+			
+			case "updateCorpUserInfo" :
+				successMessage = "회원정보 수정이 완료되었습니다!";
+				movePath = "${ pageContext.servletContext.contextPath }/corpMng/main";
+				break;
 				
 		}
 		

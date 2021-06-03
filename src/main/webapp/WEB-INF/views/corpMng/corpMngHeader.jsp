@@ -49,6 +49,20 @@
         top: 25px;  
         text-shadow: 4px 2px 2px darkslategray;
     }
+    
+    .updateCorpUserInfoBtn{
+        margin: 0;
+        float: right;
+        position: relative; 
+        font-size: 20px;
+        font-family: 'SCDream-Regular'; 
+        font-weight: bold;
+        color: white;
+        right: 80px;
+        top: 50px;
+        background: transparent;
+        border: none;
+    }
 
     .headerLogoutBtn{
         margin: 0;
@@ -70,7 +84,18 @@
         		onclick="location.href='${pageContext.servletContext.contextPath }/main'" 
         		style="position: relative; left: 20px; top: 5px; float: left;">
         <p class="headerTitle">기업회원 관리자 센터</p>
-        <button class="headerLogoutBtn" onclick="location.href=''">로그아웃</button>
+		<button class="headerLogoutBtn" id="headerLogoutBtn">로그아웃</button>
+		<button class="updateCorpUserInfoBtn" id="updateCorpUserInfoBtn" onclick="location.href=''">정보수정</button>
     </div>
+    
+	<script>
+		$("#headerLogoutBtn").click(function(){
+			location.href="${ pageContext.servletContext.contextPath }/main";
+		})
+		
+		$("#updateCorpUserInfoBtn").click(function(){
+			location.href="${ pageContext.servletContext.contextPath }/corpMng/updateCorpUserInfo";
+		})
+	</script>
 </body>
 </html>

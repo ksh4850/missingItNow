@@ -23,6 +23,7 @@ public class CorpUserDTO implements Serializable {
 	private Date corpRegstDate;
 	private String corpRegstAccepted;
 	private String corpLeaveChk;
+	private CorpUserImgDTO corpImg;
 	
 	public CorpUserDTO() {
 	}
@@ -30,7 +31,7 @@ public class CorpUserDTO implements Serializable {
 	public CorpUserDTO(String corpNo, String corpId, String corpPwd, String corpName, String corpContacts,
 			String corpAddress, String corpEmail, String corpRegistrationNo, String corpLvNo, CorpUserLvDTO corpLv,
 			double corpCommission, CorpDepositDTO corpDeposit, int depositAmt, Date corpRegstDate,
-			String corpRegstAccepted, String corpLeaveChk) {
+			String corpRegstAccepted, String corpLeaveChk, CorpUserImgDTO corpImg) {
 		this.corpNo = corpNo;
 		this.corpId = corpId;
 		this.corpPwd = corpPwd;
@@ -47,6 +48,7 @@ public class CorpUserDTO implements Serializable {
 		this.corpRegstDate = corpRegstDate;
 		this.corpRegstAccepted = corpRegstAccepted;
 		this.corpLeaveChk = corpLeaveChk;
+		this.corpImg = corpImg;
 	}
 
 	public String getCorpNo() {
@@ -177,6 +179,14 @@ public class CorpUserDTO implements Serializable {
 		this.corpLeaveChk = corpLeaveChk;
 	}
 
+	public CorpUserImgDTO getCorpImg() {
+		return corpImg;
+	}
+
+	public void setCorpImg(CorpUserImgDTO corpImg) {
+		this.corpImg = corpImg;
+	}
+
 	@Override
 	public String toString() {
 		return "CorpUserDTO [corpNo=" + corpNo + ", corpId=" + corpId + ", corpPwd=" + corpPwd + ", corpName="
@@ -184,10 +194,10 @@ public class CorpUserDTO implements Serializable {
 				+ corpEmail + ", corpRegistrationNo=" + corpRegistrationNo + ", corpLvNo=" + corpLvNo + ", corpLv="
 				+ corpLv + ", corpCommission=" + corpCommission + ", corpDeposit=" + corpDeposit + ", depositAmt="
 				+ depositAmt + ", corpRegstDate=" + corpRegstDate + ", corpRegstAccepted=" + corpRegstAccepted
-				+ ", corpLeaveChk=" + corpLeaveChk + "]";
+				+ ", corpLeaveChk=" + corpLeaveChk + ", corpImg=" + corpImg + "]";
 	}
 
-	
+
 	
 	
 	

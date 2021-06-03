@@ -20,7 +20,7 @@
 		<result property="prodHits" column="PROD_HITS"/>
 		<association property="category" javaType="ProdMngCategoryDTO">
 			<id property="prodCtgNo" column="PROD_CTG_NO"/>	
-			<result property="prodCtgName" column="PROD_CTG_NAME"/>	
+			<result property="prodCtgName" column="PROD_CTG_NAME"/>
 		</association>
 		<collection property="prodImgList" ofType="ProdMngProductImgDTO" autoMapping="false">
 			<id property="prodImgNo" column="PROD_IMG_NO"/>	

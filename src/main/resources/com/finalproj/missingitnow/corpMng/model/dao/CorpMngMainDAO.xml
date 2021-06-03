@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.finalproj.missingitnow.corpMng.model.dao.CorpMngMainDAO">
+	
+	<resultMap id="corpUserInfoResultSet" type="CorpUserDTO">
+		<id property="corpNo" column="CORP_NO"/>
+		<result property="corpId" column="CORP_ID"/>
+		<result property="corpPwd" column="CORP_PWD"/>
+		<result property="corpName" column="CORP_NAME"/>
+		<result property="corpContacts" column="CORP_CONTACTS"/>
+		<result property="corpAddress" column="CORP_ADDRESS"/>
+		<result property="corpEmail" column="CORP_EMAIL"/>
+		<result property="corpRegistrationNo" column="CORP_REGISTRATION_NO"/>
+		<result property="corpRegstDate" column="CORP_REGST_DATE"/>
+		<result property="corpLeaveChk" column="CORP_LEAVE_CHK"/>
+		<association property="corpImg" javaType="CorpUserImgDTO">
+			<id property="corpImgNo" column="CORP_IMG_NO"/>
+			<result property="corpNo" column="CORP_NO"/>
+			<result property="corpImgRename" column="CORP_IMG_RENAME"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectCorpUserInfo" resultMap="corpUserInfoResultSet">
+		SELECT 
+		       A.CORP_NO
+		     , A.CORP_ID
+		     , A.CORP_PWD
+		     , A.CORP_NAME
+		     , A.CORP_CONTACTS
+		     , A.CORP_ADDRESS
+		     , A.CORP_EMAIL
+		     , A.CORP_REGISTRATION_NO
+		     , A.CORP_REGST_DATE
+		     , A.CORP_LEAVE_CHK
+		     , B.CORP_IMG_NO
+		     , B.CORP_IMG_RENAME
+		  FROM TBL_CORP_USER A
+		  LEFT JOIN TBL_CORP_IMG B ON (A.CORP_NO = B.CORP_NO)
+		 WHERE A.CORP_NO = 'CORP0001'
+	</select>
+	
+	<update id="updateCorpUserInfo" parameterType="CorpUserDTO">
+		UPDATE TBL_CORP_USER A
+		   SET A.CORP_PWD = #{corpPwd}
+		     , A.CORP_CONTACTS = #{corpContacts}
+		     , A.CORP_ADDRESS = #{corpAddress}
+		     , A.CORP_EMAIL = #{corpEmail}
+		 WHERE A.CORP_NO = 'CORP0001'
+	</update>
+	
+	<delete id="deleteCorpUserImg" parameterType="string">
+		DELETE
+		  FROM TBL_CORP_IMG A
+		 WHERE A.CORP_NO = 'CORP0001'
+	</delete>
+	
+	<insert id="updateCorpUserImg">
+		INSERT
+		  INTO TBL_CORP_IMG A
+		(
+		  A.CORP_IMG_NO, A.CORP_NO, A.CORP_IMG_ORIGIN_NAME
+		, A.CORP_IMG_RENAME, A.CORP_IMG_THN_NAME, A.CORP_IMG_PATH
+		)
+		VALUES
+		(
+		  'CRPI' || LPAD(SEQ_CORP_IMG.NEXTVAL,4,0), #{corpNo}, #{originFileName}
+		, #{changeName}, 'thnName', #{filePath}
+		)
+	</insert>
+	
+</mapper>
+
+
+
+
+
+

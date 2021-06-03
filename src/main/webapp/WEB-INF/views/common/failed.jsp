@@ -27,7 +27,12 @@
 			case "insertSettlement" :
 				failedMessage = "정산 요청에 실패하셨습니다!";
 				movePath = "${ pageContext.servletContext.contextPath }/settleMng/selectSettlementList"";
-				break;		
+				break;	
+			
+			case "updateCorpUserInfo" :
+				failedMessage = "회원정보 수정에 실패하셨습니다!";
+				movePath = "${ pageContext.servletContext.contextPath }/corpMng/main";
+				break;
 
 		}
 		
