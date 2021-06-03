@@ -10,11 +10,7 @@ button{
 
 }
 
-.btns{
 
-    text-align: center;
-
-}
 
 .submit-button{
 
@@ -43,7 +39,6 @@ button{
 }
 
 .input-label{
-
     width: 150px;
     height: 32px;
     text-align: right;
@@ -51,7 +46,6 @@ button{
     margin-left: 150px;
     margin-right: 10px;
     float: left;
-
 }
 
 #memberRegistForm > div > input{
@@ -66,11 +60,7 @@ button{
 
 }
 
-.terms-div{
 
-    line-height: 32px;
-
-}
 
 .terms-div > input[type="checkbox"]{
 
@@ -81,4 +71,58 @@ button{
     border: 1px solid black;
     vertical-align: middle;
 
+}
+
+
+.main-Title{
+    margin: 0 auto;
+    width: 1200px;
+    padding-left: 30px;
+    height: 50px;
+    font-size: 30px;
+    font-weight: 600;
+    border-bottom: 1px solid rgb(34, 34, 34);
+}
+.input-many{
+    margin: 0 auto;
+    width: 1200px;
+    height: 50px;
+    line-height: 50px;
+}
+input[type="text"],input[type="password"],input[type="email"]{
+    margin-top: 10px;
+}
+
+.btns{
+    border-top: 1px solid rgb(34, 34, 34);
+    margin: 0 auto;
+    width: 1200px;
+    height: 200px;
+    padding-top: 30px;
+    text-align: center;
+
+}
+
+.terms-div{
+    margin: 0 auto;
+    line-height: 32px;
+
+}
+
+.input-label{
+    width: 200px;
+    height: 32px;
+    text-align: right;
+    line-height: 32px;
+    margin-left: 150px;
+    margin-right: 10px;
+    float: left;
+}
+
+.input-label2{
+    margin: 0 auto;
+    width: 300px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
 }
