@@ -42,6 +42,7 @@ public class ProductController {
 	   List<ProductDTO> highProductList = productService.selectProductHigh(prodCtgNo);
 	   List<ProductDTO> lowProductList = productService.selectProductLow(prodCtgNo);
 	   List<ProductDTO> productPopularity = productService.selectProductPopularity(prodCtgNo);
+	  
 	   
 		model.addAttribute("productList", productList);
 		model.addAttribute("highProductList", highProductList);
@@ -57,7 +58,10 @@ public class ProductController {
     List<CorpDTO> corpList = productService.corp(corpNo);
     List<ProductImgDTO> productImgList = productService.ProductImg(prodNo);
     List<ReviewDTO> reviewList = productService.review(prodNo);
-    System.out.println(prodNo);
+    System.out.println(productList);
+    System.out.println(corpList);
+    System.out.println(productImgList);
+    System.out.println(reviewList);
     int count = 0;
     int sum = 0;
     
@@ -99,8 +103,6 @@ public class ProductController {
     int threePointSize = 17*threePoint/10;
     int fourPointSize = 17*fourPoint/10;
     int fivePointSize = 17*fivePoint/10;
- 
-    
     
     model.addAttribute("productList", productList);
 	model.addAttribute("corpList", corpList);
@@ -118,6 +120,7 @@ public class ProductController {
 	model.addAttribute("fivePointSize", fivePointSize);
 	model.addAttribute("average", sum);
 	model.addAttribute("count", count);
+
 
     return "/product/product";
     }
@@ -138,6 +141,6 @@ public class ProductController {
 		return "/product/product-list";
 	}	
 	
-	
+
 	
 }

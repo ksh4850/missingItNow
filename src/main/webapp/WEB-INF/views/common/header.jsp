@@ -26,10 +26,15 @@
                 </label>
                 <div class="sidebar">
                     <div class="header-information">
-                        <div class="profile"><img
-                                src="${ pageContext.servletContext.contextPath }/resources/images/header/profile.png"
-                                alt=""></div>
-                        <div class="user-name">송준원님</div>
+                        <div class="profile"><img src="${ pageContext.servletContext.contextPath }/resources/images/header/profile.png" alt=""></div>
+	                    <div class="user-name">
+	                       	<c:if test="${ !empty sessionScope.loginMember }">
+	           					<c:out value="${ sessionScope.loginMember.userName }"/>님 환영합니다.
+	            			</c:if>
+	            			<c:if test="${ !empty sessionScope.memberLogin }">
+	            				<c:out value="${ sessionScope.memberLogin.corpName }"/>님 환영합니다.
+	            			</c:if>
+                        </div>
                     </div>
                     <div class="test">
                         <div class="blank"></div>
@@ -114,21 +119,13 @@
                                         <div class="category-title-style">커뮤니티</div>
                                     </li>
                                 </a>
-                                    <li class="category-title">
-                                        <div class="category-title-style"><c:out value="${ sessionScope.memberLogin.corpName }님 환영합니다."/>z</div>
-                                    </li>
-                                    <a href="${ pageContext.servletContext.contextPath }/corporation/logout">
-                                    <li class="category-title">
-                                        <div class="category-title-style">로그아웃 임시 방편</div>
-                                    </li>
-                                    </a>
                             </ul>
                         </div>
 
                         <div class="blank"></div>
 
                         <div class="event">
-                            우리은행 카드 결제시 수수료 면제
+                     	       우리은행 카드 결제시 수수료 면제
                         </div>
 
                         <div class="blank"></div>
@@ -138,7 +135,7 @@
             </div>
             <!-- 로고 -->
             <div class="logo">
-                <a href="${ pageContext.servletContext.contextPath }"><img class="logo-png" src="${ pageContext.servletContext.contextPath }/resources/images/logo.png" class="icons_img" alt="" width="80px"></a>
+                <a href="${ pageContext.servletContext.contextPath }/main/main"><img class="logo-png" src="${ pageContext.servletContext.contextPath }/resources/images/logo.png" class="icons_img" alt="" width="80px"></a>
             </div>
 
             <!-- 검색바 -->
@@ -158,7 +155,12 @@
 
             <!-- 아이콘 -->
             <div class="icons">
-                <a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/ic.png" class="icons_img" alt=""></a>
+            	<c:if test="${ empty sessionScope.loginMember }">
+            		<c:if test="${ empty sessionScope.memberLogin }">
+               			<a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/ic.png" class="icons_img" alt=""></a>
+            		</c:if>
+            	</c:if>
+            	
             </div>
         </div>
     </header>

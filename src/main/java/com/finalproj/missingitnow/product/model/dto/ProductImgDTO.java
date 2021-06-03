@@ -11,12 +11,12 @@ public class ProductImgDTO implements Serializable{
 	private String prodImgRename;
 	private String prodImgThnName;
 	private String prodImgPath;
-	private int prodImgNumber;
+
 	
 	public ProductImgDTO() {}
 
 	public ProductImgDTO(String prodImgNo, String prodNo, String prodImgOriginName, String prodImgRename,
-			String prodImgThnName, String prodImgPath, int prodImgNumber) {
+			String prodImgThnName, String prodImgPath) {
 		super();
 		this.prodImgNo = prodImgNo;
 		this.prodNo = prodNo;
@@ -24,7 +24,7 @@ public class ProductImgDTO implements Serializable{
 		this.prodImgRename = prodImgRename;
 		this.prodImgThnName = prodImgThnName;
 		this.prodImgPath = prodImgPath;
-		this.prodImgNumber = prodImgNumber;
+
 	}
 
 	public String getProdImgNo() {
@@ -75,13 +75,7 @@ public class ProductImgDTO implements Serializable{
 		this.prodImgPath = prodImgPath;
 	}
 
-	public int getProdImgNumber() {
-		return prodImgNumber;
-	}
 
-	public void setProdImgNumber(int prodImgNumber) {
-		this.prodImgNumber = prodImgNumber;
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -91,7 +85,7 @@ public class ProductImgDTO implements Serializable{
 	public String toString() {
 		return "ProductImgDTO [prodImgNo=" + prodImgNo + ", prodNo=" + prodNo + ", prodImgOriginName="
 				+ prodImgOriginName + ", prodImgRename=" + prodImgRename + ", prodImgThnName=" + prodImgThnName
-				+ ", prodImgPath=" + prodImgPath + ", prodImgNumber=" + prodImgNumber + "]";
+				+ ", prodImgPath=" + prodImgPath + "]";
 	}
 
 	

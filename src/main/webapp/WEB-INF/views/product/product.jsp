@@ -56,32 +56,42 @@
 
                 <div class="product-button">
                     <button onclick="location.href='https://www.naver.com'" class="one-button">장바구니</button>
-                    <button onclick="location.href='https://www.naver.com'" class="two-button">바로구매</button>
+                    <c:if test="${ empty sessionScope.loginMember }">
+                    <button onclick="purchase()" class="two-button">바로구매</button>
+                    </c:if>
+                   	<c:if test="${ !empty sessionScope.loginMember }">
+                    <a href="${ pageContext.servletContext.contextPath}/productPayment/payment?prodNo=<c:out value="${ productList[0].prodNo }" />"><button onclick="" class="two-button">바로구매</button></a>
+               		</c:if>
                 </div>
             </div>
+            <script>
+            	function purchase() {
+            		alert("로그인을 해주시기 바랍니다");
+				}
+            </script>
             <div>
-                <button onclick="Img1()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[0].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Img2()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[1].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Img3()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[2].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Img4()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[3].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Img5()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[4].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Sumname1()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[4].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Sumname2()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[0].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Sumname3()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[1].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Sumname4()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[2].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Sumname5()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[3].prodImgRename }" />" alt="" class="thumbnail-img"></button>
             </div>
         </div>
         <script>
-            function Img1() {
+            function Sumname1() {
+                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[4].prodImgRename } " />";
+            }
+            function Sumname2() {
                 document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[0].prodImgRename } " />";
             }
-            function Img2() {
+            function Sumname3() {
                 document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[1].prodImgRename } " />";
             }
-            function Img3() {
+            function Sumname4() {
                 document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[2].prodImgRename } " />";
             }
-            function Img4() {
+            function Sumname5() {
                 document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[3].prodImgRename } " />";
-            }
-            function Img5() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[4].prodImgRename } " />";
             }
         </script>
     </section1>
@@ -281,9 +291,12 @@
                 </table>
                 <br><br><br>
                 <div class="notations2" id="click1">
-                    <c:forEach var="List" items="${ productImgList }" begin="0">
-                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/test/<c:out value="
-                            ${ List.prodImgRename }" />" alt="">
+                    <c:forEach var="List" items="${ productImgList }" >
+                    	<c:if test="${ List.prodImgThnName != 'SUMNAME' }">
+                    		<c:if test="${ List.prodImgThnName != 'SUMNAME2' }">
+                        		<img src="${ pageContext.servletContext.contextPath }/resources/images/product/test/<c:out value="${ List.prodImgRename } " />" alt="">
+                        	</c:if>
+                    	</c:if>
                     </c:forEach>
 
                 </div>
