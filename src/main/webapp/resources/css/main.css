@@ -11,10 +11,10 @@
 #wrap #main #section1 .wrap .gap .container {width:100%;}
 #wrap #main #section1 .wrap .gap .container .slide-view {position:relative;width:100%;height:500px;overflow: hidden;}
 #wrap #main #section1 .wrap .gap .container .slide-view .slide-wrap {position: relative;;width:calc(100%*5);height:100%;left:-1903px;}
-#wrap #main #section1 .wrap .gap .container .slide-view .slide-wrap .slide {width:calc(100%/5);height:100%;float:left;background: url(../images/slider-img1.jpg) no-repeat 50% 50%;background-size: cover;}
-#wrap #main #section1 .wrap .gap .container .slide-view .slide-wrap .slide0 {background: url(../images/slider-img1.jpg);}
-#wrap #main #section1 .wrap .gap .container .slide-view .slide-wrap .slide1 {background: url(../images/slider-img2.jpg);}
-#wrap #main #section1 .wrap .gap .container .slide-view .slide-wrap .slide2 {background: url(../images/slider-img3.jpg);}
+#wrap #main #section1 .wrap .gap .container .slide-view .slide-wrap .slide {width:calc(100%/5);height:100%;float:left;}
+#wrap #main #section1 .wrap .gap .container .slide-view .slide-wrap .slide0 {}
+#wrap #main #section1 .wrap .gap .container .slide-view .slide-wrap .slide1 {}
+#wrap #main #section1 .wrap .gap .container .slide-view .slide-wrap .slide2 {}
 #wrap #main #section1 .wrap .gap .container .slide-view .limocon-wrap {position: absolute;top:0;width:100%;height:100%;margin: 0 auto;}
 #wrap #main #section1 .wrap .gap .container .slide-view .limocon-wrap .limocon-gap {position: relative;margin:0 auto;width:100%;max-width: 1200px;height:100%;}
 #wrap #main #section1 .wrap .gap .container .slide-view .limocon-wrap .limocon-gap .limocon-content {position: absolute; bottom:20px;right:0;}
@@ -139,7 +139,7 @@
 #wrap #main #section7 .wrap .gap .container .menuBtn-box-wrap .menuBtn-box-gap ul.menuBtn-content li.menuBtn .menuBtn-gap:hover {transform: scale(1.1);background-color: red;}
 #wrap #main #section7 .wrap .gap .container .menuBtn-box-wrap .menuBtn-box-gap ul.menuBtn-content li.menuBtn .menuBtn-gap.addCla {transform: scale(1.1);background-color: red;}
 #wrap #main #section7 .wrap .gap .container .menuBtn-box-wrap .menuBtn-box-gap ul.menuBtn-content li.menuBtn .menuBtn-gap .menuBtn-box {width:100%;}
-#wrap #main #section7 .wrap .gap .container .menuBtn-box-wrap .menuBtn-box-gap ul.menuBtn-content li.menuBtn .menuBtn-gap .menuBtn-box .imoticon-wrap {width:60px;height:30px;margin:0 20px;background-color: #000;}
+#wrap #main #section7 .wrap .gap .container .menuBtn-box-wrap .menuBtn-box-gap ul.menuBtn-content li.menuBtn .menuBtn-gap .menuBtn-box .imoticon-wrap {width:60px;height:30px;margin:0 20px;}
 #wrap #main #section7 .wrap .gap .container .menuBtn-box-wrap .menuBtn-box-gap ul.menuBtn-content li.menuBtn .menuBtn-gap .menuBtn-box > h5 {font-size: 11px;line-height: 30px;}
 #wrap #main #section7 .wrap .gap .container ul.box-container {position: relative;width:100%;}
 #wrap #main #section7 .wrap .gap .container ul.box-container li.box-content {position: relative;float:left;width:33.33333%;height:350px;margin-bottom:20px;}
@@ -150,7 +150,7 @@
 #wrap #main #section7 .wrap .gap .container ul.box-container li.box-content:nth-child(4) .container-wrap {margin: 0 5px 0 0;}
 #wrap #main #section7 .wrap .gap .container ul.box-container li.box-content:nth-child(5) .container-wrap {margin: 0 2.5px;}
 #wrap #main #section7 .wrap .gap .container ul.box-container li.box-content:nth-child(6) .container-wrap {margin: 0 0 0 5px;}
-#wrap #main #section7 .wrap .gap .container ul.box-container li.box-content .container-wrap .img-wrap {width:100%;height:50%;background-color: #000;}
+#wrap #main #section7 .wrap .gap .container ul.box-container li.box-content .container-wrap .img-wrap {width:100%;height:50%; text-align: center;}
 #wrap #main #section7 .wrap .gap .container ul.box-container li.box-content .container-wrap .img-wrap .img {width:100%;height:100%;}
 #wrap #main #section7 .wrap .gap .container ul.box-container li.box-content .container-wrap .halin {position: absolute;top:45%;left:10%;width:100px;height:20px;background-color: #eee;text-align: center;border:1px solid red;}
 #wrap #main #section7 .wrap .gap .container ul.box-container li.box-content:nth-child(1) .container-wrap .halin {display: none;}

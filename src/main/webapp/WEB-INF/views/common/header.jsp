@@ -157,10 +157,14 @@
             <div class="icons">
             	<c:if test="${ empty sessionScope.loginMember }">
             		<c:if test="${ empty sessionScope.memberLogin }">
-               			<a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/ic.png" class="icons_img" alt=""></a>
+               			<a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu1.png" class="icons_img" alt=""></a>
             		</c:if>
             	</c:if>
-            	
+            	<div class="icons">
+                <a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu2.png" class="icons_img" alt=""></a>
+                <a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu3.png" class="icons_img" alt=""></a>
+                <a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu4.png" class="icons_img" alt=""></a>
+            </div>
             </div>
         </div>
     </header>

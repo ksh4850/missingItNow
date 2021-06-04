@@ -23,7 +23,6 @@
         <a href="${ pageContext.servletContext.contextPath }/member/regist">회원가입</a>
         <a href="${ pageContext.servletContext.contextPath }/member/myPageMain">마이페이지 메인</a>
         <a href="${ pageContext.servletContext.contextPath }/member/myPageCart">장바구니</a>
-        <a href="${ pageContext.servletContext.contextPath }/admin/main">관리자페이지 임시링크</a>
 
         <main id="main">
             <section id="section1">
@@ -32,11 +31,11 @@
                         <div class="container">
                             <div class="slide-view">
                                 <ul class="slide-wrap cf">
-                                    <li class="slide slide2"></li>
-                                    <li class="slide slide0"></li>
-                                    <li class="slide slide1"></li>
-                                    <li class="slide slide2"></li>
-                                    <li class="slide slide0"></li>
+                                    <li class="slide slide2"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img3.jpg" alt=""></li>
+                                    <li class="slide slide0"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img1.jpg" alt=""></li>
+                                    <li class="slide slide1"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img2.jpg" alt=""></li>
+                                    <li class="slide slide2"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img3.jpg" alt=""></li>
+                                    <li class="slide slide0"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img1.jpg" alt=""></li>
                                 </ul>
                                 <div class="limocon-wrap">
                                     <div class="limocon-gap">
@@ -142,7 +141,8 @@
             </section>
             <section id="section3">
                 <div class="wrap">
-                    <div class="gap">
+                    <div
+                     class="gap">
                         <div class="container">
                             <div class="title-wrap cf">
                                 <h2>지금 제일 잘 나가는 상품</h2>
@@ -227,7 +227,7 @@
                         <div class="container cf">
                             <div class="left-content">
                                 <div class="title-wrap cf">
-                                    <h2>신규 등록 상품</h2>
+                                    <h2>이벤트</h2>
                                     <div class="aside-title">
                                         <h4>바로가기</h4>
                                         <div class="ra-btn">
@@ -237,11 +237,11 @@
                                 </div>
                                 <div class="slide-view">
                                     <ul class="slide-wrap cf">
-                                        <li class="slide slide2"></li>
-                                        <li class="slide slide0"></li>
-                                        <li class="slide slide1"></li>
-                                        <li class="slide slide2"></li>
-                                        <li class="slide slide0"></li>
+                                        <li class="slide slide2"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/event3.jpg" alt=""></li>
+                                        <li class="slide slide0"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/event1.jpg" alt=""></li>
+                                        <li class="slide slide1"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/event2.jpg" alt=""></li>
+                                        <li class="slide slide2"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/event3.jpg" alt=""></li>
+                                        <li class="slide slide0"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/event1.jpg" alt=""></li>
                                     </ul>
                                 </div>
                                 <div class="slide-btn cf">
@@ -251,7 +251,7 @@
                             </div>
                             <div class="right-content">
                                 <div class="title-wrap cf">
-                                    <h2>오늘의 제품</h2>
+                                    <h2>오늘의 쿠폰</h2>
                                     <div class="aside-title">
                                         <h4>바로가기</h4>
                                         <div class="ra-btn">
@@ -261,11 +261,11 @@
                                 </div>
                                 <div class="slide-view">
                                     <ul class="slide-wrap cf">
-                                        <li class="slide slide2"></li>
-                                        <li class="slide slide0"></li>
-                                        <li class="slide slide1"></li>
-                                        <li class="slide slide2"></li>
-                                        <li class="slide slide0"></li>
+                                        <li class="slide slide2"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/coupon3.jpg" alt=""></li>
+                                        <li class="slide slide0"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/coupon1.jpg" alt=""></li>
+                                        <li class="slide slide1"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/coupon2.jpg" alt=""></li>
+                                        <li class="slide slide2"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/coupon3.jpg" alt=""></li>
+                                        <li class="slide slide0"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/coupon1.jpg" alt=""></li>
                                     </ul>
                                 </div>
                                 <div class="slide-btn cf">
@@ -310,7 +310,9 @@
                                         <li class="menuBtn menuBtn0">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
-                                                    <div class="imoticon-wrap"></div>
+                                                    <div class="imoticon-wrap">
+                                                    	<img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/1.png" alt="">
+                                                    </div>
                                                     <h5>전체</h5>
                                                 </div>
                                             </div>
@@ -318,48 +320,60 @@
                                         <li class="menuBtn menuBtn1">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
-                                                    <div class="imoticon-wrap"></div>    
-                                                    <h5>브랜드패션</h5>
+                                                    <div class="imoticon-wrap">
+                                                    	<img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/2.png" alt="">
+                                                    </div>    
+                                                    <h5>신규</h5>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="menuBtn menuBtn2">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
-                                                    <div class="imoticon-wrap"></div>
-                                                    <h5>트렌드패션</h5>
+                                                    <div class="imoticon-wrap">
+                                                    	<img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/3.png" alt="">
+                                                    </div>
+                                                    <h5>거실/침실</h5>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="menuBtn menuBtn3">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
-                                                    <div class="imoticon-wrap"></div>
-                                                    <h5>뷰티</h5>
+                                                    <div class="imoticon-wrap">
+                                                    	<img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/4.png" alt="">
+                                                    </div>
+                                                    <h5>학생/서재</h5>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="menuBtn menuBtn4">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
-                                                    <div class="imoticon-wrap"></div>
-                                                    <h5>식품</h5>
+                                                    <div class="imoticon-wrap">
+                                                    	<img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/5.png" alt="">
+                                                    </div>
+                                                    <h5>테이블/의자</h5>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="menuBtn menuBtn5">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
-                                                    <div class="imoticon-wrap"></div>
-                                                    <h5>스포츠/레저</h5>
+                                                    <div class="imoticon-wrap">
+                                                    	<img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/6.png" alt="">
+                                                    </div>
+                                                    <h5>침구/커튼</h5>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="menuBtn menuBtn6">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
-                                                    <div class="imoticon-wrap"></div>
-                                                    <h5>출산/육아</h5>
+                                                    <div class="imoticon-wrap">
+                                                    	<img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/7.png" alt="">
+                                                    </div>
+                                                    <h5>쿠션/방석</h5>
                                                 </div>
                                             </div>
                                         </li>
@@ -367,40 +381,50 @@
                                         <li class="menuBtn menuBtn7">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
-                                                    <div class="imoticon-wrap"></div>
-                                                    <h5>가구/홈데코</h5>
+                                                    <div class="imoticon-wrap">
+                                                    	<img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/8.png" alt="">
+                                                    </div>
+                                                    <h5>가전</h5>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="menuBtn menuBtn8">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
-                                                    <div class="imoticon-wrap"></div>
-                                                    <h5>생필품/펫</h5>
+                                                    <div class="imoticon-wrap">
+                                                    	<img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/9.png" alt="">
+                                                    </div>
+                                                    <h5>수납/정리</h5>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="menuBtn menuBtn9">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
-                                                    <div class="imoticon-wrap"></div>
-                                                    <h5>가전/디지털</h5>
+                                                    <div class="imoticon-wrap">
+                                                    	<img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/10.png" alt="">
+                                                    </div>
+                                                    <h5>조명</h5>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="menuBtn menuBtn10">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
-                                                    <div class="imoticon-wrap"></div>
-                                                    <h5>건강</h5>
+                                                    <div class="imoticon-wrap">
+                                                    	<img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/11.png" alt="">
+                                                    </div>
+                                                    <h5>홈데코</h5>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="menuBtn menuBtn11">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
-                                                    <div class="imoticon-wrap"></div>
-                                                    <h5>취미/독서</h5>
+                                                    <div class="imoticon-wrap">
+                                                    	<img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/11.png" alt="">
+                                                    </div>
+                                                    <h5>생활용품</h5>
                                                 </div>
                                             </div>
                                         </li>
