@@ -49,7 +49,7 @@
 		
 		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td class="corpTd">
-		<a class="selectCorp" href="${pageContext.servletContext.contextPath}">&nbsp;<i class="fas fa-building"></i>&nbsp;&nbsp;기업</a>
+		<a class="selectCorp" href="${pageContext.servletContext.contextPath}/corporation/regist">&nbsp;<i class="fas fa-building"></i>&nbsp;&nbsp;기업</a>
 			</td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		</tr>

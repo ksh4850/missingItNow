@@ -38,7 +38,7 @@ public class MyPageMainController {
 		
 		memberService.userUpdate(member);
 		
-		//session.invalidate();
+		session.invalidate();
 		
 		return "redirect:/login";
 	}

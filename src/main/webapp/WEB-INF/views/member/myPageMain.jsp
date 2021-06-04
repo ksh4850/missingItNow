@@ -9,11 +9,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
+    
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     
+    <script src="/missingitnow/resources/js/member/myPageMain.js"></script>
+    
     <link rel="stylesheet" type="text/css" href="/missingitnow/resources/css/member/myPageMain.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
 </head>
 
 <style>
@@ -33,31 +39,6 @@
     </div>
 
     <div class="contentForm">
-				
-				<script>
-					
-					function goQnaPage(userNo){
-						
-						const f = document.qnaPaging;
-						
-						f.userNo.value = userNo;
-						
-						console.log(f.userNo);
-						
-						
-						
-						f.action = "${pageContext.servletContext.contextPath}/member/QNA";
-						
-						f.method = "post";
-						
-						f.submit();
-						
-					}
-				
-					
-					
-					
-				</script>
 				
 				<form name="qnaPaging">
                      <input type="hidden" name="userNo" value="${loginMember.userNo}">				
@@ -266,10 +247,8 @@
 
 <script>
 
-	console.log("${loginMember.userNo}")
-
 /* 결합된 주소값을 칸에 맞게 잘라서 넣는 스크립트*/
-
+$(function(){
 const userAddress = "${loginMember.userAddress}";
 
 const addressSplit = userAddress.split("-");
@@ -282,52 +261,7 @@ $('.zipCodeInput').val(zipCode);
 $('.addressInput').val(address);
 $('.address2Input').val(detailAddress);
 
-
-/*기존에 들어있던 주소를 hidden태그에 선행해서 넣어줌.*/
-$(function(){
-	
-    const userZipCode = $('input[name=zipCode]').val();
-    const userStreetAddress = $('input[name=userStreetAddress]').val();
-    const userDetailAddress = $('input[name=userDetailAddress]').val();
-    const userAddress = userZipCode + "-" + userStreetAddress + "-" + userDetailAddress;
-
-	 
-	
-	   $('input[name=userAddress]').attr('value',userAddress);
 });
-
-/* 주소가 변동될 경우 주소 값(우편번호, 주소, 상세주소)을 각각 추출하여 문자열로 '다시'결합하는 함수*/
-
-function getUserAddress(){
-	
-    const userZipCode = $('input[name=zipCode]').val();
-    
-    
-    
-    const userStreetAddress = $('input[name=userStreetAddress]').val();
-    
-
-
-    const userDetailAddress = $('input[name=userDetailAddress]').val();
-   
-    
-  
-  
-    const userAddress = userZipCode + "-" + userStreetAddress + "-" + userDetailAddress;
-    
-    
-    
-	   $('input[name=userAddress]').attr('value',userAddress);
-    
-   
-
-}
-
-
-
-
-
-
 
 
 /* 시간을 제외한 순수 생년월일을 칸에 넣는 스크립트 */
@@ -339,47 +273,9 @@ const onlyBirthDate = userBirth.substr(0,10);
 //console.log(onlyBirthDate);
 $('.birthDateInput').val(onlyBirthDate);
 
-
 </script>
 
 
-<script>
-	
-	function NavMenuProfile(){
-		/* console.log("클릭"); */
-		
-		
-		
-	}
-		
-		
-	
-
-
-</script>
-
-
-<script>
-$(document).ready(function(){
-    
-	   /* 우편번호 및 주소 찾기(다음 API) 함수*/
-	
-		const $searchZipCode = document.getElementById("searchZipCode");
-     $searchZipCode.onclick = function(){
-
-         new daum.Postcode({
-             oncomplete : function(data){
-                 document.getElementById("zipCode").value = data.zonecode;
-                 document.getElementById("address").value = data.address;
-                 document.getElementById("detailAddress").focus();
-             }
-         }).open();
-         		                            
-     	}	
-     
-});
-
-</script>
 
 
 <script>

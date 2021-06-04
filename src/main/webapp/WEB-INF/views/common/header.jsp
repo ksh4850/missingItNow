@@ -9,9 +9,12 @@
     <title>Insert title here</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/header.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
+    
+    
 </head>
 
 <body>
+
     <header>
         <div class="nav">
 
@@ -28,11 +31,11 @@
                     <div class="header-information">
                         <div class="profile"><img src="${ pageContext.servletContext.contextPath }/resources/images/header/profile.png" alt=""></div>
 	                    <div class="user-name">
-	                       	<c:if test="${ !empty sessionScope.loginMember }">
-	           					<c:out value="${ sessionScope.loginMember.userName }"/>님 환영합니다.
+	                       	<c:if test="${ !empty loginMember }">
+	           					<c:out value="${ loginMember.userName }"/>님 환영합니다.
 	            			</c:if>
-	            			<c:if test="${ !empty sessionScope.memberLogin }">
-	            				<c:out value="${ sessionScope.memberLogin.corpName }"/>님 환영합니다.
+	            			<c:if test="${ !empty CorpUserSession }">
+	            				<c:out value="${ CorpUserSession.corpName }"/>님 환영합니다.
 	            			</c:if>
                         </div>
                     </div>
@@ -109,11 +112,31 @@
                                         <div class="category-title-style">이벤트 / 기획전</div>
                                     </li>
                                 </a>
-                                <a href="${ pageContext.servletContext.contextPath}/corporation/mypage">
-                                    <li class="category-title">
-                                        <div class="category-title-style">MY PAGE</div>
-                                    </li>
-                                </a>
+                                
+                                
+                              <!-- 일반회원으로 로그인했을때 표시되는 마이페이지 링크 -->  
+                              <c:if test="${!empty loginMember }">
+	
+		                                <a href="${ pageContext.servletContext.contextPath}/member/myPageMain">
+		                                    <li class="category-title">
+		                                        <div class="category-title-style">MY PAGE</div>
+		                                    </li>
+		                                </a>								        
+									
+							  </c:if>
+
+                              <!-- 기업회원으로 로그인했을때 표시되는 마이페이지 링크 -->  
+									
+						      <c:if test="${!empty CorpUserSession }">
+									
+		                                <a href="${ pageContext.servletContext.contextPath}/corporation/mypage">
+		                                    <li class="category-title">
+		                                        <div class="category-title-style">MY PAGE</div>
+		                                    </li>
+		                                </a>
+							  </c:if>
+									
+										
                                 <a href="#">
                                     <li class="category-title">
                                         <div class="category-title-style">커뮤니티</div>
@@ -154,18 +177,28 @@
             </div>
 
             <!-- 아이콘 -->
-            <div class="icons">
-            	<c:if test="${ empty sessionScope.loginMember }">
-            		<c:if test="${ empty sessionScope.memberLogin }">
+            
+            	<!-- 비로그인 상태에서 보여줄 헤더 아이콘 -->
+            	<c:if test="${ empty loginMember && empty CorpUserSession}">
+            		<div class="icons">
                			<a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu1.png" class="icons_img" alt=""></a>
-            		</c:if>
+		                <a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu2.png" class="icons_img" alt=""></a>
+		                <a href="${ pageContext.servletContext.contextPath}/member/myPageCart"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu3.png" class="icons_img" alt=""></a>
+            		</div>
             	</c:if>
-            	<div class="icons">
-                <a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu2.png" class="icons_img" alt=""></a>
-                <a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu3.png" class="icons_img" alt=""></a>
-                <a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu4.png" class="icons_img" alt=""></a>
-            </div>
-            </div>
+     	
+            	
+            	<!-- 로그인 상태에 보여줄 헤더 아이콘 -->            	
+            	<c:if test="${!empty loginMember || !empty CorpUserSession}">
+	            	<div class="icons">
+			                <a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu2.png" class="icons_img" alt=""></a>
+			                <a href="${ pageContext.servletContext.contextPath}/member/myPageCart"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu3.png" class="icons_img" alt=""></a>
+	             		    <a href="${ pageContext.servletContext.contextPath}/member/logout"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu4.png" class="icons_img" alt=""></a>
+	            	</div>
+            	
+            	</c:if>
+            	
+            	
         </div>
     </header>
     <div class="space"></div>

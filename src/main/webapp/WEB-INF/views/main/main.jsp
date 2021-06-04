@@ -11,18 +11,19 @@
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/main.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
     
-    <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
-    <script src="./icon/fontawesome.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>    
 
 </head>
 <body>
+
+    <script>
+    console.log("${CorpUserSession}");
+    
+    </script>
+
+
     <div id="wrap">
 <jsp:include page="../common/header.jsp"/>
-
-        <a href="${ pageContext.servletContext.contextPath }/login">로그인</a>
-        <a href="${ pageContext.servletContext.contextPath }/member/regist">회원가입</a>
-        <a href="${ pageContext.servletContext.contextPath }/member/myPageMain">마이페이지 메인</a>
-        <a href="${ pageContext.servletContext.contextPath }/member/myPageCart">장바구니</a>
 
         <main id="main">
             <section id="section1">

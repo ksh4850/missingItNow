@@ -51,9 +51,9 @@ public class CorporationController {
 	@PostMapping("/login")
 	public String login(@ModelAttribute MemberDTO member, Model model) throws LoginFailedException {
 		MemberDTO CorpUserSession = corporationService.loginMember(member);
-		System.out.println("memberLogin : " + CorpUserSession);
+		System.out.println("CorpUserSession : " + CorpUserSession);
 		
-		model.addAttribute("memberLogin", CorpUserSession);
+		model.addAttribute("CorpUserSession", CorpUserSession);
 				
 		return "redirect:/";
 	}
