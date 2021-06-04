@@ -25,7 +25,7 @@ import com.finalproj.missingitnow.corporation.model.service.CorporationService;
 
 @Controller
 @RequestMapping("/corporation")
-@SessionAttributes("memberLogin")
+@SessionAttributes("CorpUserSession")
 public class CorporationController {
 	
 	private final CorporationService corporationService;
@@ -50,10 +50,10 @@ public class CorporationController {
 
 	@PostMapping("/login")
 	public String login(@ModelAttribute MemberDTO member, Model model) throws LoginFailedException {
-		MemberDTO memberLogin = corporationService.loginMember(member);
-		System.out.println("memberLogin : " + memberLogin);
+		MemberDTO CorpUserSession = corporationService.loginMember(member);
+		System.out.println("memberLogin : " + CorpUserSession);
 		
-		model.addAttribute("memberLogin", memberLogin);
+		model.addAttribute("memberLogin", CorpUserSession);
 				
 		return "redirect:/";
 	}
