@@ -12,7 +12,7 @@
 </head>
 <body>
 <section>
-        <form action="${ pageContext.servletContext.contextPath }/corporation/regist" method="post" enctype="multipart/form-data">
+	<form action="${ pageContext.servletContext.contextPath }/corporation/regist" method="post" enctype="multipart/form-data">
         <div class="main-Title">기업 회원가입</div>
         <div class="input-many">
             <div class="input-label">아이디 : </div> <input class="aa" type="text" name="corpId" placeholder="아이디를 입력해 주세요" required>
@@ -46,6 +46,7 @@
             <div class="input-label" id="bb">상세주소 : </div>
 				<input type="text" name="corpAddress" id="address2" placeholder="상세주소를 입력해 주세요" required>
 			</div>
+            
             <div class="input-many">
                 <input name="termsChecked" type="checkbox" value="checked">
                 <div class="input-label2">개인정보처리방침 동의
@@ -56,8 +57,8 @@
                 <button type="submit" class="submit-button">회원가입</button><br>
                 <button type="button" class="cancle-button">취소</button>
             </div>
-        </form>
-    </section>
+	</form>
+</section>
 
 
     <!-- 다음 우편번호 api -->

@@ -64,15 +64,14 @@ public class CorporationController {
 	public void registForm() {}
 	
 	@PostMapping("/regist")
-	public String registMember(@ModelAttribute MemberDTO member, HttpServletRequest request, RedirectAttributes rttr) 
-		throws MemberRegistException {
-		System.out.println(member);
-
+	public String registMember(@ModelAttribute MemberDTO member, HttpServletRequest request, RedirectAttributes rttr,
+								@RequestParam(required=false) MultipartFile corpUserImg) throws MemberRegistException {
+		
+		System.out.println("corpUserImg : " + corpUserImg);
+		
 		member.setCorpPwd(passwordEncoder.encode(member.getCorpPwd()));
-		System.out.println(member.getCorpPwd());
 		
 		if(!corporationService.registMember(member)) {
-
 			throw new MemberRegistException("당신은 우리와 함께 할 수 없습니다.");
 		}
 		

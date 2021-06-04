@@ -65,6 +65,26 @@
       , #{ corpEmail }, #{ corpRegistrationNo }
       )
 	</insert>
+	
+	<!-- <insert id="insertCorpUserImg" parameterType="string">
+		<selectKey keyProperty="corpNo" order="BEFORE" resultType="string">
+	 		SELECT
+	 			   'CORP' || LPAD(SEQ_CORP_USER.CURRVAL,4,0)
+	 		  FROM DUAL
+	 	</selectKey>
+	 	INSERT
+		  INTO TBL_CORP_IMG A
+		(
+		  A.CORP_IMG_NO, A.CORP_NO, A.CORP_IMG_ORIGIN_NAME
+		, A.CORP_IMG_RENAME, A.CORP_IMG_THN_NAME, A.CORP_IMG_PATH
+		)
+		VALUES
+		(
+		  'CRPI' || LPAD(SEQ_CORP_IMG.NEXTVAL,4,0), #{corpNo}, 'defaultImg'
+		, 'CorpUserDefaultImg.PNG', 'thnName', 'defaultImg'
+		)
+	</insert> -->
+	
 </mapper>
 
 

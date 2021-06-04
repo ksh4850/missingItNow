@@ -1,6 +1,9 @@
 package com.finalproj.missingitnow.corporation.model.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +43,8 @@ public class CorporationServiceImpl implements CorporationService {
 	public boolean registMember(MemberDTO member) {
 		return corporationDAO.insertMember(member) > 0? true: false;
 	}
+
+
 
 	
 

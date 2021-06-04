@@ -10,4 +10,6 @@ public interface CorporationDAO {
 
 	MemberDTO login(MemberDTO member);
 
+
+
 }

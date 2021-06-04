@@ -69,7 +69,7 @@ public class CorpMngMainController {
 //		System.out.println("deleteCorpUserImg : " + deleteCorpUserImg);
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String filePath = root + "/uploadFiles";
+		String filePath = root + "/corpUserImages";
 		
 		File mkdir = new File(filePath);
 		if(!mkdir.exists()) {
@@ -84,7 +84,7 @@ public class CorpMngMainController {
 		if(corpUserImg.getSize() > 0) {
 			originFileName = corpUserImg.getOriginalFilename();
 			ext = originFileName.substring(originFileName.lastIndexOf("."));
-			changeName = UUID.randomUUID().toString().replace("-",  "") + ".PNG";
+			changeName = UUID.randomUUID().toString().replace("-",  "") + ext;
 			
 			Map<String, String> file = new HashMap<>();
 			file.put("originFileName", originFileName);
