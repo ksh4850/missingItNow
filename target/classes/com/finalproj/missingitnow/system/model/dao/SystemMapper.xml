@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.finalproj.missingitnow.system.model.dao.SystemMapper">
+
+	<resultMap type="SCorpDTO" id="ScorpResultMap">
+		<id property="corpNo" column="CORP_NO"/>
+		<result property="corpId" column="CORP_ID"/>
+		<result property="corpPwd" column="CORP_PWD"/>
+		<result property="corpName" column="CORP_NAME"/>
+		<result property="corpContacts" column="CORP_CONTACTS"/>
+		<result property="corpAddress" column="CORP_ADDRESS"/>
+		<result property="corpEmail" column="CORP_EMAIL"/>
+		<result property="corpRegistrationNo" column="CORP_REGISTRATION_NO"/>
+		<result property="corpCommission" column="CORP_COMMISSION"/>
+		<result property="depositAtm" column="DEPOSIT_AMT"/>
+		<result property="corpRegstDate" column="CORP_REGST_DATE"/>
+		<result property="corpRegstAccpeted" column="CORP_REGST_ACCPETED"/>
+		<result property="corpLeaveChk" column="CORP_LEAVE_CHK"/>
+		<association property="corpLv" resultMap="ScorpLvResultMap"></association>
+	</resultMap>
+	
+	<resultMap type="SCorpLvDTO" id="ScorpLvResultMap">
+		<id property="corpLvNo" column="CORP_LV_NO"/>
+		<result property="corpLvName" column="CORP_LV_NAME"/>
+	</resultMap>
+	
+	<select id="selectSystemCorp" resultMap="ScorpResultMap" parameterType="CorpPageDTO">
+		 SELECT
+		        C.*
+		  FROM (SELECT
+		              ROWNUM RNUM
+		            , B.*  
+		        FROM (SELECT
+		               A.CORP_NO
+		             , A.CORP_ID
+		             , A.CORP_PWD
+		             , A.CORP_NAME
+		             , A.CORP_CONTACTS
+		             , A.CORP_ADDRESS
+		             , A.CORP_EMAIL
+		             , A.CORP_REGISTRATION_NO
+		             , A.CORP_COMMISSION
+		             , A.DEPOSIT_AMT
+		             , A.CORP_REGST_DATE
+		             , A.CORP_REGST_ACCPETED
+		             , A.CORP_LEAVE_CHK
+		             , B.CORP_LV_NO
+		             , B.CORP_LV_NAME
+		          FROM TBL_CORP_USER A
+		          JOIN TBL_CORP_LV B ON(A.CORP_LV_NO = B.CORP_LV_NO)
+		          WHERE A.CORP_NO NOT IN ('ADMEN')
+		            AND A.CORP_LEAVE_CHK = 'N'
+		            <if test='corpLv == "Y"'>
+			    	  	AND A.CORP_REGST_ACCPETED = 'Y'
+			    	</if>
+			    	<if test='corpLv == "N"'>
+			    	  	AND A.CORP_REGST_ACCPETED = 'N'
+			    	</if>  
+			    	<if test='corpLv != "Y" and  corpLv != "N" and corpLv != null and corpLv != ""' >
+			    	  	 AND B.CORP_LV_NAME = #{corpLv}
+			    	</if> 
+			 		<if test="corpCondition == 'id'">
+			 		  	 AND A.CORP_ID LIKE '%' || #{ corpSearchText } || '%'
+			 		</if>
+			 		<if test="corpCondition == 'name'">
+			 		  	 AND A.CORP_NAME LIKE '%' || #{ corpSearchText } || '%'
+			 		</if>
+			 		<if test="corpCondition == 'address'">
+			 		  	 AND A.CORP_ADDRESS LIKE '%' || #{ corpSearchText } || '%'
+			 		</if>
+			 		<if test="corpCondition == 'contacts'">
+			 		  	 AND A.CORP_CONTACTS LIKE '%' || #{ corpSearchText } || '%'
+			 		</if>
+		          ORDER BY A.CORP_REGST_ACCPETED , A.CORP_NO DESC
+		          )B
+		        )C
+		    WHERE C.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+	</select>
+	
+	<select id="selectCorpTotalCount" resultType="_int" parameterType="CorpPageDTO">
+		 SELECT
+        		COUNT(*)
+   		   FROM TBL_CORP_USER A
+   		   JOIN TBL_CORP_LV B ON(A.CORP_LV_NO = B.CORP_LV_NO)
+ 		  WHERE A.CORP_LEAVE_CHK = 'N'
+    	   <if test='corpLv == "Y"'>
+    	  	AND A.CORP_REGST_ACCPETED = 'Y'
+    	  </if>
+    	  <if test='corpLv == "N"'>
+    	  	AND A.CORP_REGST_ACCPETED = 'N'
+    	  </if>  
+    	  <if test='corpLv != "Y" and  corpLv != "N" and corpLv != null and corpLv != ""'>
+    	  	 AND B.CORP_LV_NAME = #{corpLv}
+    	  </if> 
+ 		  <if test="corpCondition == 'id' and corpSearchText != null and corpSearchText != '' ">
+ 		  	 AND A.CORP_ID LIKE '%' || #{ corpSearchText } || '%'
+ 		  </if>
+ 		  <if test="corpCondition == 'name' and corpSearchText != null and corpSearchText != '' ">
+ 		  	 AND A.CORP_NAME LIKE '%' || #{ corpSearchText } || '%'
+ 		  </if>
+ 		  <if test="corpCondition == 'address' and corpSearchText != null and corpSearchText != '' ">
+ 		  	 AND A.CORP_ADDRESS LIKE '%' || #{ corpSearchText } || '%'
+ 		  </if>
+ 		  <if test="corpCondition == 'contacts' and corpSearchText != null and corpSearchText != '' ">
+ 		  	 AND A.CORP_CONTACTS LIKE '%' || #{ corpSearchText } || '%'
+ 		  </if>
+ 
+	</select>
+
+	
+	<update id="modifyRegstAccpet" parameterType="string">
+		UPDATE TBL_CORP_USER A
+		   SET A.CORP_REGST_ACCPETED = 'Y'
+		 WHERE A.CORP_NO = #{corpNo}
+	</update>
+	
+	
+	<select id="selectAjaxCorpTotalCount" resultType="_int" parameterType="CorpPageDTO">
+		 SELECT
+        		COUNT(*)
+   		   FROM TBL_CORP_USER A
+   		   JOIN TBL_CORP_LV B ON(A.CORP_LV_NO = B.CORP_LV_NO)
+ 		  WHERE A.CORP_LEAVE_CHK = 'N'
+    	   <if test='corpLv == "Y"'>
+    	  	AND A.CORP_REGST_ACCPETED = 'Y'
+    	  </if>
+    	  <if test='corpLv == "N"'>
+    	  	AND A.CORP_REGST_ACCPETED = 'N'
+    	  </if>  
+    	  <if test='corpLv != "Y" and  corpLv != "N" and corpLv != null and corpLv != ""'>
+    	  	 AND B.CORP_LV_NAME = #{corpLv}
+    	  </if> 
+ 		  <if test="corpCondition == 'id' and corpSearchText != null and corpSearchText != '' ">
+ 		  	 AND A.CORP_ID LIKE '%' || #{ corpSearchText } || '%'
+ 		  </if>
+ 		  <if test="corpCondition == 'name' and corpSearchText != null and corpSearchText != '' ">
+ 		  	 AND A.CORP_NAME LIKE '%' || #{ corpSearchText } || '%'
+ 		  </if>
+ 		  <if test="corpCondition == 'address' and corpSearchText != null and corpSearchText != '' ">
+ 		  	 AND A.CORP_ADDRESS LIKE '%' || #{ corpSearchText } || '%'
+ 		  </if>
+ 		  <if test="corpCondition == 'contacts' and corpSearchText != null and corpSearchText != '' ">
+ 		  	 AND A.CORP_CONTACTS LIKE '%' || #{ corpSearchText } || '%'
+ 		  </if>
+ 
+	</select>
+	
+	<select id="selectAjaxSystemCorp" resultMap="ScorpResultMap" parameterType="CorpPageDTO">
+	SELECT
+      		  A.CORP_NO
+     		, A.CORP_ID
+    	 	, A.CORP_PWD
+     		, A.CORP_NAME
+     		, A.CORP_CONTACTS
+     		, A.CORP_ADDRESS
+     		, A.CORP_EMAIL
+     		, A.CORP_REGISTRATION_NO
+     		, A.CORP_COMMISSION
+     		, A.DEPOSIT_AMT
+     		, A.CORP_REGST_DATE
+     		, A.CORP_REGST_ACCPETED
+     		, A.CORP_LEAVE_CHK
+     		, B.CORP_LV_NO
+     		, B.CORP_LV_NAME
+ 		 FROM TBL_CORP_USER A
+  		 JOIN TBL_CORP_LV B ON(A.CORP_LV_NO = B.CORP_LV_NO)
+  		WHERE A.CORP_NO NOT IN ('ADMEN')
+		 AND A.CORP_LEAVE_CHK = 'N'
+		 <if test='corpLv == "Y"'>
+			 AND A.CORP_REGST_ACCPETED = 'Y'
+		</if>
+		<if test='corpLv == "N"'>
+			 AND A.CORP_REGST_ACCPETED = 'N'
+		</if>  
+		<if test='corpLv != "Y" and  corpLv != "N" and corpLv != null and corpLv != ""' >
+			 AND B.CORP_LV_NAME = #{corpLv}
+		</if> 
+		<if test="corpCondition == 'id'">
+			  AND A.CORP_ID LIKE '%' || #{ corpSearchText } || '%'
+		</if>
+		<if test="corpCondition == 'name'">
+			 AND A.CORP_NAME LIKE '%' || #{ corpSearchText } || '%'
+		</if>
+		<if test="corpCondition == 'address'">
+			AND A.CORP_ADDRESS LIKE '%' || #{ corpSearchText } || '%'
+		</if>
+		<if test="corpCondition == 'contacts'">
+			 AND A.CORP_CONTACTS LIKE '%' || #{ corpSearchText } || '%'
+		</if>
+	   ORDER BY A.CORP_REGST_ACCPETED , A.CORP_NO DESC
+ 
+	</select>
+	
+	<resultMap type="SDepositDTO" id="SDepositResultMap">
+		<id property="depositNo" column="DEPOSIT_NO" />
+		<result property="depositSort" column="DEPOSIT_SORT"/>
+		<result property="amount" column="AMOUNT"/>
+		<result property="depositDate" column="DEPOSIT_DATE"/>
+		<result property="depositDetails" column="DEPOSIT_DETAILS"/>
+		<association property="corp" resultMap="ScorpResultMap"></association>
+	</resultMap>
+	
+	
+	
+	<select id="selectDepositCount" resultType="_int" parameterType="DepositPageDTO" >
+	   SELECT
+     		 COUNT(*)
+		FROM TBL_DEPOSIT A
+ 		JOIN TBL_CORP_USER B ON(A.CORP_NO = B.CORP_NO)
+ 		<where>
+ 			<if test='depositSort != null and depositSort != "" '>
+ 				A.DEPOSIT_SORT = #{depositSort}
+ 			</if>
+ 			<if test="depositCondition == 'detatil' ">
+ 				 AND A.DEPOSIT_DETAILS LIKE '%' || #{ depositSearchText } || '%'
+ 			</if>
+ 			<if test="depositCondition == 'no' ">
+ 				 AND B.CORP_NO LIKE '%' || #{ depositSearchText } || '%'
+ 			</if>
+ 			<if test="depositCondition == 'id' ">
+ 				 AND B.CORP_ID LIKE '%' || #{ depositSearchText } || '%'
+ 			</if>
+ 			<if test="depositCondition == 'name' ">
+ 				 AND B.CORP_NAME LIKE '%' || #{ depositSearchText } || '%'
+ 			</if>
+ 		  <if test='startDate != null and startDate != "" and endDate != null and endDate != ""'>
+ 		  
+ 			 <![CDATA[
+				AND A.DEPOSIT_DATE >= TO_DATE(#{startDate},'YYYY-MM-DD')
+			    AND A.DEPOSIT_DATE <= TO_DATE(#{endDate},'YYYY-MM-DD')+1
+			]]>	
+ 			</if> 
+ 			
+ 			
+ 		</where>
+	</select>
+	
+	<select id="selectSystemDepositList" parameterType="DepositPageDTO" resultMap="SDepositResultMap" >
+		    SELECT
+		        C.*
+			  FROM (SELECT
+			              ROWNUM RNUM
+			            , B.*  
+			        FROM (SELECT
+	                              A.DEPOSIT_NO
+	                            , A.DEPOSIT_SORT
+	                            , A.AMOUNT
+	                            , A.DEPOSIT_DATE
+	                            , A.DEPOSIT_DETAILS
+	                            , B.CORP_NO
+	                            , B.CORP_NAME
+	                            , B.CORP_ID
+			              FROM TBL_DEPOSIT A
+	                      JOIN TBL_CORP_USER B ON(A.CORP_NO = B.CORP_NO)
+	  				 <where>
+			 			<if test="depositSort != null and depositSort != ''" >
+			 				A.DEPOSIT_SORT = #{depositSort}
+			 			</if>
+			 			<if test="depositCondition == 'detatil' ">
+			 				 AND A.DEPOSIT_DETAILS LIKE '%' || #{ depositSearchText } || '%'
+			 			</if>
+			 			<if test="depositCondition == 'no' ">
+			 				 AND B.CORP_NO LIKE '%' || #{ depositSearchText } || '%'
+			 			</if>
+			 			<if test="depositCondition == 'id' ">
+			 				 AND B.CORP_ID LIKE '%' || #{ depositSearchText } || '%'
+			 			</if>
+			 			<if test="depositCondition == 'name' ">
+			 				 AND B.CORP_NAME LIKE '%' || #{ depositSearchText } || '%'
+			 			</if>
+			 		    <if test='startDate != null and startDate != "" and endDate != null and endDate != ""'>
+			 				<!-- AND DEPOSIT_DATE BETWEEN TO_DATE(#{startDate},'YYYY-MM-DD') AND TO_DATE(#{endDate},'YYYY-MM-DD') -->
+			 				 <![CDATA[
+						      AND A.DEPOSIT_DATE >= TO_DATE(#{startDate},'YYYY-MM-DD')
+						      AND A.DEPOSIT_DATE <= TO_DATE(#{endDate},'YYYY-MM-DD')+1
+					      ]]>
+			 			</if> 
+			 		</where> 
+			 			ORDER BY A.DEPOSIT_DATE DESC
+			          )B
+			        )C    
+			    WHERE C.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+		
+	</select>
+	
+	<resultMap type="SProductDTO" id="SProductResultMap">
+		<id property="prodNo" column="PROD_NO"/>
+		<result property="prodName" column="PROD_NAME"/>
+		<result property="prodPrice" column="PROD_PRICE"/>
+		<result property="prodDetails" column="PROD_DETAILS"/>
+		<result property="prodUploadDate" column="PROD_UPLOAD_DATE"/>
+		<result property="prodTerminateDate" column="PROD_TERMINATE_DATE"/>
+		<result property="prodDiscountRate" column="PROD_DISCOUNT_RATE"/>
+		<result property="prodDiscountPeriod" column="PROD_DISCOUNT_PERIOD"/>
+		<result property="prodManufacturer" column="PROD_MANUFACTURER"/>
+		<result property="stockQuantity" column="STOCK_QUANTITY"/>
+		<result property="prodDisplayChk" column="PROD_DISPLAY_CHK"/>
+		<result property="prodCtgNo" column="PROD_CTG_NO"/>
+		<result property="corpNo" column="CORP_NO"/>
+		<result property="prodHits" column="PROD_HITS"/>
+		<association property="category" resultMap="SCategoryResultMap"></association>
+	</resultMap>
+	
+	<resultMap type="SCategoryDTO" id="SCategoryResultMap">
+		<id property="prodCtgNo" column="PROD_CTG_NO"/>	
+		<result property="prodCtgName" column="PROD_CTG_NAME"/>	
+	</resultMap>
+	
+	<resultMap type="SUserDTO" id="SUserResultMap">
+		<id property="userNo" column="USER_NO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="pwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="birth" column="USER_BIRTH"/>
+		<result property="address" column="USER_ADDRESS"/>
+		<result property="contacts" column="USER_CONTACTS"/>
+		<result property="email" column="USER_EMAIL"/>
+		<result property="mktAccept" column="USER_MKT_ACCEPT_CHK"/>
+		<result property="regstDate" column="USER_REGST_DATE"/>
+		<result property="userLeave" column="USER_LEAVE_CHK"/>
+	</resultMap>
+	
+
+	
+	<resultMap type="SOrderDTO" id="SOrderResultMap">
+		<id property="orderNo" column="ORDER_NO"/>
+		<result property="orderPrice" column="ORDER_PRICE"/>
+		<result property="dealingStatus" column="DEALING_STATUS"/>
+		<result property="orderStatus" column="ORDER_STATUS"/>
+		<result property="quantity" column="ORDER_QUANTITY"/>
+		<result property="orderDate" column="ORDER_DATE"/>
+		<association property="corp" resultMap="ScorpResultMap"></association>
+		<association property="product" resultMap="SProductResultMap"></association>
+		<association property="user" resultMap="SUserResultMap" ></association>
+	</resultMap>
+	
+	
+	<select id="selectOrderInfoCount" parameterType="OrderPageDTO" resultType="_int">
+		SELECT
+       		   COUNT(*)
+		  FROM TBL_ORDER A
+		  JOIN TBL_CORP_USER B ON(A.CORP_NO = B.CORP_NO)
+		  JOIN TBL_PRODUCT C ON(A.PROD_NO =  C.PROD_NO)
+		  JOIN TBL_PROD_CATEGORY D ON(C.PROD_CTG_NO = D.PROD_CTG_NO)
+		  JOIN TBL_USER E ON(E.USER_NO = A.USER_NO)
+		 WHERE A.ORDER_STATUS = 'Y'
+		 <if test="dealingStatus != null and dealingStatus != ''">
+		  	 AND A.DEALING_STATUS = #{dealingStatus}
+		  </if>
+		  <if test="category != null and category != ''">
+		  	 AND C.PROD_CTG_NO =  #{category}
+		   </if>
+		   <if test="condition == 'orderNo' ">
+		   	 AND A.ORDER_NO LIKE '%' || #{ orderInfoText } || '%'
+		   </if>
+		   <if test="condition == 'productNo' ">
+		   	 AND C.PROD_NO LIKE '%' || #{ orderInfoText } || '%'
+		   </if>
+		   <if test="condition == 'productName'">
+		   	 AND C.PROD_NAME LIKE '%' || #{ orderInfoText } || '%'
+		   </if>
+		   <if test="condition == 'corpId'">
+		   	 AND B.CORP_ID LIKE '%' || #{ orderInfoText } || '%'
+		   </if>
+		   <if test="condition == 'corpName'">
+		   	 AND B.CORP_NAME LIKE '%' || #{ orderInfoText } || '%'
+		   </if>
+		   <if test="condition == 'userId'">
+		   AND E.USER_ID LIKE '%' || #{ orderInfoText } || '%'
+		   </if>
+		   <if test="condition == 'userName'">
+		   AND E.USER_NAME LIKE '%' || #{ orderInfoText } || '%'
+		   </if>
+		    <if test='startDate != null and startDate != "" and endDate != null and endDate != ""'>
+		    
+		   <!-- AND A.ORDER_DATE BETWEEN TO_DATE('2021-05-01','YYYY-MM-DD') AND TO_DATE('2021-05-28','YYYY-MM-DD') -->
+		    <![CDATA[
+				 AND A.ORDER_DATE >= TO_DATE(#{startDate},'YYYY-MM-DD')
+				 AND A.ORDER_DATE <= TO_DATE(#{endDate},'YYYY-MM-DD') + 1
+			]]>
+		   </if>
+	</select>
+		
+	<select id="selectSystemOrderInfo" parameterType="OrderPageDTO" resultMap="SOrderResultMap">
+		 SELECT
+		        G.*
+		  FROM (SELECT
+		              ROWNUM RNUM
+		            , F.*  
+		        FROM (SELECT
+                            A.ORDER_NO
+                          , A.ORDER_PRICE
+                          , A.DEALING_STATUS
+                          , A.ORDER_STATUS
+                          , A.ORDER_QUANTITY
+                          , A.ORDER_DATE
+                          , B.CORP_ID
+                          , B.CORP_NAME 
+                          , C.PROD_NO
+                          , C.PROD_NAME 
+                          , E.USER_ID
+                          , E.USER_NAME
+                      FROM TBL_ORDER A
+                      JOIN TBL_CORP_USER B ON(A.CORP_NO = B.CORP_NO)
+                      JOIN TBL_PRODUCT C ON(A.PROD_NO =  C.PROD_NO)
+                      JOIN TBL_PROD_CATEGORY D ON(C.PROD_CTG_NO = D.PROD_CTG_NO)
+                      JOIN TBL_USER E ON(E.USER_NO = A.USER_NO)
+                      WHERE A.ORDER_STATUS = 'Y'
+                       <if test="dealingStatus != null and dealingStatus != ''">
+					  	 AND A.DEALING_STATUS = #{dealingStatus}
+					  </if>
+					  <if test="category != null and category != ''">
+					  	 AND C.PROD_CTG_NO =  #{category}
+					   </if>
+					   <if test="condition == 'orderNo' ">
+					   	 AND A.ORDER_NO LIKE '%' || #{ orderInfoText } || '%'
+					   </if>
+					   <if test="condition == 'productNo' ">
+					   	 AND C.PROD_NO LIKE '%' || #{ orderInfoText } || '%'
+					   </if>
+					   <if test="condition == 'productName'">
+					   	 AND C.PROD_NAME LIKE '%' || #{ orderInfoText } || '%'
+					   </if>
+					   <if test="condition == 'corpId'">
+					   	 AND B.CORP_ID LIKE '%' || #{ orderInfoText } || '%'
+					   </if>
+					   <if test="condition == 'corpName'">
+					   	 AND B.CORP_NAME LIKE '%' || #{ orderInfoText } || '%'
+					   </if>
+					   <if test="condition == 'userId'">
+					   AND E.USER_ID LIKE '%' || #{ orderInfoText } || '%'
+					   </if>
+					   <if test="condition == 'userName'">
+					   AND E.USER_NAME LIKE '%' || #{ orderInfoText } || '%'
+					   </if>
+					    <if test='startDate != null and startDate != "" and endDate != null and endDate != ""'>
+					    
+					   <!--  AND A.ORDER_DATE BETWEEN TO_DATE(#{startDate},'YYYY-MM-DD') AND TO_DATE(#{endDate},'YYYY-MM-DD') -->
+					    <![CDATA[
+						      AND A.ORDER_DATE >= TO_DATE(#{startDate},'YYYY-MM-DD')
+						      AND A.ORDER_DATE <= TO_DATE(#{endDate},'YYYY-MM-DD') + 1
+					      ]]>
+					   </if>
+                        ORDER BY A.ORDER_NO DESC
+		          )F
+		        )G
+		    WHERE G.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+	
+	</select>
+	
+	<select id="selectTodaySalse" resultType="_int"  parameterType="CorpSellPageDTO">
+		SELECT
+		      NVL(SUM(A.ORDER_PRICE),0)
+		 FROM TBL_ORDER A
+		 JOIN TBL_CORP_USER B ON(A.CORP_NO =  B.CORP_NO)
+		WHERE A.DEALING_STATUS = '완료'
+		  AND A.ORDER_STATUS = 'Y'
+		  AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD')
+		   <if test="condition == 'corpNo'">
+		  	 AND B.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+		  </if>
+		   <if test="condition == 'corpId'">
+		  	 AND B.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+		  </if>
+		   <if test="condition == 'corpName'">
+		  	 AND B.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+		  </if> 
+
+	</select>
+	
+	
+	<select id="selectOneMonthSalse" resultType="_int" parameterType="CorpSellPageDTO">
+		
+		SELECT
+	          NVL(SUM(A.ORDER_PRICE),0)
+	     FROM TBL_ORDER A
+	     JOIN TBL_CORP_USER B ON(A.CORP_NO =  B.CORP_NO)
+	    WHERE A.DEALING_STATUS = '완료'
+	      AND A.ORDER_STATUS = 'Y'
+	      <![CDATA[
+		      AND A.ORDER_DATE >=  ADD_MONTHS(SYSDATE,-1)
+		      AND A.ORDER_DATE <= SYSDATE
+	      ]]>
+	       <if test="condition == 'corpNo'">
+		  	 AND B.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+		  </if>
+		   <if test="condition == 'corpId'">
+		  	 AND B.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+		  </if>
+		   <if test="condition == 'corpName'">
+		  	 AND B.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+		  </if> 
+	</select>
+	
+	
+	
+	<resultMap type="map" id="daysalseResultMAp">
+		<result property="sumDate" column="SUM_DATE"/>
+		<result property="sumPrice" column="SUM_PRICE"/>
+	</resultMap>
+	
+	
+	<select id="selectDaySalseInfo" resultMap="daysalseResultMAp" parameterType="CorpSellPageDTO">
+		SELECT 
+		       C.DATE2  SUM_DATE
+			 , NVL(SUM_PRICE,0) SUM_PRICE
+		  FROM (SELECT
+			            TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD')  DATE1
+			          , SUM(A.ORDER_PRICE) AS SUM_PRICE
+			        FROM TBL_ORDER A
+			        JOIN TBL_CORP_USER D ON(A.CORP_NO =  D.CORP_NO)
+			        WHERE A.DEALING_STATUS = '완료'
+				    <if test="condition == 'corpNo'">
+					  AND D.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+				    </if>
+					<if test="condition == 'corpId'">
+					  AND D.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+					</if>
+				    <if test="condition == 'corpName'">
+					  AND D.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+					</if> 
+			        AND A.ORDER_STATUS = 'Y'
+			         <![CDATA[
+			        AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+			        AND  TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <=TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+			        GROUP BY TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD')  
+			        )B
+			     ,
+			      (SELECT TO_CHAR( TO_DATE(#{startDate},'YYYY-MM-DD') + LEVEL - 1 ,'YYYY-MM-DD')  DATE2
+			           FROM dual 
+			        CONNECT BY LEVEL <= ( TO_DATE(#{endDate} ,'YYYY-MM-DD') +1 )
+			                            - ( TO_DATE(#{startDate} ,'YYYY-MM-DD') )  ) C 
+			WHERE C.DATE2 = B.DATE1(+) 
+					]]>
+			ORDER BY C.DATE2
+	</select>
+	
+	<resultMap type="map" id="productTopInfoMap">
+		<result property="productName" column="P_NAME"/>
+		<result property="productCount" column="P_COUNT"/>
+	</resultMap>
+	
+	<select  id="selectProductTopInfo" resultMap="productTopInfoMap" parameterType="CorpSellPageDTO">
+		SELECT
+		      ROWNUM
+		   ,  D.P_NAME
+		   ,  D.P_COUNT
+		FROM(SELECT     
+			       C.PROD_NAME P_NAME
+			     , COUNT(A.PROD_NO) P_COUNT
+			  FROM TBL_ORDER A
+			   JOIN TBL_CORP_USER B ON(A.CORP_NO =  B.CORP_NO)
+			   JOIN TBL_PRODUCT C ON(A.PROD_NO = C.PROD_NO)
+			  WHERE A.DEALING_STATUS = '완료'
+				AND A.ORDER_STATUS = 'Y'
+			    <if test="condition == 'corpNo'">
+					AND B.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+				</if>
+				<if test="condition == 'corpId'">
+					AND B.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+				</if>
+				 <if test="condition == 'corpName'">
+					 AND B.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+				</if>  
+			    <![CDATA[
+			    AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+			    AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+			 GROUP BY C.PROD_NAME 
+			 ORDER BY P_COUNT DESC ) D
+		 WHERE ROWNUM <= 5
+				 ]]>
+	</select>
+	
+	<resultMap type="map" id="categoryTopInfoMap">
+		<result property="categoryName" column="P_CATEGORY"/>
+		<result property="categoryCount" column="P_COUNT"/>
+	</resultMap>
+	
+	<select  id="selectCategoryInfo" resultMap="categoryTopInfoMap" parameterType="CorpSellPageDTO">
+		SELECT
+		      ROWNUM
+		   ,  D.P_CATEGORY
+		   ,  D.P_COUNT
+		FROM(SELECT     
+			       F.PROD_CTG_NAME P_CATEGORY
+			     , COUNT(A.PROD_NO) P_COUNT
+			  FROM TBL_ORDER A
+			   JOIN TBL_CORP_USER B ON(A.CORP_NO =  B.CORP_NO)
+			   JOIN TBL_PRODUCT C ON(A.PROD_NO = C.PROD_NO)
+			   JOIN TBL_PROD_CATEGORY F ON (C.PROD_CTG_NO =F.PROD_CTG_NO)
+			  WHERE A.DEALING_STATUS = '완료'
+				AND A.ORDER_STATUS = 'Y'
+			    <if test="condition == 'corpNo'">
+					AND B.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+				</if>
+				<if test="condition == 'corpId'">
+					AND B.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+				</if>
+				 <if test="condition == 'corpName'">
+					 AND B.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+				</if>  
+			    <![CDATA[
+			    AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+			    AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+				GROUP BY  F.PROD_CTG_NAME
+				ORDER BY P_COUNT DESC ) D
+		 	WHERE ROWNUM <= 5
+				 ]]>
+	</select>
+	
+	
+	<select id="selectAjaxDaySalseInfo" resultMap="daysalseResultMAp" parameterType="CorpSellPageDTO">
+		SELECT 
+		       C.DATE2  SUM_DATE
+			 , NVL(SUM_PRICE,0) SUM_PRICE
+		  FROM (SELECT
+			            TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD')  DATE1
+			          , SUM(A.ORDER_PRICE) AS SUM_PRICE
+			        FROM TBL_ORDER A
+			        JOIN TBL_CORP_USER D ON(A.CORP_NO =  D.CORP_NO)
+			        WHERE A.DEALING_STATUS = '완료'
+				    <if test="condition == 'corpNo'">
+					  AND D.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+				    </if>
+					<if test="condition == 'corpId'">
+					  AND D.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+					</if>
+				    <if test="condition == 'corpName'">
+					  AND D.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+					</if> 
+			        AND A.ORDER_STATUS = 'Y'
+			         <![CDATA[
+			        AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+			        AND  TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <=TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+			        GROUP BY TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD')  
+			        )B
+			     ,
+			      (SELECT TO_CHAR( TO_DATE(#{startDate},'YYYY-MM-DD') + LEVEL - 1 ,'YYYY-MM-DD')  DATE2
+			           FROM dual 
+			        CONNECT BY LEVEL <= ( TO_DATE(#{endDate} ,'YYYY-MM-DD') +1 )
+			                            - ( TO_DATE(#{startDate} ,'YYYY-MM-DD') )  ) C 
+			WHERE C.DATE2 = B.DATE1(+) 
+					]]>
+			ORDER BY C.DATE2
+	</select>
+	
+		<select  id="selectAjaxProductTopInfo" resultMap="productTopInfoMap" parameterType="CorpSellPageDTO">
+		SELECT
+		      ROWNUM
+		   ,  D.P_NAME
+		   ,  D.P_COUNT
+		FROM(SELECT     
+			       C.PROD_NAME P_NAME
+			     , COUNT(A.PROD_NO) P_COUNT
+			  FROM TBL_ORDER A
+			   JOIN TBL_CORP_USER B ON(A.CORP_NO =  B.CORP_NO)
+			   JOIN TBL_PRODUCT C ON(A.PROD_NO = C.PROD_NO)
+			  WHERE A.DEALING_STATUS = '완료'
+				AND A.ORDER_STATUS = 'Y'
+			    <if test="condition == 'corpNo'">
+					AND B.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+				</if>
+				<if test="condition == 'corpId'">
+					AND B.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+				</if>
+				 <if test="condition == 'corpName'">
+					 AND B.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+				</if>  
+			    <![CDATA[
+			    AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+			    AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+			 GROUP BY C.PROD_NAME 
+			 ORDER BY P_COUNT DESC ) D
+		 WHERE ROWNUM <= 5
+				 ]]>
+	</select>
+	
+	<select  id="selectAjaxCategoryInfo" resultMap="categoryTopInfoMap" parameterType="CorpSellPageDTO">
+		SELECT
+		      ROWNUM
+		   ,  D.P_CATEGORY
+		   ,  D.P_COUNT
+		FROM(SELECT     
+			       F.PROD_CTG_NAME P_CATEGORY
+			     , COUNT(A.PROD_NO) P_COUNT
+			  FROM TBL_ORDER A
+			   JOIN TBL_CORP_USER B ON(A.CORP_NO =  B.CORP_NO)
+			   JOIN TBL_PRODUCT C ON(A.PROD_NO = C.PROD_NO)
+			   JOIN TBL_PROD_CATEGORY F ON (C.PROD_CTG_NO =F.PROD_CTG_NO)
+			  WHERE A.DEALING_STATUS = '완료'
+				AND A.ORDER_STATUS = 'Y'
+			    <if test="condition == 'corpNo'">
+					AND B.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+				</if>
+				<if test="condition == 'corpId'">
+					AND B.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+				</if>
+				 <if test="condition == 'corpName'">
+					 AND B.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+				</if>  
+			    <![CDATA[
+			    AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+			    AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+				GROUP BY  F.PROD_CTG_NAME
+				ORDER BY P_COUNT DESC ) D
+		 	WHERE ROWNUM <= 5
+				 ]]>
+	</select>
+	
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>

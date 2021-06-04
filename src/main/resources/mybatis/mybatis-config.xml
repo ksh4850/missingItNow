@@ -19,12 +19,19 @@
  		<typeAlias alias="CorpUserImgDTO" type="com.finalproj.missingitnow.corpMng.model.dto.CorpUserImgDTO"/>
  		
  		<!-- systemAdmin -->
- 		<typeAlias type="com.finalproj.missingitnow.admin.qna.model.dto.QNADTO" alias="qnaDTO"/>
-		<typeAlias type="com.finalproj.missingitnow.admin.qna.model.dto.UserDTO" alias="userDTO"/>
-		<typeAlias type="com.finalproj.missingitnow.admin.notice.model.dto.NoticeDTO" alias="noticeDTO"/>
-		<typeAlias type="com.finalproj.missingitnow.common.search.DetailSearchDTO" alias="detailSearchDTO"/>
-		<typeAlias type="com.finalproj.missingitnow.common.search.MoreSearchDTO" alias="moreSearchDTO"/>
-		<typeAlias type="com.finalproj.missingitnow.common.search.SearchDTO" alias="searchDTO"/>
+ 		<typeAlias alias="qnaDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.QNADTO"/>
+		<typeAlias alias="userDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.UserDTO"/>
+		<typeAlias alias="noticeDTO" type="com.finalproj.missingitnow.admin.notice.model.dto.NoticeDTO"/>
+		<typeAlias alias="detailSearchDTO" type="com.finalproj.missingitnow.common.search.DetailSearchDTO"/>
+		<typeAlias alias="moreSearchDTO" type="com.finalproj.missingitnow.common.search.MoreSearchDTO"/>
+		<typeAlias alias="searchDTO" type="com.finalproj.missingitnow.common.search.SearchDTO"/>
+		<typeAlias alias="orderDTO" type="com.finalproj.missingitnow.admin.membermanage.model.dto.OrderDTO"/>
+ 		<typeAlias alias="orderCorpUserDTO" type="com.finalproj.missingitnow.admin.membermanage.model.dto.CorpUserDTO"/>
+ 		<typeAlias alias="orderCorpUserLvDTO" type="com.finalproj.missingitnow.admin.membermanage.model.dto.CorpUserLvDTO"/>
+ 		<typeAlias alias="orderProdMngProductDTO" type="com.finalproj.missingitnow.admin.membermanage.model.dto.ProdMngProductDTO"/>
+ 		<typeAlias alias="orderProdMngCategoryDTO" type="com.finalproj.missingitnow.admin.membermanage.model.dto.ProdMngCategoryDTO"/>
+ 		<typeAlias alias="orderProdMngProductImgDTO" type="com.finalproj.missingitnow.admin.membermanage.model.dto.ProdMngProductImgDTO"/>
+ 		<typeAlias alias="orderUserDTO" type="com.finalproj.missingitnow.admin.membermanage.model.dto.UserDTO"/>
  		
  		<!-- product -->
  		<typeAlias alias="ProductDTO" type="com.finalproj.missingitnow.product.model.dto.ProductDTO"/>
