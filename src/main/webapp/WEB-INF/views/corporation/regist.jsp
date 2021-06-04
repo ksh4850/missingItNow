@@ -15,38 +15,37 @@
         <form action="${ pageContext.servletContext.contextPath }/corporation/regist" method="post" enctype="multipart/form-data">
         <div class="main-Title">기업 회원가입</div>
         <div class="input-many">
-            <div class="input-label">아이디 : </div> <input class="aa" type="text" name="corpId" placeholder="아이디를 입력해 주세요">
+            <div class="input-label">아이디 : </div> <input class="aa" type="text" name="corpId" placeholder="아이디를 입력해 주세요" required>
         </div>
         <div class="input-many">
-            <div class="input-label">비밀번호 : </div><input type="password" name="corpPwd" placeholder="비밀번호를 입력해 주세요">
+            <div class="input-label">비밀번호 : </div><input type="password" name="corpPwd" placeholder="비밀번호를 입력해 주세요" required>
         </div>
         <div class="input-many">
-            <div class="input-label">비밀번호 : </div><input type="password" name="corpPwd" placeholder="비밀번호를 입력해 주세요">
+            <div class="input-label">비밀번호 확인: </div><input type="password" name="corpPwd2" placeholder="비밀번호를 입력해 주세요" required>
         </div>
         <div class="input-many">
-            <div class="input-label">회사명 : </div> <input type="text" name="corpName" placeholder="회사명을 입력해 주세요">
+            <div class="input-label">회사명 : </div> <input type="text" name="corpName" placeholder="회사명을 입력해 주세요" required>
         </div>
         <div class="input-many">
-            <div class="input-label">이메일 : </div><input type="email" name="corpEmail" placeholder="이메일을 입력해 주세요">
+            <div class="input-label">이메일 : </div><input type="email" name="corpEmail" placeholder="이메일을 입력해 주세요" required>
         </div>
         <div class="input-many">
-            <div class="input-label">대표 번호 : </div><input type="text" name="corpContacts" placeholder="휴대폰 번호를 '-'없이 입력해 주세요">
+            <div class="input-label">대표 번호 : </div><input type="text" name="corpContacts" placeholder="'-'를 포함하여 입력해 주세요" required>
         </div>
         <div class="input-many">
-            <div class="input-label">사업자 등록번호 : </div><input name="corpRegistrationNo" type="text" placeholder="사업자 등록번호를 입력해 주세요">
+            <div class="input-label">사업자 등록번호 : </div><input name="corpRegistrationNo" type="text" placeholder="사업자 등록번호를 '-'없이 입력해 주세요" required>
         </div>
             <div class="input-many">
-                <div class="input-label">우편번호 : </div><input type="text" name="zipCode" id="zipCode">
+                <div class="input-label">우편번호 : </div><input type="text" name="corpAddress" id="zipCode" required>
                 <button type="button" id="searchZipCode">검색</button>
-                 </div>
-                 <div class="input-many">
-                <div class="input-label" id="aa">주소 : </div><input type="text" name="corpAddress" id="address1" >
-                </div>
-                <div class="input-many">
-                <div class="input-label" id="bb">상세주소 : </div>
-				<input type="text" name="corpAddress2" id="address2" placeholder="상세주소를 입력해 주세요">
-				</div>
             </div>
+            <div class="input-many">
+                <div class="input-label" id="aa">주소 : </div><input type="text" name="corpAddress" id="address1" required>
+                </div>
+            <div class="input-many">
+            <div class="input-label" id="bb">상세주소 : </div>
+				<input type="text" name="corpAddress" id="address2" placeholder="상세주소를 입력해 주세요" required>
+			</div>
             <div class="input-many">
                 <input name="termsChecked" type="checkbox" value="checked">
                 <div class="input-label2">개인정보처리방침 동의

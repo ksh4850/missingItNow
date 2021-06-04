@@ -21,8 +21,7 @@
 	</resultMap> 
 
 
-
- 	<select id="selectEncPassword" resultType="java.lang.String" parameterType="string">
+ 	<select id="selectEncPassword" resultType="java.lang.String" parameterType="memberDTO">
 		SELECT 
 		       CORP_PWD
 		  FROM TBL_CORP_USER 
@@ -30,7 +29,7 @@
 		   AND CORP_LEAVE_CHK='N'
 	</select>
 	
-	<select id="login" resultMap="CorpMemberResultSet" parameterType="string">
+	<select id="login" resultMap="CorpMemberResultSet">
 		SELECT 
 		       CORP_NO
              , CORP_ID
@@ -51,27 +50,20 @@
 		   AND A.CORP_LEAVE_CHK='N'
 	</select>  
 
-	<insert id="insertMember" parameterType="MemberDTO">
+	<insert id="insertMember" parameterType="memberDTO">
         INSERT 
           INTO TBL_CORP_USER
         (
           CORP_NO, CORP_ID, CORP_PWD
         , CORP_NAME, CORP_CONTACTS, CORP_ADDRESS
-        , CORP_EMAIL, CORP_REGISTRATION_NO
-        , CORP_LV_NO
-        , CORP_COMMISSION, DEPOSIT_AMT, CORP_REGST_DATE
-        , CORP_REGST_ACCEPTED, CORP_LEAVE_CHK
+        , CORP_EMAIL, CORP_REGISTRATION_NO 
         ) 
       VALUES
       (
-        'no3', #{ corpId }, #{ corpPwd }
+        'CORP' || LPAD(SEQ_CORP_USER.NEXTVAL,4,0), #{ corpId }, #{ corpPwd }
       , #{ corpName }, #{ corpContacts }, #{ corpAddress }
       , #{ corpEmail }, #{ corpRegistrationNo }
-      , 'NO1'
-      , 0.05, 0 , SYSDATE
-      , 'N', 'N'
       )
-
 	</insert>
 </mapper>
 

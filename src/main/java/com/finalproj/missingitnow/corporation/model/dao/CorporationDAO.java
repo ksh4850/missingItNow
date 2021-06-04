@@ -4,10 +4,10 @@ import com.finalproj.missingitnow.corporation.model.dto.MemberDTO;
 
 public interface CorporationDAO {
 
-	String selectEncPassword(String a);
-
-	MemberDTO login(String a);
-
 	int insertMember(MemberDTO member);
+
+	String selectEncPassword(MemberDTO member);
+
+	MemberDTO login(MemberDTO member);
 
 }

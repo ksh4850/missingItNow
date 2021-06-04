@@ -9,11 +9,10 @@ import com.finalproj.missingitnow.corporation.model.dao.CorporationDAO;
 import com.finalproj.missingitnow.corporation.model.dto.MemberDTO;
 
 
-
-
 @Service
 public class CorporationServiceImpl implements CorporationService {
-	private BCryptPasswordEncoder passwordEncoder;
+	
+	private final BCryptPasswordEncoder passwordEncoder;
 	private final CorporationDAO corporationDAO;
 	
 	@Autowired
@@ -24,11 +23,17 @@ public class CorporationServiceImpl implements CorporationService {
 
 	@Override
 	public MemberDTO loginMember(MemberDTO member) throws LoginFailedException {
-		String a = member.getCorpId();
-		if(!passwordEncoder.matches(member.getCorpPwd(), corporationDAO.selectEncPassword(a))){
+		
+		System.out.println("memberPWD : " + member.getCorpPwd());
+		
+		if(!passwordEncoder.matches(member.getCorpPwd(), corporationDAO.selectEncPassword(member))){
 			throw new LoginFailedException("로그인 실패!");
 		}
-		return corporationDAO.login(a);
+		
+		String a = corporationDAO.selectEncPassword(member);
+		System.out.println("corporationDAO.selectEncPassword(member) : " + a);
+		
+		return corporationDAO.login(member);
 	}
 //
 	@Override
