@@ -18,7 +18,7 @@
 		<result column="USER_LEAVE_CHK" property="user_Leave_Chk" />
 	</resultMap>
 	
-	<insert id="insertMember" parameterType="UserDTO">
+	<insert id="insertMember" parameterType="privateMemeberDTO">
         INSERT 
           INTO TBL_USER A
         (

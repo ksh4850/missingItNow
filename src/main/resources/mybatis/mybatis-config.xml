@@ -37,10 +37,12 @@
  		<typeAlias alias="ProductDTO" type="com.finalproj.missingitnow.product.model.dto.ProductDTO"/>
  		<typeAlias alias="CorpDTO" type="com.finalproj.missingitnow.product.model.dto.CorpDTO"/>
  		<typeAlias alias="ProductImgDTO" type="com.finalproj.missingitnow.product.model.dto.ProductImgDTO"/>
- 		<typeAlias alias="ReviewDTO" type="com.finalproj.missingitnow.product.model.dto.ReviewDTO"/>
- 		
+ 		<typeAlias alias="ReviewDTO" type="com.finalproj.missingitnow.product.model.dto.ReviewDTO"/> 		
  		<typeAlias alias="memberDTO" type="com.finalproj.missingitnow.corporation.model.dto.MemberDTO"/>
+
+		<!-- privateMember -->
  		<typeAlias alias="privateMemeberDTO" type="com.finalproj.missingitnow.member.model.dto.PrivateMemberDTO" />
+ 		<typeAlias alias="QnaBoardDTO" type="com.finalproj.missingitnow.member.model.dto.QnaBoardDTO" />
  		
  		<!-- system -->
  		<typeAlias alias="SCorpDTO" type="com.finalproj.missingitnow.system.model.dto.SCorpDTO"/>

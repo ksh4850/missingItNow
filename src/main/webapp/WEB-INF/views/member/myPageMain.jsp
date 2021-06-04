@@ -34,6 +34,35 @@
 
     <div class="contentForm">
 				
+				<script>
+					
+					function goQnaPage(userNo){
+						
+						const f = document.qnaPaging;
+						
+						f.userNo.value = userNo;
+						
+						console.log(f.userNo);
+						
+						
+						
+						f.action = "${pageContext.servletContext.contextPath}/member/QNA";
+						
+						f.method = "post";
+						
+						f.submit();
+						
+					}
+				
+					
+					
+					
+				</script>
+				
+				<form name="qnaPaging">
+                     <input type="hidden" name="userNo" value="${loginMember.userNo}">				
+				</form>
+				
         <div class="leftDiv">
                 <table class="myPageNavTable">
                     <tr>
@@ -49,8 +78,10 @@
 					<tr> <td><br></td> </tr>
                     <tr>
                         <td>
-                        <a href="${pageContext.servletContext.contextPath}/member/myPageMain" onclick="NavMenuProfile()">
-                        		&nbsp;프로필</a></td>
+                        <a href="${pageContext.servletContext.contextPath}/member/myPageMain">
+                        		&nbsp;프로필
+                        		</a>
+                        		</td>
                     </tr>
                     <tr> <td><br></td> </tr>
                     <tr>
@@ -61,9 +92,16 @@
                         <td>&nbsp;취소/교환/반품내역</td>
                     </tr>
                     <tr> <td><br></td> </tr>
+
                     <tr>
-                        <td>&nbsp;Q&A</td>
+                        <td>
+                        <a href="javascript:goQnaPage('${loginMember.userNo}');">
+<%--                         <a href="${pageContext.servletContext.contextPath}/member/QNA" > --%>
+                        &nbsp;Q&A
+                        </a>
+                        </td>
                     </tr>
+
                     <tr> <td><br></td> </tr>
                     <tr>
                         <td>&nbsp;쿠폰</td>
@@ -228,6 +266,8 @@
 
 <script>
 
+	console.log("${loginMember.userNo}")
+
 /* 결합된 주소값을 칸에 맞게 잘라서 넣는 스크립트*/
 
 const userAddress = "${loginMember.userAddress}";
@@ -251,7 +291,6 @@ $(function(){
     const userDetailAddress = $('input[name=userDetailAddress]').val();
     const userAddress = userZipCode + "-" + userStreetAddress + "-" + userDetailAddress;
 
-    //console.log(userAddress);
 	 
 	
 	   $('input[name=userAddress]').attr('value',userAddress);
@@ -263,17 +302,14 @@ function getUserAddress(){
 	
     const userZipCode = $('input[name=zipCode]').val();
     
-    //console.log(userZipCode);
     
     
     const userStreetAddress = $('input[name=userStreetAddress]').val();
     
-    //console.log(userStreetAddress);
 
 
     const userDetailAddress = $('input[name=userDetailAddress]').val();
    
-    //console.log(userDetailAddress);
     
   
   
@@ -286,6 +322,9 @@ function getUserAddress(){
    
 
 }
+
+
+
 
 
 

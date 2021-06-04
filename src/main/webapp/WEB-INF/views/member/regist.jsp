@@ -35,7 +35,7 @@
 			<tr>
 			
 			<td>
-		<img src="/missingitnow/resources/img/member/registLeftPicture.png">
+		<img src="/missingitnow/resources/images/member/registLeftPicture.png">
 			
 			</td>
 			</tr>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.finalproj.missingitnow.member.model.dao.QnaBoardMapper">
+
+	<resultMap id="QnaBoardResultSet" type="QnaBoardDTO">
+		<id column="QNA_NO" property="qnaNo"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="QNA_TITLE" property="qnaTitle"/>
+		<result column="QNA_DETAILS" property="qnaDetails"/>
+		<result column="QNA_DATE" property="qnaDate"/>
+		<result column="QNA_REPLY" property="qnaReply"/>
+		<result column="QNA_REPLY_DATE" property="qnaReplyDate"/>
+		<result column="QNA_REPLY_CHK" property="qnaReplyChk"/>
+		<result column="QNA_STATUS" property="qnaStatus"/>
+		<result column="QNA_HITS" property="qnaHits"/>
+	
+	</resultMap>
+
+	<select id="selectTotalCount" resultType="int">
+	 	SELECT
+			COUNT(*)
+		FROM
+			TBL_QNA	
+	</select>
+
+
+	<select id="selectBoardList" resultMap="QnaBoardResultSet">
+	
+	        SELECT 
+               A.RNUM
+             , A.*
+          FROM (SELECT ROWNUM RNUM
+                     , B.*
+                  FROM (SELECT C.*
+                          FROM TBL_QNA C
+                         WHERE C.USER_NO = #{userNo}
+                         ORDER BY C.QNA_NO DESC
+                        ) B
+               ) A
+			WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}	
+		
+	</select>
+
+</mapper>

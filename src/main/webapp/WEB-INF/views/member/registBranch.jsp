@@ -22,7 +22,7 @@
 <div class="contentForm">
     
 	<div class="backGround">
-		<img src="/missingitnow/resources/img/registBranchBackGround.png">
+		<img src="/missingitnow/resources/images/registBranchBackGround.png">
 	</div>
 
 	
