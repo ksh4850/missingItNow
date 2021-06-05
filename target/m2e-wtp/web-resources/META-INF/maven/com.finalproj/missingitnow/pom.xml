@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.finalproj</groupId>
 	<artifactId>missingitnow</artifactId>
-	<name>missingitnow</name>
+	<name>(SELF_WORK) missingItNow_21-06-04</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
