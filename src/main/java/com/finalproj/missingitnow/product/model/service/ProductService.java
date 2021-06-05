@@ -1,5 +1,6 @@
 package com.finalproj.missingitnow.product.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +34,11 @@ public interface ProductService {
 
 	/* 댓글 등록 */
 	String reviewStar(List<Map<String, String>> list);
+
+	/* 가격선택 리스트 */
+	List<ProductDTO> selectProductPriceChoice(HashMap<String, Object> price);
+	
+	
 
 
 	

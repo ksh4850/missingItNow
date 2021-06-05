@@ -1,5 +1,6 @@
 package com.finalproj.missingitnow.product.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ public interface ProductDAO {
 
 	String reviewStar(List<Map<String, String>> list);
 
+	List<ProductDTO> selectProductPriceChoice(HashMap<String, Object> price);
 
 
 }

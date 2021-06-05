@@ -1,5 +1,6 @@
 package com.finalproj.missingitnow.product.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -73,6 +74,12 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.reviewStar(list);
 	}
 
+	@Override
+	public List<ProductDTO> selectProductPriceChoice(HashMap<String, Object> price) {
+		return productDAO.selectProductPriceChoice(price);
+	}
+
+	
 	
 
 	

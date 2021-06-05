@@ -115,6 +115,20 @@
 		 ORDER BY A.PROD_HITS DESC
 	</select>
 	
+	<select id="selectProductPriceChoice" resultMap="ProductResultSet" parameterType="hashmap">
+		SELECT 
+		       A.*
+             , B.PROD_IMG_RENAME
+             , B.PROD_IMG_PATH
+             , c.CORP_NAME
+		  FROM TBL_PRODUCT A
+          JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+          JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
+		 WHERE A.PROD_CTG_NO = #{prodCtgNo}
+           AND  A.PROD_PRICE BETWEEN  #{lowPrice} AND #{highPrice}
+		   AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+	</select>
+	
 	<select id="product" resultMap="ProductResultSet" parameterType="string">
 		SELECT 
 		       A.*

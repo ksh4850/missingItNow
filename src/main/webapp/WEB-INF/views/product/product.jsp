@@ -9,7 +9,7 @@
     <title>상품 상세 페이지 </title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/product/product.css">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -526,7 +526,7 @@
         </div>
         <div class="section3">
             <div class="section4_rv">전체 리뷰 총 <c:out value="${ count }" />건</div>
-            <form action="${ pageContext.servletContext.contextPath }/product/insertReview" method="post" encType="multipart/form-data">
+            
 				<span>
    					<button onclick="Img1()" type="button"><img id="star1" src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg" alt="" ></button>
     				<button onclick="Img2()" type="button"><img id="star2" src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg" alt="" ></button>
@@ -535,22 +535,22 @@
     				<button onclick="Img5()" type="button"><img id="star5" src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg" alt="" ></button>
 				</span>
 
-				별점 :  <input type="text" value="3" name="stars" id="starsValue"><br>
-				글내용 : <input type="text" name="reviewDetails"><br>
-				<!-- 글내용 : <input type="file" name="multiFiles" multiple><br> -->
-				<button type="submit"> 댓글 등록</button>
-			</form>  
+				별점 :  <input type="text" value="0" name="stars" id="starsValue"><br>
+				글내용 : <input type="text" name="reviewDetails" id="reviewDetails"><br>
+                      <input type="hidden" id="productNo" value="${productList[0].prodNo}">
+				<button id="insertReview" > 댓글 등록</button>
+			
             <table>
-                <thead>
+                <thead><tr><td>zz</td><td>zz</td></tr>
                 </thead>
-                <tbody>
+                <tbody class="tbody">
                     <c:forEach var="reviewList" items="${ reviewList }">
                         <tr>
                             <td>
-                                <c:out value="${ reviewList.nickname }" />
+                                ${ reviewList.nickname }
                             </td>
                             <td class="table_right">
-                                <c:out value="${ reviewList.reviewDate }" />
+                                ${ reviewList.reviewDate }
                             </td>
                         </tr>
                         <tr>
@@ -663,6 +663,88 @@
         </div>
     </section4>
     <jsp:include page="../common/footer.jsp" />
+    <script>
+		$("#insertReview").click(function(){
+			alert("나와라요");
+			const context = document.getElementById("reviewDetails").value;
+			const starValue = document.getElementById("starsValue").value;
+			const productNo = document.getElementById("productNo").value;
+			
+		
+			$.ajax({
+				url : "insertReview",
+				method : "post",
+				data : {
+					context : context,
+					starValue :starValue,
+					productNo : productNo
+				},
+				success : function(data){
+					console.log(data)
+					console.table(data);
+					const $table = $(".tbody");
+					$table.html("");
+					
+					for(var index in data){
+						$stScore = $("<td>").text(data[index].reviewScore + "점");
+						
+						$tr = $("<tr>");
+						$noName = $("<td>").text(data[index].nickname);
+						$reviewDetails = $("<td>").text(data[index].reviewDate);
+						$tr.append($noName);
+						$tr.append($reviewDetails);
+						
+						$tra = $("<tr>");
+						$noNameb = $("<td>");
+						
+						if(data[index].reviewScore == 5){
+							$st5 = $('img').attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/stars-5.jpg").css("height","25px").css("width","125px");
+							$noNameb.append($st5);
+						} else if (data[index].reviewScore == 4){
+							$st4 = $('img').attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/stars-4.jpg").css("height","25px").css("width","125px");
+							$noNameb.append($st4);
+						} else if (data[index].reviewScore == 3){
+						$st3 = $('img').attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/stars-3.jpg").css("height","25px").css("width","125px");
+							$noNameb.append($st3);
+						} else if (data[index].reviewScore == 2){
+						$st2 = $('img').attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/stars-2.jpg").css("height","25px").css("width","125px");
+							$noNameb.append($st2);
+						} else if (data[index].reviewScore == 1){
+						$st1 = $('img').attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/stars-1.jpg").css("height","25px").css("width","125px");
+							$noNameb.append($st1);
+						} else if (data[index].reviewScore == 0){
+						$st0 = $('img').attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/stars-0.jpg").css("height","25px").css("width","125px");
+							$noNameb.append($st0);
+						}
+						
+						$tra.append($noNameb);
+
+						$trb = $("<tr>");
+						$noNamec = $("<td>").text(data[index].reviewDetails);
+						
+						$trb.append($noNamec);
+						
+						
+						
+						$table.append($tr);
+						$table.append($tra); 
+						$table.append($trb); 
+						
+					
+
+					}	
+					
+				},
+				
+				error : function(error){
+					console.log(error);
+				}
+				});
+			
+		});
+
+		
+	</script>
      <script>
     function Img1() {
         document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
