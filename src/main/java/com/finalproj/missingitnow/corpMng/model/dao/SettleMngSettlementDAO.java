@@ -6,6 +6,7 @@ import java.util.Map;
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SalesMngSalesDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SettleMngDepositDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.SettleMngPaymentDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SettleMngSettlementDTO;
 
 public interface SettleMngSettlementDAO {
@@ -33,6 +34,9 @@ public interface SettleMngSettlementDAO {
 
 	// 결제내역 insert하면서 예치금 테이블에도 같이 '충전'내용 insert
 	int insertDepositCharge(Map<String, Object> params);
+
+	// 결제내역 조회
+	List<SettleMngPaymentDTO> selectPaymentList();
 	
 
 	

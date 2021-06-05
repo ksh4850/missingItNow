@@ -28,10 +28,10 @@ public class CorpMngMainServiceImpl implements CorpMngMainService {
 		return corpMngMainDAO.updateCorpUserInfo(corpUser);
 	}
 
-//	@Override
-//	public int deleteCorpUserImg(CorpUserDTO corpUser) {
-//		return corpMngMainDAO.deleteCorpUserImg(corpUser);
-//	}
+	@Override
+	public int deleteCorpUserImg(CorpUserDTO corpUser) {
+		return corpMngMainDAO.deleteCorpUserImg(corpUser);
+	}
 
 	@Override
 	public int updateCorpUserImg(Map<String, String> file) {

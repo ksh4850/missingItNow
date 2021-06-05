@@ -11,8 +11,9 @@ public interface CorpMngMainDAO {
 	
 	// 기업회원 정보 수정
 	int updateCorpUserInfo(CorpUserDTO corpUser);
-//	int deleteCorpUserImg(CorpUserDTO corpUser);
+	int deleteCorpUserImg(CorpUserDTO corpUser);
 	int updateCorpUserImg(Map<String, String> file);
+
 	
 	
 

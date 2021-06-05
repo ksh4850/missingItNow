@@ -33,13 +33,25 @@
         position: relative;
         width: 240px;
         height: 250px;
-        border: 1px solid blue;
+        /* border: 1px solid blue; */
+    }
+    
+    #corpName {
+    	margin-top: 20px;
+    	margin-bottom: 10px;
+		padding: 0; 
+		display: inline;
+		width: 120px;
+		font-size: 20px; 
+		font-family: 'SCDream-Regular';
+		text-align: center;
+		border: none;
     }
 
     .corpProfileImg{
         margin: 0 auto;
-        width: 150px;
-        height: 150px;
+        width: 200px;
+        height: 200px;
         border: 1px solid black;
         border-radius: 50%;
     }
@@ -48,12 +60,15 @@
     <div class="nav">
         <div class="corpProfileDiv">
             <br> 
-            <div class="corpProfileImg"> </div>
+            <img id="corpImg" class="corpProfileImg" src="${ pageContext.servletContext.contextPath }/resources/corpUserImages/CorpUserDefaultImg.PNG"/>
             <br>
-            <h3 style="display: inline;">다이소</h3><p style="display: inline;">님 환영합니다.</p>
+            <div align="center">
+	            <input type="text" id="corpName" readonly>
+	            <p style="display: inline;">님 <br>환영합니다.</p>
+            </div>
         </div>
         <br>
-        <div class="naviList">
+        <div class="naviList" style="margin-top: 50px;">
             <div class="naviListTitle">
                 <h2>상품관리</h2>
             </div>
@@ -77,7 +92,7 @@
             <div class="naviListDetails">                
                 <li id="settlementNList">정산 및 내역</li>
                 <li id="depositMng">예치금관리</li>
-                <li id="paymentList" style="color: red;">결제내역(공사중)</li>
+                <li id="paymentList">결제내역</li>
             </div>
             <div class="naviListTitle">
                 <h2 id="qnaNReviewMng">문의/리뷰관리</h2>
@@ -117,6 +132,9 @@
 			location.href="${ pageContext.servletContext.contextPath }/settleMng/selectDepositList";
 		})
 		
+		$("#paymentList").click(function(){
+			location.href="${ pageContext.servletContext.contextPath }/settleMng/paymentList";
+		})
 		
 		
 		
@@ -125,7 +143,37 @@
 			location.href="${ pageContext.servletContext.contextPath }/statistics/selectAllStatistics";
 		})
 		
+		$.ajax({
+			url: '/missingitnow/corpMng/selectCorpUserInfoForNavi',
+			type: 'post',
+			success: function(data){
+				console.log(data)
+				const corpName = data.corpName;
+				const corpImg = data.corpImg.corpImgRename;
+				
+				$('#corpName').attr('value',corpName);
+				$('#corpImg').attr('src','${ pageContext.servletContext.contextPath }/resources/corpUserImages/'+corpImg);
+				
+			},
+			error: function(error){
+				console.log(error)
+			}
+		});
 	</script>
 	
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

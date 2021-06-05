@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SettleMngDepositDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.SettleMngPaymentDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SettleMngSettlementDTO;
 import com.finalproj.missingitnow.corpMng.model.service.SettleMngService;
 import com.google.gson.Gson;
@@ -133,6 +134,20 @@ public class SettleMngController {
 		int insertDepositCharge = settleMngService.insertDepositCharge(params);
 		
 		return gson.toJson(insertPayment);
+	}
+	
+	// 결제내역 조회
+	@GetMapping("/paymentList")
+	public String selectPaymentList(Model model) {
+		
+		List<SettleMngPaymentDTO> paymentList = settleMngService.selectPaymentList();
+//		for(SettleMngPaymentDTO pay : paymentList) {
+//			System.out.println("pay : " + pay);
+//		}
+		
+		model.addAttribute("paymentList", paymentList);
+		
+		return "/corpMng/settleMng-paymentList";
 	}
 	
 	

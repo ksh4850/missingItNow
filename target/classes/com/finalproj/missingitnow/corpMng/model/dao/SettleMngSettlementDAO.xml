@@ -133,6 +133,27 @@
 		)
 	</insert>
 	
+	<resultMap id="paymentListResultSet" type="SettleMngPaymentDTO">
+		<id property="corpPayNo" column="CORP_PAY_NO"/>
+		<result property="corpNo" column="CORP_NO"/>
+		<result property="corpPayMethod" column="CORP_PAY_METHOD"/>
+		<result property="corpPayDetails" column="CORP_PAY_DETAILS"/>
+		<result property="corpPayAmount" column="CORP_PAY_AMOUNT"/>
+		<result property="corpPayDate" column="CORP_PAY_DATE"/>
+	</resultMap>
+	
+	<select id="selectPaymentList" resultMap="paymentListResultSet">
+		SELECT A.CORP_PAY_NO
+		     , CASE WHEN A.CORP_PAY_METHOD = 'card' THEN '카드' END AS CORP_PAY_METHOD
+		     , A.CORP_PAY_DETAILS
+		     , A.CORP_PAY_AMOUNT
+		     , A.CORP_PAY_DATE
+		  FROM TBL_CORP_PAYMENT A
+		 WHERE A.CORP_PAY_CHK = 'Y'
+		   AND A.CORP_NO = 'CORP0001'
+	</select>
+	
+	
 </mapper>
 
 

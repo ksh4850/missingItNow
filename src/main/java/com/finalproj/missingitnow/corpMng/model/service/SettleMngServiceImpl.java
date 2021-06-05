@@ -10,6 +10,7 @@ import com.finalproj.missingitnow.corpMng.model.dao.SettleMngSettlementDAO;
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SalesMngSalesDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SettleMngDepositDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.SettleMngPaymentDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SettleMngSettlementDTO;
 
 @Service
@@ -60,6 +61,11 @@ public class SettleMngServiceImpl implements SettleMngService {
 	@Override
 	public int insertDepositCharge(Map<String, Object> params) {
 		return settleMngSettlementDAO.insertDepositCharge(params);
+	}
+
+	@Override
+	public List<SettleMngPaymentDTO> selectPaymentList() {
+		return settleMngSettlementDAO.selectPaymentList();
 	}
 
 

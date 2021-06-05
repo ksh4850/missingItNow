@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.service.CorpMngMainService;
+import com.google.gson.Gson;
 
 @Controller
 @RequestMapping("/corpMng")
@@ -35,6 +37,19 @@ public class CorpMngMainController {
 		this.passwordEncoder = passwordEncoder;
 	}
 	
+	@PostMapping(value="/selectCorpUserInfoForNavi", produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public String selectCorpUserInfoForNavi() {
+		
+		Gson gson = new Gson();
+		
+		CorpUserDTO corpUserInfo = corpMngMainService.selectCorpUserInfo();
+//		System.out.println("CorpUserInfoForNavi : " + corpUserInfo);
+		return gson.toJson(corpUserInfo);
+	}
+	
+	
+	
 	@GetMapping("/main")
 	public String corpMngMain() {
 		return "/corpMng/corpMngMain";
@@ -45,7 +60,7 @@ public class CorpMngMainController {
 	public String selectCorpUserInfo(Model model) {
 		
 		CorpUserDTO corpUserInfo = corpMngMainService.selectCorpUserInfo();
-		System.out.println("corpUserInfo :" + corpUserInfo);
+//		System.out.println("corpUserInfo :" + corpUserInfo);
 		
 		model.addAttribute("corpUserInfo", corpUserInfo);
 		
@@ -65,8 +80,8 @@ public class CorpMngMainController {
 //		System.out.println("updateCorpUserInfo : " + updateCorpUserInfo);
 		
 		// 기존 프로필 이미지 삭제
-//		int deleteCorpUserImg = corpMngMainService.deleteCorpUserImg(corpUser);
-//		System.out.println("deleteCorpUserImg : " + deleteCorpUserImg);
+		int deleteCorpUserImg = corpMngMainService.deleteCorpUserImg(corpUser);
+		System.out.println("deleteCorpUserImg : " + deleteCorpUserImg);
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String filePath = root + "/corpUserImages";
@@ -93,7 +108,7 @@ public class CorpMngMainController {
 			file.put("corpNo", corpNo);
 			
 			try {
-				corpUserImg.transferTo(new File(filePath + "\\" + changeName + ext));
+				corpUserImg.transferTo(new File(filePath + "\\" + changeName));
 				
 				updateCorpUserImg = corpMngMainService.updateCorpUserImg(file);
 			} catch (IOException e) {

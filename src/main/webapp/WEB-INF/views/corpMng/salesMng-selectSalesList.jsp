@@ -75,7 +75,7 @@
                     <td style="width: 180px">주문번호</td>
                     <td>상품명</td> 
                     <td style="width: 100px">수량</td>
-                    <td style="width: 180px">매출금액</td>
+                    <td style="width: 180px">매출금액 (원)</td>
                     <td style="width: 150px">매출일자</td>
                 </tr>
                 <c:if test="${ empty salesList }">
