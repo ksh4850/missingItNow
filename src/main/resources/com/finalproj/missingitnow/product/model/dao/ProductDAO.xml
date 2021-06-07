@@ -59,6 +59,28 @@
 		<result property="reviewDate" column="REVIEW_DATE"/>
 		<result property="nickname" column="USER_NAME"/>
 	</resultMap>
+	
+	<resultMap id="CommentResultSet" type="CommentDTO">
+		<id property="prodComtNo" column="PROD_COMT_NO"/>
+		<result property="pordNo" column="PROD_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="pordComtDetails" column="PROD_COMT_DETAILS"/>
+		<result property="pordComtdate" column="PROD_COMT_DATE"/>
+		<result property="pordComtDisplayChk" column="PROD_COMT_DISPLAY_CHK"/>
+		<result property="pordComtReplyChk" column="PROD_COMT_REPLY_CHK"/>
+		<result property="pordComtReply" column="PROD_COMT_REPLY"/>
+		<result property="userName" column="USER_NAME"/>
+	</resultMap> 
+	
+	<resultMap id="OrderPaymentResultSet" type="OrderPaymentDTO">
+		<id property="orderNo" column="ORDER_NO"/>
+		<result property="paymentNo" column="PAYMENT_NO"/>
+	</resultMap>
+	
+	<resultMap id="StarsScoreResultSet" type="ReviewDTO">
+		<id property="count" column="1"/>
+		<result property="starsScore" column="2"/>
+	</resultMap>
 
 	<select id="selectProduct" resultMap="ProductResultSet" parameterType="string">
 		SELECT 
@@ -71,6 +93,22 @@
           JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
 		 WHERE A.PROD_CTG_NO = #{prodCtgNo}
 		   AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+	</select>
+	
+	<select id="starsScore" resultType="String" parameterType="string">
+		SELECT
+      COUNT(*)
+  FROM TBL_PRODUCT A
+  JOIN TBL_PROD_REVIEW D ON (A.PROD_NO = D.PROD_NO)
+  WHERE D.PROD_NO = #{prodNo}
+	</select>
+	
+	<select id="starsScore2" resultType="String" parameterType="string">
+		SELECT
+      ROUND(SUM(D.REVIEW_SCORE) / COUNT(*))
+  FROM TBL_PRODUCT A
+  JOIN TBL_PROD_REVIEW D ON (A.PROD_NO = D.PROD_NO)
+  WHERE D.PROD_NO = #{prodNo}
 	</select>
 	
 	<select id="selectProductHigh" resultMap="ProductResultSet" parameterType="string">
@@ -134,7 +172,7 @@
 		       A.*
              , B.PROD_IMG_RENAME
              , B.PROD_IMG_PATH
-             , c.CORP_NAME
+             , C.CORP_NAME
 		  FROM TBL_PRODUCT A
           JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
           JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
@@ -164,7 +202,13 @@
 		  WHERE A.PROD_NO = #{prodNo}
 	</select>
 	
- 	 <select id="reviewStar" parameterType="hashmap">
+ 	<insert  id="reviewStar" parameterType="hashmap" >
+ 	  <selectKey keyProperty="REVIEW_NO" order="BEFORE" resultType="string">
+		    SELECT
+		           'REVW' || LPAD(SEQ_REVIEW.NEXTVAL,4,0)
+		      FROM DUAL
+		</selectKey> 
+ 	  
 		 INSERT 
 		        INTO TBL_PROD_REVIEW
 		 (
@@ -178,15 +222,172 @@
 		 VALUES 
 		 (
 		   'REVW' || LPAD(SEQ_REVIEW.NEXTVAL,4,0)
-		 , 'P06'
-		 , 'USER0004'
-		 , #{reviewList.reviewDetails}
-		 , #{reviewList.stars}
-		 , '2021-05-31'
+		 , #{productNo}
+		 , #{userNo}
+		 , #{context}
+		 , #{starValue}
+		 , SYSDATE
 		 )
-	</select>
-
+	</insert> 
+	
+	<insert  id="commentInsert" parameterType="hashmap" >
 		
+		 INSERT 
+		        INTO TBL_PROD_COMMENT
+		 (
+		   PROD_COMT_NO
+		 , PROD_NO
+		 , USER_NO
+		 , PROD_COMT_DETAILS
+		 , PROD_COMT_DATE
+		 , PROD_COMT_DISPLAY_CHK
+		 , PROD_COMT_REPLY_CHK
+		 , PROD_COMT_REPLY
+		 ) 
+		 VALUES 
+		 (
+		   'PRDC' || LPAD(SEQ_PROD_COMMENT.NEXTVAL,4,0)
+		 , #{prodNo}
+		 , #{user}
+		 , #{text}
+		 , SYSDATE
+		 , 'Y'
+		 , 'N'
+		 , 'NULL'
+		 )
+	</insert>
+	<select id="comment" resultMap="CommentResultSet" parameterType="string">
+		  SELECT 
+ 		        B.PROD_COMT_NO
+ 		      , B.PROD_NO
+ 		      , B.USER_NO
+ 		      , B.PROD_COMT_DETAILS
+ 		      , B.PROD_COMT_DATE
+ 		      , B.PROD_COMT_DISPLAY_CHK
+ 		      , B.PROD_COMT_REPLY_CHK
+ 		      , B.PROD_COMT_REPLY
+              , A.USER_NAME
+ 	       FROM TBL_PROD_COMMENT B 
+           JOIN TBL_USER A ON(A.USER_NO = B.USER_NO)
+		  WHERE PROD_NO = #{prodNo}
+	</select> 
+		
+	<insert  id="orderInsert" parameterType="hashmap" >
+		 INSERT 
+		        INTO TBL_ORDER
+		 (
+		   ORDER_NO
+		 , CORP_NO
+		 , PROD_NO
+		 , USER_NO
+		 , ORDER_PRICE
+		 , DEALING_STATUS
+		 , ORDER_STATUS
+		 , ORDER_QUANTITY
+		 , ORDER_DATE
+		 ) 
+		 VALUES 
+		 (
+		   'ORDR' || LPAD(SEQ_ORDER.NEXTVAL,4,0)
+		 , #{corpNo}
+		 , #{prodNo}
+		 , #{userNo}
+		 , #{orderPrice}
+		 , #{dealingStatus}
+		 , #{orderStatus}
+		 , #{orderOuantity}
+		 , SYSDATE
+		 )
+	</insert>
+	
+	<insert  id="orderpurchasedInsert" parameterType="hashmap" >
+		 INSERT 
+		        INTO TBL_PURCHASED
+		 (
+		   PURCHASED_NO
+         , USER_NO
+         , PURCHASED_DATE
+         , PURCHASED_STATUS
+         , PROD_NO
+         , PAYMENT_CHK
+		 ) 
+		 VALUES 
+		 (
+		   'CPON' || LPAD(SEQ_PURCHASED.NEXTVAL,4,0)
+		 , #{userNo}
+		 , SYSDATE
+		 , 'Y'
+		 , #{prodNo}
+		 , 'Y'
+		 )
+	</insert>
+	
+	<update id="stockUpdate" parameterType="hashmap">
+	  UPDATE TBL_STOCK
+		 SET STOCK_SORT = '출고'
+           , STOCK_QUANTITY = STOCK_QUANTITY - #{ number }
+	   WHERE PROD_NO = #{ prodNo }
+	</update>
+	
+	<insert  id="paymentInsert" parameterType="hashmap" >
+		 INSERT 
+           INTO TBL_PAYMENT
+	     (
+	       PAYMENT_NO
+	     , USER_NO
+	     , PAYMENT_DATE
+	     , PAYMENT_PRICE
+	     ) 
+	       VALUES 
+	     (
+		   'PURC' || LPAD(SEQ_PAYMENT.NEXTVAL,4,0)
+		 , #{userNo}
+		 , SYSDATE
+		 , #{price}
+		 )
+	</insert>
+	
+	<select id="selectorderNo" resultMap="OrderPaymentResultSet"  parameterType="string">
+	<![CDATA[
+	SELECT
+           A.ORDER_NO
+      FROM TBL_ORDER A
+     WHERE A.PROD_NO = #{prodNo}
+       AND ROWNUM <= 1
+     ORDER BY A.ORDER_NO DESC
+       ]]>
+	</select>
+	
+	<select id="orderPayment" resultMap="OrderPaymentResultSet"  parameterType="string">
+	<![CDATA[
+	SELECT
+           A.ORDER_NO
+         , B.PAYMENT_NO
+      FROM TBL_ORDER A
+      JOIN TBL_PAYMENT B ON (A.USER_NO = B.USER_NO)
+     WHERE A.ORDER_NO = #{noOrder}
+       AND A.ORDER_DATE = B.PAYMENT_DATE
+       AND ROWNUM <= 1
+     ORDER BY B.PAYMENT_NO
+       ]]>
+	</select>
+	
+	<insert  id="orderPaymentInsert"  parameterType="hashmap" >
+		 INSERT 
+           INTO TBL_ORDER_N_PAYMENT
+	     (
+	       ORDER_NO 
+	     , PAYMENT_NO
+	     ) 
+	     VALUES 
+	     (
+		   #{orderNo}
+		 , #{paymentNo}
+		 )
+	</insert>
+
+	
+
 </mapper>
 
 

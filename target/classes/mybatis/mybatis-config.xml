@@ -38,7 +38,9 @@
  		<typeAlias alias="ProductDTO" type="com.finalproj.missingitnow.product.model.dto.ProductDTO"/>
  		<typeAlias alias="CorpDTO" type="com.finalproj.missingitnow.product.model.dto.CorpDTO"/>
  		<typeAlias alias="ProductImgDTO" type="com.finalproj.missingitnow.product.model.dto.ProductImgDTO"/>
- 		<typeAlias alias="ReviewDTO" type="com.finalproj.missingitnow.product.model.dto.ReviewDTO"/> 		
+ 		<typeAlias alias="ReviewDTO" type="com.finalproj.missingitnow.product.model.dto.ReviewDTO"/> 	
+ 		<typeAlias alias="CommentDTO" type="com.finalproj.missingitnow.product.model.dto.CommentDTO"/> 
+ 		<typeAlias alias="OrderPaymentDTO" type="com.finalproj.missingitnow.product.model.dto.OrderPaymentDTO"/> 	
  		<typeAlias alias="memberDTO" type="com.finalproj.missingitnow.corporation.model.dto.MemberDTO"/>
 
 		<!-- privateMember -->

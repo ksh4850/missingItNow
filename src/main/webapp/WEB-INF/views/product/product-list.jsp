@@ -50,7 +50,6 @@
                 <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT00010">
                 <li>생활용품</li>
                 </a>
-
                 <div class="menu-name">가격</div>
                 <p><input type="text" name="최저가" placeholder="최저가" class="input-price" id="lowPrice"> ~ <input id="highPrice" type="text" placeholder="최고가" class="input-price"></p>
                 <a id="button0" href="#">

@@ -89,17 +89,24 @@
                         <div class="buttom-name">
                        	     필수 약관을 확인하였으며 결제에 동의합니다.
                         </div>
-                                <button class="buttom-box" onclick="startPay()" method="post">결제하기</button>
-
-                    </div>
-
+                            <button class="buttom-box" onclick="startPay()" >결제하기</button>
+	                    </div>
                 </div>
             </div>
         </div>
     </section>
+    <form action="${ pageContext.servletContext.contextPath }/product/completioninster" method="post" enctype="multipart/form-data">
+		<input  name="userNo" value="${ sessionScope.loginMember.userNo }">
+		<input  name="prodNo" value="${ productList[0].prodNo }"> 
+		<input  name="orderPrice" value="${ productList[0].prodPrice }"> 
+		<input  name="corpNo" value="${ productList[0].corpNo }"> 
+    
+    <button class="buttom-box" type="submit" id="submit" >결제하기</button>
+    </form>
     <script>
 	 var IMP = window.IMP; 
 	 IMP.init('imp45810764'); 
+
 	
 	 function startPay(){
 	 IMP.request_pay({
@@ -116,16 +123,19 @@
 	     m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 	 }, function(rsp) {
 	     if ( rsp.success ) {
-			alert('결제성공');
-	        const link = "${ pageContext.servletContext.contextPath}/productPayment/completion?prodNo=<c:out value="${ productList[0].prodNo }" />";
-			location.href = link;			
+	    	 alert('결제성공');
+		     	
+	    		
 	     } else {
 	         alert('결제실패');
+	         submit.click();
 	     }
 	     alert(msg);
 	 });
-
+	    	
 	 }
+	 
+	 
 	 </script>
     <jsp:include page="../common/footer.jsp"/>
 </body>

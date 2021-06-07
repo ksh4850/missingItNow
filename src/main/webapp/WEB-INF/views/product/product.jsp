@@ -60,7 +60,7 @@
                     <button onclick="purchase()" class="two-button">바로구매</button>
                     </c:if>
                    	<c:if test="${ !empty sessionScope.loginMember }">
-                    <a href="${ pageContext.servletContext.contextPath}/productPayment/payment?prodNo=<c:out value="${ productList[0].prodNo }" />"><button onclick="" class="two-button">바로구매</button></a>
+                    <a href="${ pageContext.servletContext.contextPath}/product/payment?prodNo=<c:out value="${ productList[0].prodNo }" />"><button onclick="" class="two-button">바로구매</button></a>
                		</c:if>
                 </div>
             </div>
@@ -543,7 +543,7 @@
             <table>
                 <thead><tr><td>zz</td><td>zz</td></tr>
                 </thead>
-                <tbody class="tbody">
+                <tbody class="tbodyReview">
                     <c:forEach var="reviewList" items="${ reviewList }">
                         <tr>
                             <td>
@@ -555,96 +555,11 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <c:if test="${ reviewList.reviewScore eq '5'}">
+                             
                                     <span>
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        5
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars-${ reviewList.reviewScore }.jpg" alt="" >
+                                        ${ reviewList.reviewScore }점
                                     </span>
-                                </c:if>
-                                <c:if test="${ reviewList.reviewScore eq '4'}">
-                                    <span>
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        4
-                                    </span>
-                                </c:if>
-                                <c:if test="${ reviewList.reviewScore eq '3'}">
-                                    <span>
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        3
-                                    </span>
-                                </c:if>
-                                <c:if test="${ reviewList.reviewScore eq '2'}">
-                                    <span>
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        2
-                                    </span>
-                                </c:if>
-                                <c:if test="${ reviewList.reviewScore eq '1'}">
-                                    <span>
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        1
-                                    </span>
-                                </c:if>
-                                <c:if test="${ reviewList.reviewScore eq '0'}">
-                                    <span>
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg"
-                                            alt="" width="25">
-                                        0
-                                    </span>
-                                </c:if>
                             </td>
                         </tr>
                         <tr>
@@ -653,24 +568,63 @@
                             </td>
                         </tr>
                         <tr class="table_bottom">
-                            <td colspan="2"><span><img
-                                        src="${ pageContext.servletContext.contextPath }/resources/images/product/2.jpg"
-                                        alt="" width="200px"></span></td>
+                            <td colspan="2"><span><img src="${ pageContext.servletContext.contextPath }/resources/images/product/2.jpg" alt="" width="200px"></span></td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
         </div>
     </section4>
+    
+    <div class="section3">
+            <div class="section4_rv">상품 문의</div>
+				<input type="hidden" id="prodNames" value="${productList[0].prodManufacturer}">
+				문의 내용 : <input type="text" name="pordComtDetails" id="pordComtDetails"><br>
+				<button id="insertComment" > 댓글 등록</button>
+			
+            <table>
+                <thead><tr><td>zz</td><td>zz</td></tr>
+                </thead>
+                <tbody class="tbodyComment">
+                    <c:forEach var="commentList" items="${ commentList }">
+                        <tr>
+                            <td>
+                           
+                                ${ commentList.userName }
+                            </td>
+                            <td class="table_right">
+                                ${ commentList.pordComtdate }
+                            </td>
+                        </tr>
+                       
+                        <tr>
+                            <td>
+                                <c:out value="${ commentList.pordComtDetails }" />
+                            </td>
+                        </tr>
+                        <c:if test="${commentList.pordComtReply ne 'NULL'}"> 
+	                        <tr>
+	                            <td>
+	                           		답글 : <c:out value="${ productList[0].prodManufacturer }" />
+	                            </td>
+	                            <td>
+	                                <c:out value="${ commentList.pordComtReply }" />
+	                            </td>
+	                        </tr>
+                   		</c:if> 
+                    </c:forEach>
+                </tbody>
+            </table> 
+        </div>
+    </section4>
     <jsp:include page="../common/footer.jsp" />
     <script>
 		$("#insertReview").click(function(){
-			alert("나와라요");
 			const context = document.getElementById("reviewDetails").value;
 			const starValue = document.getElementById("starsValue").value;
 			const productNo = document.getElementById("productNo").value;
 			
-		
+			alert("dd");
 			$.ajax({
 				url : "insertReview",
 				method : "post",
@@ -682,57 +636,41 @@
 				success : function(data){
 					console.log(data)
 					console.table(data);
-					const $table = $(".tbody");
+					const $table = $(".tbodyReview");
 					$table.html("");
 					
 					for(var index in data){
 						$stScore = $("<td>").text(data[index].reviewScore + "점");
 						
 						$tr = $("<tr>");
-						$noName = $("<td>").text(data[index].nickname);
-						$reviewDetails = $("<td>").text(data[index].reviewDate);
-						$tr.append($noName);
-						$tr.append($reviewDetails);
+						$nickname = $("<td>").text(data[index].nickname);
+						$reviewDate = $("<td>").text(data[index].reviewDate);
+						$tr.append($nickname);
+						$tr.append($reviewDate);
 						
-						$tra = $("<tr>");
-						$noNameb = $("<td>");
+						$tr1 = $("<tr>");
+						$td1 = $("<td>");
+						$span = $("<span>");
+						$img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/stars-"+ data[index].reviewScore +".jpg");
 						
-						if(data[index].reviewScore == 5){
-							$st5 = $('img').attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/stars-5.jpg").css("height","25px").css("width","125px");
-							$noNameb.append($st5);
-						} else if (data[index].reviewScore == 4){
-							$st4 = $('img').attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/stars-4.jpg").css("height","25px").css("width","125px");
-							$noNameb.append($st4);
-						} else if (data[index].reviewScore == 3){
-						$st3 = $('img').attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/stars-3.jpg").css("height","25px").css("width","125px");
-							$noNameb.append($st3);
-						} else if (data[index].reviewScore == 2){
-						$st2 = $('img').attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/stars-2.jpg").css("height","25px").css("width","125px");
-							$noNameb.append($st2);
-						} else if (data[index].reviewScore == 1){
-						$st1 = $('img').attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/stars-1.jpg").css("height","25px").css("width","125px");
-							$noNameb.append($st1);
-						} else if (data[index].reviewScore == 0){
-						$st0 = $('img').attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/stars-0.jpg").css("height","25px").css("width","125px");
-							$noNameb.append($st0);
-						}
+						$tr2 = $("<tr>");
+						$reviewDetails = $("<td>").text(data[index].reviewDetails);
 						
-						$tra.append($noNameb);
+						$span.append($img);
+						$td1.append($span);
+						$td1.append($stScore);
+						$tr1.append($td1);
 
-						$trb = $("<tr>");
-						$noNamec = $("<td>").text(data[index].reviewDetails);
 						
-						$trb.append($noNamec);
-						
+						$tr2.append($reviewDetails);
 						
 						
 						$table.append($tr);
-						$table.append($tra); 
-						$table.append($trb); 
-						
+						$table.append($tr1); 
+						$table.append($tr2); 
 					
 
-					}	
+					} 	
 					
 				},
 				
@@ -744,8 +682,59 @@
 		});
 
 		
-	</script>
-     <script>
+		/* 상품 문의 */
+		$("#insertComment").click(function(){
+			const context = document.getElementById("pordComtDetails").value;
+			const prodNo = document.getElementById("productNo").value;
+			
+			alert("문의 성공");
+			$.ajax({
+				url : "insertComment",
+				method : "post",
+				data : {
+					context : context,
+					prodNo : prodNo
+				},
+				success : function(data){
+					console.log(data)
+					console.table(data);
+					const $table = $(".tbodyComment");
+					$table.html("");
+					
+					for(var index in data){
+						
+						$tr = $("<tr>");
+						$userName = $("<td>").text(data[index].userName);
+						$pordComtdate = $("<td>").text(data[index].pordComtdate);
+						$tr.append($userName);
+						$tr.append($pordComtdate);
+						
+						$tr2 = $("<tr>");
+						$prodManufacturer = $("<td>").text(document.getElementById("prodNames").value);
+						$pordComtDetails = $("<td>").text(data[index].pordComtDetails);
+						$tr2.append($prodManufacturer);
+						$tr2.append($pordComtDetails);
+						
+						$tr3 = $("<tr>");
+						$pordComtReply = $("<td>").text(data[index].pordComtReply);
+						$tr2.append($pordComtReply);
+						
+						
+						$table.append($tr);
+						$table.append($tr2);
+						$table.append($tr3);
+					
+					}
+				},
+				
+				error : function(error){
+					console.log(error);
+				}
+				}); 
+			
+		});
+	
+
     function Img1() {
         document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
         document.getElementById("star2").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
