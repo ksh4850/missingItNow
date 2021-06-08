@@ -69,7 +69,7 @@
 #wrap #main #section3 .wrap .gap .container .slide-view ul.slide-wrap li.slide {width:calc(100%/7);float: left;position: relative;}
 #wrap #main #section3 .wrap .gap .container .slide-view ul.slide-wrap li.slide .number-wrap {position: absolute;width:40px;height:40px;top:15px;left:20px;background-color: green;border-radius: 50%;text-align: center;}
 #wrap #main #section3 .wrap .gap .container .slide-view ul.slide-wrap li.slide .number-wrap > h3 {font-size: 16px; color:#fff;line-height: 40px;}
-#wrap #main #section3 .wrap .gap .container .slide-view ul.slide-wrap li.slide .img-wrap {width:200px;height:200px;background: #eee;border-radius: 50%;margin:0 20px;}
+#wrap #main #section3 .wrap .gap .container .slide-view ul.slide-wrap li.slide .img-wrap {width:200px;height:200px;background: #eee;border-radius: 50%;margin:0 20px; overflow: hidden;}
 #wrap #main #section3 .wrap .gap .container .slide-view ul.slide-wrap li.slide > p {font-size: 13px;width:200px;font-weight: 500;text-align: center;padding:15px 0;margin:0 20px;}
 #wrap #main #section3 .wrap .gap .container .slide-view ul.slide-wrap li.slide > span {display:block;width:200px;font-size: 16px;font-weight: 600;text-align: center;margin:0 20px;}
 #wrap #main #section3 .wrap .gap .container .slide-view ul.slide-wrap li.slide > span > h4 {display: inline-block;font-size: 14px;font-weight: 500;margin-top:1px;}
@@ -151,7 +151,7 @@
 #wrap #main #section7 .wrap .gap .container ul.box-container li.box-content:nth-child(5) .container-wrap {margin: 0 2.5px;}
 #wrap #main #section7 .wrap .gap .container ul.box-container li.box-content:nth-child(6) .container-wrap {margin: 0 0 0 5px;}
 #wrap #main #section7 .wrap .gap .container ul.box-container li.box-content .container-wrap .img-wrap {width:100%;height:50%; text-align: center;}
-#wrap #main #section7 .wrap .gap .container ul.box-container li.box-content .container-wrap .img-wrap .img {width:100%;height:100%;}
+#wrap #main #section7 .wrap .gap .container ul.box-container li.box-content .container-wrap .img-wrap .img {width:100%;height:100%; overflow: hidden; background: #000000}
 #wrap #main #section7 .wrap .gap .container ul.box-container li.box-content .container-wrap .halin {position: absolute;top:45%;left:10%;width:100px;height:20px;background-color: #eee;text-align: center;border:1px solid red;}
 #wrap #main #section7 .wrap .gap .container ul.box-container li.box-content:nth-child(1) .container-wrap .halin {display: none;}
 #wrap #main #section7 .wrap .gap .container ul.box-container li.box-content:nth-child(2) .container-wrap .halin {display: none;}
