@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.finalproj.missingitnow.common.page.PageInfoDTO;
 import com.finalproj.missingitnow.corpMng.model.dao.ProdMngProductDAO;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductKeywordsDTO;
 
 
 @Service
@@ -17,10 +20,25 @@ public class ProdMngServiceImpl implements ProdMngService {
 	public ProdMngServiceImpl(ProdMngProductDAO prodMngProductDAO) {
 		this.prodMngProductDAO = prodMngProductDAO;
 	}
-
+	
 	@Override
-	public List<ProdMngProductDTO> selectProductList() {
-		return prodMngProductDAO.selectProductList();
+	public int selectTotalProductList() {
+		return prodMngProductDAO.selectTotalProductList();
+	}
+	
+	@Override
+	public List<ProdMngProductDTO> selectProductList(PageInfoDTO pageInfo) {
+		return prodMngProductDAO.selectProductList(pageInfo);
+	}
+	
+	@Override
+	public int searchTotalProductList(Map<String, Object> params) {
+		return prodMngProductDAO.searchTotalProductList(params);
+	}
+	
+	@Override
+	public List<ProdMngProductDTO> searchProductList(Map<String, Object> params) {
+		return prodMngProductDAO.searchProductList(params);
 	}
 
 	@Override
@@ -32,17 +50,12 @@ public class ProdMngServiceImpl implements ProdMngService {
 	public int insertProdImg(Map<String, String> file) {
 		return prodMngProductDAO.insertProdImg(file);
 	}
-
+	
 	@Override
-	public List<ProdMngProductDTO> selectProductByCtg(String prodCtgNo) {
-		return prodMngProductDAO.selectProductByCtg(prodCtgNo);
+	public int insertKeywords(Map<String, String> key) {
+		return prodMngProductDAO.insertKeywords(key);
 	}
-
-	@Override
-	public List<ProdMngProductDTO> selectProductByName(String prodName) {
-		return prodMngProductDAO.selectProductByName(prodName);
-	}
-
+	
 	@Override
 	public List<ProdMngProductDTO> selectProductForUpdate(String prodNo) {
 		return prodMngProductDAO.selectProductForUpdate(prodNo);
@@ -62,6 +75,22 @@ public class ProdMngServiceImpl implements ProdMngService {
 	public int updateProdImg(Map<String, String> file) {
 		return prodMngProductDAO.updateProdImg(file);
 	}
+
+	
+
+	
+
+	
+
+
+	
+
+
+
+
+
+
+
 
 	
 

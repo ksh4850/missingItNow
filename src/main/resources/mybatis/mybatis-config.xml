@@ -18,6 +18,9 @@
  		<typeAlias alias="CorpMngStatisticsDTO" type="com.finalproj.missingitnow.corpMng.model.dto.CorpMngStatisticsDTO"/>
  		<typeAlias alias="CorpUserImgDTO" type="com.finalproj.missingitnow.corpMng.model.dto.CorpUserImgDTO"/>
  		<typeAlias alias="SettleMngPaymentDTO" type="com.finalproj.missingitnow.corpMng.model.dto.SettleMngPaymentDTO"/>
+ 		<typeAlias alias="ProdMngProductKeywordsDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductKeywordsDTO"/>
+ 		<typeAlias alias="PageInfoDTO" type="com.finalproj.missingitnow.common.page.PageInfoDTO"/>
+ 		
  		
  		<!-- systemAdmin -->
  		<typeAlias alias="qnaDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.QNADTO"/>

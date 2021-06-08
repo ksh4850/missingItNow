@@ -87,6 +87,35 @@
                 
             </table>
         </div>       <!-- paymentListDiv 종료 -->
+        
+        <div class="pagingArea" align="center">
+			<button id="startPage"><<</button>
+	
+			<c:if test="${ pageInfo.pageNo == 1 }">
+				<button disabled><</button>
+			</c:if>
+			<c:if test="${ pageInfo.pageNo > 1 }">
+				<button id="prevPage"><</button>
+			</c:if>
+	
+			<c:forEach var="p" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1">
+			<c:if test="${ pageInfo.pageNo eq p }">
+				<button disabled><c:out value="${ p }"/></button>
+			</c:if>
+			<c:if test="${ pageInfo.pageNo ne p }">
+				<button onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></button>
+			</c:if>
+			</c:forEach>
+	
+			<c:if test="${ pageInfo.pageNo == pageInfo.maxPage }">
+				<button disabled>></button>	
+			</c:if>
+			<c:if test="${ pageInfo.pageNo < pageInfo.maxPage }">
+				<button id="nextPage">></button>
+			</c:if>
+	
+			<button id="maxPage">>></button>
+		</div>	<!-- pagingAreaDiv 종료 -->
 	
 	</div>	<!-- sectionDiv 종료 -->
 	
@@ -94,6 +123,39 @@
 	<div class="footer">
 		<h1 align="center">FOOTER</h1>
 	</div>
-
+	
+	<script>
+		const link = "${ pageContext.servletContext.contextPath }/settleMng/paymentList";
+		
+		if(document.getElementById("startPage")){
+			const $startPage = document.getElementById("startPage");
+			$startPage.onclick = function(){
+				location.href = link + "?currentPage=1";
+			}
+		}
+		
+		if(document.getElementById("maxPage")){
+			const $maxPage = document.getElementById("maxPage");
+			$maxPage.onclick = function(){
+				location.href = link + "?currentPage=${ pageInfo.maxPage }";
+			}
+		}
+		
+		if(document.getElementById("prevPage")){
+			const $prevPage = document.getElementById("prevPage");
+			$prevPage.onclick = function(){
+				location.href = link + "?currentPage=${ pageInfo.pageNo - 1 }";
+			}
+		}
+		
+		if(document.getElementById("nextPage")){
+			const $nextPage = document.getElementById("nextPage");
+			$nextPage.onclick = function(){
+				location.href = link + "?currentPage=${ pageInfo.pageNo + 1 }";
+			}
+		}
+	
+	</script>
+	
 </body>
 </html>

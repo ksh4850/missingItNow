@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
+import com.finalproj.missingitnow.common.page.PageInfoDTO;
+
 public class ProdMngProductDTO implements Serializable {
 	
 	private static final long serialVersionUID = -599426520171967770L;
@@ -23,6 +25,7 @@ public class ProdMngProductDTO implements Serializable {
 	private int prodHits;
 	private ProdMngCategoryDTO category;
 	private List<ProdMngProductImgDTO> prodImgList;
+	private List<ProdMngProductKeywordsDTO> prodKeywordsList;
 	
 	public ProdMngProductDTO() {
 	}
@@ -30,7 +33,8 @@ public class ProdMngProductDTO implements Serializable {
 	public ProdMngProductDTO(String prodNo, String prodName, int prodPrice, String prodDetails, Date prodUploadDate,
 			Date prodTerminateDate, int prodDiscountRate, Date prodDiscountPeriod, String prodManufacturer,
 			int stockQuantity, String prodDisplayChk, String prodCtgNo, String corpNo, int prodHits,
-			ProdMngCategoryDTO category, List<ProdMngProductImgDTO> prodImgList) {
+			ProdMngCategoryDTO category, List<ProdMngProductImgDTO> prodImgList,
+			List<ProdMngProductKeywordsDTO> prodKeywordsList) {
 		this.prodNo = prodNo;
 		this.prodName = prodName;
 		this.prodPrice = prodPrice;
@@ -47,6 +51,7 @@ public class ProdMngProductDTO implements Serializable {
 		this.prodHits = prodHits;
 		this.category = category;
 		this.prodImgList = prodImgList;
+		this.prodKeywordsList = prodKeywordsList;
 	}
 
 	public String getProdNo() {
@@ -177,16 +182,24 @@ public class ProdMngProductDTO implements Serializable {
 		this.prodImgList = prodImgList;
 	}
 
+	public List<ProdMngProductKeywordsDTO> getProdKeywordsList() {
+		return prodKeywordsList;
+	}
+
+	public void setProdKeywordsList(List<ProdMngProductKeywordsDTO> prodKeywordsList) {
+		this.prodKeywordsList = prodKeywordsList;
+	}
+
 	@Override
 	public String toString() {
-		return "[prodNo=" + prodNo + ", prodName=" + prodName + ", prodPrice=" + prodPrice
+		return "ProdMngProductDTO [prodNo=" + prodNo + ", prodName=" + prodName + ", prodPrice=" + prodPrice
 				+ ", prodDetails=" + prodDetails + ", prodUploadDate=" + prodUploadDate + ", prodTerminateDate="
 				+ prodTerminateDate + ", prodDiscountRate=" + prodDiscountRate + ", prodDiscountPeriod="
 				+ prodDiscountPeriod + ", prodManufacturer=" + prodManufacturer + ", stockQuantity=" + stockQuantity
 				+ ", prodDisplayChk=" + prodDisplayChk + ", prodCtgNo=" + prodCtgNo + ", corpNo=" + corpNo
-				+ ", prodHits=" + prodHits + ", category=" + category + ", prodImgList=" + prodImgList + "]";
+				+ ", prodHits=" + prodHits + ", category=" + category + ", prodImgList=" + prodImgList
+				+ ", prodKeywordsList=" + prodKeywordsList + "]";
 	}
 
-	
 	
 }

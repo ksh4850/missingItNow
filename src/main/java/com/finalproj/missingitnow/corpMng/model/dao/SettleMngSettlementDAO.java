@@ -3,6 +3,7 @@ package com.finalproj.missingitnow.corpMng.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.finalproj.missingitnow.common.page.PageInfoDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SalesMngSalesDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SettleMngDepositDTO;
@@ -12,7 +13,8 @@ import com.finalproj.missingitnow.corpMng.model.dto.SettleMngSettlementDTO;
 public interface SettleMngSettlementDAO {
 	
 	// 전체 정산 내역 조회
-	List<SettleMngSettlementDTO> selectSettlementList();
+	int selectTotalSettlementList();
+	List<SettleMngSettlementDTO> selectSettlementList(PageInfoDTO pageInfo);
 
 	// 기간별 예상 정산 조회
 	List<SalesMngSalesDTO> selectExpectedSettlement(SalesMngSalesDTO salesMngSales);
@@ -24,7 +26,8 @@ public interface SettleMngSettlementDAO {
 	SettleMngSettlementDTO chkLastEndDate();
 	
 	// 기업회원별 예치금 조회
-	List<SettleMngDepositDTO> selectDepositList();
+	int selectTotalDepositList();
+	List<SettleMngDepositDTO> selectDepositList(PageInfoDTO pageInfo);
 
 	// 결제를 위한 기업정보 조회
 	CorpUserDTO selectCorpUserForPay();
@@ -36,7 +39,11 @@ public interface SettleMngSettlementDAO {
 	int insertDepositCharge(Map<String, Object> params);
 
 	// 결제내역 조회
-	List<SettleMngPaymentDTO> selectPaymentList();
+	int selectTotalPaymentList();
+	List<SettleMngPaymentDTO> selectPaymentList(PageInfoDTO pageInfo);
+	
+
+
 	
 
 	

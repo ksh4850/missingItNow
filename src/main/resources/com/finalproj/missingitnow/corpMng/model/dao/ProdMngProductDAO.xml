@@ -30,32 +30,96 @@
 			<result property="prodImgThnName" column="PROD_IMG_THN_NAME"/>
 			<result property="prodImgPath" column="PROD_IMG_PATH"/>	
 		</collection>
+		<collection property="prodKeywordsList" ofType="ProdMngProductKeywordsDTO">
+			<id property="keywordsNo" column="KEYWORDS_NO"/>
+			<result property="keywordsSet" column="KEYWORDS_SET"/>
+			<result property="prodNo" column="PROD_NO"/>
+		</collection>
 	</resultMap>
 	
-	<select id="selectProductList" resultMap="prodMngProductResultSet">
-		SELECT 
-		       A.PROD_NO
-		     , A.PROD_NAME
-		     , A.PROD_PRICE
-		     , A.PROD_DETAILS
-		     , A.PROD_UPLOAD_DATE
-		     , A.PROD_TERMINATE_DATE
-		     , A.PROD_DISCOUNT_RATE
-		     , A.PROD_DISCOUNT_PERIOD
-		     , A.PROD_MANUFACTURER
-		     , A.STOCK_QUANTITY
-		     , A.PROD_DISPLAY_CHK
-             , B.PROD_CTG_NO
-		     , B.PROD_CTG_NAME
-		     , A.CORP_NO
-		     , A.PROD_HITS
-		     , C.PROD_IMG_NO
+	<select id="selectTotalProductList" resultType="_int">
+		SELECT
+		       COUNT(*)
 		  FROM TBL_PRODUCT A
-		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
-		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
-	     WHERE A.CORP_NO = 'CORP0001'
-		 ORDER BY A.PROD_NO DESC
+		 WHERE A.CORP_NO = 'CORP0001'
 	</select>
+	
+	<select id="selectProductList" resultMap="prodMngProductResultSet" parameterType="PageInfoDTO">
+		SELECT E.*
+		  FROM (SELECT ROWNUM RNUM
+		             , D.*
+		          FROM (SELECT A.PROD_NO
+		                     , A.PROD_NAME
+		                     , A.PROD_PRICE
+		                     , A.PROD_DETAILS
+		                     , A.PROD_UPLOAD_DATE
+		                     , A.PROD_TERMINATE_DATE
+		                     , A.PROD_DISCOUNT_RATE
+		                     , A.PROD_DISCOUNT_PERIOD
+		                     , A.PROD_MANUFACTURER
+		                     , A.STOCK_QUANTITY
+		                     , A.PROD_DISPLAY_CHK
+		                     , B.PROD_CTG_NO
+		                     , B.PROD_CTG_NAME
+		                     , A.CORP_NO
+		                     , A.PROD_HITS
+		                  FROM TBL_PRODUCT A
+		                  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
+		                 WHERE A.CORP_NO = 'CORP0001'
+		                 ORDER BY A.PROD_NO DESC) D
+		          ) E
+		 WHERE E.RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	
+	<select id="searchTotalProductList" resultType="_int" parameterType="hashmap">
+		SELECT
+		       COUNT(*)
+		  FROM TBL_PRODUCT A
+		 WHERE A.CORP_NO = 'CORP0001'
+		 <if test="prodCtgNo != null and prodName == null">
+           AND A.PROD_CTG_NO = #{prodCtgNo}
+         </if>
+         <if test="prodCtgNo == null and prodName != null">
+           AND A.PROD_NAME LIKE '%' || #{prodName} || '%'
+         </if>
+	</select>
+
+	
+	<select id="searchProductList" resultMap="prodMngProductResultSet" parameterType="hashmap">
+		SELECT E.*
+		   FROM (SELECT ROWNUM RNUM
+		             , D.*
+		          FROM (SELECT A.PROD_NO
+		                     , A.PROD_NAME
+		                     , A.PROD_PRICE
+		                     , A.PROD_DETAILS
+		                     , A.PROD_UPLOAD_DATE
+		                     , A.PROD_TERMINATE_DATE
+		                     , A.PROD_DISCOUNT_RATE
+		                     , A.PROD_DISCOUNT_PERIOD
+		                     , A.PROD_MANUFACTURER
+		                     , A.STOCK_QUANTITY
+		                     , A.PROD_DISPLAY_CHK
+		                     , B.PROD_CTG_NO
+		                     , B.PROD_CTG_NAME
+		                     , A.CORP_NO
+		                     , A.PROD_HITS
+		                  FROM TBL_PRODUCT A
+		                  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
+		                 WHERE A.CORP_NO = 'CORP0001'
+		                  <if test="prodCtgNo != null and prodName == null">
+		                   AND B.PROD_CTG_NO = #{prodCtgNo}
+		                 </if>
+		                 <if test="prodCtgNo == null and prodName != null">
+		                   AND A.PROD_NAME LIKE '%' || #{prodName} || '%'
+		                 </if>
+		                 ORDER BY A.PROD_NO DESC) D
+		          ) E
+		 WHERE E.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+	</select>
+	
+	
 	
 	<insert id="insertProductInfo" parameterType="ProdMngProductDTO">
 		INSERT
@@ -92,57 +156,23 @@
 		)
 	</insert>
 	
-	<select id="selectProductByCtg" resultMap="prodMngProductResultSet">
-		SELECT 
-		       A.PROD_NO
-		     , A.PROD_NAME
-		     , A.PROD_PRICE
-		     , A.PROD_DETAILS
-		     , A.PROD_UPLOAD_DATE
-		     , A.PROD_TERMINATE_DATE
-		     , A.PROD_DISCOUNT_RATE
-		     , A.PROD_DISCOUNT_PERIOD
-		     , A.PROD_MANUFACTURER
-		     , A.STOCK_QUANTITY
-		     , A.PROD_DISPLAY_CHK
-             , B.PROD_CTG_NO
-		     , B.PROD_CTG_NAME
-		     , A.CORP_NO
-		     , A.PROD_HITS
-		     , C.PROD_IMG_NO
-		  FROM TBL_PRODUCT A
-		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
-		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
-		 WHERE B.PROD_CTG_NO = #{prodCtgNo}
-		   AND A.CORP_NO = 'CORP0001'
-		 ORDER BY A.PROD_NO DESC
-	</select>
+	<insert id="insertKeywords" parameterType="hashmap">
+		<selectKey keyProperty="prodNo" order="BEFORE" resultType="string">
+			SELECT
+	 			   'PROD' || LPAD(SEQ_PRODUCT.CURRVAL,4,0)
+	 		  FROM DUAL
+		</selectKey>
+		INSERT
+		  INTO TBL_KEYWORDS A
+		(
+		  A.KEYWORDS_NO, A.KEYWORDS_SET, A.PROD_NO
+		)
+		VALUES
+		(
+		  'KEYW' || LPAD(SEQ_KEYWORDS.NEXTVAL,4,0), #{keywords}, #{prodNo}
+		)
+	</insert>
 	
-	<select id="selectProductByName" resultMap="prodMngProductResultSet">
-		SELECT 
-		       A.PROD_NO
-		     , A.PROD_NAME
-		     , A.PROD_PRICE
-		     , A.PROD_DETAILS
-		     , A.PROD_UPLOAD_DATE
-		     , A.PROD_TERMINATE_DATE
-		     , A.PROD_DISCOUNT_RATE
-		     , A.PROD_DISCOUNT_PERIOD
-		     , A.PROD_MANUFACTURER
-		     , A.STOCK_QUANTITY
-		     , A.PROD_DISPLAY_CHK
-             , B.PROD_CTG_NO
-		     , B.PROD_CTG_NAME
-		     , A.CORP_NO
-		     , A.PROD_HITS
-		     , C.PROD_IMG_NO
-		  FROM TBL_PRODUCT A
-		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
-		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
-		 WHERE A.PROD_NAME LIKE '%' || #{prodName} || '%'
-		   AND A.CORP_NO = 'CORP0001'
-		 ORDER BY A.PROD_NO DESC
-	</select>
 	
 	<select id="selectProductForUpdate" resultMap="prodMngProductResultSet">
 		SELECT 
@@ -205,6 +235,8 @@
 		, #{changeName}, 'thnName', #{filePath}
 		)
 	</insert>
+	
+	
 	
 	
 </mapper>

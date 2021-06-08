@@ -25,42 +25,69 @@
 		</association>
 	</resultMap>
 	
-	<select id="selectOrderList" resultMap="salesMngOrderListResultSet">
-			SELECT
-			       A.ORDER_NO
-			     , C.PROD_NAME
-			     , D.USER_NO
-			     , A.ORDER_PRICE
-			     , A.DEALING_STATUS
-			     , A.ORDER_STATUS
-			     , A.ORDER_QUANTITY
-			     , A.ORDER_DATE
-			  FROM TBL_ORDER A
-			  JOIN TBL_CORP_USER B ON (A.CORP_NO = B.CORP_NO)
-			  JOIN TBL_PRODUCT C ON (A.PROD_NO = C.PROD_NO)
-			  JOIN TBL_USER D ON (A.USER_NO = D.USER_NO)
-			 WHERE A.CORP_NO = 'CORP0001'
-			 ORDER BY A.ORDER_NO DESC
+	<select id="selectTotalOrderList" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM TBL_ORDER A
+		 WHERE A.CORP_NO = 'CORP0001'
 	</select>
 	
-	<select id="selectOrderListByDate" resultMap="salesMngOrderListResultSet">
-		SELECT
-		       A.ORDER_NO
-		     , C.PROD_NAME
-		     , D.USER_NO
-		     , A.ORDER_PRICE
-		     , A.DEALING_STATUS
-		     , A.ORDER_STATUS
-		     , A.ORDER_QUANTITY
-		     , A.ORDER_DATE
-		  FROM TBL_ORDER A
-		  JOIN TBL_CORP_USER B ON (A.CORP_NO = B.CORP_NO)
-		  JOIN TBL_PRODUCT C ON (A.PROD_NO = C.PROD_NO)
-		  JOIN TBL_USER D ON (A.USER_NO = D.USER_NO)
-		 WHERE B.CORP_NO = 'CORP0001'
-		   AND A.ORDER_DATE BETWEEN #{startDate} AND #{endDate}
-		 ORDER BY A.ORDER_NO DESC
+	<select id="selectOrderList" resultMap="salesMngOrderListResultSet" parameterType="PageInfoDTO">
+		SELECT E.*
+		  FROM (SELECT ROWNUM RNUM
+		             , D.*
+		          FROM (SELECT
+		                       A.ORDER_NO
+		                     , C.PROD_NAME
+		                     , D.USER_NO
+		                     , A.ORDER_PRICE
+		                     , A.DEALING_STATUS
+		                     , A.ORDER_STATUS
+		                     , A.ORDER_QUANTITY
+		                     , A.ORDER_DATE
+		                  FROM TBL_ORDER A
+		                  JOIN TBL_CORP_USER B ON (A.CORP_NO = B.CORP_NO)
+		                  JOIN TBL_PRODUCT C ON (A.PROD_NO = C.PROD_NO)
+		                  JOIN TBL_USER D ON (A.USER_NO = D.USER_NO)
+		                 WHERE A.CORP_NO = 'CORP0001'
+		                 ORDER BY A.ORDER_NO DESC) D
+		          ) E
+		 WHERE E.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
+	
+		
+	<select id="searchTotalOrderList" resultType="_int" parameterType="SalesMngOrderDTO">
+		SELECT
+		       COUNT(*)
+		  FROM TBL_ORDER A
+		 WHERE A.CORP_NO = 'CORP0001'
+		   AND A.ORDER_DATE BETWEEN #{startDate} AND #{endDate}
+	</select>
+	
+	<select id="searchOrderListByDate" resultMap="salesMngOrderListResultSet" parameterType="hashmap">
+		SELECT E.*
+		  FROM (SELECT ROWNUM RNUM
+		             , D.*
+		          FROM (SELECT
+		                       A.ORDER_NO
+		                     , C.PROD_NAME
+		                     , D.USER_NO
+		                     , A.ORDER_PRICE
+		                     , A.DEALING_STATUS
+		                     , A.ORDER_STATUS
+		                     , A.ORDER_QUANTITY
+		                     , A.ORDER_DATE
+		                  FROM TBL_ORDER A
+		                  JOIN TBL_CORP_USER B ON (A.CORP_NO = B.CORP_NO)
+		                  JOIN TBL_PRODUCT C ON (A.PROD_NO = C.PROD_NO)
+		                  JOIN TBL_USER D ON (A.USER_NO = D.USER_NO)
+		                 WHERE B.CORP_NO = 'CORP0001'
+		                   AND A.ORDER_DATE BETWEEN #{startDate} AND #{endDate}
+		                 ORDER BY A.ORDER_NO DESC) D
+		        ) E
+		 WHERE E.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+	</select>
+	
 	
 	<resultMap id="salesMngSalesListResultSet" type="SalesMngSalesDTO">
 		<id property="salesNo" column="SALES_NO"/>
@@ -86,33 +113,56 @@
 		</association>
 	</resultMap>
 	
-	<select id="selectSalesList" resultMap="salesMngSalesListResultSet">
-		SELECT 
-		       A.SALES_NO
-		     , B.PROD_NAME
-		     , A.ORDER_NO
-		     , A.SALES_DATE
-		     , A.SALES_QUANTITY
-		     , A.SALES_AMT
+	<select id="selectTotalSalesList" resultType="_int">
+		SELECT
+		       COUNT(*)
 		  FROM TBL_SALES A
-		  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
 		 WHERE A.CORP_NO = 'CORP0001'
-		 ORDER BY A.SALES_NO DESC, A.SALES_DATE DESC
 	</select>
 	
-	<select id="selectSalesListByDate" resultMap="salesMngSalesListResultSet">
-		SELECT 
-		       A.SALES_NO
-		     , B.PROD_NAME
-		     , A.ORDER_NO
-		     , A.SALES_DATE
-		     , A.SALES_QUANTITY
-		     , A.SALES_AMT
+	<select id="selectSalesList" resultMap="salesMngSalesListResultSet" parameterType="PageInfoDTO">
+		SELECT E.*
+		  FROM (SELECT ROWNUM RNUM
+		             , D.*
+		          FROM (SELECT A.SALES_NO
+		                     , B.PROD_NAME
+		                     , A.ORDER_NO
+		                     , A.SALES_DATE
+		                     , A.SALES_QUANTITY
+		                     , A.SALES_AMT
+		                  FROM TBL_SALES A
+		                  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+		                 WHERE A.CORP_NO = 'CORP0001'
+		                 ORDER BY A.SALES_NO DESC, A.SALES_DATE DESC) D
+		          ) E
+		 WHERE E.RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="searchTotalSalesList" resultType="_int" parameterType="SalesMngSalesDTO">
+		SELECT
+		       COUNT(*)
 		  FROM TBL_SALES A
-		  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
 		 WHERE A.CORP_NO = 'CORP0001'
 		   AND A.SALES_DATE BETWEEN #{startDate} AND #{endDate}
-		 ORDER BY A.SALES_NO DESC, A.SALES_DATE DESC
+	</select>
+	
+	<select id="searchSalesListByDate" resultMap="salesMngSalesListResultSet" parameterType="hashmap">
+		SELECT E.*
+		  FROM (SELECT ROWNUM RNUM
+		             , D.*
+		          FROM (SELECT A.SALES_NO
+		                     , B.PROD_NAME
+		                     , A.ORDER_NO
+		                     , A.SALES_DATE
+		                     , A.SALES_QUANTITY
+		                     , A.SALES_AMT
+		                  FROM TBL_SALES A
+		                  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+		                 WHERE A.CORP_NO = 'CORP0001'
+		                   AND A.SALES_DATE BETWEEN #{startDate} AND #{endDate}
+		                 ORDER BY A.SALES_NO DESC, A.SALES_DATE DESC) D
+		        ) E
+		 WHERE E.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
 	</select>
 	
 	<select id="expectedSettlementList" resultMap="salesMngSalesListResultSet">

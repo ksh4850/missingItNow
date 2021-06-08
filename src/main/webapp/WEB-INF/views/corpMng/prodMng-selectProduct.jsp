@@ -62,7 +62,7 @@
             </div>
             <br>
             
-            <form id="selectByCtgForm" action="${ pageContext.servletContext.contextPath }/prodMng/selectProductByCtg" method="POST">     <!-- form action 명시 필요 -->
+            <form id="selectByCtgForm" action="${ pageContext.servletContext.contextPath }/prodMng/searchProductList" method="GET">     <!-- form action 명시 필요 -->
                 <div id="radioCategory" style="position: relative; left: 100px;">
                     <h3 style="display: inline; position: relative; vertical-align: middle;">카테고리 : </h3>
                     <select name="prodCtgNo" style="position: relative; left: 20px; vertical-align: middle; width: 400px; height: 30px; font-size: 20px;">
@@ -81,7 +81,7 @@
                 </div>
             </form>	
             
-            <form id="selectByProdNameForm" action="${ pageContext.servletContext.contextPath }/prodMng/selectProductByProdName" method="POST" hidden>
+            <form id="selectByProdNameForm" action="${ pageContext.servletContext.contextPath }/prodMng/searchProductList" method="GET" hidden>
            		<div id="radioProdName" style="position: relative; left: 100px;">
                     <h3 style="display: inline; position: relative; vertical-align: middle;">상품명 : </h3>
                     <input type="text" name="prodName" style="position: relative; left: 20px; vertical-align: middle; width: 400px; height: 30px; font-size: 20px;">
@@ -124,6 +124,99 @@
                 </c:forEach>
             </table>
         </div>
+        
+        <div class="pagingArea" align="center">
+        	<c:choose>
+	        	<c:when test="${ empty params.prodCtgNo }">
+					<button id="searchNameStartPage"><<</button>
+			
+					<c:if test="${ pageInfo.pageNo == 1 }">
+						<button disabled><</button>
+					</c:if>
+					<c:if test="${ pageInfo.pageNo > 1 }">
+						<button id="searchNamePrevPage"><</button>
+					</c:if>
+			
+					<c:forEach var="p" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1">
+					<c:if test="${ pageInfo.pageNo eq p }">
+						<button disabled><c:out value="${ p }"/></button>
+					</c:if>
+					<c:if test="${ pageInfo.pageNo ne p }">
+						<button onclick="searchNamePageButtonAction(this.innerText);"><c:out value="${ p }"/></button>
+					</c:if>
+					</c:forEach>
+			
+					<c:if test="${ pageInfo.pageNo == pageInfo.maxPage }">
+						<button disabled>></button>	
+					</c:if>
+					<c:if test="${ pageInfo.pageNo < pageInfo.maxPage }">
+						<button id="searchNameNextPage">></button>
+					</c:if>
+			
+					<button id="searchNameMaxPage">>></button>
+				</c:when>
+				
+				<c:when test="${ empty params.prodName }">
+					<button id="searchCtgStartPage"><<</button>
+			
+					<c:if test="${ pageInfo.pageNo == 1 }">
+						<button disabled><</button>
+					</c:if>
+					<c:if test="${ pageInfo.pageNo > 1 }">
+						<button id="searchCtgPrevPage"><</button>
+					</c:if>
+			
+					<c:forEach var="p" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1">
+					<c:if test="${ pageInfo.pageNo eq p }">
+						<button disabled><c:out value="${ p }"/></button>
+					</c:if>
+					<c:if test="${ pageInfo.pageNo ne p }">
+						<button onclick="searchCtgPageButtonAction(this.innerText);"><c:out value="${ p }"/></button>
+					</c:if>
+					</c:forEach>
+			
+					<c:if test="${ pageInfo.pageNo == pageInfo.maxPage }">
+						<button disabled>></button>	
+					</c:if>
+					<c:if test="${ pageInfo.pageNo < pageInfo.maxPage }">
+						<button id="searchCtgNextPage">></button>
+					</c:if>
+			
+					<button id="searchCtgMaxPage">>></button>
+				</c:when>
+				
+				<c:otherwise>
+					<button id="startPage"><<</button>
+			
+					<c:if test="${ pageInfo.pageNo == 1 }">
+						<button disabled><</button>
+					</c:if>
+					<c:if test="${ pageInfo.pageNo > 1 }">
+						<button id="prevPage"><</button>
+					</c:if>
+			
+					<c:forEach var="p" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1">
+					<c:if test="${ pageInfo.pageNo eq p }">
+						<button disabled><c:out value="${ p }"/></button>
+					</c:if>
+					<c:if test="${ pageInfo.pageNo ne p }">
+						<button onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></button>
+					</c:if>
+					</c:forEach>
+			
+					<c:if test="${ pageInfo.pageNo == pageInfo.maxPage }">
+						<button disabled>></button>	
+					</c:if>
+					<c:if test="${ pageInfo.pageNo < pageInfo.maxPage }">
+						<button id="nextPage">></button>
+					</c:if>
+			
+					<button id="maxPage">>></button>
+				</c:otherwise>
+			</c:choose>
+		</div>	<!-- pagingArea 종료 -->
+        
+        
     </div> <!-- sectionDiv 종료-->
     
     <br clear=both>
@@ -145,6 +238,109 @@
 				}
 			})
 		});
+		
+		const link = "${ pageContext.servletContext.contextPath }/prodMng/selectProduct";
+		const searchLink = "${ pageContext.servletContext.contextPath }/prodMng/searchProductList";
+		
+		function pageButtonAction(text) {
+			location.href = link + "?currentPage=" + text;
+		}
+		
+		function searchCtgPageButtonAction(text) {
+			location.href = searchLink + "?currentPage=" + text + "&prodCtgNo=${params.prodCtgNo}";
+		}
+		
+		function searchNamePageButtonAction(text) {
+			location.href = searchLink + "?currentPage=" + text + "&prodName=${params.prodName}";
+		}
+		
+		
+		if(document.getElementById("searchCtgStartPage")){
+			const $searchCtgStartPage = document.getElementById("searchCtgStartPage");
+			$searchCtgStartPage.onclick = function(){
+				location.href = searchLink + "?currentPage=1&prodCtgNo=${params.prodCtgNo}";
+			}
+		}
+		
+		if(document.getElementById("searchCtgMaxPage")){
+			const $searchCtgMaxPage = document.getElementById("searchCtgMaxPage");
+			$searchCtgMaxPage.onclick = function(){
+				location.href = searchLink + "?currentPage=${ pageInfo.maxPage }&prodCtgNo=${params.prodCtgNo}";
+			}
+		}
+		
+		if(document.getElementById("searchCtgPrevPage")){
+			const $searchCtgPrevPage = document.getElementById("searchCtgPrevPage");
+			$searchCtgPrevPage.onclick = function(){
+				location.href = searchLink + "?currentPage=${ pageInfo.pageNo - 1 }&prodCtgNo=${params.prodCtgNo}";
+			}
+		}
+		
+		if(document.getElementById("searchCtgNextPage")){
+			const $searchCtgNextPage = document.getElementById("searchCtgNextPage");
+			$searchCtgNextPage.onclick = function(){
+				location.href = searchLink + "?currentPage=${ pageInfo.pageNo + 1 }&prodCtgNo=${params.prodCtgNo}";
+			}
+		}
+		
+		
+		if(document.getElementById("searchNameStartPage")){
+			const $searchNameStartPage = document.getElementById("searchNameStartPage");
+			$searchNameStartPage.onclick = function(){
+				location.href = searchLink + "?currentPage=1&prodName=${params.prodName}";
+			}
+		}
+		
+		if(document.getElementById("searchNameMaxPage")){
+			const $searchNameMaxPage = document.getElementById("searchNameMaxPage");
+			$searchNameMaxPage.onclick = function(){
+				location.href = searchLink + "?currentPage=${ pageInfo.maxPage }&prodName=${params.prodName}";
+			}
+		}
+		
+		if(document.getElementById("searchNamePrevPage")){
+			const $searchNamePrevPage = document.getElementById("searchNamePrevPage");
+			$searchNamePrevPage.onclick = function(){
+				location.href = searchLink + "?currentPage=${ pageInfo.pageNo - 1 }&prodName=${params.prodName}";
+			}
+		}
+		
+		if(document.getElementById("searchNameNextPage")){
+			const $searchNameNextPage = document.getElementById("searchNameNextPage");
+			$searchNameNextPage.onclick = function(){
+				location.href = searchLink + "?currentPage=${ pageInfo.pageNo + 1 }&prodName=${params.prodName}";
+			}
+		}
+		
+		if(document.getElementById("startPage")){
+			const $startPage = document.getElementById("startPage");
+			$startPage.onclick = function(){
+				location.href = link + "?currentPage=1";
+			}
+		}
+		
+		if(document.getElementById("maxPage")){
+			const $maxPage = document.getElementById("maxPage");
+			$maxPage.onclick = function(){
+				location.href = link + "?currentPage=${ pageInfo.maxPage }";
+			}
+		}
+		
+		if(document.getElementById("prevPage")){
+			const $prevPage = document.getElementById("prevPage");
+			$prevPage.onclick = function(){
+				location.href = link + "?currentPage=${ pageInfo.pageNo - 1 }";
+			}
+		}
+		
+		if(document.getElementById("nextPage")){
+			const $nextPage = document.getElementById("nextPage");
+			$nextPage.onclick = function(){
+				location.href = link + "?currentPage=${ pageInfo.pageNo + 1 }";
+			}
+		}
+		
+		
 	</script>
 	
 	

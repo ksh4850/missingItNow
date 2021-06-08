@@ -60,7 +60,8 @@
     <div class="nav">
         <div class="corpProfileDiv">
             <br> 
-            <img id="corpImg" class="corpProfileImg" src="${ pageContext.servletContext.contextPath }/resources/corpUserImages/CorpUserDefaultImg.PNG"/>
+            <img id="corpImg" class="corpProfileImg" 
+            src="${ pageContext.servletContext.contextPath }/resources/corpUserImages/CorpUserDefaultImg.PNG"/>
             <br>
             <div align="center">
 	            <input type="text" id="corpName" readonly>
@@ -108,12 +109,14 @@
     </div>
     
 	<script>
+		
+	
 		$("#insertProduct").click(function(){
 			location.href="${ pageContext.servletContext.contextPath }/prodMng/insertProduct";
 		})
 		
 		$("#selectProduct").click(function(){
-			location.href="${ pageContext.servletContext.contextPath }/prodMng/selectProduct";
+			location.href="${ pageContext.servletContext.contextPath }/prodMng/selectProduct"+"?currentPage=1";
 		})
 		
 		$("#selectOrderList").click(function(){
@@ -152,7 +155,12 @@
 				const corpImg = data.corpImg.corpImgRename;
 				
 				$('#corpName').attr('value',corpName);
-				$('#corpImg').attr('src','${ pageContext.servletContext.contextPath }/resources/corpUserImages/'+corpImg);
+				
+				if(corpImg == null){
+					$('#corpImg').attr('src','${ pageContext.servletContext.contextPath }/resources/corpUserImages/CorpUserDefaultImg.PNG');
+				} else {
+					$('#corpImg').attr('src','${ pageContext.servletContext.contextPath }/resources/corpUserImages/'+corpImg);
+				}
 				
 			},
 			error: function(error){

@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.finalproj.missingitnow.common.page.PageInfoDTO;
+import com.finalproj.missingitnow.common.page.Pagenation;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductDTO;
 import com.finalproj.missingitnow.corpMng.model.service.ProdMngService;
 
@@ -35,46 +40,82 @@ public class ProdMngController {
 
 	// 전체 상품 조회 (해당 기업이 등록한) ** 세션 작업 아직 안함 **
 	@GetMapping("/selectProduct")
-	public String selectProduct(Model model) {
+	public String selectProduct(Model model, @RequestParam(required=false) String currentPage) {
 		
-		List<ProdMngProductDTO> productList = prodMngService.selectProductList();
+		int pageNo = 1;
+		
+		if(currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			if(pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+		
+		int totalCount = prodMngService.selectTotalProductList();
+		System.out.println("totalCount : " + totalCount);
+		int limit = 15;
+		int buttonAmount = 5;
+		
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		List<ProdMngProductDTO> productList = prodMngService.selectProductList(pageInfo);
 //		for(ProdMngProductDTO a : productList) {
 //			System.out.println(a);
 //		}
 		model.addAttribute("productList", productList);
+		model.addAttribute("pageInfo", pageInfo);
 		
 		return "/corpMng/prodMng-selectProduct";
 	}
 	
-	
-	// 카테고리별 등록 상품 조회
-	@PostMapping("/selectProductByCtg")
-	public String selectProductByCtg(Model model, @RequestParam(required=false) String prodCtgNo) {
+	// 카테고리별/상품별 등록 상품 조회
+	@GetMapping("/searchProductList")
+	public String searchProductList(Model model, @RequestParam(required=false) String prodCtgNo,
+									@RequestParam(required=false) String prodName,
+									@RequestParam(required=false) String currentPage) {
 		
+		System.out.println("prodCtgNo : " + prodCtgNo);
+		System.out.println("prodName : " + prodName);
+		
+		int pageNo = 1;
+		
+		if(currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			if(pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("prodCtgNo", prodCtgNo);
+		params.put("prodName", prodName);
+		
+		int totalCount = prodMngService.searchTotalProductList(params);
+		System.out.println("totalCount : " + totalCount);
+		
+		int limit = 15;
+		int buttonAmount = 5;
+
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 //		System.out.println(prodCtgNo);
 		
-		List<ProdMngProductDTO> productList = prodMngService.selectProductByCtg(prodCtgNo);
-//		for(ProdMngProductDTO ListByCtg : productList) {
-//			System.out.println("ListByCtg : " + ListByCtg);
+		params.put("pageInfo", pageInfo);
+		
+		List<ProdMngProductDTO> productList = prodMngService.searchProductList(params);
+//		for(ProdMngProductDTO searchList : productList) {
+//			System.out.println("searchList : " + searchList);
 //		}
+		
+//		System.out.println("params.prodName : " + params.get("prodName"));
+//		System.out.println("params.prodCtgNo : " + params.get("prodCtgNo"));
+		
 		model.addAttribute("productList", productList);
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("params", params);
 		
 		return "/corpMng/prodMng-selectProduct";
-	}
+	}		// 카테고리별/상품별 등록 상품 조회 종료
 	
-	
-	// 상품명별 등록 상품 조회 
-	@PostMapping("/selectProductByProdName")
-	public String selectProductByName(Model model, @RequestParam(required=false) String prodName) {
-		
-		List<ProdMngProductDTO> productList = prodMngService.selectProductByName(prodName);
-//		for(ProdMngProductDTO ListByProdName : productList) {
-//			System.out.println("ListByProdName : " + ListByProdName);
-//		}
-		model.addAttribute("productList", productList);
-		
-		return "/corpMng/prodMng-selectProduct";
-	}
 
 	@GetMapping("/insertProduct")
 	public String insertForm() {
@@ -86,6 +127,7 @@ public class ProdMngController {
 	@PostMapping("/insertProduct")
 	public String insertProduct(Model model, HttpServletRequest request, 
 								@ModelAttribute ProdMngProductDTO prodMngProduct,
+								@RequestParam List<String> keywordsSet,
 								@RequestParam(required=false) List<MultipartFile> prodImg) {
 		
 		// 상품 정보 insert
@@ -120,7 +162,7 @@ public class ProdMngController {
 				Map<String, String> file = files.get(i);
 				prodImg.get(i).transferTo(new File(filePath + "/" + file.get("changeName")));
 				
-				insertProdImg = prodMngService.insertProdImg(file);
+				insertProdImg += prodMngService.insertProdImg(file);
 			}
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
@@ -130,7 +172,27 @@ public class ProdMngController {
 			}
 		}
 		
-		if(insertProductInfo > 0 && insertProdImg > 0) {
+		// 해당 상품 키워드 등록
+		int insertKeywords = 0;
+		for(int i = 0; i < keywordsSet.size(); i++) {
+			String keywords = keywordsSet.get(i);
+			
+			Map<String, String> key = new HashMap<>();
+			key.put("keywords", keywords);
+			
+			System.out.println("String keywords : " + keywords);
+			System.out.println("Map key.get : " + key.get("keywords"));
+			
+			if(!keywords.equals("")) {
+				insertKeywords += prodMngService.insertKeywords(key);
+			} else {
+				break;
+			}
+		}
+		
+		System.out.println("insertKeywords : " + insertKeywords);
+		
+		if(insertProductInfo > 0 && insertProdImg >= 1 && insertKeywords >= 1) {
 			model.addAttribute("successCode", "insertProduct");
 			return "/common/success";
 			

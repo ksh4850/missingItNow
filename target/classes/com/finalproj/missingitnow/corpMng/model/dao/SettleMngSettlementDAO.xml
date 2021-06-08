@@ -23,19 +23,30 @@
 		</association>
 	</resultMap>
 	
-	<select id="selectSettlementList" resultMap="settleMngSettlementResultSet">
+	<select id="selectTotalSettlementList" resultType="_int">
 		SELECT
-		       A.SETTLEMENT_NO
-		     , A.SETTLEMENT_START_DATE
-		     , A.SETTLEMENT_END_DATE
-		     , A.TOTAL_SALES
-		     , A.COMMISSION_BY_SALES
-		     , A.SETTLEMENT_AMT
-		     , A.SETTLEMENT_DATE
-		     , A.SETTLEMENT_CHK
+		       COUNT(*)
 		  FROM TBL_SETTLEMENT A
 		 WHERE A.CORP_NO = 'CORP0001'
-		 ORDER BY A.SETTLEMENT_NO DESC
+	</select>
+	
+	<select id="selectSettlementList" resultMap="settleMngSettlementResultSet" parameterType="PageInfoDTO">
+		SELECT E.*
+		  FROM (SELECT ROWNUM RNUM
+		             , D.*
+		          FROM (SELECT A.SETTLEMENT_NO
+		                     , A.SETTLEMENT_START_DATE
+		                     , A.SETTLEMENT_END_DATE
+		                     , A.TOTAL_SALES
+		                     , A.COMMISSION_BY_SALES
+		                     , A.SETTLEMENT_AMT
+		                     , A.SETTLEMENT_DATE
+		                     , A.SETTLEMENT_CHK
+		                  FROM TBL_SETTLEMENT A
+		                 WHERE A.CORP_NO = 'CORP0001'
+		                 ORDER BY A.SETTLEMENT_NO DESC) D
+		          ) E
+		 WHERE E.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<insert id="insertSettlement" parameterType="SettleMngSettlementDTO">
@@ -73,17 +84,28 @@
 		</association>
 	</resultMap>
 	
-	<select id="selectDepositList" resultMap="settleMngDepositListResultSet">
-		SELECT 
-		       A.DEPOSIT_NO
-		     , A.CORP_NO
-		     , A.DEPOSIT_SORT
-		     , A.AMOUNT
-		     , A.DEPOSIT_DATE
-		     , A.DEPOSIT_DETAILS
+	<select id="selectTotalDepositList" resultType="_int">
+		SELECT
+		       COUNT(*)
 		  FROM TBL_DEPOSIT A
 		 WHERE A.CORP_NO = 'CORP0001'
-		 ORDER BY A.DEPOSIT_NO DESC
+	</select>
+	
+	<select id="selectDepositList" resultMap="settleMngDepositListResultSet" parameterType="PageInfoDTO">
+		SELECT E.*
+		  FROM (SELECT ROWNUM RNUM
+		             , D.*
+		          FROM (SELECT A.DEPOSIT_NO
+		                     , A.CORP_NO
+		                     , A.DEPOSIT_SORT
+		                     , A.AMOUNT
+		                     , A.DEPOSIT_DATE
+		                     , A.DEPOSIT_DETAILS
+		                  FROM TBL_DEPOSIT A
+		                 WHERE A.CORP_NO = 'CORP0001'
+		                 ORDER BY A.DEPOSIT_NO DESC) D
+		          ) E
+		 WHERE E.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<resultMap id="corpUserInfoResultSet" type="CorpUserDTO">
@@ -142,15 +164,29 @@
 		<result property="corpPayDate" column="CORP_PAY_DATE"/>
 	</resultMap>
 	
-	<select id="selectPaymentList" resultMap="paymentListResultSet">
-		SELECT A.CORP_PAY_NO
-		     , CASE WHEN A.CORP_PAY_METHOD = 'card' THEN '카드' END AS CORP_PAY_METHOD
-		     , A.CORP_PAY_DETAILS
-		     , A.CORP_PAY_AMOUNT
-		     , A.CORP_PAY_DATE
+	<select id="selectTotalPaymentList" resultType="_int">
+		SELECT
+		       COUNT(*)
 		  FROM TBL_CORP_PAYMENT A
-		 WHERE A.CORP_PAY_CHK = 'Y'
-		   AND A.CORP_NO = 'CORP0001'
+		 WHERE A.CORP_NO = 'CORP0001'
+		   AND A.CORP_PAY_CHK = 'Y'
+	</select>
+	
+	<select id="selectPaymentList" resultMap="paymentListResultSet" parameterType="PageInfoDTO">
+		SELECT E.*
+		  FROM (SELECT ROWNUM RNUM
+		             , D.*
+		          FROM (SELECT A.CORP_PAY_NO
+		                     , CASE WHEN A.CORP_PAY_METHOD = 'card' THEN '신용카드' END AS CORP_PAY_METHOD
+		                     , A.CORP_PAY_DETAILS
+		                     , A.CORP_PAY_AMOUNT
+		                     , A.CORP_PAY_DATE
+		                  FROM TBL_CORP_PAYMENT A
+		                 WHERE A.CORP_PAY_CHK = 'Y'
+		                   AND A.CORP_NO = 'CORP0001'
+		                 ORDER BY A.CORP_PAY_NO DESC) D
+		          ) E
+		 WHERE E.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	

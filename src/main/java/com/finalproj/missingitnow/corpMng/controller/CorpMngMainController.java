@@ -73,52 +73,56 @@ public class CorpMngMainController {
 									@ModelAttribute CorpUserDTO corpUser,
 									@RequestParam(required=false) MultipartFile corpUserImg) {
 		
+		System.out.println("corpUserImg : " + corpUserImg.isEmpty());
+		
 		corpUser.setCorpPwd(passwordEncoder.encode(corpUser.getCorpPwd()));
 		
 		// 기업회원 정보 수정
 		int updateCorpUserInfo = corpMngMainService.updateCorpUserInfo(corpUser);
 //		System.out.println("updateCorpUserInfo : " + updateCorpUserInfo);
 		
-		// 기존 프로필 이미지 삭제
-		int deleteCorpUserImg = corpMngMainService.deleteCorpUserImg(corpUser);
-		System.out.println("deleteCorpUserImg : " + deleteCorpUserImg);
-		
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		String filePath = root + "/corpUserImages";
-		
-		File mkdir = new File(filePath);
-		if(!mkdir.exists()) {
-			mkdir.mkdirs();
-		}
-		
-		String originFileName = "";
-		String ext = "";
-		String changeName = "";
-		
 		int updateCorpUserImg = 0;
-		if(corpUserImg.getSize() > 0) {
-			originFileName = corpUserImg.getOriginalFilename();
-			ext = originFileName.substring(originFileName.lastIndexOf("."));
-			changeName = UUID.randomUUID().toString().replace("-",  "") + ext;
+		if(!corpUserImg.isEmpty()) {
+			// 기존 프로필 이미지 삭제
+			int deleteCorpUserImg = corpMngMainService.deleteCorpUserImg(corpUser);
+			System.out.println("deleteCorpUserImg : " + deleteCorpUserImg);
 			
-			Map<String, String> file = new HashMap<>();
-			file.put("originFileName", originFileName);
-			file.put("changeName", changeName);
-			file.put("filePath", filePath);
-			file.put("corpNo", corpNo);
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String filePath = root + "/corpUserImages";
 			
-			try {
-				corpUserImg.transferTo(new File(filePath + "\\" + changeName));
+			File mkdir = new File(filePath);
+			if(!mkdir.exists()) {
+				mkdir.mkdirs();
+			}
+			
+			String originFileName = "";
+			String ext = "";
+			String changeName = "";
+			
+			if(corpUserImg.getSize() > 0) {
+				originFileName = corpUserImg.getOriginalFilename();
+				ext = originFileName.substring(originFileName.lastIndexOf("."));
+				changeName = UUID.randomUUID().toString().replace("-",  "") + ext;
 				
-				updateCorpUserImg = corpMngMainService.updateCorpUserImg(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-				new File(filePath + "\\" + changeName + ext).delete();
+				Map<String, String> file = new HashMap<>();
+				file.put("originFileName", originFileName);
+				file.put("changeName", changeName);
+				file.put("filePath", filePath);
+				file.put("corpNo", corpNo);
+				
+				try {
+					corpUserImg.transferTo(new File(filePath + "\\" + changeName));
+					
+					updateCorpUserImg = corpMngMainService.updateCorpUserImg(file);
+				} catch (IOException e) {
+					e.printStackTrace();
+					new File(filePath + "\\" + changeName + ext).delete();
+				}
 			}
 		}
-		System.out.println("updateCorpUserImg : " + updateCorpUserImg);
+//		System.out.println("updateCorpUserImg : " + updateCorpUserImg);
 		
-		if (updateCorpUserInfo > 0 && updateCorpUserImg > 0) {
+		if (updateCorpUserInfo > 0 || updateCorpUserImg > 0) {
 			model.addAttribute("successCode", "updateCorpUserInfo");
 			return "/common/success";
 			

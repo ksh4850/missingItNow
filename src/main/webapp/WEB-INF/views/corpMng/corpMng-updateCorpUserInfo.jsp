@@ -76,9 +76,9 @@
                 	<h2 align="center">프로필 이미지 등록</h2>
                 	<br>
                 	<img class="preview" id="preview" style="border: 1px solid black; width: 300px; height: 300px; margin: 0 auto; position: relative; left: 90px; border-radius: 100%;" 
-                			src="${ pageContext.servletContext.contextPath }/resources/corpUserImages/${ corpUserInfo.corpImg.corpImgRename}">
+                	src="${ pageContext.servletContext.contextPath }/resources/corpUserImages/<c:if test="${ empty corpUserInfo.corpImg.corpImgRename }">CorpUserDefaultImg.PNG</c:if>${ corpUserInfo.corpImg.corpImgRename}">
                 	<br><br><br>
-                	<input type="file" name="corpUserImg" id="corpUserImg" onchange="loadImg(this);" style="position: relative; left: 190px; width: 105px; font-size: 20px;" required>
+                	<input type="file" name="corpUserImg" id="corpUserImg" onchange="loadImg(this);" style="position: relative; left: 190px; width: 105px; font-size: 20px;">
                 </div>
                 
                 <table class="updateCorpUserTable">

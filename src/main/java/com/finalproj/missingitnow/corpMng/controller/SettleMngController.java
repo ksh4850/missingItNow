@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.finalproj.missingitnow.common.page.PageInfoDTO;
+import com.finalproj.missingitnow.common.page.Pagenation;
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SettleMngDepositDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SettleMngPaymentDTO;
@@ -35,15 +37,33 @@ public class SettleMngController {
 	
 	// 전체 정산 내역 조회
 	@GetMapping("/selectSettlementList")
-	public String selectSettlementList(Model model) {
+	public String selectSettlementList(Model model, @RequestParam(required=false) String currentPage) {
 		
-		List<SettleMngSettlementDTO> settlementList = settleMngService.selectSettlementList();
+		int pageNo = 1;
+		
+		if(currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			if(pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+		
+		int totalCount = settleMngService.selectTotalSettlementList();
+		System.out.println("totalCount : " + totalCount);
+		
+		int limit = 15;
+		int buttonAmount = 5;
+		
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		List<SettleMngSettlementDTO> settlementList = settleMngService.selectSettlementList(pageInfo);
 		
 //		for(SettleMngSettlementDTO A : settlementList) {
-//			System.out.println(A);
+//			System.out.println("settlement : " + A);
 //		}
 		
 		model.addAttribute("settlementList", settlementList);
+		model.addAttribute("pageInfo", pageInfo);
 		
 		return "/corpMng/settleMng-settlementNList";
 	}
@@ -78,15 +98,33 @@ public class SettleMngController {
 	
 	// 기업회원별 예치금 조회
 	@GetMapping("/selectDepositList")
-	public String selectDepositList(Model model) {
+	public String selectDepositList(Model model, @RequestParam(required=false) String currentPage) {
 		
-		List<SettleMngDepositDTO> depositList = settleMngService.selectDepositList();
+		int pageNo = 1;
 		
-//		for(SettleMngDepositDTO a : depositList) {
-//			System.out.println(a);
+		if(currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			if(pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+		
+		int totalCount = settleMngService.selectTotalDepositList();
+		System.out.println("totalCount : " + totalCount);
+		
+		int limit = 15;
+		int buttonAmount = 5;
+		
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		List<SettleMngDepositDTO> depositList = settleMngService.selectDepositList(pageInfo);
+		
+//		for(SettleMngDepositDTO depo : depositList) {
+//			System.out.println("depositList : " + depo);
 //		}
 		
 		model.addAttribute("depositList", depositList);
+		model.addAttribute("pageInfo", pageInfo);
 		
 		return "/corpMng/settleMng-depositMng";
 	}
@@ -99,7 +137,7 @@ public class SettleMngController {
 		Gson gson = new Gson();
 		
 		CorpUserDTO corpUserInfo = settleMngService.selectCorpUserForPay();
-		System.out.println(corpUserInfo);
+//		System.out.println(corpUserInfo);
 		
 		return gson.toJson(corpUserInfo);
 	}
@@ -138,14 +176,32 @@ public class SettleMngController {
 	
 	// 결제내역 조회
 	@GetMapping("/paymentList")
-	public String selectPaymentList(Model model) {
+	public String selectPaymentList(Model model, @RequestParam(required=false) String currentPage) {
 		
-		List<SettleMngPaymentDTO> paymentList = settleMngService.selectPaymentList();
-//		for(SettleMngPaymentDTO pay : paymentList) {
-//			System.out.println("pay : " + pay);
-//		}
+		int pageNo = 1;
+		
+		if(currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			if(pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+		
+		int totalCount = settleMngService.selectTotalPaymentList();
+		System.out.println("totalCount : " + totalCount);
+		
+		int limit = 15;
+		int buttonAmount = 5;
+		
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		List<SettleMngPaymentDTO> paymentList = settleMngService.selectPaymentList(pageInfo);
+		for(SettleMngPaymentDTO pay : paymentList) {
+			System.out.println("pay : " + pay);
+		}
 		
 		model.addAttribute("paymentList", paymentList);
+		model.addAttribute("pageInfo", pageInfo);
 		
 		return "/corpMng/settleMng-paymentList";
 	}

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.finalproj.missingitnow.common.page.PageInfoDTO;
 import com.finalproj.missingitnow.corpMng.model.dao.SettleMngSettlementDAO;
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SalesMngSalesDTO;
@@ -22,10 +23,15 @@ public class SettleMngServiceImpl implements SettleMngService {
 	public SettleMngServiceImpl(SettleMngSettlementDAO settleMngSettlementDAO) {
 		this.settleMngSettlementDAO = settleMngSettlementDAO;
 	}
+	
+	@Override
+	public int selectTotalSettlementList() {
+		return settleMngSettlementDAO.selectTotalSettlementList();
+	}
 
 	@Override
-	public List<SettleMngSettlementDTO> selectSettlementList() {
-		return settleMngSettlementDAO.selectSettlementList();
+	public List<SettleMngSettlementDTO> selectSettlementList(PageInfoDTO pageInfo) {
+		return settleMngSettlementDAO.selectSettlementList(pageInfo);
 	}
 
 	@Override
@@ -42,10 +48,15 @@ public class SettleMngServiceImpl implements SettleMngService {
 	public SettleMngSettlementDTO chkLastEndDate() {
 		return settleMngSettlementDAO.chkLastEndDate();
 	}
+	
+	@Override
+	public int selectTotalDepositList() {
+		return settleMngSettlementDAO.selectTotalDepositList();
+	}
 
 	@Override
-	public List<SettleMngDepositDTO> selectDepositList() {
-		return settleMngSettlementDAO.selectDepositList();
+	public List<SettleMngDepositDTO> selectDepositList(PageInfoDTO pageInfo) {
+		return settleMngSettlementDAO.selectDepositList(pageInfo);
 	}
 
 	@Override
@@ -64,10 +75,14 @@ public class SettleMngServiceImpl implements SettleMngService {
 	}
 
 	@Override
-	public List<SettleMngPaymentDTO> selectPaymentList() {
-		return settleMngSettlementDAO.selectPaymentList();
+	public int selectTotalPaymentList() {
+		return settleMngSettlementDAO.selectTotalPaymentList();
 	}
 
+	@Override
+	public List<SettleMngPaymentDTO> selectPaymentList(PageInfoDTO pageInfo) {
+		return settleMngSettlementDAO.selectPaymentList(pageInfo);
+	}
 
 
 
