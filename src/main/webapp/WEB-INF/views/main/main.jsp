@@ -33,7 +33,7 @@
                             <div class="slide-view">
                                 <ul class="slide-wrap cf">
                                     <li class="slide slide2"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img3.jpg" alt=""></li>
-                                    <li class="slide slide0"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img1.jpg" alt=""></li>
+                                   r <li class="slide slide0"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img1.jpg" alt=""></li>
                                     <li class="slide slide1"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img2.jpg" alt=""></li>
                                     <li class="slide slide2"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img3.jpg" alt=""></li>
                                     <li class="slide slide0"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img1.jpg" alt=""></li>

@@ -213,6 +213,7 @@
 		        INTO TBL_PROD_REVIEW
 		 (
 		   REVIEW_NO
+		 , ORDER_NO  
 		 , PROD_NO
 		 , USER_NO
 		 , REVIEW_DETAILS
@@ -221,7 +222,8 @@
 		 ) 
 		 VALUES 
 		 (
-		   'REVW' || LPAD(SEQ_REVIEW.NEXTVAL,4,0)
+		   #{REVIEW_NO}
+		 , '1fff'  
 		 , #{productNo}
 		 , #{userNo}
 		 , #{context}

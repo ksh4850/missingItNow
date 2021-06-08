@@ -177,16 +177,14 @@ public class ProductController {
 	}
 
 	
-	  @GetMapping("/insertReview") public String insertForm() {
-	  System.out.println("와지냐 여기"); return "/product/product-list"; }
-	 
+
 
 	// 상품등록
 	@PostMapping(value="/insertReview", produces ="application/json; charset=UTF-8")
 	@ResponseBody public String insertProduct(Model model, HttpServletRequest request,
 	@RequestParam("starValue") int starValue,@RequestParam("context") String context,@RequestParam("productNo") String productNo) {
 
-		  String userNo = "USER0002"; 
+		  String userNo = "1"; 
 		  HashMap<String, Object> insertReview = new HashMap<String, Object>(); 
 		  insertReview.put("starValue", starValue);
 		  insertReview.put("context", context); 
@@ -206,9 +204,9 @@ public class ProductController {
 		@PostMapping(value="/insertComment", produces ="application/json; charset=UTF-8")
 		@ResponseBody public String insertProduct(Model model, HttpServletRequest request,
 		@RequestParam("context") String context,@RequestParam("prodNo") String prodNo) {
-			
-			System.out.println(prodNo);
-			  String userNo = "USER0002"; 
+			  System.out.println("안녕 디지몬");
+			  System.out.println(prodNo);
+			  String userNo = "1"; 
 			  HashMap<String, Object> insertComment = new HashMap<String, Object>(); 
 			  insertComment.put("text", context); 
 			  insertComment.put("prodNo",prodNo);
