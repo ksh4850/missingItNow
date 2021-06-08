@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.finalproj.missingitnow.common.exception.LoginFailedException;
 import com.finalproj.missingitnow.common.exception.MemberRegistException;
-import com.finalproj.missingitnow.corporation.model.dto.MemberDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corporation.model.service.CorporationService;
 
 
@@ -27,6 +27,8 @@ import com.finalproj.missingitnow.corporation.model.service.CorporationService;
 @RequestMapping("/corporation")
 @SessionAttributes("CorpUserSession")
 public class CorporationController {
+	
+	/*  !! 기업회원 DTO 통합하여 CorpMng안에 있는 CorpUserDTO로 세션 통합 시킴 (MemberDTO 미사용) !! */
 	
 	private final CorporationService corporationService;
 	private final BCryptPasswordEncoder passwordEncoder;
@@ -49,8 +51,9 @@ public class CorporationController {
 	
 
 	@PostMapping("/login")
-	public String login(@ModelAttribute MemberDTO member, Model model) throws LoginFailedException {
-		MemberDTO CorpUserSession = corporationService.loginMember(member);
+	public String login(@ModelAttribute CorpUserDTO member, Model model) throws LoginFailedException {
+		CorpUserDTO CorpUserSession = corporationService.loginMember(member);
+		
 		System.out.println("CorpUserSession : " + CorpUserSession);
 		
 		model.addAttribute("CorpUserSession", CorpUserSession);
@@ -64,7 +67,7 @@ public class CorporationController {
 	public void registForm() {}
 	
 	@PostMapping("/regist")
-	public String registMember(@ModelAttribute MemberDTO member, HttpServletRequest request, RedirectAttributes rttr,
+	public String registMember(@ModelAttribute CorpUserDTO member, HttpServletRequest request, RedirectAttributes rttr,
 								@RequestParam(required=false) MultipartFile corpUserImg) throws MemberRegistException {
 		
 		System.out.println("corpUserImg : " + corpUserImg);

@@ -7,7 +7,7 @@ import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 public interface CorpMngMainDAO {
 
 	// 정보 수정을 위한 정보 select
-	CorpUserDTO selectCorpUserInfo();
+	CorpUserDTO selectCorpUserInfo(CorpUserDTO corpUser);
 	
 	// 기업회원 정보 수정
 	int updateCorpUserInfo(CorpUserDTO corpUser);

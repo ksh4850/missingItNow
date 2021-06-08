@@ -3,7 +3,7 @@
 
 <mapper namespace="com.finalproj.missingitnow.corporation.model.dao.CorporationDAO">
 
-	 <resultMap id="CorpMemberResultSet" type="memberDTO">
+	 <resultMap id="CorpMemberResultSet" type="CorpUserDTO">
 		<id property="corpNo" column="CORP_NO"/>
 		<result property="corpId" column="CORP_ID"/>
 		<result property="corpPwd" column="CORP_PWD"/>
@@ -21,7 +21,7 @@
 	</resultMap> 
 
 
- 	<select id="selectEncPassword" resultType="java.lang.String" parameterType="memberDTO">
+ 	<select id="selectEncPassword" resultType="java.lang.String" parameterType="CorpUserDTO">
 		SELECT 
 		       CORP_PWD
 		  FROM TBL_CORP_USER 
@@ -50,7 +50,7 @@
 		   AND A.CORP_LEAVE_CHK='N'
 	</select>  
 
-	<insert id="insertMember" parameterType="memberDTO">
+	<insert id="insertMember" parameterType="CorpUserDTO">
         INSERT 
           INTO TBL_CORP_USER
         (

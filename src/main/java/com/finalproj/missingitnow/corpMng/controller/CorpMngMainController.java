@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
@@ -26,6 +27,7 @@ import com.google.gson.Gson;
 
 @Controller
 @RequestMapping("/corpMng")
+@SessionAttributes("CorpUserSession")
 public class CorpMngMainController {
 	
 	private final CorpMngMainService corpMngMainService;
@@ -39,16 +41,17 @@ public class CorpMngMainController {
 	
 	@PostMapping(value="/selectCorpUserInfoForNavi", produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public String selectCorpUserInfoForNavi() {
+	public String selectCorpUserInfoForNavi(Model model) {
+		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
 		
 		Gson gson = new Gson();
 		
-		CorpUserDTO corpUserInfo = corpMngMainService.selectCorpUserInfo();
-//		System.out.println("CorpUserInfoForNavi : " + corpUserInfo);
+		CorpUserDTO corpUserInfo = corpMngMainService.selectCorpUserInfo(CorpUserSession);
+		System.out.println("CorpUserInfoForNavi : " + corpUserInfo);
+		
 		return gson.toJson(corpUserInfo);
 	}
-	
-	
 	
 	@GetMapping("/main")
 	public String corpMngMain() {
@@ -58,9 +61,10 @@ public class CorpMngMainController {
 	// 정보 수정을 위한 정보 select
 	@GetMapping("/updateCorpUserInfo")
 	public String selectCorpUserInfo(Model model) {
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
 		
-		CorpUserDTO corpUserInfo = corpMngMainService.selectCorpUserInfo();
-//		System.out.println("corpUserInfo :" + corpUserInfo);
+		CorpUserDTO corpUserInfo = corpMngMainService.selectCorpUserInfo(CorpUserSession);
+		System.out.println("corpUserInfo :" + corpUserInfo);
 		
 		model.addAttribute("corpUserInfo", corpUserInfo);
 		

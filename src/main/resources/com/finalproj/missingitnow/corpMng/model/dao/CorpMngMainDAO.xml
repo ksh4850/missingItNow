@@ -21,7 +21,7 @@
 		</association>
 	</resultMap>
 	
-	<select id="selectCorpUserInfo" resultMap="corpUserInfoResultSet">
+	<select id="selectCorpUserInfo" resultMap="corpUserInfoResultSet" parameterType="CorpUserDTO">
 		SELECT 
 		       A.CORP_NO
 		     , A.CORP_ID
@@ -37,7 +37,7 @@
 		     , B.CORP_IMG_RENAME
 		  FROM TBL_CORP_USER A
 		  LEFT JOIN TBL_CORP_IMG B ON (A.CORP_NO = B.CORP_NO)
-		 WHERE A.CORP_NO = 'CORP0001'
+		 WHERE A.CORP_NO = #{corpNo}
 	</select>
 	
 	<update id="updateCorpUserInfo" parameterType="CorpUserDTO">

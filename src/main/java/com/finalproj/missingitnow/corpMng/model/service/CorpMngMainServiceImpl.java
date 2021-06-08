@@ -19,8 +19,8 @@ public class CorpMngMainServiceImpl implements CorpMngMainService {
 	}
 
 	@Override
-	public CorpUserDTO selectCorpUserInfo() {
-		return corpMngMainDAO.selectCorpUserInfo();
+	public CorpUserDTO selectCorpUserInfo(CorpUserDTO corpUser) {
+		return corpMngMainDAO.selectCorpUserInfo(corpUser);
 	}
 
 	@Override

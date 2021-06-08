@@ -2,14 +2,12 @@ package com.finalproj.missingitnow.corporation.model.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.finalproj.missingitnow.common.exception.LoginFailedException;
+import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corporation.model.dao.CorporationDAO;
-import com.finalproj.missingitnow.corporation.model.dto.MemberDTO;
 
 
 @Service
@@ -25,7 +23,7 @@ public class CorporationServiceImpl implements CorporationService {
 	}
 
 	@Override
-	public MemberDTO loginMember(MemberDTO member) throws LoginFailedException {
+	public CorpUserDTO loginMember(CorpUserDTO member) throws LoginFailedException {
 		
 		System.out.println("memberPWD : " + member.getCorpPwd());
 		
@@ -40,16 +38,9 @@ public class CorporationServiceImpl implements CorporationService {
 	}
 //
 	@Override
-	public boolean registMember(MemberDTO member) {
+	public boolean registMember(CorpUserDTO member) {
 		return corporationDAO.insertMember(member) > 0? true: false;
 	}
-
-
-
-	
-
-	
-	
 
 
 	

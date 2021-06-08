@@ -1,14 +1,14 @@
 package com.finalproj.missingitnow.corporation.model.dao;
 
-import com.finalproj.missingitnow.corporation.model.dto.MemberDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 
 public interface CorporationDAO {
 
-	int insertMember(MemberDTO member);
+	int insertMember(CorpUserDTO member);
 
-	String selectEncPassword(MemberDTO member);
+	String selectEncPassword(CorpUserDTO member);
 
-	MemberDTO login(MemberDTO member);
+	CorpUserDTO login(CorpUserDTO member);
 
 
 
