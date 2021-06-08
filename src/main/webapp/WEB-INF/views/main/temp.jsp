@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	 임시 메인
+fdf
+	<jsp:forward page="/product/main"/>  
 </body>
 </html>

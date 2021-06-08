@@ -163,6 +163,78 @@ public class ProductServiceImpl implements ProductService {
 		productDAO.orderPaymentInsert(orderPaymentInsert);
 	}
 
+	/* 메인페이지 상품 6개 전체보기 */
+	@Override
+	public List<ProductDTO> allproductTotSix() {
+		return productDAO.allproductTotSix();
+	}
+	
+	/* 메인페이지 상품 6개 거실 침실 */
+	@Override
+	public List<ProductDTO> selectProduct0001() {
+		return productDAO.selectProduct0001();
+	}
+
+	/* 메인페이지 상품 6개 학생/서재가구 */
+	@Override
+	public List<ProductDTO> selectProduct0002() {
+		return productDAO.selectProduct0002();
+	}
+
+	/* 메인페이지 상품 6개 테이블/의자 */
+	@Override
+	public List<ProductDTO> selectProduct0003() {
+		return productDAO.selectProduct0003();
+	}
+
+	/* 메인페이지 상품 6개 침구/커튼 */
+	@Override
+	public List<ProductDTO> selectProduct0004() {
+		return productDAO.selectProduct0004();
+	}
+
+	/* 메인페이지 상품 6개 쿠션/방석 */
+	@Override
+	public List<ProductDTO> selectProduct0005() {
+		return productDAO.selectProduct0005();
+	}
+
+	/* 메인페이지 상품 6개 가전 */
+	@Override
+	public List<ProductDTO> selectProduct0006() {
+		return productDAO.selectProduct0006();
+	}
+
+	/* 메인페이지 상품 6개 수납/정리 */
+	@Override
+	public List<ProductDTO> selectProduct0007() {
+		return productDAO.selectProduct0007();
+	}
+
+	/* 메인페이지 상품 6개 조명 */
+	@Override
+	public List<ProductDTO> selectProduct0008() {
+		return productDAO.selectProduct0008();
+	}
+
+	/* 메인페이지 상품 6개 홈데코 */
+	@Override
+	public List<ProductDTO> selectProduct0009() {
+		return productDAO.selectProduct0009();
+	}
+
+	/* 메인페이지 상품 6개 생활용품 */
+	@Override
+	public List<ProductDTO> selectProduct0010() {
+		return productDAO.selectProduct0010();
+	}
+	
+	/* 인기상품 TOP 7 */
+	@Override
+	public List<ProductDTO> allproductTopSeven() {
+		return productDAO.allproductTopSeven();
+	}
+
 	
 
 

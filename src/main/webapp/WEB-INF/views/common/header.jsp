@@ -158,7 +158,7 @@
             </div>
             <!-- 로고 -->
             <div class="logo">
-                <a href="${ pageContext.servletContext.contextPath }/main/main"><img class="logo-png" src="${ pageContext.servletContext.contextPath }/resources/images/logo.png" class="icons_img" alt="" width="80px"></a>
+                <a href="${ pageContext.servletContext.contextPath }/product/main"><img class="logo-png" src="${ pageContext.servletContext.contextPath }/resources/images/logo.png" class="icons_img" alt="" width="80px"></a>
             </div>
 
             <!-- 검색바 -->

@@ -39,15 +39,27 @@ public class ProductController {
 	public ProductController(ProductService productService) {
 		this.productService = productService;
 	}
+	
+	/* 메인 화면 상품 불러오기 */
+	@GetMapping("main")
+	public String main(Model model) {
+		List<ProductDTO> allproductTotSix = productService.allproductTotSix();
+		List<ProductDTO> allproductTopSeven = productService.allproductTopSeven();
+		
+		model.addAttribute("allproductTotSix", allproductTotSix);
+		model.addAttribute("allproductTopSeven", allproductTopSeven);
+
+		return "/main/main";
+	}
+	
+	/* 메인 상품 MD추천 침실/거실 */
+	
 
 	@GetMapping("test")
 	public String test(Model model, @RequestParam(required = false) String prodCtgNo) {
-
 		List<ProductDTO> productList = productService.selectProduct(prodCtgNo);
 		
-		
 		System.out.println(productList);
-		
 		
 		model.addAttribute("productList", productList);
 
@@ -312,4 +324,7 @@ public class ProductController {
 		
 		return "product/productPaymentCompletion"; 
 	}
+	
+	
+	
 }

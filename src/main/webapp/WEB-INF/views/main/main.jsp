@@ -156,62 +156,21 @@
                             </div>
                             <div class="slide-view">
                                 <ul class="slide-wrap cf">
-                                    <li class="slide slide0">
+                                <% int count = 1; %>
+                                <c:forEach var="List" items="${ allproductTopSeven }">
+                                    <li class="slide">
                                         <div class="number-wrap">
-                                            <h3>01</h3>
+                                        
+                                            <h3><%= count %></h3>
+                                            <% count += 1; %>
                                         </div>
-                                            <div class="img-wrap"></div>
-                                            <p>제품설명이 이부분에 들어가게 됩니다 각 제품 설명을 작성해 주세요.제품설명이 이부분에 들어가게 됩니다 각 제품 설명을 작성해 주세요.</p>
-                                            <span>제품가격<h4>원</h4></span>
+                                            <div class="img-wrap">
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/${ List.prodImgRename }" alt="">
+                                            </div>
+                                            <p><c:out value="${ List.prodName }" /></p>
+                                            <span>제품가격<h4><c:out value="${ List.prodPrice }" />원</h4></span>
                                     </li>
-                                    <li class="slide slide1">
-                                        <div class="number-wrap">
-                                            <h3>02</h3>
-                                        </div>
-                                            <div class="img-wrap"></div>
-                                            <p>제품설명이 이부분에 들어가게 됩니다 각 제품 설명을 작성해 주세요.제품설명이 이부분에 들어가게 됩니다 각 제품 설명을 작성해 주세요.</p>
-                                            <span>제품가격<h4>원</h4></span>
-                                    </li>
-                                    <li class="slide slide2">
-                                        <div class="number-wrap">
-                                            <h3>03</h3>
-                                        </div>
-                                            <div class="img-wrap"></div>
-                                            <p>제품설명이 이부분에 들어가게 됩니다 각 제품 설명을 작성해 주세요.제품설명이 이부분에 들어가게 됩니다 각 제품 설명을 작성해 주세요.</p>
-                                            <span>제품가격<h4>원</h4></span>
-                                    </li>
-                                    <li class="slide slide3">
-                                        <div class="number-wrap">
-                                            <h3>04</h3>
-                                        </div>
-                                            <div class="img-wrap"></div>
-                                            <p>제품설명이 이부분에 들어가게 됩니다 각 제품 설명을 작성해 주세요.제품설명이 이부분에 들어가게 됩니다 각 제품 설명을 작성해 주세요.</p>
-                                            <span>제품가격<h4>원</h4></span>
-                                    </li>
-                                    <li class="slide slide4">
-                                        <div class="number-wrap">
-                                            <h3>05</h3>
-                                        </div>
-                                            <div class="img-wrap"></div>
-                                            <p>제품설명이 이부분에 들어가게 됩니다 각 제품 설명을 작성해 주세요.제품설명이 이부분에 들어가게 됩니다 각 제품 설명을 작성해 주세요.</p>
-                                            <span>제품가격<h4>원</h4></span>
-                                    </li>
-                                    <li class="slide slide5">
-                                        <div class="number-wrap">
-                                            <h3>06</h3>
-                                        </div>
-                                            <div class="img-wrap"></div>
-                                            <p>제품설명이 이부분에 들어가게 됩니다 각 제품 설명을 작성해 주세요.제품설명이 이부분에 들어가게 됩니다 각 제품 설명을 작성해 주세요.</p>
-                                            <span>제품가격<h4>원</h4></span>
-                                    </li>
-                                    <li class="slide slide6">
-                                        <div class="number-wrap">
-                                            <h3>07</h3>
-                                        </div>
-                                            <div class="img-wrap"></div>
-                                            <p>제품설명이 이부분에 들어가게 됩니다 각 제품 설명을 작성해 주세요.제품설명이 이부분에 들어가게 됩니다 각 제품 설명을 작성해 주세요.</p>
-                                            <span>제품가격<h4>원</h4></span>
-                                    </li>
+                                    </c:forEach>
                                 </ul>
                                 <div class="slide-btn cf">
                                     <span class="prev-btn"><</span>
@@ -308,7 +267,7 @@
                             <div class="menuBtn-box-wrap">
                                 <div class="menuBtn-box-gap">
                                     <ul class="menuBtn-content cf">
-                                        <li class="menuBtn menuBtn0">
+                                        <li class="menuBtn menuBtn0" id="btn0">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
                                                     <div class="imoticon-wrap">
@@ -318,7 +277,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="menuBtn menuBtn1">
+                                        <li class="menuBtn menuBtn1" id="btn1">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
                                                     <div class="imoticon-wrap">
@@ -328,7 +287,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="menuBtn menuBtn2">
+                                        <li class="menuBtn menuBtn2" id="btn2">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
                                                     <div class="imoticon-wrap">
@@ -338,7 +297,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="menuBtn menuBtn3">
+                                        <li class="menuBtn menuBtn3" id="btn3">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
                                                     <div class="imoticon-wrap">
@@ -348,7 +307,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="menuBtn menuBtn4">
+                                        <li class="menuBtn menuBtn4" id="btn4">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
                                                     <div class="imoticon-wrap">
@@ -358,7 +317,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="menuBtn menuBtn5">
+                                        <li class="menuBtn menuBtn5" id="btn5">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
                                                     <div class="imoticon-wrap">
@@ -368,7 +327,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="menuBtn menuBtn6">
+                                        <li class="menuBtn menuBtn6" id="btn6">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
                                                     <div class="imoticon-wrap">
@@ -379,7 +338,7 @@
                                             </div>
                                         </li>
                                         
-                                        <li class="menuBtn menuBtn7">
+                                        <li class="menuBtn menuBtn7" id="btn7">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
                                                     <div class="imoticon-wrap">
@@ -389,7 +348,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="menuBtn menuBtn8">
+                                        <li class="menuBtn menuBtn8" id="btn8">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
                                                     <div class="imoticon-wrap">
@@ -399,7 +358,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="menuBtn menuBtn9">
+                                        <li class="menuBtn menuBtn9" id="btn9">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
                                                     <div class="imoticon-wrap">
@@ -409,7 +368,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="menuBtn menuBtn10">
+                                        <li class="menuBtn menuBtn10" id="btn10">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
                                                     <div class="imoticon-wrap">
@@ -419,7 +378,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="menuBtn menuBtn11">
+                                        <li class="menuBtn menuBtn11" id="btn11">
                                             <div class="menuBtn-gap">
                                                 <div class="menuBtn-box">
                                                     <div class="imoticon-wrap">
@@ -433,126 +392,32 @@
                                 </div>
                             </div>
                             <ul class="box-container cf">
-                                <li class="box-content box-content0">
+                           		<c:forEach var="List" items="${ allproductTotSix }">
+                                <li class="box-content">
+                           		<a href="${ pageContext.servletContext.contextPath}/product/product?prodNo=<c:out value="${ List.prodNo }"/>&corpNo=<c:out value="${ List.corpNo }"/>">
                                     <div class="container-wrap">
                                         <div class="img-wrap">
-                                            <div class="img"></div>
+                                            <div class="img">
+                                            	<img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ List.prodImgRename }"/>" alt="">
+                                            </div>
                                         </div>
-                                        <div class="halin">
+                                       <!--  <div class="halin">
                                             <span>전국민 쇼핑 -15%</span>
-                                        </div>
+                                        </div> -->
                                         <div class="text-wrap">
                                             <div class="text-gap">
-                                                <h3>해당제품의이름</h3>
-                                                <div class="cf"><h3>쇼킹딜가</h3> <p>9900</p> <h4>원~</h4><h5>12.800원</h5></div>
-                                                <span>51.436개 구매</span>
+                                                <h3><c:out value="${ List.prodName }"/></h3>
+                                                <div class="cf"><h3>할인가</h3> <p>9900</p> <h4>원가</h4><h5><c:out value="${ List.prodPrice }"/>원</h5></div>
+                                                <!-- <span>51.436개 구매</span> -->
                                             </div>
                                         </div>
                                         <div class="bottom-info">
-                                            <p>11번가 추천상품</p>
+                                            <p><c:out value="${ List.prodDetails }"/></p>
                                         </div>
                                     </div>
+                                </a>
                                 </li>
-                                <li class="box-content box-content1">
-                                    <div class="container-wrap">
-                                        <div class="img-wrap">
-                                            <div class="img"></div>
-                                        </div>
-                                        <div class="halin">
-                                            <span>전국민 쇼핑 -15%</span>
-                                        </div>
-                                        <div class="text-wrap">
-                                            <div class="text-gap">
-                                                <h3>해당제품의이름</h3>
-                                                <div class="cf"><h3>쇼킹딜가</h3> <p>9900</p> <h4>원~</h4><h5>12.800원</h5></div>
-                                                <span>51.436개 구매</span>
-                                            </div>
-                                        </div>
-                                        <div class="bottom-info">
-                                            <p>11번가 추천상품</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="box-content box-content2">
-                                    <div class="container-wrap">
-                                        <div class="img-wrap">
-                                            <div class="img"></div>
-                                        </div>
-                                        <div class="halin">
-                                            <span>전국민 쇼핑 -15%</span>
-                                        </div>
-                                        <div class="text-wrap">
-                                            <div class="text-gap">
-                                                <h3>해당제품의이름</h3>
-                                                <div class="cf"><h3>쇼킹딜가</h3> <p>9900</p> <h4>원~</h4><h5>12.800원</h5></div>
-                                                <span>51.436개 구매</span>
-                                            </div>
-                                        </div>
-                                        <div class="bottom-info">
-                                            <p>11번가 추천상품</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="box-content box-content3">
-                                    <div class="container-wrap">
-                                        <div class="img-wrap">
-                                            <div class="img"></div>
-                                        </div>
-                                        <div class="halin">
-                                            <span>전국민 쇼핑 -15%</span>
-                                        </div>
-                                        <div class="text-wrap">
-                                            <div class="text-gap">
-                                                <h3>해당제품의이름</h3>
-                                                <div class="cf"><h3>쇼킹딜가</h3> <p>9900</p> <h4>원~</h4><h5>12.800원</h5></div>
-                                                <span>51.436개 구매</span>
-                                            </div>
-                                        </div>
-                                        <div class="bottom-info">
-                                            <p>11번가 추천상품</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="box-content box-content4">
-                                    <div class="container-wrap">
-                                        <div class="img-wrap">
-                                            <div class="img"></div>
-                                        </div>
-                                        <div class="halin">
-                                            <span>전국민 쇼핑 -15%</span>
-                                        </div>
-                                        <div class="text-wrap">
-                                            <div class="text-gap">
-                                                <h3>해당제품의이름</h3>
-                                                <div class="cf"><h3>쇼킹딜가</h3> <p>9900</p> <h4>원~</h4><h5>12.800원</h5></div>
-                                                <span>51.436개 구매</span>
-                                            </div>
-                                        </div>
-                                        <div class="bottom-info">
-                                            <p>11번가 추천상품</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="box-content box-content5">
-                                    <div class="container-wrap">
-                                        <div class="img-wrap">
-                                            <div class="img"></div>
-                                        </div>
-                                        <div class="halin">
-                                            <span>전국민 쇼핑 -15%</span>
-                                        </div>
-                                        <div class="text-wrap">
-                                            <div class="text-gap">
-                                                <h3>해당제품의이름</h3>
-                                                <div class="cf"><h3>쇼킹딜가</h3><p>9900</p><h4>원~</h4><h5>12.800원</h5></div>
-                                                <span>51.436개 구매</span>
-                                            </div>
-                                        </div>
-                                        <div class="bottom-info">
-                                            <p>11번가 추천상품</p>
-                                        </div>
-                                    </div>
-                                </li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -563,5 +428,667 @@
     </div>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/song.js"></script>
     <jsp:include page="../common/footer.jsp"/>
+    <script>
+    $("#btn0").click(function () {
+        $.ajax({
+            url: "mainBtn0",
+            method: "post",
+            data: {
+            },
+            success: function (data) {
+                console.log(data)
+                console.table(data);
+                const $ul = $(".box-container").attr("class", "box-container cf");
+                $ul.html("");
+
+                for (var index in data) {
+                    $li = $("<li>").attr("class", "box-content");
+                	
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+
+                    $containerWrap = $("<div>").attr("class", "container-wrap");
+                    
+                    $imgwrap = $("<div>").attr("class", "img-wrap");
+                    $img = $("<div>").attr("class", "img");
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+					
+                   
+					
+                    $textWrap = $("<div>").attr("class", "text-wrap");
+                    $textGap = $("<div>").attr("class", "text-gap");
+                    $prodName = $("<h3>").text(data[index].prodName);
+                    $cf = $("<div>").attr("class", "cf");
+                    $prodSale = $("<h3>").text("할인가");
+                    $prodSalePrice = $("<p>").text("9900");
+                    $h4 = $("<h4>").text("원가");
+                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    
+                    $bottomInfo = $("<div>").attr("class", "bottom-info");
+                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    
+                    $img.append($images);
+                    $imgwrap.append($img);
+                    $containerWrap.append($imgwrap);
+                    
+                    $cf.append($prodSale);
+                    $cf.append($prodSalePrice);
+                    $cf.append($h4);
+                    $cf.append($h5);
+                    
+                    $textGap.append($prodName);
+                    $textGap.append($cf);
+                    
+                    $textWrap.append($textGap);
+                    
+                    $containerWrap.append($textWrap);
+                    
+                    $bottomInfo.append($prodDetails);
+                    $containerWrap.append($bottomInfo);
+                    
+                    $link.append($containerWrap);
+                    $li.append($link);
+                    $ul.append($li);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+    $("#btn2").click(function () {
+        $.ajax({
+            url: "mainBtn2",
+            method: "post",
+            data: {
+            },
+            success: function (data) {
+                console.log(data)
+                console.table(data);
+                const $ul = $(".box-container").attr("class", "box-container cf");
+                $ul.html("");
+
+                for (var index in data) {
+                    $li = $("<li>").attr("class", "box-content");
+                	
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+
+                    $containerWrap = $("<div>").attr("class", "container-wrap");
+                    
+                    $imgwrap = $("<div>").attr("class", "img-wrap");
+                    $img = $("<div>").attr("class", "img");
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+					
+                   
+					
+                    $textWrap = $("<div>").attr("class", "text-wrap");
+                    $textGap = $("<div>").attr("class", "text-gap");
+                    $prodName = $("<h3>").text(data[index].prodName);
+                    $cf = $("<div>").attr("class", "cf");
+                    $prodSale = $("<h3>").text("할인가");
+                    $prodSalePrice = $("<p>").text("9900");
+                    $h4 = $("<h4>").text("원가");
+                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    
+                    $bottomInfo = $("<div>").attr("class", "bottom-info");
+                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    
+                    $img.append($images);
+                    $imgwrap.append($img);
+                    $containerWrap.append($imgwrap);
+                    
+                    $cf.append($prodSale);
+                    $cf.append($prodSalePrice);
+                    $cf.append($h4);
+                    $cf.append($h5);
+                    
+                    $textGap.append($prodName);
+                    $textGap.append($cf);
+                    
+                    $textWrap.append($textGap);
+                    
+                    $containerWrap.append($textWrap);
+                    
+                    $bottomInfo.append($prodDetails);
+                    $containerWrap.append($bottomInfo);
+                    
+                    $link.append($containerWrap);
+                    $li.append($link);
+                    $ul.append($li);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+    $("#btn3").click(function () {
+        $.ajax({
+            url: "mainBtn3",
+            method: "post",
+            data: {
+            },
+            success: function (data) {
+                console.log(data)
+                console.table(data);
+                const $ul = $(".box-container").attr("class", "box-container cf");
+                $ul.html("");
+
+                for (var index in data) {
+                    $li = $("<li>").attr("class", "box-content");
+                	
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+
+                    $containerWrap = $("<div>").attr("class", "container-wrap");
+                    
+                    $imgwrap = $("<div>").attr("class", "img-wrap");
+                    $img = $("<div>").attr("class", "img");
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+					
+                   
+					
+                    $textWrap = $("<div>").attr("class", "text-wrap");
+                    $textGap = $("<div>").attr("class", "text-gap");
+                    $prodName = $("<h3>").text(data[index].prodName);
+                    $cf = $("<div>").attr("class", "cf");
+                    $prodSale = $("<h3>").text("할인가");
+                    $prodSalePrice = $("<p>").text("9900");
+                    $h4 = $("<h4>").text("원가");
+                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    
+                    $bottomInfo = $("<div>").attr("class", "bottom-info");
+                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    
+                    $img.append($images);
+                    $imgwrap.append($img);
+                    $containerWrap.append($imgwrap);
+                    
+                    $cf.append($prodSale);
+                    $cf.append($prodSalePrice);
+                    $cf.append($h4);
+                    $cf.append($h5);
+                    
+                    $textGap.append($prodName);
+                    $textGap.append($cf);
+                    
+                    $textWrap.append($textGap);
+                    
+                    $containerWrap.append($textWrap);
+                    
+                    $bottomInfo.append($prodDetails);
+                    $containerWrap.append($bottomInfo);
+                    
+                    $link.append($containerWrap);
+                    $li.append($link);
+                    $ul.append($li);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+    $("#btn4").click(function () {
+        $.ajax({
+            url: "mainBtn4",
+            method: "post",
+            data: {
+            },
+            success: function (data) {
+                console.log(data)
+                console.table(data);
+                const $ul = $(".box-container").attr("class", "box-container cf");
+                $ul.html("");
+
+                for (var index in data) {
+                    $li = $("<li>").attr("class", "box-content");
+                	
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+
+                    $containerWrap = $("<div>").attr("class", "container-wrap");
+                    
+                    $imgwrap = $("<div>").attr("class", "img-wrap");
+                    $img = $("<div>").attr("class", "img");
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+					
+                   
+					
+                    $textWrap = $("<div>").attr("class", "text-wrap");
+                    $textGap = $("<div>").attr("class", "text-gap");
+                    $prodName = $("<h3>").text(data[index].prodName);
+                    $cf = $("<div>").attr("class", "cf");
+                    $prodSale = $("<h3>").text("할인가");
+                    $prodSalePrice = $("<p>").text("9900");
+                    $h4 = $("<h4>").text("원가");
+                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    
+                    $bottomInfo = $("<div>").attr("class", "bottom-info");
+                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    
+                    $img.append($images);
+                    $imgwrap.append($img);
+                    $containerWrap.append($imgwrap);
+                    
+                    $cf.append($prodSale);
+                    $cf.append($prodSalePrice);
+                    $cf.append($h4);
+                    $cf.append($h5);
+                    
+                    $textGap.append($prodName);
+                    $textGap.append($cf);
+                    
+                    $textWrap.append($textGap);
+                    
+                    $containerWrap.append($textWrap);
+                    
+                    $bottomInfo.append($prodDetails);
+                    $containerWrap.append($bottomInfo);
+                    
+                    $link.append($containerWrap);
+                    $li.append($link);
+                    $ul.append($li);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+    $("#btn5").click(function () {
+        $.ajax({
+            url: "mainBtn5",
+            method: "post",
+            data: {
+            },
+            success: function (data) {
+                console.log(data)
+                console.table(data);
+                const $ul = $(".box-container").attr("class", "box-container cf");
+                $ul.html("");
+
+                for (var index in data) {
+                    $li = $("<li>").attr("class", "box-content");
+                	
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+
+                    $containerWrap = $("<div>").attr("class", "container-wrap");
+                    
+                    $imgwrap = $("<div>").attr("class", "img-wrap");
+                    $img = $("<div>").attr("class", "img");
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+					
+                   
+					
+                    $textWrap = $("<div>").attr("class", "text-wrap");
+                    $textGap = $("<div>").attr("class", "text-gap");
+                    $prodName = $("<h3>").text(data[index].prodName);
+                    $cf = $("<div>").attr("class", "cf");
+                    $prodSale = $("<h3>").text("할인가");
+                    $prodSalePrice = $("<p>").text("9900");
+                    $h4 = $("<h4>").text("원가");
+                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    
+                    $bottomInfo = $("<div>").attr("class", "bottom-info");
+                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    
+                    $img.append($images);
+                    $imgwrap.append($img);
+                    $containerWrap.append($imgwrap);
+                    
+                    $cf.append($prodSale);
+                    $cf.append($prodSalePrice);
+                    $cf.append($h4);
+                    $cf.append($h5);
+                    
+                    $textGap.append($prodName);
+                    $textGap.append($cf);
+                    
+                    $textWrap.append($textGap);
+                    
+                    $containerWrap.append($textWrap);
+                    
+                    $bottomInfo.append($prodDetails);
+                    $containerWrap.append($bottomInfo);
+                    
+                    $link.append($containerWrap);
+                    $li.append($link);
+                    $ul.append($li);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+    $("#btn6").click(function () {
+        $.ajax({
+            url: "mainBtn6",
+            method: "post",
+            data: {
+            },
+            success: function (data) {
+                console.log(data)
+                console.table(data);
+                const $ul = $(".box-container").attr("class", "box-container cf");
+                $ul.html("");
+
+                for (var index in data) {
+                    $li = $("<li>").attr("class", "box-content");
+                	
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+
+                    $containerWrap = $("<div>").attr("class", "container-wrap");
+                    
+                    $imgwrap = $("<div>").attr("class", "img-wrap");
+                    $img = $("<div>").attr("class", "img");
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+					
+                   
+					
+                    $textWrap = $("<div>").attr("class", "text-wrap");
+                    $textGap = $("<div>").attr("class", "text-gap");
+                    $prodName = $("<h3>").text(data[index].prodName);
+                    $cf = $("<div>").attr("class", "cf");
+                    $prodSale = $("<h3>").text("할인가");
+                    $prodSalePrice = $("<p>").text("9900");
+                    $h4 = $("<h4>").text("원가");
+                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    
+                    $bottomInfo = $("<div>").attr("class", "bottom-info");
+                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    
+                    $img.append($images);
+                    $imgwrap.append($img);
+                    $containerWrap.append($imgwrap);
+                    
+                    $cf.append($prodSale);
+                    $cf.append($prodSalePrice);
+                    $cf.append($h4);
+                    $cf.append($h5);
+                    
+                    $textGap.append($prodName);
+                    $textGap.append($cf);
+                    
+                    $textWrap.append($textGap);
+                    
+                    $containerWrap.append($textWrap);
+                    
+                    $bottomInfo.append($prodDetails);
+                    $containerWrap.append($bottomInfo);
+                    
+                    $link.append($containerWrap);
+                    $li.append($link);
+                    $ul.append($li);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+    $("#btn7").click(function () {
+        $.ajax({
+            url: "mainBtn7",
+            method: "post",
+            data: {
+            },
+            success: function (data) {
+                console.log(data)
+                console.table(data);
+                const $ul = $(".box-container").attr("class", "box-container cf");
+                $ul.html("");
+
+                for (var index in data) {
+                    $li = $("<li>").attr("class", "box-content");
+                	
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+
+                    $containerWrap = $("<div>").attr("class", "container-wrap");
+                    
+                    $imgwrap = $("<div>").attr("class", "img-wrap");
+                    $img = $("<div>").attr("class", "img");
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+					
+                   
+					
+                    $textWrap = $("<div>").attr("class", "text-wrap");
+                    $textGap = $("<div>").attr("class", "text-gap");
+                    $prodName = $("<h3>").text(data[index].prodName);
+                    $cf = $("<div>").attr("class", "cf");
+                    $prodSale = $("<h3>").text("할인가");
+                    $prodSalePrice = $("<p>").text("9900");
+                    $h4 = $("<h4>").text("원가");
+                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    
+                    $bottomInfo = $("<div>").attr("class", "bottom-info");
+                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    
+                    $img.append($images);
+                    $imgwrap.append($img);
+                    $containerWrap.append($imgwrap);
+                    
+                    $cf.append($prodSale);
+                    $cf.append($prodSalePrice);
+                    $cf.append($h4);
+                    $cf.append($h5);
+                    
+                    $textGap.append($prodName);
+                    $textGap.append($cf);
+                    
+                    $textWrap.append($textGap);
+                    
+                    $containerWrap.append($textWrap);
+                    
+                    $bottomInfo.append($prodDetails);
+                    $containerWrap.append($bottomInfo);
+                    
+                    $link.append($containerWrap);
+                    $li.append($link);
+                    $ul.append($li);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+    $("#btn8").click(function () {
+        $.ajax({
+            url: "mainBtn8",
+            method: "post",
+            data: {
+            },
+            success: function (data) {
+                console.log(data)
+                console.table(data);
+                const $ul = $(".box-container").attr("class", "box-container cf");
+                $ul.html("");
+
+                for (var index in data) {
+                    $li = $("<li>").attr("class", "box-content");
+                	
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+
+                    $containerWrap = $("<div>").attr("class", "container-wrap");
+                    
+                    $imgwrap = $("<div>").attr("class", "img-wrap");
+                    $img = $("<div>").attr("class", "img");
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+					
+                   
+					
+                    $textWrap = $("<div>").attr("class", "text-wrap");
+                    $textGap = $("<div>").attr("class", "text-gap");
+                    $prodName = $("<h3>").text(data[index].prodName);
+                    $cf = $("<div>").attr("class", "cf");
+                    $prodSale = $("<h3>").text("할인가");
+                    $prodSalePrice = $("<p>").text("9900");
+                    $h4 = $("<h4>").text("원가");
+                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    
+                    $bottomInfo = $("<div>").attr("class", "bottom-info");
+                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    
+                    $img.append($images);
+                    $imgwrap.append($img);
+                    $containerWrap.append($imgwrap);
+                    
+                    $cf.append($prodSale);
+                    $cf.append($prodSalePrice);
+                    $cf.append($h4);
+                    $cf.append($h5);
+                    
+                    $textGap.append($prodName);
+                    $textGap.append($cf);
+                    
+                    $textWrap.append($textGap);
+                    
+                    $containerWrap.append($textWrap);
+                    
+                    $bottomInfo.append($prodDetails);
+                    $containerWrap.append($bottomInfo);
+                    
+                    $link.append($containerWrap);
+                    $li.append($link);
+                    $ul.append($li);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+    $("#btn9").click(function () {
+        $.ajax({
+            url: "mainBtn9",
+            method: "post",
+            data: {
+            },
+            success: function (data) {
+                console.log(data)
+                console.table(data);
+                const $ul = $(".box-container").attr("class", "box-container cf");
+                $ul.html("");
+
+                for (var index in data) {
+                    $li = $("<li>").attr("class", "box-content");
+                	
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+
+                    $containerWrap = $("<div>").attr("class", "container-wrap");
+                    
+                    $imgwrap = $("<div>").attr("class", "img-wrap");
+                    $img = $("<div>").attr("class", "img");
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+					
+                   
+					
+                    $textWrap = $("<div>").attr("class", "text-wrap");
+                    $textGap = $("<div>").attr("class", "text-gap");
+                    $prodName = $("<h3>").text(data[index].prodName);
+                    $cf = $("<div>").attr("class", "cf");
+                    $prodSale = $("<h3>").text("할인가");
+                    $prodSalePrice = $("<p>").text("9900");
+                    $h4 = $("<h4>").text("원가");
+                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    
+                    $bottomInfo = $("<div>").attr("class", "bottom-info");
+                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    
+                    $img.append($images);
+                    $imgwrap.append($img);
+                    $containerWrap.append($imgwrap);
+                    
+                    $cf.append($prodSale);
+                    $cf.append($prodSalePrice);
+                    $cf.append($h4);
+                    $cf.append($h5);
+                    
+                    $textGap.append($prodName);
+                    $textGap.append($cf);
+                    
+                    $textWrap.append($textGap);
+                    
+                    $containerWrap.append($textWrap);
+                    
+                    $bottomInfo.append($prodDetails);
+                    $containerWrap.append($bottomInfo);
+                    
+                    $link.append($containerWrap);
+                    $li.append($link);
+                    $ul.append($li);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+    $("#btn10").click(function () {
+        $.ajax({
+            url: "mainBtn10",
+            method: "post",
+            data: {
+            },
+            success: function (data) {
+                console.log(data)
+                console.table(data);
+                const $ul = $(".box-container").attr("class", "box-container cf");
+                $ul.html("");
+
+                for (var index in data) {
+                    $li = $("<li>").attr("class", "box-content");
+                	
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+
+                    $containerWrap = $("<div>").attr("class", "container-wrap");
+                    
+                    $imgwrap = $("<div>").attr("class", "img-wrap");
+                    $img = $("<div>").attr("class", "img");
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+					
+                   
+					
+                    $textWrap = $("<div>").attr("class", "text-wrap");
+                    $textGap = $("<div>").attr("class", "text-gap");
+                    $prodName = $("<h3>").text(data[index].prodName);
+                    $cf = $("<div>").attr("class", "cf");
+                    $prodSale = $("<h3>").text("할인가");
+                    $prodSalePrice = $("<p>").text("9900");
+                    $h4 = $("<h4>").text("원가");
+                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    
+                    $bottomInfo = $("<div>").attr("class", "bottom-info");
+                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    
+                    $img.append($images);
+                    $imgwrap.append($img);
+                    $containerWrap.append($imgwrap);
+                    
+                    $cf.append($prodSale);
+                    $cf.append($prodSalePrice);
+                    $cf.append($h4);
+                    $cf.append($h5);
+                    
+                    $textGap.append($prodName);
+                    $textGap.append($cf);
+                    
+                    $textWrap.append($textGap);
+                    
+                    $containerWrap.append($textWrap);
+                    
+                    $bottomInfo.append($prodDetails);
+                    $containerWrap.append($bottomInfo);
+                    
+                    $link.append($containerWrap);
+                    $li.append($link);
+                    $ul.append($li);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+    </script>
 </body>
 </html>

@@ -61,6 +61,33 @@ public interface ProductDAO {
 
 	void orderPaymentInsert(HashMap<String, Object> orderPaymentInsert);
 
+	/* 메인페이지 상품 6개 전체 */
+	List<ProductDTO> allproductTotSix();
+
+	/* 메인페이지 상품 6개 거실 침실 */
+	List<ProductDTO> selectProduct0001();
+	/* 메인페이지 상품 6개 학생/서재가구 */
+	List<ProductDTO> selectProduct0002();
+	/* 메인페이지 상품 6개 테이블/의자 */
+	List<ProductDTO> selectProduct0003();
+	/* 메인페이지 상품 6개 침구/커튼 */
+	List<ProductDTO> selectProduct0004();
+	/* 메인페이지 상품 6개 쿠션/방석 */
+	List<ProductDTO> selectProduct0005();
+	/* 메인페이지 상품 6개 가전 */
+	List<ProductDTO> selectProduct0006();
+	/* 메인페이지 상품 6개 수납/정리 */
+	List<ProductDTO> selectProduct0007();
+	/* 메인페이지 상품 6개 조명 */
+	List<ProductDTO> selectProduct0008();
+	/* 메인페이지 상품 6개 홈데코 */
+	List<ProductDTO> selectProduct0009();
+	/* 메인페이지 상품 6개 생활용품 */
+	List<ProductDTO> selectProduct0010();
+	
+	/* 인기상품 TOP7 */
+	List<ProductDTO> allproductTopSeven();
+
 
 
 

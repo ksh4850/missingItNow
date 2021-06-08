@@ -386,7 +386,171 @@
 		 )
 	</insert>
 
+	<select id="allproductTotSix" resultMap="ProductResultSet" >
+	<![CDATA[
+	 SELECT 
+		    A.*
+          , B.PROD_IMG_RENAME
+          , B.PROD_IMG_PATH
+       FROM TBL_PRODUCT A
+       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+      WHERE ROWNUM <= 6
+        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+       ]]>
+	</select>
 	
+	
+	<select id="selectProduct0001" resultMap="ProductResultSet" >
+	<![CDATA[
+	 SELECT 
+		    A.*
+          , B.PROD_IMG_RENAME
+          , B.PROD_IMG_PATH
+       FROM TBL_PRODUCT A
+       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+      WHERE ROWNUM <= 6
+        AND A.PROD_CTG_NO = 'PRCT0001'
+        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+       ]]>
+	</select>
+	
+	<select id="selectProduct0002" resultMap="ProductResultSet" >
+	<![CDATA[
+	 SELECT 
+		    A.*
+          , B.PROD_IMG_RENAME
+          , B.PROD_IMG_PATH
+       FROM TBL_PRODUCT A
+       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+      WHERE ROWNUM <= 6
+        AND A.PROD_CTG_NO = 'PRCT0002'
+        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+       ]]>
+	</select>
+	
+	<select id="selectProduct0003" resultMap="ProductResultSet" >
+	<![CDATA[
+	 SELECT 
+		    A.*
+          , B.PROD_IMG_RENAME
+          , B.PROD_IMG_PATH
+       FROM TBL_PRODUCT A
+       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+      WHERE ROWNUM <= 6
+        AND A.PROD_CTG_NO = 'PRCT0003'
+        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+       ]]>
+	</select>
+	
+	<select id="selectProduct0004" resultMap="ProductResultSet" >
+	<![CDATA[
+	 SELECT 
+		    A.*
+          , B.PROD_IMG_RENAME
+          , B.PROD_IMG_PATH
+       FROM TBL_PRODUCT A
+       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+      WHERE ROWNUM <= 6
+        AND A.PROD_CTG_NO = 'PRCT0004'
+        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+       ]]>
+	</select>
+	
+	<select id="selectProduct0005" resultMap="ProductResultSet" >
+	<![CDATA[
+	 SELECT 
+		    A.*
+          , B.PROD_IMG_RENAME
+          , B.PROD_IMG_PATH
+       FROM TBL_PRODUCT A
+       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+      WHERE ROWNUM <= 6
+        AND A.PROD_CTG_NO = 'PRCT0005'
+        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+       ]]>
+	</select>
+	
+	<select id="selectProduct0006" resultMap="ProductResultSet" >
+	<![CDATA[
+	 SELECT 
+		    A.*
+          , B.PROD_IMG_RENAME
+          , B.PROD_IMG_PATH
+       FROM TBL_PRODUCT A
+       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+      WHERE ROWNUM <= 6
+        AND A.PROD_CTG_NO = 'PRCT0006'
+        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+       ]]>
+	</select>
+	
+	<select id="selectProduct0007" resultMap="ProductResultSet" >
+	<![CDATA[
+	 SELECT 
+		    A.*
+          , B.PROD_IMG_RENAME
+          , B.PROD_IMG_PATH
+       FROM TBL_PRODUCT A
+       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+      WHERE ROWNUM <= 6
+        AND A.PROD_CTG_NO = 'PRCT0007'
+        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+       ]]>
+	</select>
+	
+	<select id="selectProduct0008" resultMap="ProductResultSet" >
+	<![CDATA[
+	 SELECT 
+		    A.*
+          , B.PROD_IMG_RENAME
+          , B.PROD_IMG_PATH
+       FROM TBL_PRODUCT A
+       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+      WHERE ROWNUM <= 6
+        AND A.PROD_CTG_NO = 'PRCT0008'
+        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+       ]]>
+	</select>
+	<select id="selectProduct0009" resultMap="ProductResultSet" >
+	<![CDATA[
+	 SELECT 
+		    A.*
+          , B.PROD_IMG_RENAME
+          , B.PROD_IMG_PATH
+       FROM TBL_PRODUCT A
+       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+      WHERE ROWNUM <= 6
+        AND A.PROD_CTG_NO = 'PRCT0009'
+        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+       ]]>
+	</select>
+	<select id="selectProduct0010" resultMap="ProductResultSet" >
+	<![CDATA[
+	 SELECT 
+		    A.*
+          , B.PROD_IMG_RENAME
+          , B.PROD_IMG_PATH
+       FROM TBL_PRODUCT A
+       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+      WHERE ROWNUM <= 6
+        AND A.PROD_CTG_NO = 'PRCT0010'
+        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+       ]]>
+	</select>
+	
+	<select id="allproductTopSeven" resultMap="ProductResultSet" >
+	<![CDATA[
+	 SELECT 
+		    A.*
+          , B.PROD_IMG_RENAME
+          , B.PROD_IMG_PATH
+       FROM TBL_PRODUCT A
+       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+      WHERE ROWNUM <= 7
+        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+      ORDER BY A.PROD_HITS DESC
+       ]]>
+	</select>
 
 </mapper>
 
