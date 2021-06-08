@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
     
     <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>    
-
+	
+	<script src="/missingitnow/resources/js/member/main.js"></script>
+	
 </head>
 <body>
 
@@ -25,6 +27,13 @@
     <div id="wrap">
 <jsp:include page="../common/header.jsp"/>
 
+	<form name="cartPaging">
+		
+		 <input type="hidden" name="userNo" value="${loginMember.userNo}">
+		 
+	</form>
+
+
         <main id="main">
             <section id="section1">
                 <div class="wrap">
@@ -33,7 +42,7 @@
                             <div class="slide-view">
                                 <ul class="slide-wrap cf">
                                     <li class="slide slide2"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img3.jpg" alt=""></li>
-                                   r <li class="slide slide0"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img1.jpg" alt=""></li>
+                                    <li class="slide slide0"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img1.jpg" alt=""></li>
                                     <li class="slide slide1"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img2.jpg" alt=""></li>
                                     <li class="slide slide2"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img3.jpg" alt=""></li>
                                     <li class="slide slide0"><img src="${ pageContext.servletContext.contextPath }/resources/images/slider-img1.jpg" alt=""></li>

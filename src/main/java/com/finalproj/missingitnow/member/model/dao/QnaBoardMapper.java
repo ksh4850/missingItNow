@@ -11,6 +11,8 @@ public interface QnaBoardMapper {
 
 	int selectTotalCount();
 
-	List<QnaBoardDTO> selectBoardList(@Param("pageInfo") PageInfoDTO pageInfo, @Param("userNo") String userNo, @Param("startRow") int startRow, @Param("endRow") int endRow);
+	List<QnaBoardDTO> selectBoardList(@Param("pageInfo") PageInfoDTO pageInfo
+			, @Param("userNo") String userNo
+			, @Param("startRow") int startRow, @Param("endRow") int endRow);
 
 }

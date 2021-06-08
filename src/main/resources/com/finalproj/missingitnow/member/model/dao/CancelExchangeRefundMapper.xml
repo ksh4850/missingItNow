@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.finalproj.missingitnow.member.model.dao.CancelExchangeRefundMapper">
+	
+	<resultMap id="PurchaseListResultSet" type="CancelExchangeRefundDTO">
+		<id column="EXCHANGE_NO" property="exchangeNo"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="DELIVERY_NO" property="deliveryNo"/>
+		<result column="EXCHANGE_DATE" property="exchangeDate"/>
+		<result column="EXCHANGE_CHK" property="exchangeChk"/>
+		<result column="RETURN_NO" property="returnNo"/>
+		<result column="RETURN_DATE" property="returnDate"/>
+		<result column="RETURN_CHK" property="returnChk"/>
+		<result column="REFUND_CHK" property="refundChk"/>
+		<collection property="privateMemberDTO" resultMap="memberResultSet"/>
+		<collection property="productDTO" resultMap="ProductResultSet"/>
+		<collection property="orderDTO" resultMap="MyPageOrderResultSet"/>
+	</resultMap>
+	
+	<resultMap id="memberResultSet" type="privateMemberDTO">
+		<id column="USER_NO" property="userNo" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_PWD" property="userPwd" />
+		<result column="USER_NAME" property="userName" />
+		<result column="USER_BIRTH" property="userBirth" />
+		<result column="USER_ADDRESS" property="userAddress" />
+		<result column="USER_CONTACTS" property="userContacts" />
+		<result column="USER_EMAIL" property="userEmail" />
+		<result column="USER_MKT_ACCEPT_CHK" property="user_Mkt_Accepct_Chk" />
+		<result column="USER_REGST_DATE" property="user_Regst_Date" />
+		<result column="USER_LEAVE_CHK" property="user_Leave_Chk" />
+	</resultMap>
+	
+	
+	<resultMap id="ProductResultSet" type="ProductDTO">
+	    <id property="prodNo" column="PROD_NO"/>
+		<result property="prodName" column="PROD_NAME"/>
+		<result property="prodPrice" column="PROD_PRICE"/>
+		<result property="prodDetails" column="PROD_DETAILS"/>
+		<result property="prodUploadDate" column="PROD_UPLOAD_DATE"/>
+		<result property="prodTerminateDate" column="PROD_TERMINATE_DATE"/>
+		<result property="prodDiscountRate" column="PROD_DISCOUNT_RATE"/>
+		<result property="prodDiscountPeriod" column="PROD_DISCOUNT_PERIOD"/>
+		<result property="prodManufacturer" column="PROD_MANUFACTURER"/>
+		<result property="stockQuantity" column="STOCK_QUANTITY"/>
+		<result property="prodDisplayChk" column="PROD_DISPLAY_CHK"/>
+		<result property="prodCtgNo" column="PROD_CTG_NO"/>
+		<result property="corpNo" column="CORP_NO"/>
+		<result property="prodHits" column="PROD_HITS"/>
+		<result property="prodImgRename" column="PROD_IMG_RENAME"/>	
+		<result property="prodImgPath" column="PROD_IMG_PATH"/>	
+		<result property="corpName" column="CORP_NAME"/>
+	
+	</resultMap>
+	
+	
+	<resultMap id="MyPageOrderResultSet" type="MyPageOrderDTO">
+		<id property="orderNo" column="ORDER_NO"/>
+		<result property="corNo" column="CORP_NO"/>
+		<result property="prodNo" column="PROD_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="orderPrice" column="ORDER_PRICE"/>
+		<result property="dealingStatus" column="DEALING_STATUS"/>
+		<result property="orderStatus" column="ORDER_STATUS"/>
+		<result property="orderQuantity" column="ORDER_QUANTITY"/>
+		<result property="orderDate" column="ORDER_DATE"/>
+	</resultMap>
+		
+	
+	<select id="selectTotalCount" resultType="int">
+	 	SELECT
+	 	(SELECT
+			COUNT(*)
+		FROM
+			TBL_EXCHANGE) TBL_EXCHANGE
+		, (SELECT
+			COUNT(*)
+		FROM
+			TBL_RETURN) TBL_RETURN
+		FROM DUAL
+	</select>
+
+
+	<select id="selectCancelExchangeRefundList" resultMap="PurchaseListResultSet">
+	
+	     SELECT
+               A.RNUM
+             , A.*
+          FROM (SELECT ROWNUM RNUM
+                     , B.*
+                  FROM (SELECT C.EXCHANGE_NO
+                             , C.USER_NO
+                             , C.DELIVERY_NO
+                             , C.EXCHANGE_DATE
+                             , D.USER_NAME
+                  			 , E.ORDER_PRICE
+                  			 , F.PROD_NAME
+                          FROM TBL_EXCHANGE C
+                         JOIN TBL_USER D ON (D.USER_NO = C.USER_NO)
+                         JOIN TBL_ORDER E ON (E.ORDER_NO = C.ORDER_NO)
+                         JOIN TBL_PRODUCT F ON (F.PROD_NO = E.PROD_NO)
+                         WHERE C.USER_NO = #{userNo}
+                         ORDER BY C.EXCHANGE_NO DESC
+                        ) B
+               ) A
+			WHERE A.RNUM BETWEEN #{endRow} AND #{endRow}
+
+        UNION
+
+         SELECT
+               G.RNUM
+             , G.*
+          FROM (SELECT ROWNUM RNUM
+                     , H.*
+                  FROM (SELECT I.RETURN_NO
+			                 , I.USER_NO
+			                 , I.DELIVERY_NO
+			                 , I.RETURN_DATE
+						     , J.USER_NAME
+                  			 , K.ORDER_PRICE
+                  			 , L.PROD_NAME
+                          FROM TBL_RETURN I
+                          JOIN TBL_USER J ON (J.USER_NO = I.USER_NO)
+                         JOIN TBL_ORDER K ON (K.ORDER_NO = I.ORDER_NO)
+                         JOIN TBL_PRODUCT L ON (L.PROD_NO = K.PROD_NO)
+                         WHERE I.USER_NO = #{userNo}
+                         ORDER BY I.RETURN_NO DESC
+                        ) H
+               ) G
+			WHERE G.RNUM BETWEEN #{startRow} AND #{endRow}
+		
+	</select>
+	
+	<delete id="deleteCartList"> 
+        DELETE 
+               TBL_WISHLIST 
+         WHERE C.USER_NO = #{userNo}
+           AND C.WISHLIST_NO = #{wishListNo} 
+    </delete> 
+	
+</mapper>

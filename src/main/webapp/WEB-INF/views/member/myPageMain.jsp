@@ -16,7 +16,7 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     
     <script src="/missingitnow/resources/js/member/myPageMain.js"></script>
-    
+    <script src="/missingitnow/resources/js/member/myPageNav.js"></script>
     <link rel="stylesheet" type="text/css" href="/missingitnow/resources/css/member/myPageMain.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     
@@ -40,9 +40,11 @@
 
     <div class="contentForm">
 				
-				<form name="qnaPaging">
+				<form name="Paging">
                      <input type="hidden" name="userNo" value="${loginMember.userNo}">				
 				</form>
+				
+				
 				
         <div class="leftDiv">
                 <table class="myPageNavTable">
@@ -66,18 +68,25 @@
                     </tr>
                     <tr> <td><br></td> </tr>
                     <tr>
-                        <td>&nbsp;구매내역</td>
+                        <td>
+                        <a href="javascript:goPurchaseListPage('${loginMember.userNo}');">
+                        &nbsp;구매내역
+                        </a>
+                        </td>
                     </tr>
                     <tr> <td><br></td> </tr>
                     <tr>
-                        <td>&nbsp;취소/교환/반품내역</td>
+                        <td>
+						<a href="javascript:goCancelExchangeRefundPage('${loginMember.userNo}');">
+                        &nbsp;취소/교환/반품내역
+                        </a>
+                        </td>
                     </tr>
                     <tr> <td><br></td> </tr>
 
                     <tr>
                         <td>
                         <a href="javascript:goQnaPage('${loginMember.userNo}');">
-<%--                         <a href="${pageContext.servletContext.contextPath}/member/QNA" > --%>
                         &nbsp;Q&A
                         </a>
                         </td>
@@ -89,7 +98,11 @@
                     </tr>
                     <tr> <td><br></td> </tr>
                     <tr>
-                        <td>&nbsp;리뷰내역</td>
+                        <td>
+                        <a href="javascript:goReviewPage('${loginMember.userNo}');">
+                        &nbsp;리뷰내역
+                        </a>
+                        </td>
                     </tr>
                     <tr> <td><br></td> </tr>
                 </table>

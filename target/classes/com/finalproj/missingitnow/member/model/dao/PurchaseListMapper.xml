@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.finalproj.missingitnow.member.model.dao.PurchaseListMapper">
+	
+	<resultMap id="PurchaseListResultSet" type="PurchasedListDTO">
+		<id column="PURCHASED_NO" property="purchaseNo"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="PURCHASED_DATE" property="purchasedDate"/>
+		<result column="PURCHASED_STATUS" property="purchasedStatus"/>
+		<result column="PROD_NO" property="prodNo"/>
+		<result column="PURCHASED_AMOUNT" property="purchasedAmount"/>
+		<result column="PAYMENT_CHK" property="paymentChk"/>
+		<collection property="privateMemberDTO" resultMap="memberResultSet"/>
+		<collection property="productDTO" resultMap="ProductResultSet"/>
+		<collection property="orderDTO" resultMap="MyPageOrderResultSet"/>
+	</resultMap>
+	
+	<resultMap id="memberResultSet" type="privateMemberDTO">
+		<id column="USER_NO" property="userNo" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_PWD" property="userPwd" />
+		<result column="USER_NAME" property="userName" />
+		<result column="USER_BIRTH" property="userBirth" />
+		<result column="USER_ADDRESS" property="userAddress" />
+		<result column="USER_CONTACTS" property="userContacts" />
+		<result column="USER_EMAIL" property="userEmail" />
+		<result column="USER_MKT_ACCEPT_CHK" property="user_Mkt_Accepct_Chk" />
+		<result column="USER_REGST_DATE" property="user_Regst_Date" />
+		<result column="USER_LEAVE_CHK" property="user_Leave_Chk" />
+	</resultMap>
+	
+	
+	<resultMap id="ProductResultSet" type="ProductDTO">
+	    <id property="prodNo" column="PROD_NO"/>
+		<result property="prodName" column="PROD_NAME"/>
+		<result property="prodPrice" column="PROD_PRICE"/>
+		<result property="prodDetails" column="PROD_DETAILS"/>
+		<result property="prodUploadDate" column="PROD_UPLOAD_DATE"/>
+		<result property="prodTerminateDate" column="PROD_TERMINATE_DATE"/>
+		<result property="prodDiscountRate" column="PROD_DISCOUNT_RATE"/>
+		<result property="prodDiscountPeriod" column="PROD_DISCOUNT_PERIOD"/>
+		<result property="prodManufacturer" column="PROD_MANUFACTURER"/>
+		<result property="stockQuantity" column="STOCK_QUANTITY"/>
+		<result property="prodDisplayChk" column="PROD_DISPLAY_CHK"/>
+		<result property="prodCtgNo" column="PROD_CTG_NO"/>
+		<result property="corpNo" column="CORP_NO"/>
+		<result property="prodHits" column="PROD_HITS"/>
+		<result property="prodImgRename" column="PROD_IMG_RENAME"/>	
+		<result property="prodImgPath" column="PROD_IMG_PATH"/>	
+		<result property="corpName" column="CORP_NAME"/>
+	
+	</resultMap>
+	
+	
+	<resultMap id="MyPageOrderResultSet" type="MyPageOrderDTO">
+		<id property="orderNo" column="ORDER_NO"/>
+		<result property="corNo" column="CORP_NO"/>
+		<result property="prodNo" column="PROD_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="orderPrice" column="ORDER_PRICE"/>
+		<result property="dealingStatus" column="DEALING_STATUS"/>
+		<result property="orderStatus" column="ORDER_STATUS"/>
+		<result property="orderQuantity" column="ORDER_QUANTITY"/>
+		<result property="orderDate" column="ORDER_DATE"/>
+	</resultMap>
+		
+	
+	<select id="selectTotalCount" resultType="int">
+	 	SELECT
+			COUNT(*)
+		FROM
+			TBL_PURCHASED	
+	</select>
+
+
+	<select id="selectPurchaseList" resultMap="PurchaseListResultSet">
+	
+	        SELECT
+               A.RNUM
+             , A.*
+          FROM (SELECT ROWNUM RNUM
+                     , B.*
+                  FROM (SELECT C.*
+                  			 , D.USER_NAME
+                  			 , E.PROD_NAME
+                  			 , E.PROD_PRICE
+                  			 , F.ORDER_PRICE
+                  			 , F.ORDER_QUANTITY
+                          FROM TBL_PURCHASED C
+                          JOIN TBL_USER D ON (D.USER_NO = C.USER_NO)
+                          JOIN TBL_PRODUCT E ON (E.PROD_NO = C.PROD_NO)
+                          JOIN TBL_ORDER F ON (F.ORDER_NO = C.ORDER_NO)
+                         WHERE C.USER_NO = #{userNo}
+                         ORDER BY C.PURCHASED_NO DESC
+                        ) B
+               ) A
+			WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}	
+		
+	</select>
+	
+	<delete id="deleteCartList"> 
+        DELETE 
+               TBL_WISHLIST 
+         WHERE C.USER_NO = #{userNo}
+           AND C.WISHLIST_NO = #{wishListNo} 
+    </delete> 
+	
+</mapper>

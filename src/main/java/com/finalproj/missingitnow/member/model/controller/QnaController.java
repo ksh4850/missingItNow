@@ -38,7 +38,7 @@ public class QnaController {
 
 	@PostMapping
 	public String Qna(@RequestParam(value="currentPage", required=false, defaultValue="1") String currentPage
-			, @ModelAttribute PrivateMemberDTO member
+			, PrivateMemberDTO member
 			, Model model) {
 		
 		int pageNo = 1;

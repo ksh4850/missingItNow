@@ -1,25 +1,3 @@
-
-
-		/*qna페이지로 넘어가면서 userNo값을 넘김(세션 회원의 작성글만 보기 위함)*/			
-			
-			function goQnaPage(userNo){
-						
-						const f = document.qnaPaging;
-						
-						f.userNo.value = userNo;
-						
-						console.log(f.userNo);
-						
-						
-						
-						f.action = "/missingitnow/member/QNA";
-						
-						f.method = "post";
-						
-						f.submit();
-						
-					}
-		
 		
 					
 		/* 우편번호 및 주소 찾기(다음 API) 함수*/

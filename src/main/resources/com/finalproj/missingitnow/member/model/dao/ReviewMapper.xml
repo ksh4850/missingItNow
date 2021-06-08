@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.finalproj.missingitnow.member.model.dao.ReviewMapper">
+	
+	<resultMap id="ReviewResultSet" type="MyPageReviewDTO">
+		<id property="reviewNo" column="REVIEW_NO"/>
+		<result property="orderNo" column="ORDER_NO"/>
+		<result property="prodNo" column="PROD_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="reviewDetails" column="REVIEW_DETAILS"/>
+		<result property="reviewScore" column="REVIEW_SCORE"/>
+		<result property="reviewDate" column="REVIEW_DATE"/>
+		<collection property="productDTO" resultMap="ProductResultSet"/>		
+		<collection property="orderDTO" resultMap="MyPageOrderResultSet"/>		
+	</resultMap>
+
+	<resultMap id="ProductResultSet" type="ProductDTO">
+	    <id property="prodNo" column="PROD_NO"/>
+		<result property="prodName" column="PROD_NAME"/>
+		<result property="prodPrice" column="PROD_PRICE"/>
+		<result property="prodDetails" column="PROD_DETAILS"/>
+		<result property="prodUploadDate" column="PROD_UPLOAD_DATE"/>
+		<result property="prodTerminateDate" column="PROD_TERMINATE_DATE"/>
+		<result property="prodDiscountRate" column="PROD_DISCOUNT_RATE"/>
+		<result property="prodDiscountPeriod" column="PROD_DISCOUNT_PERIOD"/>
+		<result property="prodManufacturer" column="PROD_MANUFACTURER"/>
+		<result property="stockQuantity" column="STOCK_QUANTITY"/>
+		<result property="prodDisplayChk" column="PROD_DISPLAY_CHK"/>
+		<result property="prodCtgNo" column="PROD_CTG_NO"/>
+		<result property="corpNo" column="CORP_NO"/>
+		<result property="prodHits" column="PROD_HITS"/>
+		<result property="prodImgRename" column="PROD_IMG_RENAME"/>	
+		<result property="prodImgPath" column="PROD_IMG_PATH"/>	
+		<result property="corpName" column="CORP_NAME"/>
+	
+	</resultMap>
+	
+	<resultMap id="MyPageOrderResultSet" type="MyPageOrderDTO">
+		<id property="orderNo" column="ORDER_NO"/>
+		<result property="corNo" column="CORP_NO"/>
+		<result property="prodNo" column="PROD_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="orderPrice" column="ORDER_PRICE"/>
+		<result property="dealingStatus" column="DEALING_STATUS"/>
+		<result property="orderStatus" column="ORDER_STATUS"/>
+		<result property="orderQuantity" column="ORDER_QUANTITY"/>
+		<result property="orderDate" column="ORDER_DATE"/>
+	</resultMap>
+	
+	<select id="selectTotalCount" resultType="int">
+	 	SELECT
+			COUNT(*)
+		FROM
+			TBL_PROD_REVIEW	
+	</select>
+
+
+	<select id="selectReviewList" resultMap="ReviewResultSet">
+	
+	        SELECT 
+               A.RNUM
+             , A.*
+          FROM (SELECT ROWNUM RNUM
+                     , B.*
+                  FROM (SELECT C.*
+                  			 , D.PROD_NAME
+                  			 , D.PROD_PRICE
+                  			 , E.ORDER_QUANTITY
+                  			 , E.ORDER_PRICE
+                  			 , E.ORDER_DATE
+                          FROM TBL_PROD_REVIEW C
+                          JOIN TBL_PRODUCT D ON (D.PROD_NO = C.PROD_NO)
+                          JOIN TBL_ORDER E ON (E.ORDER_NO = C.ORDER_NO)
+                         WHERE C.USER_NO = #{userNo}
+                         ORDER BY C.REVIEW_NO DESC
+                        ) B
+               ) A
+			WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}	
+		
+	</select>
+	
+	<delete id="deleteCartList"> 
+        DELETE 
+               TBL_WISHLIST 
+         WHERE C.USER_NO = #{userNo}
+           AND C.WISHLIST_NO = #{wishListNo} 
+    </delete> 
+	
+</mapper>

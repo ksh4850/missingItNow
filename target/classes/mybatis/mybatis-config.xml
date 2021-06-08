@@ -47,8 +47,13 @@
  		<typeAlias alias="memberDTO" type="com.finalproj.missingitnow.corporation.model.dto.MemberDTO"/>
 
 		<!-- privateMember -->
- 		<typeAlias alias="privateMemeberDTO" type="com.finalproj.missingitnow.member.model.dto.PrivateMemberDTO" />
+ 		<typeAlias alias="privateMemberDTO" type="com.finalproj.missingitnow.member.model.dto.PrivateMemberDTO" />
  		<typeAlias alias="QnaBoardDTO" type="com.finalproj.missingitnow.member.model.dto.QnaBoardDTO" />
+ 		<typeAlias alias="CartDTO" type="com.finalproj.missingitnow.member.model.dto.CartDTO" />
+ 		<typeAlias alias="MyPageReviewDTO" type="com.finalproj.missingitnow.member.model.dto.MyPageReviewDTO" />
+ 		<typeAlias alias="MyPageOrderDTO" type="com.finalproj.missingitnow.member.model.dto.MyPageOrderDTO" />
+ 		<typeAlias alias="PurchasedListDTO" type="com.finalproj.missingitnow.member.model.dto.PurchasedListDTO" />
+ 		<typeAlias alias="CancelExchangeRefundDTO" type="com.finalproj.missingitnow.member.model.dto.CancelExchangeRefundDTO" />
  		
  		<!-- system -->
  		<typeAlias alias="SCorpDTO" type="com.finalproj.missingitnow.system.model.dto.SCorpDTO"/>

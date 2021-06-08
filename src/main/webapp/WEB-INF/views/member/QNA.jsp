@@ -7,6 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/missingitnow/resources/js/member/myPageNav.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 </head>
 					
 <body>
@@ -25,7 +31,12 @@
     
         <div class="contentForm">
 				
-        <div class="leftDiv">
+     			<form name="Paging">
+                     <input type="hidden" name="userNo" value="${loginMember.userNo}">				
+				</form>
+    	
+    
+    		<div class="leftDiv">
                 <table class="myPageNavTable">
                     <tr>
                     <td align="center"><br>  <i id="userImg" class="fas fa-user"></i> <!--프로필 사진 영역-->
@@ -40,28 +51,48 @@
 					<tr> <td><br></td> </tr>
                     <tr>
                         <td>
-                        <a href="${pageContext.servletContext.contextPath}/member/myPageMain" onclick="NavMenuProfile()">
-                        		&nbsp;프로필</a></td>
+                        <a href="${pageContext.servletContext.contextPath}/member/myPageMain">
+                        		&nbsp;프로필
+                        		</a>
+                        		</td>
                     </tr>
                     <tr> <td><br></td> </tr>
                     <tr>
-                        <td>&nbsp;구매내역</td>
+                        <td>
+                        <a href="javascript:goPurchaseListPage('${loginMember.userNo}');">
+                        &nbsp;구매내역
+                        </a>
+                        </td>
                     </tr>
                     <tr> <td><br></td> </tr>
                     <tr>
-                        <td>&nbsp;취소/교환/반품내역</td>
+                        <td>
+                        <a href="javascript:goCancelExchangeRefundPage('${loginMember.userNo}');">
+                        &nbsp;취소/교환/반품내역
+                        </a>
+                        </td>
                     </tr>
                     <tr> <td><br></td> </tr>
+
                     <tr>
-                        <td>&nbsp;Q&A</td>
+                        <td>
+                        <a href="javascript:goQnaPage('${loginMember.userNo}');">
+                        &nbsp;Q&A
+                        </a>
+                        </td>
                     </tr>
+
                     <tr> <td><br></td> </tr>
                     <tr>
                         <td>&nbsp;쿠폰</td>
                     </tr>
                     <tr> <td><br></td> </tr>
                     <tr>
-                        <td>&nbsp;리뷰내역</td>
+                        <td>
+                        <a href="javascript:goReviewPage('${loginMember.userNo}');">
+                        &nbsp;리뷰내역
+                        </a>
+                        </td>
                     </tr>
                     <tr> <td><br></td> </tr>
                 </table>

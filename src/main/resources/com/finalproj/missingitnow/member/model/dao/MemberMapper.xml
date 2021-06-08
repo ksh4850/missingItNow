@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.finalproj.missingitnow.member.model.dao.MemberMapper">
 
-	<resultMap id="memberResultSet" type="privateMemeberDTO">
+	<resultMap id="memberResultSet" type="privateMemberDTO">
 		<id column="USER_NO" property="userNo" />
 		<result column="USER_ID" property="userId" />
 		<result column="USER_PWD" property="userPwd" />
@@ -18,7 +18,7 @@
 		<result column="USER_LEAVE_CHK" property="user_Leave_Chk" />
 	</resultMap>
 	
-	<insert id="insertMember" parameterType="privateMemeberDTO">
+	<insert id="insertMember" parameterType="privateMemberDTO">
         INSERT 
           INTO TBL_USER A
         (
@@ -29,14 +29,14 @@
         ) 
 		VALUES
 		(
-		  SEQ_USER_NO.NEXTVAL, #{ userId }, #{ userPwd }
+		'USER' || LPAD(SEQ_USER_NO.NEXTVAL,4,0) , #{ userId }, #{ userPwd }
 		, #{ userName }, #{ userBirth }, #{ userAddress }
 		, #{ userContacts }, #{ userEmail }, #{ user_Mkt_Accepct_Chk }
 		, SYSDATE , DEFAULT
 		)
 	</insert>
 	
-	<select id="selectEncPassword" resultType="java.lang.String" parameterType="privateMemeberDTO">
+	<select id="selectEncPassword" resultType="java.lang.String" parameterType="privateMemberDTO">
         SELECT 
                A.USER_PWD 
           FROM TBL_USER A 
@@ -44,7 +44,7 @@
            AND A.USER_LEAVE_CHK='N'
 	</select>
 	
-	<select id="selectMember" resultMap="memberResultSet" parameterType="privateMemeberDTO">
+	<select id="selectMember" resultMap="memberResultSet" parameterType="privateMemberDTO">
         SELECT 
                A.USER_NO
              , A.USER_ID
