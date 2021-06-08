@@ -102,7 +102,14 @@
                             <div class="right-contest-advertisement-text">
                                 <div class="product-contest-1"><c:out value="${ List.prodName }"/> </div>
                                 <div class="product-font-review"><span class="color-yellow">★★★★★</span>리뷰 40건</div>
-                                <div class="product-contest-2"><c:out value="${ List.prodPrice }"/></div>
+                                <div class="product-contest-2"><c:out value="${ List.prodPrice }"/> 할인가 <c:out value="${ List.prodDiscountRate }"/>% 
+                                
+                                <c:forEach var="price" items="${ price }">
+                                	<c:if test="${ price.prodNo == List.prodNo }">
+                                		<c:out value="${ price.prodPrice }"/>원
+                                	</c:if>
+                                </c:forEach>  
+                                </div>
                                 <div class="product-contest-1">무료배송</div>
                             </div>
                             <div class="right-contest-advertisement-company">
@@ -152,7 +159,8 @@
                     $span2 = $("<span>").text("리뷰 40건");
                     $price = $("<div>").text(data[index].prodPrice).attr("class", "product-contest-2");
                     $free = $("<div>").text("무료배송").attr("class", "product-contest-1");
-
+                   
+                   
                     $leftDiv = $("<div>").attr("class", "right-contest-advertisement-company");
                     $corpName = $("<div>").text(data[index].corpName).attr("class", "product-contest-1");
 

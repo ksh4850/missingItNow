@@ -31,7 +31,7 @@
                     <div class="cost-price"><s>
                             <c:out value="${ productList[0].prodPrice }" />원
                         </s></div>
-                    <div class="sales">8,000원</div>
+                    <div class="sales">${ salePrice }원</div>
                 </div>
                 <div class="parcel">
                     <div class="name">
@@ -256,8 +256,8 @@
             <a href="#img">
                 <div class="path-button2">상품 고객센터</div>
             </a>
-            <a href="#click4">
-                <div class="path-button2">리뷰(${ count })</div>
+            <a href="#img">
+                <div class="path-button2">리뷰(1,101)</div>
             </a>
         </div>
         <div class="section3">
@@ -524,7 +524,7 @@
         </div>
         </div>
         </div>
-        <div class="section3" id="click4">
+        <div class="section3">
             <div class="section4_rv">전체 리뷰 총 <c:out value="${ count }" />건</div>
             
 				<span>
@@ -710,25 +710,19 @@
 						$tr.append($pordComtdate);
 						
 						$tr2 = $("<tr>");
+						$prodManufacturer = $("<td>").text(document.getElementById("prodNames").value);
 						$pordComtDetails = $("<td>").text(data[index].pordComtDetails);
-						$null = $("<td>").text("");
+						$tr2.append($prodManufacturer);
 						$tr2.append($pordComtDetails);
-						$tr2.append($null);
 						
 						$tr3 = $("<tr>");
-						$prodManufacturer = $("<td>").text("답변 : "+ document.getElementById("prodNames").value);
 						$pordComtReply = $("<td>").text(data[index].pordComtReply);
-						$tr3.append($prodManufacturer);
-						$tr3.append($pordComtReply);
+						$tr2.append($pordComtReply);
 						
 						
 						$table.append($tr);
 						$table.append($tr2);
-						if(data[index].pordComtReply == "NULL"){
-							
-						} else {
 						$table.append($tr3);
-						}
 					
 					}
 				},

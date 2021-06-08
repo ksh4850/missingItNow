@@ -1,5 +1,6 @@
 package com.finalproj.missingitnow.product.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,6 +47,8 @@ public class ProductController {
 		List<ProductDTO> allproductTotSix = productService.allproductTotSix();
 		List<ProductDTO> allproductTopSeven = productService.allproductTopSeven();
 		
+		
+		
 		model.addAttribute("allproductTotSix", allproductTotSix);
 		model.addAttribute("allproductTopSeven", allproductTopSeven);
 
@@ -54,12 +57,27 @@ public class ProductController {
 	
 	@GetMapping("test")
 	   public String test(Model model, @RequestParam(required=false) String prodCtgNo) {
-		System.out.println(prodCtgNo);
 		
-		   List<ProductDTO> productList = productService.selectProduct(prodCtgNo);
-		   
-			model.addAttribute("productList", productList);
-			
+		  List<ProductDTO> productList = productService.selectProduct(prodCtgNo);
+//		  HashMap<String, Object> price = new	HashMap<String, Object>(); 
+		  List<ProductDTO> price = new ArrayList<ProductDTO>(); 
+		  int salePrice = 0;
+		  int count = 0;
+		  for(ProductDTO list : productList) {
+			  
+				double prodDiscountRate = (double) list.getProdDiscountRate() / 100;
+				double salePrice2 =  list.getProdPrice() * ( 1 - prodDiscountRate);
+				salePrice = (int)salePrice2;
+				ProductDTO product = new ProductDTO();
+				product.setProdNo(list.getProdNo());
+				product.setProdPrice(salePrice);
+				price.add(product);
+				count+=1;
+			}
+		  System.out.println(price);
+		  model.addAttribute("productList", productList);
+		  model.addAttribute("price", price);
+		  
 	      return "/product/product-list";
 	   }
 
@@ -75,7 +93,7 @@ public class ProductController {
 		System.out.println(commentList+"commentList");
 		int count = 0;
 		int sum = 0;
-
+		int salePrice = 0;
 		double onePointCount = 0;
 		double twoPointCount = 0;
 		double threePointCount = 0;
@@ -94,10 +112,20 @@ public class ProductController {
 		int fourPointSize = 0;
 		int fivePointSize = 0;
 		
+		for(ProductDTO list : productList) {
+			double prodDiscountRate = (double) list.getProdDiscountRate() / 100;
+			System.out.println(list.getProdDiscountRate());
+			double salePrice2 =  list.getProdPrice() * ( 1 - prodDiscountRate);
+			System.out.println(salePrice2);
+			salePrice = (int)salePrice2;
+		}
+		
 		if(reviewList.size() == 0) {
 			System.out.println("하지마");
 		} else {
 		for (ReviewDTO a : reviewList) {
+			
+			
 			
 			sum += a.getReviewScore();
 
@@ -172,19 +200,22 @@ public class ProductController {
 		model.addAttribute("fivePointSize", fivePointSize);
 		model.addAttribute("average", sum);
 		model.addAttribute("count", count);
+		model.addAttribute("salePrice", salePrice);
 
 		return "/product/product";
 	}
 
 	
-
+	  @GetMapping("/insertReview") public String insertForm() {
+	  System.out.println("와지냐 여기"); return "/product/product-list"; }
+	 
 
 	// 상품등록
 	@PostMapping(value="/insertReview", produces ="application/json; charset=UTF-8")
 	@ResponseBody public String insertProduct(Model model, HttpServletRequest request,
 	@RequestParam("starValue") int starValue,@RequestParam("context") String context,@RequestParam("productNo") String productNo) {
 
-		  String userNo = "1"; 
+		  String userNo = "USER0002"; 
 		  HashMap<String, Object> insertReview = new HashMap<String, Object>(); 
 		  insertReview.put("starValue", starValue);
 		  insertReview.put("context", context); 
@@ -204,9 +235,9 @@ public class ProductController {
 		@PostMapping(value="/insertComment", produces ="application/json; charset=UTF-8")
 		@ResponseBody public String insertProduct(Model model, HttpServletRequest request,
 		@RequestParam("context") String context,@RequestParam("prodNo") String prodNo) {
-			  System.out.println("안녕 디지몬");
-			  System.out.println(prodNo);
-			  String userNo = "1"; 
+			
+			System.out.println(prodNo);
+			  String userNo = "USER0002"; 
 			  HashMap<String, Object> insertComment = new HashMap<String, Object>(); 
 			  insertComment.put("text", context); 
 			  insertComment.put("prodNo",prodNo);
