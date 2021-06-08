@@ -95,41 +95,43 @@
                              , C.DELIVERY_NO
                              , C.EXCHANGE_DATE
                              , D.USER_NAME
-                  			 , E.ORDER_PRICE
-                  			 , F.PROD_NAME
+                  			 , F.ORDER_PRICE
+                  			 , G.PROD_NAME
                           FROM TBL_EXCHANGE C
                          JOIN TBL_USER D ON (D.USER_NO = C.USER_NO)
-                         JOIN TBL_ORDER E ON (E.ORDER_NO = C.ORDER_NO)
-                         JOIN TBL_PRODUCT F ON (F.PROD_NO = E.PROD_NO)
+                         JOIN TBL_DELIVERY E ON (E.DELIVERY_NO = C.DELIVERY_NO)
+                         JOIN TBL_ORDER F ON (F.ORDER_NO = E.ORDER_NO)
+                         JOIN TBL_PRODUCT G ON (G.PROD_NO = F.PROD_NO)
                          WHERE C.USER_NO = #{userNo}
                          ORDER BY C.EXCHANGE_NO DESC
                         ) B
                ) A
-			WHERE A.RNUM BETWEEN #{endRow} AND #{endRow}
+			WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}
 
         UNION
 
          SELECT
-               G.RNUM
-             , G.*
+               H.RNUM
+             , H.*
           FROM (SELECT ROWNUM RNUM
-                     , H.*
-                  FROM (SELECT I.RETURN_NO
-			                 , I.USER_NO
-			                 , I.DELIVERY_NO
-			                 , I.RETURN_DATE
-						     , J.USER_NAME
-                  			 , K.ORDER_PRICE
-                  			 , L.PROD_NAME
-                          FROM TBL_RETURN I
-                          JOIN TBL_USER J ON (J.USER_NO = I.USER_NO)
-                         JOIN TBL_ORDER K ON (K.ORDER_NO = I.ORDER_NO)
-                         JOIN TBL_PRODUCT L ON (L.PROD_NO = K.PROD_NO)
-                         WHERE I.USER_NO = #{userNo}
-                         ORDER BY I.RETURN_NO DESC
-                        ) H
-               ) G
-			WHERE G.RNUM BETWEEN #{startRow} AND #{endRow}
+                     , I.*
+                  FROM (SELECT J.RETURN_NO
+			                 , J.USER_NO
+			                 , J.DELIVERY_NO
+			                 , J.RETURN_DATE
+						     , K.USER_NAME
+                  			 , M.ORDER_PRICE
+                  			 , N.PROD_NAME
+                          FROM TBL_RETURN J
+                          JOIN TBL_USER K ON (K.USER_NO = J.USER_NO)
+                          JOIN TBL_DELIVERY L ON (L.DELIVERY_NO = J.DELIVERY_NO)
+                          JOIN TBL_ORDER M ON (M.ORDER_NO = L.ORDER_NO)
+                          JOIN TBL_PRODUCT N ON (N.PROD_NO = M.PROD_NO)
+                         WHERE J.USER_NO = #{userNo}
+                         ORDER BY J.RETURN_NO DESC
+                        ) I
+               ) H
+			WHERE H.RNUM BETWEEN #{startRow} AND #{endRow}
 		
 	</select>
 	
