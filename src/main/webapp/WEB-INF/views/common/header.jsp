@@ -129,7 +129,7 @@
 									
 						      <c:if test="${!empty CorpUserSession }">
 									
-		                                <a href="${ pageContext.servletContext.contextPath}/corporation/mypage">
+		                                <a href="${ pageContext.servletContext.contextPath}/corpMng/main">
 		                                    <li class="category-title">
 		                                        <div class="category-title-style">MY PAGE</div>
 		                                    </li>
