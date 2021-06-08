@@ -9,199 +9,152 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-<style>
-.uploadImages{
-
-	border: 1px solid black;
-	
-
-}
-</style>
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin_main.css">
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin/main.css">
 </head>
 <body>
-	<a href="${pageContext.request.contextPath}/admin/qna/list">Q&amp;A리스트로 이동하기</a><br>
-	<a href="${pageContext.request.contextPath}/admin/qna/manage">Q&amp;A관리 페이지로 이동하기</a><br>
-	<a href="${pageContext.request.contextPath}/admin/ntc/list">공지사항리스트로 이동하기</a><br>
-	<a href="${pageContext.request.contextPath}/admin/settlement/breakdown">정산현황으로 이동하기</a><br>
-	<a href="${pageContext.request.contextPath}/admin/userManage/list">사용자관리로 이동하기</a>
-	<div class="btns" style="width: 300px; height: 50px">
-		<button type="button" id="textColorButton">칼</button>
-		<button type="button" id="textBolderButton">두</button>
-		<button type="button" id="textUnderlineButton">밑</button>
-		<button type="button" id="textSizeButton">크</button>
-		<button type="button" id="fileUploadButton"><a class="btn" href="#pop">파</a></button>
+	<header>
+		<jsp:include page="../../common/corpMngHeader.jsp"/>
+    </header>
+
+    <aside>
+		<jsp:include page="../../common/corpMngNavi.jsp"/>
+    </aside>
+	
+	<section>
+	<div class="sectionBodyDiv">
+		<div class="userDiv contentDiv">
+            <button class="titleBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/userManage/list'"> 이용자 현황 > </button>
+            <hr style="margin-top: 0px;	margin-bottom: 0px;">
+           	<table class="userInfoTable infoTables">
+           		<tr>
+           			<!-- 현재 가입한 유저 숫자 -->
+           			<td>총 이용자 : ???명</td>
+           			<!-- 오늘 신규 가입한 유저 숫자 -->
+           			<td>금일 신규가입 이용자 : ???명</td>
+           		</tr>
+           		<tr>
+           			<!-- 한번도 상품을 구매하지 않은 유저 숫자 -->
+           			<td>미 구매 이용자 : ???명</td>
+           			<!-- 전체 구매횟수중 환불/반품 비율이 높은 유저 숫자 -->
+           			<td>환불/반품 고비율 이용자 : ???명</td>
+           		</tr>
+           		<tr>
+           			<!-- 신고된 유저 숫자 -->
+           			<td>신고된 이용자 : ???명</td>
+           		</tr>
+           	</table>
+        </div>
+        <div class="corpDiv contentDiv">
+            <button class="titleBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/system/comInfo'"> 기업회원 현황 > </button>
+            <hr style="margin-top: 0px;	margin-bottom: 0px;">
+            <table class="corpInfoTable infoTables">
+           		<tr>
+           			<!-- 현재 가입한(가입신청 미완료 포함) 기업 숫자 -->
+           			<td>총 기업회원 : ???명</td>
+           			<!-- 현재 가입승인 대기중인 기업 숫자 -->
+           			<td>가입승인 대기중 : ???명</td>
+           		</tr>
+           		<tr>
+           			<!-- 오늘 가입신청한 기업 숫자 -->
+           			<td>금일 가입신청 기업회원 : ???명</td>
+           			<!-- 신고된 기업 숫자 -->
+           			<td>신고된 기업회원 : ???명</td>
+           		</tr>
+           		<tr>
+           			<!-- 블랙리스트에 등록된 기업 숫자 -->
+           			<td>블랙리스트 기업회원 : ???명</td>
+           		</tr>
+           	</table>
+        </div>
+        <div class="QNADiv contentDiv">
+            <button class="titleBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/qna/manage'"> 질문 현황	 > </button>
+            <hr style="margin-top: 0px;	margin-bottom: 0px;">
+            <table class="QNAInfoTable infoTables">
+           		<tr>
+           			<!-- 전체 질문 숫자 -->
+           			<td>총 질문 : ???개</td>
+           			<!-- 응답 완료된 질문 숫자 -->
+           			<td>응답완료 질문 : ???개</td>
+           		</tr>
+           		<tr>
+           			<!-- 미응답 질문 숫자 -->
+           			<td>미응답 질문 : ???개</td>
+           			<!-- 기업회원 질문 숫자 -->
+           			<td>미응답 기업회원 질문 : ???개</td>
+           		</tr>
+           		<tr>
+           			<!-- 일반회원 질문 숫자 -->
+           			<td>미응답 일반회원 질문 : ???개</td>
+           		</tr>
+           	</table>
+        </div>
+        <div class="settlementDiv contentDiv">
+            <button class="titleBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/settlement/breakdown'"> 정산 현황 > </button>
+            <hr style="margin-top: 0px;	margin-bottom: 0px;">
+            <table class="settlementInfoTable infoTables">
+           		<tr>
+           			<!-- 전체 정산신청 숫자 -->
+           			<td>총 정산신청 현황 : ???개</td>
+           			<!-- 미정산 상태의 정산신청 숫자 -->
+           			<td>총 미정산 현황 : ???개</td>
+           		</tr>
+           		<tr>
+           			<!-- 일주일 미만의 짧은 기간 미정산 정산신청 숫자 -->
+           			<td>단기간 정산신청 : ???개</td>
+           			<!-- 고액(1000만 이상)의 미정산 정산신청 숫자 -->
+           			<td>고액 정산신청 : ???개</td>
+           		</tr>
+           		<tr>
+           			<!-- 오늘 정산신청한 숫자 -->   
+           			<td>금일 정산신청 : ???개</td>
+           		</tr>
+           	</table>
+        </div>
+        <div class="orderDiv contentDiv">
+            <button class="titleBtn" onclick="location.href=''"> 주문내역 현황 > </button>
+            <hr style="margin-top: 0px;	margin-bottom: 0px;">
+            <table class="orderInfoTable infoTables">
+           		<tr>
+           			<!-- 전체 주문내역 숫자 -->
+           			<td>총 주문내역 현황 : ???개</td>
+           			<!-- 최근 한달 주문내역 숫자 -->
+           			<td>최근 한달 주문내역 현황 : ???개</td>
+           		</tr>
+           		<tr>
+           			<!-- 환불 주문내역 숫자 -->
+           			<td>환불 주문내역 현황 : ???개</td>
+           			<!-- 배송중 주문내역 숫자 -->
+           			<td>배송중인 주문내역 현황 : ???개</td>
+           		</tr>
+           		<tr>
+           			<!-- 입금대기 주문내역 숫자 -->
+           			<td>입금대기 주문내역 현황 : ???개</td>
+           		</tr>
+           	</table>
+        </div>
+        <div class="adminCommissionDiv contentDiv">
+            <button class="titleBtn" onclick="location.href=''"> 수수료 현황 > </button>
+            <hr style="margin-top: 0px;	margin-bottom: 0px;">
+            <table class="commissionInfoTable infoTables">
+           		<tr>
+           			<!-- 전체 수수료액 -->
+           			<td>총 수수료 : ???원</td>
+           			 <!-- 수수료 비율 -->
+           			<td>수수료 비율 : ???%</td>
+           		</tr>
+           		<tr>
+           			<!-- 기간별 수수료액(하루/일주일/개월) -->
+           			<td>금일 수수료 : ???원</td>
+           			<td>금주 수수료 : ???원</td>
+           		</tr>
+           		<tr>
+           			<td>금월 수수료 : ???월</td>
+           		</tr>
+           	</table>
+        </div>
 	</div>
-	<form action="${pageContext.request.contextPath}/admin/test" method="post" id="testSubmit">
-	<div id="details" class="system-qnaDetail-detail" contenteditable="true" style="border: 1px solid black; width: 300px; height: 300px;">
-		type here
-		<img src="${ pageContext.servletContext.contextPath }/resources/img/header/profile.png" alt="">
-	</div>
-	<textarea name="append" id="appenddiv" style="display:none;"></textarea>
-	<input type="button" name="temp" id="temp" value="submit"/>
-	</form>
-	
-	<div id="pop" class="modal">
-		<button type="button" id="multipleFileUploadButton">파일 업로드</button>
-		<input type="file" name="files" id="files" multiple style="display: none;">
-		<div id="contentImgArea"></div>
-		<button type="button" id="acceptButton">확인</button>
-	</div>
-<script>
-$(document).ready(function () {
-    $('#temp').click(function () {
-        $('#appenddiv').val($('#details').html());
-        $('#testSubmit').submit();
-    });
-});
-
-$(document).ready(function () {
-    $('#textColorButton').click(function () {
-
-    });
-});
-
-$(document).ready(function () {
-    $('#textBolderButton').click(function () {
-
-    });
-});
-
-$(document).ready(function () {
-    $('#textUnderlineButton').click(function () {
-
-    });
-});
-
-$(document).ready(function () {
-    $('#textSizeButton').click(function () {
-
-    });
-});
-
-$(document).ready(function () {
-	
-	$('a[href="#pop"]').click(function(event) {
-		
-    	event.preventDefault();
-	 
-    	$(this).modal({
-    		fadeDuration: 250
-    	});
-	      
-    });
-	
-});
-
-$("#multipleFileUploadButton").click(function(){
-	
-	$("#files").click();
-	
-});
-
-$("#files").change(function(e){
-	
-	var $files = document.getElementById("files");
-	var $imgs = $("#contentImgArea");
-	var inputFiles = e.target;
-	
-	$imgs.html('');
-	for(var i = 0 ; i < $files.files.length ; i++){
-		var fileReader = new FileReader();
-		fileReader.readAsDataURL(inputFiles.files[i]);
-		fileReader.onload = function(e){
-			$('<img>', {
-				src: e.target.result,
-				name: "img" + (1 + i)
-			}).css({
-				width: '120px',
-				height: '100px',
-				border: '1px solid black',
-				margin: '5px 5px 0px 0px'
-			}).addClass('uploadImages')
-			.appendTo($imgs);
-		}
-		
-	}
-	
-});
-
-$("#acceptButton").click(function(){
-	
-	var $files = document.getElementById("files");
-	var $imgs = $("#contentImgArea");
-	
-	if($files.files.length > 0){
-		
-		var inputFile = $('#files');
-	    var data = new FormData();
-	    var files=inputFile[0].files;
-	    
-	    for(var i = 0 ; i < files.length ; i++){
-	    	data.append('uploadFiles', files[i]);
-		}
-		
-	    console.log(files);
-	    
-		$.ajax({
-			
-			type: "POST",
-			url: "${pageContext.servletContext.contextPath}/admin/qna/fileUpload",
-			processData: false,
-			contentType: false,
-			enctype: "multipart/form-data",
-			data: data,
-			success: function(data){
-				
-				var parseData = JSON.parse(data);
-				console.table(parseData);
-				console.log(parseData);
-				
-				for(var index in parseData){
-					
-					var $test = parseData[index].url;
-					
-					console.log($test);
-					
-					
-					
-					var $uploadedImgs = $('<img>', {src: parseData[index].url}).css({width: '250px', height: '200px', border: '1px solid black', margin: '5px 5px 0px 0px'}).addClass('uploadImages');
-					console.log($uploadedImgs);
-					$('#details').append($uploadedImgs);
-					
-					/* var element = document.getElementById('details');
-					var strOriginal = element.value + "";
-					var iStartPos = element.selectionStart;
-					var iEndPos = element.selectionEnd;
-					var strFront = "";
-					var strEnd = "";
-
-					if(iStartPos == iEndPos) {
-
-					strFront = strOriginal.substring(0, iStartPos);
-					strEnd = strOriginal.substring(iStartPos, strOriginal.length);
-
-					} */
-					
-					/* e.value = strFront; */
-					/* e.append($uploadedImgs); */
-					/* e.value = e.value + strEnd; */
-					
-				}
-				
-		
-			},
-			error: function(error){
-				
-			}
-			
-		});
-		
-	}
-	
-	$imgs.html('');
-	$(".close-modal").click();
-	
-});
-</script>
+	</section>
 </body>
 </html>

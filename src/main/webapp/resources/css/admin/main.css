@@ -1,0 +1,46 @@
+.sectionBodyDiv{
+	
+	margin: 0 auto;
+	width: 1200px;
+	height: 800px;
+	border: 1px solid black;
+	
+}
+
+.contentDiv{
+	
+	width: 500px;
+	height: 200px;
+	float: left;
+	margin: 40px 45px 20px 45px;
+	border: 1px solid black;
+	
+}
+
+.titleBtn{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: 25px;
+    border: none;
+    background-color: transparent;
+}
+
+.infoTables > tbody > tr > td{
+	
+	width: 250px;
+	height: 50px;
+	text-align: left;
+	vertical-align: middle;
+	padding-left: 10px;
+	
+}
+
+hr{
+	
+	width: 100%;
+	height: 1px;
+	background-color: black;
+	
+}
