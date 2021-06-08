@@ -52,19 +52,16 @@ public class ProductController {
 		return "/main/main";
 	}
 	
-	/* 메인 상품 MD추천 침실/거실 */
-	
-
 	@GetMapping("test")
-	public String test(Model model, @RequestParam(required = false) String prodCtgNo) {
-		List<ProductDTO> productList = productService.selectProduct(prodCtgNo);
+	   public String test(Model model, @RequestParam(required=false) String prodCtgNo) {
+		System.out.println(prodCtgNo);
 		
-		System.out.println(productList);
-		
-		model.addAttribute("productList", productList);
-
-		return "/product/product-list";
-	}
+		   List<ProductDTO> productList = productService.selectProduct(prodCtgNo);
+		   
+			model.addAttribute("productList", productList);
+			
+	      return "/product/product-list";
+	   }
 
 	@GetMapping("product")
 	public String product(Model model, @RequestParam(required = false) String prodNo,
@@ -73,7 +70,9 @@ public class ProductController {
 		List<CorpDTO> corpList = productService.corp(corpNo);
 		List<ProductImgDTO> productImgList = productService.ProductImg(prodNo);
 		List<ReviewDTO> reviewList = productService.review(prodNo);
+		System.out.println(reviewList+"reviewList");
 		List<CommentDTO> commentList = productService.comment(prodNo);
+		System.out.println(commentList+"commentList");
 		int count = 0;
 		int sum = 0;
 
@@ -82,7 +81,22 @@ public class ProductController {
 		double threePointCount = 0;
 		double fourPointCount = 0;
 		double fivePointCount = 0;
+		
+		int onePoint = 0;
+		int twoPoint = 0;
+		int threePoint = 0;
+		int fourPoint = 0;
+		int fivePoint = 0;
 
+		int onePointSize = 0;
+		int twoPointSize = 0;
+		int threePointSize = 0;
+		int fourPointSize = 0;
+		int fivePointSize = 0;
+		
+		if(reviewList.size() == 0) {
+			System.out.println("하지마");
+		} else {
 		for (ReviewDTO a : reviewList) {
 			
 			sum += a.getReviewScore();
@@ -107,9 +121,21 @@ public class ProductController {
 				break;
 			}
 			count += 1;
-			
 		}
+		}
+		if(reviewList.size() == 0) {
+			onePoint = 0;
+			twoPoint = 0;
+			threePoint = 0;
+			fourPoint = 0;
+			fivePoint = 0;
 
+			onePointSize = 0;
+			twoPointSize = 0;
+			threePointSize = 0;
+			fourPointSize = 0;
+			fivePointSize = 0;
+		} else {
 		onePointCount = onePointCount / count * 100;
 		twoPointCount = twoPointCount / count * 100;
 		threePointCount = threePointCount / count * 100;
@@ -117,18 +143,18 @@ public class ProductController {
 		fivePointCount = fivePointCount / count * 100;
 		sum = sum / count;
 
-		int onePoint = (int) onePointCount;
-		int twoPoint = (int) twoPointCount;
-		int threePoint = (int) threePointCount;
-		int fourPoint = (int) fourPointCount;
-		int fivePoint = (int) fivePointCount;
+		onePoint = (int) onePointCount;
+		twoPoint = (int) twoPointCount;
+		threePoint = (int) threePointCount;
+		fourPoint = (int) fourPointCount;
+		fivePoint = (int) fivePointCount;
 
-		int onePointSize = 17 * onePoint / 10;
-		int twoPointSize = 17 * twoPoint / 10;
-		int threePointSize = 17 * threePoint / 10;
-		int fourPointSize = 17 * fourPoint / 10;
-		int fivePointSize = 17 * fivePoint / 10;
-
+		onePointSize = 17 * onePoint / 10;
+		twoPointSize = 17 * twoPoint / 10;
+		threePointSize = 17 * threePoint / 10;
+		fourPointSize = 17 * fourPoint / 10;
+		fivePointSize = 17 * fivePoint / 10;
+		}
 		model.addAttribute("productList", productList);
 		model.addAttribute("corpList", corpList);
 		model.addAttribute("productImgList", productImgList);

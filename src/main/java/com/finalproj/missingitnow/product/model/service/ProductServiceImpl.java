@@ -95,7 +95,8 @@ public class ProductServiceImpl implements ProductService {
 	public List<ReviewDTO> review(String prodNo) {
 		return productDAO.review(prodNo);
 	}
-
+	
+	/* 상품 리뷰 등록 */
 	@Override
 	public String reviewStar(HashMap<String, Object> insertReview) {
 		return productDAO.reviewStar(insertReview);
