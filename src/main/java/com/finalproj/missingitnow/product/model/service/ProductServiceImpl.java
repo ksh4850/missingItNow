@@ -235,6 +235,17 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductDTO> allproductTopSeven() {
 		return productDAO.allproductTopSeven();
 	}
+	/* 자동 검색 기능 */
+	@Override
+	public List<ProductDTO> selectketSearch() {
+		return productDAO.selectketSearch();
+	}
+
+	/* 검색에서 상품 리스트 페이지로 넘어갈때 */
+	@Override
+	public List<ProductDTO> productSearch(String search) {
+		return productDAO.productSearch(search);
+	}
 
 	
 

@@ -87,6 +87,12 @@ public interface ProductDAO {
 	
 	/* 인기상품 TOP7 */
 	List<ProductDTO> allproductTopSeven();
+	
+	/* 자동 검색 기능 */
+	List<ProductDTO> selectketSearch();
+	
+	/* 검색에서 상품 리스트 페이지로 넘어갈때 */
+	List<ProductDTO> productSearch(String search);
 
 
 

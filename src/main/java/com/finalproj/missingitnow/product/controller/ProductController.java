@@ -55,6 +55,7 @@ public class ProductController {
 		return "/main/main";
 	}
 	
+	/* 상품 리스트 부르기 카테고리  */
 	@GetMapping("test")
 	   public String test(Model model, @RequestParam(required=false) String prodCtgNo) {
 		
@@ -74,7 +75,6 @@ public class ProductController {
 				price.add(product);
 				count+=1;
 			}
-		  System.out.println(price);
 		  model.addAttribute("productList", productList);
 		  model.addAttribute("price", price);
 		  
@@ -380,6 +380,30 @@ public class ProductController {
 		return "product/productPaymentCompletion"; 
 	}
 	
+	/* 검색해서 상품 리스트 출력 페이지 */
+	@GetMapping("/productSearch")
+	public String productSearch(Model model, @RequestParam(required=false) String search) {
+
+		List<ProductDTO> productList = productService.productSearch(search);
+		  List<ProductDTO> price = new ArrayList<ProductDTO>(); 
+		  int salePrice = 0;
+		  int count = 0;
+		  for(ProductDTO list : productList) {
+			  
+				double prodDiscountRate = (double) list.getProdDiscountRate() / 100;
+				double salePrice2 =  list.getProdPrice() * ( 1 - prodDiscountRate);
+				salePrice = (int)salePrice2;
+				ProductDTO product = new ProductDTO();
+				product.setProdNo(list.getProdNo());
+				product.setProdPrice(salePrice);
+				price.add(product);
+				count+=1;
+			}
+		  model.addAttribute("productList", productList);
+		  model.addAttribute("price", price);
+	
+		return "/product/product-list";
+	}
 	
 	
 }

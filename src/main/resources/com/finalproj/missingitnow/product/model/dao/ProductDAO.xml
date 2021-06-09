@@ -553,7 +553,32 @@
       ORDER BY A.PROD_HITS DESC
        ]]>
 	</select>
-
+	
+	 <select id="selectketSearch" resultMap="ProductResultSet" >
+	<![CDATA[
+	 SELECT 
+	        A.*
+	      , B.PROD_IMG_RENAME
+       FROM TBL_PRODUCT A
+       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+      WHERE B.PROD_IMG_THN_NAME = 'SUMNAME'
+  	]]>
+	</select> 
+	
+	<select id="productSearch" resultMap="ProductResultSet" parameterType="string">
+		SELECT 
+		       A.*
+             , B.PROD_IMG_RENAME
+             , B.PROD_IMG_PATH
+             , C.CORP_NAME
+		  FROM TBL_PRODUCT A
+          JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
+          JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
+          JOIN TBL_KEYWORDS D ON (A.PROD_NO = D.PROD_NO)
+		 WHERE B.PROD_IMG_THN_NAME = 'SUMNAME'  
+		   AND A.PROD_NAME = #{search} OR D.KEYWORDS_SET = #{search}
+	</select>
+	
 </mapper>
 
 

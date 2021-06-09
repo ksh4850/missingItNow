@@ -165,12 +165,14 @@
             <div class="search">
                 <!-- <form method="post"> -->
                 <div class="search_bar">
-                    <input class="search_size" type="text" title="검색">
-                    <a href="#" type="submit"><img src="${ pageContext.servletContext.contextPath }/resources/images/search.png" class="search_img" alt=""></a>
+                    <input class="search_size" id="ketSearch" type="text" title="검색">
+                    <a href="#" id="search"><img src="${ pageContext.servletContext.contextPath }/resources/images/search.png" class="search_img" alt=""></a>
                 </div>
                 <!-- </form> -->
             </div>
-
+			<div class="searchClass">
+			
+			</div>
             <!-- 차트 -->
             <div class="charts">
                 <span class="charts_rank">1 &nbsp;&nbsp;</span><span>1등인기 상품</span>
@@ -202,5 +204,89 @@
         </div>
     </header>
     <div class="space"></div>
+    <!-- 검색바 엔진 구현 -->
+    <script>
+		$("#ketSearch").keyup(function(){
+			const search = document.getElementById("ketSearch").value;
+			$.ajax({
+				url : "ketSearch",
+				method : "post",
+				data : {
+					search : search
+				},
+				success : function(data){
+					console.log(data)
+					console.table(data);
+					const $div = $(".searchClass");
+					$div.html("");
+					$searchBottom = $("<div>").attr("class", "searchBottom");
+					if(search == ""){
+						$div.html("");
+					}
+					if(search != ""){
+					for(var index in data){
+
+						$link = $("<a>").attr("href", "#");
+						$searchFont = $("<div>").text(data[index].prodName).attr("class", "searchFont test"+[index]).attr("id", "test"+[index]);
+						$link.append($searchFont); 
+						$searchBottom.append($link); 
+						
+						
+					} 	
+						$div.append($searchBottom); 
+						
+						$("#search").click(function(){
+								
+						location.href="${ pageContext.servletContext.contextPath}/product/productSearch?search=" + search;
+							
+						});
+						$("#test0").click(function(){
+							document.getElementById("ketSearch").value = data[0].prodName;
+						});
+						$("#test1").click(function(){
+							document.getElementById("ketSearch").value = data[1].prodName;
+						});
+						$("#test2").click(function(){
+							document.getElementById("ketSearch").value = data[2].prodName;
+						});
+						$("#test3").click(function(){
+							document.getElementById("ketSearch").value = data[3].prodName;
+						});
+						$("#test4").click(function(){
+							document.getElementById("ketSearch").value = data[4].prodName;
+						});
+						
+						$("#test0").mouseenter(function(){
+							$img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/"+ data[0].prodImgRename ).attr("class", "searchImg");
+							$div.append($img); 
+						});
+						$("#test1").mouseenter(function(){
+							$img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/"+ data[1].prodImgRename ).attr("class", "searchImg");
+							$div.append($img); 
+						});
+						$("#test2").mouseenter(function(){
+							$img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/"+ data[2].prodImgRename ).attr("class", "searchImg");
+							$div.append($img); 
+						});
+						$("#test3").mouseenter(function(){
+							$img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/"+ data[3].prodImgRename ).attr("class", "searchImg");
+							$div.append($img); 
+						});
+						$("#test4").mouseenter(function(){
+							$img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/"+ data[4].prodImgRename ).attr("class", "searchImg");
+							$div.append($img); 
+						});
+					}
+				},
+				
+				error : function(error){
+					console.log(error);
+				}
+				});
+			
+		});
+		
+		
+	</script>
 </body>
 </html>
