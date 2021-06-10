@@ -185,7 +185,7 @@
             		<div class="icons">
                			<a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu1.png" class="icons_img" alt=""></a>
 		                <a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu2.png" class="icons_img" alt=""></a>
-		                <a href="${ pageContext.servletContext.contextPath}/member/myPageCart"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu3.png" class="icons_img" alt=""></a>
+		                <a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu3.png" class="icons_img" alt=""></a>
             		</div>
             	</c:if>
      	

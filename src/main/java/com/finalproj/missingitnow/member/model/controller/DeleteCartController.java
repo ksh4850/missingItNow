@@ -16,7 +16,6 @@ import com.finalproj.missingitnow.member.model.dto.PrivateMemberDTO;
 import com.finalproj.missingitnow.member.model.service.CartService;
 
 @Controller
-@ResponseBody 
 @RequestMapping("/member/deleteCart")
 public class DeleteCartController {
 	
@@ -29,11 +28,17 @@ public class DeleteCartController {
 	}
 	
 	@PostMapping
-	public int deleteCart(@RequestParam(value="chk[]") List<String> chkArr, CartDTO cart, PrivateMemberDTO member, HttpSession session) {
+	@ResponseBody 
+	public int deleteCart(@RequestParam(value="valueArr[]") List<String> valueArr, CartDTO cart, PrivateMemberDTO member, HttpSession session) {
+		
+		System.out.println("deleteCart");
 		
 		member = (PrivateMemberDTO) session.getAttribute("loginMember");
 		
 		String userNo = member.getUserNo();
+		
+		
+		System.out.println("userNo : " + userNo);
 		
 		int result = 0;
 		
@@ -44,7 +49,7 @@ public class DeleteCartController {
 			
 			cart.setUserNo(userNo);
 			
-			for(String i : chkArr) {
+			for(String i : valueArr) {
 				
 				wishListNo = i;
 				cart.setWishListNo(wishListNo);

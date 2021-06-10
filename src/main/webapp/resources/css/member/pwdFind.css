@@ -1,0 +1,92 @@
+        .findFormInput{
+        width:200px;
+        height:30px;
+        border:1px solid black;
+        border-radius: 30px;
+        }
+        
+        .selectProvider{
+        border:1px solid black;
+        height:30px;
+        
+        }
+        
+        
+        .titleTable{
+        margin-left:20px;		
+		height:100px;		
+		vertical-align: bottom;	
+	}
+
+	.titleColorBox{	
+		background-color: rgba(119, 94, 238, 0.7);
+		color:#fff;
+		font-size:30px;
+		vertical-align: bottom;	
+	}
+	
+	.titleNonColor{
+		font-size:25px;
+		vertical-align: bottom;
+	}
+        
+        .leftBg{
+		position:relative;
+		margin-top:400px;
+		margin-left:650px;
+		margin-bottom:50px;
+		}
+        
+        
+        .pwdFindForm{      
+        	position:absolute;
+            margin-top:-800px; 
+            margin-left:1000px; 
+            margin-bottom:900px;
+            background-color: rgba(119, 94, 238, 0.33); 
+            width:900px;
+            height:700px;
+        }
+        .pwdFindFormTable{
+        	
+            margin-top:50px;
+            margin-left:35px;
+        }
+        
+        .whiteForm{
+        background: #FBF9F9;
+		border: 0.2px solid #000000;
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+		border-radius: 10px;
+        width:450px;
+        margin-top:70px;
+        margin-left:390px;
+        }
+    	
+    	/* 줄간격 조정으로 표 내부의 글자 높이를 아래로 내려줄 수 있음. */
+    	.idLabel, .emailLabel, .atLabel{
+        line-height:29px;
+        }
+    	
+        
+       	.mainBtn{
+        outline: 0;
+        border : 0;        
+        background: #775EEE;
+		color:#ffff;		
+		width:200px;
+		height:30px;
+		border-radius: 10px;
+		font-size:15px;
+    	}
+    
+    	.cancelBtn{
+        outline: 0;
+        border : 0;        
+        background: #EE5E5E;
+		color:#ffff;		
+		width:150px;
+		height:30px;
+		border-radius: 10px;
+		font-size:15px;
+    	}

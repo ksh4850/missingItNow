@@ -15,15 +15,15 @@
     <link rel="stylesheet" href="/missingitnow/resources/css/member/myPageCart.css"> 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="/missingitnow/resources/js/member/myPageNav.js"></script>
-
+		 <!-- <script src="/missingitnow/resources/js/member/myPageCart.js"></script> -->
     
 </head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<style>
-	
 
-	
+<style>
+	    
+		
 </style>
 
 <body>
@@ -39,9 +39,11 @@
    
 	   <table class="titleTable">
 		   	<tr>
-		   		<td class="titleColorBox">xx회원님의 장바구니입니다.</td> 
-		   		<td class="titleNonColor">어떤 물건을 구매하실껀가요?</td>
+		   		<td class="titleColorBox"><br><br><br><br>&nbsp;<c:out value="${loginMember.userName}"/> 회원님의&nbsp; </td> 
+		   		<td class="titleNonColor">장바구니입니다.</td>
 		   	</tr>
+		   	<tr><td><br></td></tr>
+		   	<tr><td colspan="2" class="titleNonColor2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;어떤 물건을 구매하시겠습니까</td></tr>
 	   </table>           
    
      	
@@ -55,6 +57,9 @@
     	
     
     		<div class="leftDiv">
+    		
+    			
+    		
                 <table class="myPageNavTable">
                     <tr>
                     <td align="center"><br>  <i id="userImg" class="fas fa-user"></i> <!--프로필 사진 영역-->
@@ -118,7 +123,7 @@
             
         </div>
     
-    
+    	<div class="centerBlank"><br></div>
     
         <div id="colorBox">
     
@@ -127,6 +132,8 @@
         <div id="rightDiv">
 
             <section>
+            
+            	<c:if test="${!empty cartList}"> 
                 <table class="cartTable" border="1">
 					<tr><td><br></td></tr>
                     <tr>
@@ -146,12 +153,12 @@
                     <c:set var = "total" value="0"/>
                     <c:forEach items="${cartList}" var="cart">
                     	<tr>
-                    	<td align="center"><input type=checkbox class="chk"></td>
+                    	<td align="center"><input type=checkbox class="chk" value="${cart.wishListNo}"></td>
                     	<td><c:out value="${cart.productDTO.prodName}"/></td>
                     	<td><c:out value="${cart.productDTO.prodPrice}"/></td>
                     	<td><c:out value="${cart.prodAmount}"/> </td>
                     	<td>
-                    	<button type="button" class="deleteBtn" data-cartNum="${cart.wishListNo}"><i class="far fa-trash-alt"></i></button>
+                    	<button type="button" class="deleteBtn"><i class="far fa-trash-alt"></i></button>
                     	</td>
                     	</tr>
                     	
@@ -191,10 +198,40 @@
 
 
         </table>
+        </c:if>
         
         
+         <c:if test="${empty cartList}">
+         
+         <table class="emptyTable">
+         	<tr><td><br><br></td></tr>
+         	<tr>
+         		<td align="center">&nbsp;&nbsp;&nbsp;장바구니가 비어있네요!</td>
+         	</tr>
+         	
+         	<tr><td><br><br><br></td></tr>
+         	
+         	<tr>
+         		<td>
+        			<img class="emptyCart" src="/missingitnow/resources/images/member/empty-cart.png">
+		        </td>
+         	</tr>
+         	<tr><td><br><br></td></tr>
+         	<tr>
+         		<td align="center">
+         			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="paymentBtn" type="button" onclick="${pageContext.servletContext.contextPath}/">상품 보러가기</button>
+         		</td>
+         	</tr>
+         	
+         </table>
+       
+         
+        </c:if> 
         
         </section>
+        
+        
+        
         </div>
     </div>
 	
@@ -242,64 +279,123 @@
         });
 
 
-    	/* 휴지통 아이콘 선택시 장바구니에서 삭제*/
-    	
-    	 $(".selectDeleteBtn").click(function(){
-    		 
-    		  var confirm_val = confirm("정말 삭제하시겠습니까?");
-    		  
-    		  if(confirm_val) {
-    		 
-    		  
-    			 var cnt = $("input[class='chk']:checked").length;
-    			 var arr = new Array();
-    			 
-    			 $("input[class='chk']:checked").each(function(){
-    				 
-    				arr.push($(this).attr("data-cartNum")); 
-    				 
-    			 });
-    			 
-    			 if(cnt == 0 ){
+
+    </script>
+	
+	
+	<script>
+
+	$(function(){
+		$(".deleteBtn").click(function(){
+			
+						
+			var confirm_val = confirm("정말 삭제하시겠습니까?");
+
+			
+			if(confirm_val){
+				
+				var cnt = $("input[class='chk']:checked").length;
+				
+				var valueArr = new Array();
+				var list = $("input[class='chk']");
+				
+				
+				 for(var i = 0; i < list.length; i++){
+				        if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
+				            valueArr.push(list[i].value);
+				        
+				            
+				        }
+				    }
+				
+				
+   				 if(cnt == 0 ){
     				 
     				 alert("선택된 항목이 없습니다.");
-    			 
-    			 } else {
-    				 
-    				$.ajax = {
+				 
+   				 } else {
+						
+   					 	console.log("cnt : " + cnt);
+   					 	console.log("valueArr : " + valueArr);
+   					 
+   					 	$.ajax({
     						
     						type : "POST",
-    						url : "${pageContext.servletContext.contextPath}/member/deleteCart",
-    						data: {chk : arr},
-    						dataType:"json",
+    						url : "/missingitnow/member/deleteCart",
+    						data: {
+    								valueArr : valueArr
+    							   },    						
+    						
     						success:function(result){
     							if(result==1){
-    								
-    							location.href= "${pageContext.servletContext.contextPath}/member/myPageCart";
+    							
+    							/* location.href= "/missingitnow/member/myPageCart" */
+    							
+    							
+    					            var form = document.createElement('form');
+
+    						        var objs;
+
+    						        objs = document.createElement('input');
+
+    						        objs.setAttribute('type', 'hidden');
+
+    						        objs.setAttribute('name', 'userNo');      // 받을 네이밍
+
+    						        objs.setAttribute('value', '${loginMember.userNo}');       // 넘길 파라메터
+
+    						        form.appendChild(objs);
+
+    						        form.setAttribute('method', 'post');
+
+    						        form.setAttribute('action', "/missingitnow/member/myPageCart");      // URL
+
+    						        document.body.appendChild(form);
+
+    						        form.submit();
+    							
+    							
+    							
     							} else {
     								
     								alert("삭제실패");
     							}
     							
     						},
-    						error: function(){alert("서버통신 오류");}
+    						error: function(){
+    							
+    							alert("서버통신 오류");
+    							
+    						}
     						
-    				};	 
+    				});	
+   					 
+					/* alert("삭제되었습니다."); */
+   					 
+   					 
+   				 }
     				 
-    				 
-    			 }
-    			 
-    		  }
-    		 
-    		 
-    		 
-    	 });
-		
+				
+				
+				} else {
+				
+					alert("취소되었습니다.");
+					
+				}
+			
+			});
+			
+			
+		});	
+	</script>	 
+			
+			
+	
+	
 
-
-
-    </script>
-
+	
+	
+	
 
 </body>
 

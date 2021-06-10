@@ -13,7 +13,7 @@
     
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     
     <script src="/missingitnow/resources/js/member/myPageMain.js"></script>
     <script src="/missingitnow/resources/js/member/myPageNav.js"></script>
@@ -228,8 +228,13 @@
                     </tr>
                     <tr>
                         <td align="center" > 
-                        <button type="button" class="subBtn"> 비밀번호 변경 </button> &nbsp;&nbsp;&nbsp;&nbsp;
-                        <button type="button" class="subBtn" onclick="location.href='${pageContext.servletContext.contextPath}/member/quit'">탈퇴하기</button><br>
+                        
+                        <button type="button" class="subBtn" 
+                        onclick="location.href='${pageContext.servletContext.contextPath}/member/pwdChange'">비밀번호 변경 </button> &nbsp;&nbsp;&nbsp;&nbsp;
+                        
+                        <button type="button" class="subBtn" 
+                        onclick="location.href='${pageContext.servletContext.contextPath}/member/quit'">탈퇴하기</button><br>
+                        
                         </td>
                     </tr>
         
@@ -258,33 +263,42 @@
 
 
 
+
+
+
+
+
+
+
+
+
 <script>
 
-/* 결합된 주소값을 칸에 맞게 잘라서 넣는 스크립트*/
-$(function(){
-const userAddress = "${loginMember.userAddress}";
+	/* 결합된 주소값을 칸에 맞게 잘라서 넣는 스크립트*/
+	$(function(){
+	const userAddress = "${loginMember.userAddress}";
+	
+	const addressSplit = userAddress.split("-");
+	
+	const zipCode = addressSplit[0];
+	const address = addressSplit[1];
+	const detailAddress = addressSplit[2];
+	
+	$('.zipCodeInput').val(zipCode);
+	$('.addressInput').val(address);
+	$('.address2Input').val(detailAddress);
+	
+	});
 
-const addressSplit = userAddress.split("-");
-
-const zipCode = addressSplit[0];
-const address = addressSplit[1];
-const detailAddress = addressSplit[2];
-
-$('.zipCodeInput').val(zipCode);
-$('.addressInput').val(address);
-$('.address2Input').val(detailAddress);
-
-});
-
-
-/* 시간을 제외한 순수 생년월일을 칸에 넣는 스크립트 */
-
-const userBirth = "${loginMember.userBirth }";
-
-const onlyBirthDate = userBirth.substr(0,10);
-
-//console.log(onlyBirthDate);
-$('.birthDateInput').val(onlyBirthDate);
+	
+	/* 시간을 제외한 순수 생년월일을 칸에 넣는 스크립트 */
+	
+	const userBirth = "${loginMember.userBirth }";
+	
+	const onlyBirthDate = userBirth.substr(0,10);
+	
+	//console.log(onlyBirthDate);
+	$('.birthDateInput').val(onlyBirthDate);
 
 </script>
 

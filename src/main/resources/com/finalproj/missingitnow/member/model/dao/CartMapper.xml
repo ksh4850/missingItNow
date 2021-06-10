@@ -63,11 +63,11 @@
 		
 	</select>
 	
-	<delete id="deleteCartList"> 
+	<delete id="deleteCart"> 
         DELETE 
-               TBL_WISHLIST 
-         WHERE C.USER_NO = #{userNo}
-           AND C.WISHLIST_NO = #{wishListNo} 
+               TBL_WISHLIST A 
+         WHERE A.USER_NO = #{userNo}
+           AND A.WISHLIST_NO = #{wishListNo} 
     </delete> 
 	
 </mapper>

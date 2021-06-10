@@ -34,13 +34,13 @@ public class MyPageMainController {
 	@PostMapping
 	public String myPageModify(@ModelAttribute PrivateMemberDTO member, HttpSession session) {
 		
-		System.out.println("modify");
 		
 		memberService.userUpdate(member);
 		
 		session.invalidate();
 		
-		return "redirect:/login";
+		return "redirect:/corporation/loginPage";	
+		
 	}
 	
 }

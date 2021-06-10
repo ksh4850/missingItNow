@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +30,14 @@ public class MyPageCartController {
 		super();
 		this.cartService = cartService;
 	}
-
+	
+	@GetMapping
+	public String Cart() {
+		
+		
+		return "member/myPageCart";
+	}
+	
 
 	@PostMapping	
 	public String myPageCart(@RequestParam(value="currentPage", required=false, defaultValue="1") String currentPage

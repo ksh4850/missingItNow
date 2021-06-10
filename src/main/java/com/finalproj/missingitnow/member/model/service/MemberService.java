@@ -1,6 +1,9 @@
 package com.finalproj.missingitnow.member.model.service;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.finalproj.missingitnow.common.exception.LoginFailedException;
+import com.finalproj.missingitnow.member.model.dto.PasswordFindDTO;
 import com.finalproj.missingitnow.member.model.dto.PrivateMemberDTO;
 
 public interface MemberService {
@@ -14,5 +17,8 @@ public interface MemberService {
 	void userQuit(PrivateMemberDTO member);
 
 	void pwdChange(PrivateMemberDTO member);
+
+
+	String pwdFind(HttpServletResponse response, PasswordFindDTO passwordFind, PrivateMemberDTO member);
 
 }

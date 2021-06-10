@@ -1,0 +1,85 @@
+	    .titleTable{
+	        margin-left:20px;		
+			height:100px;		
+			vertical-align: bottom;	
+		}
+
+		.titleColorBox{	
+			background-color: rgba(119, 94, 238, 0.7);
+			color:#fff;
+			font-size:30px;
+			vertical-align: bottom;	
+		}
+	
+		.titleNonColor{
+			font-size:25px;
+			vertical-align: bottom;
+		}
+	
+	
+		.inputPassword{
+			-webkit-appearance: auto;
+		    -moz-appearance: auto;
+		    width:200px;
+	        height:30px;
+	        border:1px solid black;
+		    border-radius: 30px;
+		}
+	
+	    .leftBg{
+			position:relative;
+			margin-top:400px;
+			margin-left:650px;
+			margin-bottom:50px;
+		}
+	
+		.pwdChangeForm{
+			position:absolute;
+			background-color: rgba(119, 94, 238, 0.33); 
+			margin-left:1000px;
+			margin-top:-800px;		
+			width:900px;
+			height:700px;
+		
+		}
+	
+		.whiteForm{
+			margin-left:380px;
+	        background: #FBF9F9;
+			border: 0.2px solid #000000;
+			box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+			border-radius: 10px;
+	        width:450px;     
+        }
+	
+	
+		.pwdChangeFormTable{
+			margin-left:35px;
+					
+		}
+	
+		.mainBtn{
+	        outline: 0;
+	        border : 0;        
+	        background: #775EEE;
+			color:#ffff;		
+			width:150px;
+			height:30px;
+			border-radius: 10px;
+			font-size:20px;
+	    }
+    
+		.cancelBtn{
+	        outline: 0;
+	        border : 0;        
+	        background: #EE5E5E;
+			color:#ffff;		
+			width:150px;
+			height:30px;
+			border-radius: 10px;
+			font-size:20px;
+	    }
+    
+        .label{
+        	line-height:29px;
+        }

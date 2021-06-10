@@ -37,7 +37,8 @@
                 <div class="btns">
                     <button type="submit" class="submit-button">로그인</button><br>
                     <a id="regist" href="${pageContext.servletContext.contextPath}/member/registBranch"><button type="button" class="regist-button">회원가입</button></a><br>
-					<button type="button" class="find-button">아이디 / 비밀번호 찾기</button>
+					<button type="button" class="find-button" 
+					onclick="location.href='${pageContext.servletContext.contextPath}/member/pwdFind'">아이디 / 비밀번호 찾기</button>
                 </div>
             </form>
         </div>
