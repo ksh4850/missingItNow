@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.finalproj.missingitnow.common.page.PageInfoDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductKeywordsDTO;
 
@@ -12,8 +13,8 @@ import com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductKeywordsDTO;
 public interface ProdMngProductDAO {
 	
 	// 전체 상품 조회 (해당 기업이 등록한)
-	int selectTotalProductList();
-	List<ProdMngProductDTO> selectProductList(PageInfoDTO pageInfo);
+	int selectTotalProductList(CorpUserDTO corpUserSession);
+	List<ProdMngProductDTO> selectProductList(Map<String, Object> params);
 	
 	// 카테고리별/상품별 등록 상품 조회
 	int searchTotalProductList(Map<String, Object> params);
@@ -26,7 +27,7 @@ public interface ProdMngProductDAO {
 	int insertKeywords(Map<String, String> key);
 
 	// 수정을 위한 해당 상품번호에 대한 정보 조회
-	List<ProdMngProductDTO> selectProductForUpdate(String prodNo);
+	List<ProdMngProductDTO> selectProductForUpdate(ProdMngProductDTO prodMngProduct);
 
 	// 상품별 정보 수정
 	int updateProductInfo(ProdMngProductDTO prodMngProduct);

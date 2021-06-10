@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.finalproj.missingitnow.common.page.PageInfoDTO;
 import com.finalproj.missingitnow.common.page.Pagenation;
@@ -26,6 +27,7 @@ import com.google.gson.GsonBuilder;
 
 @Controller
 @RequestMapping("/settleMng")
+@SessionAttributes("CorpUserSession")
 public class SettleMngController {
 	
 	private final SettleMngService settleMngService;
@@ -39,6 +41,9 @@ public class SettleMngController {
 	@GetMapping("/selectSettlementList")
 	public String selectSettlementList(Model model, @RequestParam(required=false) String currentPage) {
 		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
+		String corpNo = CorpUserSession.getCorpNo();
+		
 		int pageNo = 1;
 		
 		if(currentPage != null && !"".equals(currentPage)) {
@@ -48,15 +53,19 @@ public class SettleMngController {
 			}
 		}
 		
-		int totalCount = settleMngService.selectTotalSettlementList();
+		int totalCount = settleMngService.selectTotalSettlementList(CorpUserSession);
 		System.out.println("totalCount : " + totalCount);
 		
 		int limit = 15;
 		int buttonAmount = 5;
 		
 		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+	
+		Map<String, Object> params = new HashMap<>();
+		params.put("corpNo", corpNo);
+		params.put("pageInfo", pageInfo);
 		
-		List<SettleMngSettlementDTO> settlementList = settleMngService.selectSettlementList(pageInfo);
+		List<SettleMngSettlementDTO> settlementList = settleMngService.selectSettlementList(params);
 		
 //		for(SettleMngSettlementDTO A : settlementList) {
 //			System.out.println("settlement : " + A);
@@ -72,6 +81,13 @@ public class SettleMngController {
 	@PostMapping("/insertSettlement")
 	public String insertSettlement(Model model, @ModelAttribute SettleMngSettlementDTO settleMngSettlement) {
 		
+		System.out.println("settleMngSettlement1 : " + settleMngSettlement);
+		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
+		settleMngSettlement.setCorpNo(CorpUserSession.getCorpNo());
+
+		System.out.println("settleMngSettlement2 : " + settleMngSettlement);
+		
 		int insertSettlement = settleMngService.insertSettlement(settleMngSettlement);
 		
 		if(insertSettlement > 0) {
@@ -86,12 +102,14 @@ public class SettleMngController {
 	// 마지막 정산 날짜 확인 (ajax)
 	@PostMapping(value="/chkLastEndDate", produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public String chkLastEndDate() {
+	public String chkLastEndDate(Model model) {
+		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		
-		SettleMngSettlementDTO chkLastEndDate = settleMngService.chkLastEndDate();
-//		System.out.println(chkLastEndDate);
+		SettleMngSettlementDTO chkLastEndDate = settleMngService.chkLastEndDate(CorpUserSession);
+		System.out.println("chkLastEndDate : " + chkLastEndDate);
 		
 		return gson.toJson(chkLastEndDate);
 	}
@@ -99,6 +117,9 @@ public class SettleMngController {
 	// 기업회원별 예치금 조회
 	@GetMapping("/selectDepositList")
 	public String selectDepositList(Model model, @RequestParam(required=false) String currentPage) {
+		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
+		String corpNo = CorpUserSession.getCorpNo();
 		
 		int pageNo = 1;
 		
@@ -109,7 +130,7 @@ public class SettleMngController {
 			}
 		}
 		
-		int totalCount = settleMngService.selectTotalDepositList();
+		int totalCount = settleMngService.selectTotalDepositList(CorpUserSession);
 		System.out.println("totalCount : " + totalCount);
 		
 		int limit = 15;
@@ -117,7 +138,11 @@ public class SettleMngController {
 		
 		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 		
-		List<SettleMngDepositDTO> depositList = settleMngService.selectDepositList(pageInfo);
+		Map<String, Object> params = new HashMap<>();
+		params.put("corpNo", corpNo);
+		params.put("pageInfo", pageInfo);
+		
+		List<SettleMngDepositDTO> depositList = settleMngService.selectDepositList(params);
 		
 //		for(SettleMngDepositDTO depo : depositList) {
 //			System.out.println("depositList : " + depo);
@@ -132,11 +157,13 @@ public class SettleMngController {
 	// 결제를 위한 기업정보 조회 (ajax)
 	@PostMapping(value="/selectCorpUserForPay", produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public String selectCorpUserForPay() {
+	public String selectCorpUserForPay(Model model) {
+		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
 		
 		Gson gson = new Gson();
 		
-		CorpUserDTO corpUserInfo = settleMngService.selectCorpUserForPay();
+		CorpUserDTO corpUserInfo = settleMngService.selectCorpUserForPay(CorpUserSession);
 //		System.out.println(corpUserInfo);
 		
 		return gson.toJson(corpUserInfo);
@@ -145,7 +172,8 @@ public class SettleMngController {
 	// 예치금 충전 결제내역 insert (ajax)
 	@PostMapping(value="/insertPayment", produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public String insertPayment(@RequestParam(required = false) String imp_uid,
+	public String insertPayment(Model model,
+								@RequestParam(required = false) String imp_uid,
 								@RequestParam(required = false) String merchant_uid,
 								@RequestParam(required = false) String pay_method,	
 								@RequestParam(required = false) String name,	
@@ -153,6 +181,8 @@ public class SettleMngController {
 								@RequestParam(required = false) String buyer_name,	
 								@RequestParam(required = false) String buyer_email,	
 								@RequestParam(required = false) String buyer_tel) {
+		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
 		
 		Map<String, Object> params = new HashMap<>();
 		params.put("imp_uid", imp_uid);
@@ -163,6 +193,7 @@ public class SettleMngController {
 		params.put("buyer_name", buyer_name);
 		params.put("buyer_email", buyer_email);
 		params.put("buyer_tel", buyer_tel);
+		params.put("corpNo", CorpUserSession.getCorpNo());
 		
 		Gson gson = new Gson();
 		
@@ -178,6 +209,9 @@ public class SettleMngController {
 	@GetMapping("/paymentList")
 	public String selectPaymentList(Model model, @RequestParam(required=false) String currentPage) {
 		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
+		String corpNo = CorpUserSession.getCorpNo();
+		
 		int pageNo = 1;
 		
 		if(currentPage != null && !"".equals(currentPage)) {
@@ -187,7 +221,7 @@ public class SettleMngController {
 			}
 		}
 		
-		int totalCount = settleMngService.selectTotalPaymentList();
+		int totalCount = settleMngService.selectTotalPaymentList(CorpUserSession);
 		System.out.println("totalCount : " + totalCount);
 		
 		int limit = 15;
@@ -195,7 +229,11 @@ public class SettleMngController {
 		
 		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 		
-		List<SettleMngPaymentDTO> paymentList = settleMngService.selectPaymentList(pageInfo);
+		Map<String, Object> params = new HashMap<>();
+		params.put("corpNo", corpNo);
+		params.put("pageInfo", pageInfo);
+		
+		List<SettleMngPaymentDTO> paymentList = settleMngService.selectPaymentList(params);
 		for(SettleMngPaymentDTO pay : paymentList) {
 			System.out.println("pay : " + pay);
 		}

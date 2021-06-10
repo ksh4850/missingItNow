@@ -25,14 +25,9 @@ public class CorporationServiceImpl implements CorporationService {
 	@Override
 	public CorpUserDTO loginMember(CorpUserDTO member) throws LoginFailedException {
 		
-		System.out.println("memberPWD : " + member.getCorpPwd());
-		
 		if(!passwordEncoder.matches(member.getCorpPwd(), corporationDAO.selectEncPassword(member))){
 			throw new LoginFailedException("로그인 실패!");
 		}
-		
-		String a = corporationDAO.selectEncPassword(member);
-		System.out.println("corporationDAO.selectEncPassword(member) : " + a);
 		
 		return corporationDAO.login(member);
 	}

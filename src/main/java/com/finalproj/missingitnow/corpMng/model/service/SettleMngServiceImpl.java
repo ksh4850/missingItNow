@@ -25,13 +25,13 @@ public class SettleMngServiceImpl implements SettleMngService {
 	}
 	
 	@Override
-	public int selectTotalSettlementList() {
-		return settleMngSettlementDAO.selectTotalSettlementList();
+	public int selectTotalSettlementList(CorpUserDTO corpUserSession) {
+		return settleMngSettlementDAO.selectTotalSettlementList(corpUserSession);
 	}
 
 	@Override
-	public List<SettleMngSettlementDTO> selectSettlementList(PageInfoDTO pageInfo) {
-		return settleMngSettlementDAO.selectSettlementList(pageInfo);
+	public List<SettleMngSettlementDTO> selectSettlementList(Map<String, Object> params) {
+		return settleMngSettlementDAO.selectSettlementList(params);
 	}
 
 	@Override
@@ -45,23 +45,23 @@ public class SettleMngServiceImpl implements SettleMngService {
 	}
 
 	@Override
-	public SettleMngSettlementDTO chkLastEndDate() {
-		return settleMngSettlementDAO.chkLastEndDate();
+	public SettleMngSettlementDTO chkLastEndDate(CorpUserDTO corpUserSession) {
+		return settleMngSettlementDAO.chkLastEndDate(corpUserSession);
 	}
 	
 	@Override
-	public int selectTotalDepositList() {
-		return settleMngSettlementDAO.selectTotalDepositList();
+	public int selectTotalDepositList(CorpUserDTO corpUserSession) {
+		return settleMngSettlementDAO.selectTotalDepositList(corpUserSession);
 	}
 
 	@Override
-	public List<SettleMngDepositDTO> selectDepositList(PageInfoDTO pageInfo) {
-		return settleMngSettlementDAO.selectDepositList(pageInfo);
+	public List<SettleMngDepositDTO> selectDepositList(Map<String, Object> params) {
+		return settleMngSettlementDAO.selectDepositList(params);
 	}
 
 	@Override
-	public CorpUserDTO selectCorpUserForPay() {
-		return settleMngSettlementDAO.selectCorpUserForPay();
+	public CorpUserDTO selectCorpUserForPay(CorpUserDTO corpUserSession) {
+		return settleMngSettlementDAO.selectCorpUserForPay(corpUserSession);
 	}
 
 	@Override
@@ -75,13 +75,13 @@ public class SettleMngServiceImpl implements SettleMngService {
 	}
 
 	@Override
-	public int selectTotalPaymentList() {
-		return settleMngSettlementDAO.selectTotalPaymentList();
+	public int selectTotalPaymentList(CorpUserDTO corpUserSession) {
+		return settleMngSettlementDAO.selectTotalPaymentList(corpUserSession);
 	}
 
 	@Override
-	public List<SettleMngPaymentDTO> selectPaymentList(PageInfoDTO pageInfo) {
-		return settleMngSettlementDAO.selectPaymentList(pageInfo);
+	public List<SettleMngPaymentDTO> selectPaymentList(Map<String, Object> params) {
+		return settleMngSettlementDAO.selectPaymentList(params);
 	}
 
 

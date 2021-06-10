@@ -20,7 +20,7 @@
  		<typeAlias alias="SettleMngPaymentDTO" type="com.finalproj.missingitnow.corpMng.model.dto.SettleMngPaymentDTO"/>
  		<typeAlias alias="ProdMngProductKeywordsDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductKeywordsDTO"/>
  		<typeAlias alias="PageInfoDTO" type="com.finalproj.missingitnow.common.page.PageInfoDTO"/>
- 		
+ 		<typeAlias alias="ProdCmtListDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdCmtListDTO"/>
  		
  		<!-- systemAdmin -->
  		<typeAlias alias="qnaDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.QNADTO"/>

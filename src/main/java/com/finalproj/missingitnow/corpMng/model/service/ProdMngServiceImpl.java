@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.finalproj.missingitnow.common.page.PageInfoDTO;
 import com.finalproj.missingitnow.corpMng.model.dao.ProdMngProductDAO;
+import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductKeywordsDTO;
 
@@ -22,13 +23,13 @@ public class ProdMngServiceImpl implements ProdMngService {
 	}
 	
 	@Override
-	public int selectTotalProductList() {
-		return prodMngProductDAO.selectTotalProductList();
+	public int selectTotalProductList(CorpUserDTO corpUserSession) {
+		return prodMngProductDAO.selectTotalProductList(corpUserSession);
 	}
 	
 	@Override
-	public List<ProdMngProductDTO> selectProductList(PageInfoDTO pageInfo) {
-		return prodMngProductDAO.selectProductList(pageInfo);
+	public List<ProdMngProductDTO> selectProductList(Map<String, Object> params) {
+		return prodMngProductDAO.selectProductList(params);
 	}
 	
 	@Override
@@ -57,8 +58,8 @@ public class ProdMngServiceImpl implements ProdMngService {
 	}
 	
 	@Override
-	public List<ProdMngProductDTO> selectProductForUpdate(String prodNo) {
-		return prodMngProductDAO.selectProductForUpdate(prodNo);
+	public List<ProdMngProductDTO> selectProductForUpdate(ProdMngProductDTO prodMngProduct) {
+		return prodMngProductDAO.selectProductForUpdate(prodMngProduct);
 	}
 
 	@Override
@@ -75,6 +76,12 @@ public class ProdMngServiceImpl implements ProdMngService {
 	public int updateProdImg(Map<String, String> file) {
 		return prodMngProductDAO.updateProdImg(file);
 	}
+
+	
+
+	
+
+	
 
 	
 

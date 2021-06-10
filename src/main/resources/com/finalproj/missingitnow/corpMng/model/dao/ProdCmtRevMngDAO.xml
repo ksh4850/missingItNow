@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.finalproj.missingitnow.corpMng.model.dao.ProdCmtRevMngDAO">
+	
+	<resultMap id="prodCmtListResultSet" type="ProdCmtListDTO">
+		<id property="prodComtNo" column="PROD_COMT_NO"/>
+		<result property="prodNo" column="PROD_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="prodComtDetails" column="PROD_COMT_DETAILS"/>
+		<result property="prodComtDate" column="PROD_COMT_DATE"/>
+		<result property="prodComtDisplayChk" column="PROD_COMT_DISPLAY_CHK"/>
+		<result property="prodComtReplyChk" column="PROD_COMT_REPLY_CHK"/>
+		<result property="prodComtReply" column="PROD_COMT_REPLY"/>
+		<association property="prodMngProduct" javaType="ProdMngProductDTO">
+			<id property="prodNo" column="PROD_NO"/>
+			<result property="prodName" column="PROD_NAME"/>
+			<result property="corpNo" column="CORP_NO"/>
+		</association>
+		<association property="user" javaType="UserDTO(forCorpMng)">
+			<id property="userNo" column="USER_NO"/>
+			<result property="userId" column="USER_ID"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectTotalProductCmtList" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM TBL_PROD_COMMENT A
+		  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO) 
+		 WHERE B.CORP_NO = #{corpNo}
+	</select>
+	
+	<select id="selectProductCmtList" resultMap="prodCmtListResultSet" parameterType="hashmap">
+		SELECT E.*
+		  FROM (SELECT ROWNUM RNUM
+		             , D.*
+		          FROM (SELECT A.PROD_COMT_NO
+		                     , A.PROD_COMT_DETAILS
+		                     , A.PROD_COMT_DATE
+		                     , A.PROD_COMT_REPLY_CHK
+		                     , A.PROD_COMT_REPLY
+		                     , B.PROD_NO
+		                     , B.CORP_NO
+		                     , B.PROD_NAME
+		                     , C.USER_NO
+		                     , C.USER_ID
+		                  FROM TBL_PROD_COMMENT A
+		                  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+		                  JOIN TBL_USER C ON (A.USER_NO = C.USER_NO)
+		                 WHERE B.CORP_NO = #{corpNo}
+		                 ORDER BY A.PROD_COMT_DATE DESC) D
+		          ) E
+		 WHERE E.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+	</select>
+
+</mapper>

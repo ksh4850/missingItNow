@@ -80,7 +80,7 @@
             <div class="salesStatDetails">
             	<div id="dailyStatDiv" style="width: 1200px; height: 600px; margin: 0 auto; padding-top: 10px;"></div>
             	<div id="weeklyStatDiv" style="width: 1200px; height: 600px; margin: 0 auto; padding-top: 10px;" hidden></div>
-            	<div id="monthlyStatDiv" style="width: 1200px; height: 600px; background-color: gray;" hidden></div>
+            	<div id="monthlyStatDiv" style="width: 1200px; height: 600px; margin: 0 auto; padding-top: 10px;" hidden></div>
             </div>
         </div>
         <br><br>
@@ -91,7 +91,7 @@
             </div>
             <br>
             <div class="salesStatDetails">
-                <h1 align="center"> 데이터 insert 이후 작업 예정 </h1>
+                <div id="categoryStatDiv" style="width: 1200px; height: 600px; margin: 0 auto; padding-top: 10px;"></div>
             </div>
         </div>
         <br><br>
@@ -141,42 +141,12 @@
 			url:'/missingitnow/statistics/selectDailyStatistics',
 			type:'post',
 			success: function(stat){
-				google.charts.load('current', {'packages':['corechart']});
-			    google.charts.setOnLoadCallback(drawVisualization);
-			    
-				var arr = [['Day', 'Total']];
-				for(var i = 0; i < stat.length; i++){
-					arr.push([stat[i].dailyDate, stat[i].dailyTotal]);
-				}
-
-		    	function drawVisualization() {
-					var data = google.visualization.arrayToDataTable(arr);
-					var options = {
-					  title : '일별 통계',
-					  vAxis: {title: '매출액 (원)'},
-					  hAxis: {title: '일자 (최근 15일 기준)'},
-					  seriesType: 'bars',
-					};
 				
-				var chart = new google.visualization.ComboChart(document.getElementById('dailyStatDiv'));
-				chart.draw(data, options);
+				if(stat == "") {
+					alert('매출 내역이 없습니다.');
+					return false;
 				}
-			},
-			error: function(error){
-				console.log(error)
-			}
-		}); /* 일별 ajax 종료 */
-	
-		
-	$('#dailyStatBtn').click(function(){
-		$('#dailyStatDiv').show();
-		$('#weeklyStatDiv').hide();
-		$('#monthlyStatDiv').hide();
-		
-		$.ajax({
-			url:'/missingitnow/statistics/selectDailyStatistics',
-			type:'post',
-			success: function(stat){
+				
 				google.charts.load('current', {'packages':['corechart']});
 			    google.charts.setOnLoadCallback(drawVisualization);
 			    
@@ -188,7 +158,6 @@
 		    	function drawVisualization() {
 					var data = google.visualization.arrayToDataTable(arr);
 					var options = {
-					  title : '일별 통계',
 					  vAxis: {title: '매출액 (원)'},
 					  hAxis: {title: '일자 (최근 15일 기준)'},
 					  seriesType: 'bars',
@@ -203,49 +172,172 @@
 			}
 		}); /* 일별 ajax 종료 */
 		
-	});/* 일별 클릭버튼 종료 */
+		
+		$('#dailyStatBtn').click(function(){
+			$('#dailyStatDiv').show();
+			$('#weeklyStatDiv').hide();
+			$('#monthlyStatDiv').hide();
+			
+			$.ajax({
+				url:'/missingitnow/statistics/selectDailyStatistics',
+				type:'post',
+				success: function(stat){
+					
+					if(stat == "") {
+						alert('매출 내역이 없습니다.');
+						return false;
+					}
+					
+					google.charts.load('current', {'packages':['corechart']});
+				    google.charts.setOnLoadCallback(drawVisualization);
+				    
+					var arr = [['Day', 'Total']];
+					for(var i = 0; i < stat.length; i++){
+						arr.push([stat[i].dailyDate, stat[i].dailyTotal]);
+					}
 	
+			    	function drawVisualization() {
+						var data = google.visualization.arrayToDataTable(arr);
+						var options = {
+						  vAxis: {title: '매출액 (원)'},
+						  hAxis: {title: '일자 (최근 15일 기준)'},
+						  seriesType: 'bars',
+						};
+					
+					var chart = new google.visualization.ComboChart(document.getElementById('dailyStatDiv'));
+					chart.draw(data, options);
+					}
+				},
+				error: function(error){
+					console.log(error)
+				}
+			}); /* 일별 ajax 종료 */
+			
+		});/* 일별 클릭버튼 종료 */
 		
-	$('#weeklyStatBtn').click(function(){
-		$('#weeklyStatDiv').show();
-		$('#dailyStatDiv').hide();
-		$('#monthlyStatDiv').hide();
+		/* 주별  매출 통계 */			
+		$('#weeklyStatBtn').click(function(){
+			$('#weeklyStatDiv').show();
+			$('#dailyStatDiv').hide();
+			$('#monthlyStatDiv').hide();
+			
+			$.ajax({
+				url:'/missingitnow/statistics/selectWeeklyStatistics',
+				type:'post',
+				success: function(stat){
+					console.log(stat)
+					
+					if(stat == "") {
+						alert('매출 내역이 없습니다.');
+						return false;
+					}
+					
+					google.charts.load('current', {'packages':['corechart']});
+				    google.charts.setOnLoadCallback(drawVisualization);
+				    
+					var arr = [['Day', 'Total']];
+					for(var i = 0; i < stat.length; i++){
+						arr.push([stat[i].weeklyDate, stat[i].weeklyTotal]);
+					}
+	
+			    	function drawVisualization() {
+						var data = google.visualization.arrayToDataTable(arr);
+						var options = {
+						  vAxis: {title: '매출액 (원)'},
+						  hAxis: {title: '일요일 일자 기준'},
+						  seriesType: 'bars',
+						};
+					
+					var chart = new google.visualization.ComboChart(document.getElementById('weeklyStatDiv'));
+					chart.draw(data, options);
+					}
+						
+				},
+				error: function(error){
+					console.log(error)
+				}
+			}); /* 주별 ajax 종료 */
+	
+		});	/* 주별 클릭버튼 종료 */
 		
+		/* 월별  매출 통계 */
+		$('#monthlyStatBtn').click(function(){
+			$('#monthlyStatDiv').show();
+			$('#dailyStatDiv').hide();
+			$('#weeklyStatDiv').hide();
+			
+			$.ajax({
+				url:'/missingitnow/statistics/selectMonthlyStatistics',
+				type:'post',
+				success: function(stat){
+					console.log(stat)
+					
+					if(stat == "") {
+						alert('매출 내역이 없습니다.');
+						return false;
+					}
+					
+					google.charts.load('current', {'packages':['corechart']});
+				    google.charts.setOnLoadCallback(drawVisualization);
+				    
+					var arr = [['Day', 'Total']];
+					for(var i = 0; i < stat.length; i++){
+						arr.push([stat[i].monthlyDate, stat[i].monthlyTotal]);
+					}
+	
+			    	function drawVisualization() {
+						var data = google.visualization.arrayToDataTable(arr);
+						var options = {
+						  vAxis: {title: '매출액 (원)'},
+						  hAxis: {title: '월별'},
+						  seriesType: 'bars',
+						};
+					
+					var chart = new google.visualization.ComboChart(document.getElementById('monthlyStatDiv'));
+					chart.draw(data, options);
+					}
+						
+				},
+				error: function(error){
+					console.log(error)
+				}
+			}); /* 월별 ajax 종료 */
+	
+		});	/* 월별 클릭버튼 종료 */
+		
+		
+		/* 카테고리별 매출 통계 */
 		$.ajax({
-			url:'/missingitnow/statistics/selectWeeklyStatistics',
+			url:'/missingitnow/statistics/selectCategoryStatistics',
 			type:'post',
 			success: function(stat){
-				console.log(stat)
+				
 				google.charts.load('current', {'packages':['corechart']});
 			    google.charts.setOnLoadCallback(drawVisualization);
 			    
-				var arr = [['Day', 'Total']];
+				var arr = [['Category', 'Total']];
 				for(var i = 0; i < stat.length; i++){
-					arr.push([stat[i].weeklyDate, stat[i].weeklyTotal]);
+					arr.push([stat[i].prodCtgName, stat[i].ctgTotalAmt]);
 				}
-
+	
 		    	function drawVisualization() {
 					var data = google.visualization.arrayToDataTable(arr);
 					var options = {
-					  title : '주별 통계',
 					  vAxis: {title: '매출액 (원)'},
-					  hAxis: {title: '주차 (일요일 일자 기준)'},
+					  hAxis: {title: '카테고리'},
 					  seriesType: 'bars',
 					};
 				
-				var chart = new google.visualization.ComboChart(document.getElementById('weeklyStatDiv'));
+				var chart = new google.visualization.ComboChart(document.getElementById('categoryStatDiv'));
 				chart.draw(data, options);
 				}
 			},
 			error: function(error){
 				console.log(error)
 			}
-		}); /* 주별 ajax 종료 */
-
-	});	/* 주별 클릭버튼 종료 */
-	
-	
-	
+		});	/* 카테고리별 매출 통계 종료*/
+		
+		/* 상품별 매출 통계 */
 	
 	</script>
 	

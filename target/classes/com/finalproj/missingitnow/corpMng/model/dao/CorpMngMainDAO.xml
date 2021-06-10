@@ -46,7 +46,7 @@
 		     , A.CORP_CONTACTS = #{corpContacts}
 		     , A.CORP_ADDRESS = #{corpAddress}
 		     , A.CORP_EMAIL = #{corpEmail}
-		 WHERE A.CORP_NO = 'CORP0001'
+		 WHERE A.CORP_NO = #{corpNo}
 	</update>
 	
 	<delete id="deleteCorpUserImg" parameterType="string">

@@ -54,8 +54,6 @@ public class CorporationController {
 	public String login(@ModelAttribute CorpUserDTO member, Model model) throws LoginFailedException {
 		CorpUserDTO CorpUserSession = corporationService.loginMember(member);
 		
-		System.out.println("CorpUserSession : " + CorpUserSession);
-		
 		model.addAttribute("CorpUserSession", CorpUserSession);
 				
 		return "redirect:/";
@@ -69,8 +67,6 @@ public class CorporationController {
 	@PostMapping("/regist")
 	public String registMember(@ModelAttribute CorpUserDTO member, HttpServletRequest request, RedirectAttributes rttr,
 								@RequestParam(required=false) MultipartFile corpUserImg) throws MemberRegistException {
-		
-		System.out.println("corpUserImg : " + corpUserImg);
 		
 		member.setCorpPwd(passwordEncoder.encode(member.getCorpPwd()));
 		

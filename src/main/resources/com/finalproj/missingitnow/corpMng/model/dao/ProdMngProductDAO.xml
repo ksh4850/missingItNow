@@ -37,14 +37,14 @@
 		</collection>
 	</resultMap>
 	
-	<select id="selectTotalProductList" resultType="_int">
+	<select id="selectTotalProductList" resultType="_int" parameterType="CorpUserDTO">
 		SELECT
 		       COUNT(*)
 		  FROM TBL_PRODUCT A
-		 WHERE A.CORP_NO = 'CORP0001'
+		 WHERE A.CORP_NO = #{corpNo}
 	</select>
 	
-	<select id="selectProductList" resultMap="prodMngProductResultSet" parameterType="PageInfoDTO">
+	<select id="selectProductList" resultMap="prodMngProductResultSet" parameterType="hashmap">
 		SELECT E.*
 		  FROM (SELECT ROWNUM RNUM
 		             , D.*
@@ -65,10 +65,10 @@
 		                     , A.PROD_HITS
 		                  FROM TBL_PRODUCT A
 		                  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
-		                 WHERE A.CORP_NO = 'CORP0001'
+		                 WHERE A.CORP_NO = #{CorpUserSession.corpNo}
 		                 ORDER BY A.PROD_NO DESC) D
 		          ) E
-		 WHERE E.RNUM BETWEEN #{startRow} AND #{endRow}
+		 WHERE E.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
 	</select>
 	
 	
@@ -76,7 +76,7 @@
 		SELECT
 		       COUNT(*)
 		  FROM TBL_PRODUCT A
-		 WHERE A.CORP_NO = 'CORP0001'
+		 WHERE A.CORP_NO = #{CorpUserSession.corpNo}
 		 <if test="prodCtgNo != null and prodName == null">
            AND A.PROD_CTG_NO = #{prodCtgNo}
          </if>
@@ -107,7 +107,7 @@
 		                     , A.PROD_HITS
 		                  FROM TBL_PRODUCT A
 		                  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
-		                 WHERE A.CORP_NO = 'CORP0001'
+		                 WHERE A.CORP_NO = #{CorpUserSession.corpNo}
 		                  <if test="prodCtgNo != null and prodName == null">
 		                   AND B.PROD_CTG_NO = #{prodCtgNo}
 		                 </if>
@@ -133,7 +133,7 @@
 		(
 		  'PROD' || LPAD(SEQ_PRODUCT.NEXTVAL,4,0), #{prodName}, #{prodPrice}
 		, #{prodDetails}, SYSDATE, #{prodTerminateDate}, #{prodManufacturer}
-		, #{stockQuantity}, #{prodCtgNo}, 'CORP0001'
+		, #{stockQuantity}, #{prodCtgNo}, #{corpNo}
 		)
 	</insert>
 	
@@ -173,7 +173,6 @@
 		)
 	</insert>
 	
-	
 	<select id="selectProductForUpdate" resultMap="prodMngProductResultSet">
 		SELECT 
 		       A.PROD_NO
@@ -192,11 +191,12 @@
 		     , A.CORP_NO
 		     , A.PROD_HITS
 		     , C.PROD_IMG_NO
+		     , c.PROD_IMG_RENAME
 		  FROM TBL_PRODUCT A
 		  JOIN TBL_PROD_CATEGORY B ON (A.PROD_CTG_NO = B.PROD_CTG_NO)
 		  LEFT JOIN TBL_PROD_IMG C ON (A.PROD_NO = C.PROD_NO)
 		 WHERE A.PROD_NO = #{prodNo}
-		   AND A.CORP_NO = 'CORP0001'
+		   AND A.CORP_NO = #{corpNo}
 	</select>
 	
 	<update id="updateProductInfo" parameterType="ProdMngProductDTO">
@@ -212,14 +212,13 @@
 		     , A.PROD_PRICE = #{prodPrice} * (1 - #{prodDiscountRate}/100)
 		   </if>
 		 WHERE A.PROD_NO = #{prodNo}
-		   AND A.CORP_NO = 'CORP0001'
+		   AND A.CORP_NO = #{corpNo}
 	</update>
 	
-	<delete id="deleteProdImg" parameterType="string">
+	<delete id="deleteProdImg" parameterType="ProdMngProductDTO">
 		DELETE
 		   FROM TBL_PROD_IMG A
 		  WHERE A.PROD_NO = #{prodNo}
-		    AND A.CORP_NO = 'CORP0001'
 	</delete>
 		
 	<insert id="updateProdImg" parameterType="hashmap">

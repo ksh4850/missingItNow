@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.finalproj.missingitnow.corpMng.model.dao.CorpMngStatisticsDAO;
 import com.finalproj.missingitnow.corpMng.model.dto.CorpMngStatisticsDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 
 @Service
 public class CorpMngStatisticsServiceImpl implements CorpMngStatisticsService {
@@ -19,13 +20,24 @@ public class CorpMngStatisticsServiceImpl implements CorpMngStatisticsService {
 	}
 
 	@Override
-	public List<CorpMngStatisticsDTO> selectDailyStatistics() {
-		return corpMngStatisticsDAO.selectDailyStatistics();
+	public List<CorpMngStatisticsDTO> selectDailyStatistics(CorpUserDTO corpUserSession) {
+		return corpMngStatisticsDAO.selectDailyStatistics(corpUserSession);
 	}
 
 	@Override
-	public List<CorpMngStatisticsDTO> selectWeeklyStatistics() {
-		return corpMngStatisticsDAO.selectWeeklyStatistics();
+	public List<CorpMngStatisticsDTO> selectWeeklyStatistics(CorpUserDTO corpUserSession) {
+		return corpMngStatisticsDAO.selectWeeklyStatistics(corpUserSession);
 	}
+
+	@Override
+	public List<CorpMngStatisticsDTO> selectMonthlyStatistics(CorpUserDTO corpUserSession) {
+		return corpMngStatisticsDAO.selectMonthlyStatistics(corpUserSession);
+	}
+	
+	@Override
+	public List<CorpMngStatisticsDTO> selectCategoryStatistics(CorpUserDTO corpUserSession) {
+		return corpMngStatisticsDAO.selectCategoryStatistics(corpUserSession);
+	}
+
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.finalproj.missingitnow.common.page.PageInfoDTO;
 import com.finalproj.missingitnow.corpMng.model.dao.SalesMngSalesDAO;
+import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SalesMngOrderDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SalesMngSalesDTO;
 
@@ -22,13 +23,13 @@ public class SalesMngServiceImpl implements SalesMngService {
 	}
 	
 	@Override
-	public int selectTotalOrderList() {
-		return salesMngSalesDAO.selectTotalOrderList();
+	public int selectTotalOrderList(CorpUserDTO corpUserSession) {
+		return salesMngSalesDAO.selectTotalOrderList(corpUserSession);
 	}
 
 	@Override
-	public List<SalesMngOrderDTO> selectOrderList(PageInfoDTO pageInfo) {
-		return salesMngSalesDAO.selectOrderList(pageInfo);
+	public List<SalesMngOrderDTO> selectOrderList(Map<String, Object> params) {
+		return salesMngSalesDAO.selectOrderList(params);
 	}
 	
 	@Override
@@ -42,13 +43,13 @@ public class SalesMngServiceImpl implements SalesMngService {
 	}
 
 	@Override
-	public int selectTotalSalesList() {
-		return salesMngSalesDAO.selectTotalSalesList();
+	public int selectTotalSalesList(CorpUserDTO corpUserSession) {
+		return salesMngSalesDAO.selectTotalSalesList(corpUserSession);
 	}
 	
 	@Override
-	public List<SalesMngSalesDTO> selectSalesList(PageInfoDTO pageInfo) {
-		return salesMngSalesDAO.selectSalesList(pageInfo);
+	public List<SalesMngSalesDTO> selectSalesList(Map<String, Object> params) {
+		return salesMngSalesDAO.selectSalesList(params);
 	}
 	
 	@Override

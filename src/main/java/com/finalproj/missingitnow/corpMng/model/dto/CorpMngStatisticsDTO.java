@@ -13,18 +13,29 @@ public class CorpMngStatisticsDTO implements Serializable {
 	private int dailyTotal;
 	private Date weeklyDate;
 	private int weeklyTotal;
+	private Date monthlyDate;
+	private int monthlyTotal;
+	private String prodCtgNo;
+	private String prodCtgName;
+	private int ctgTotalAmt;
 	
 	public CorpMngStatisticsDTO() {
 	}
 
 	public CorpMngStatisticsDTO(String corpNo, CorpUserDTO corpUser, Date dailyDate, int dailyTotal, Date weeklyDate,
-			int weeklyTotal) {
+			int weeklyTotal, Date monthlyDate, int monthlyTotal, String prodCtgNo, String prodCtgName,
+			int ctgTotalAmt) {
 		this.corpNo = corpNo;
 		this.corpUser = corpUser;
 		this.dailyDate = dailyDate;
 		this.dailyTotal = dailyTotal;
 		this.weeklyDate = weeklyDate;
 		this.weeklyTotal = weeklyTotal;
+		this.monthlyDate = monthlyDate;
+		this.monthlyTotal = monthlyTotal;
+		this.prodCtgNo = prodCtgNo;
+		this.prodCtgName = prodCtgName;
+		this.ctgTotalAmt = ctgTotalAmt;
 	}
 
 	public String getCorpNo() {
@@ -75,17 +86,53 @@ public class CorpMngStatisticsDTO implements Serializable {
 		this.weeklyTotal = weeklyTotal;
 	}
 
+	public Date getMonthlyDate() {
+		return monthlyDate;
+	}
+
+	public void setMonthlyDate(Date monthlyDate) {
+		this.monthlyDate = monthlyDate;
+	}
+
+	public int getMonthlyTotal() {
+		return monthlyTotal;
+	}
+
+	public void setMonthlyTotal(int monthlyTotal) {
+		this.monthlyTotal = monthlyTotal;
+	}
+
+	public String getProdCtgNo() {
+		return prodCtgNo;
+	}
+
+	public void setProdCtgNo(String prodCtgNo) {
+		this.prodCtgNo = prodCtgNo;
+	}
+
+	public String getProdCtgName() {
+		return prodCtgName;
+	}
+
+	public void setProdCtgName(String prodCtgName) {
+		this.prodCtgName = prodCtgName;
+	}
+
+	public int getCtgTotalAmt() {
+		return ctgTotalAmt;
+	}
+
+	public void setCtgTotalAmt(int ctgTotalAmt) {
+		this.ctgTotalAmt = ctgTotalAmt;
+	}
+
 	@Override
 	public String toString() {
 		return "CorpMngStatisticsDTO [corpNo=" + corpNo + ", corpUser=" + corpUser + ", dailyDate=" + dailyDate
-				+ ", dailyTotal=" + dailyTotal + ", weeklyDate=" + weeklyDate + ", weeklyTotal=" + weeklyTotal + "]";
+				+ ", dailyTotal=" + dailyTotal + ", weeklyDate=" + weeklyDate + ", weeklyTotal=" + weeklyTotal
+				+ ", monthlyDate=" + monthlyDate + ", monthlyTotal=" + monthlyTotal + ", prodCtgNo=" + prodCtgNo
+				+ ", prodCtgName=" + prodCtgName + ", ctgTotalAmt=" + ctgTotalAmt + "]";
 	}
 
-	
-	
-	
-	
-	
-	
 	
 }

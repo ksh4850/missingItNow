@@ -19,16 +19,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finalproj.missingitnow.common.page.PageInfoDTO;
 import com.finalproj.missingitnow.common.page.Pagenation;
+import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductDTO;
 import com.finalproj.missingitnow.corpMng.model.service.ProdMngService;
 
 
 @Controller
 @RequestMapping("/prodMng")
+@SessionAttributes("CorpUserSession")
 public class ProdMngController {
 
 	private final ProdMngService prodMngService;
@@ -38,9 +41,11 @@ public class ProdMngController {
 		this.prodMngService = prodMngService;
 	}
 
-	// 전체 상품 조회 (해당 기업이 등록한) ** 세션 작업 아직 안함 **
+	// 전체 상품 조회 (해당 기업이 등록한)
 	@GetMapping("/selectProduct")
 	public String selectProduct(Model model, @RequestParam(required=false) String currentPage) {
+		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
 		
 		int pageNo = 1;
 		
@@ -51,17 +56,23 @@ public class ProdMngController {
 			}
 		}
 		
-		int totalCount = prodMngService.selectTotalProductList();
+		int totalCount = prodMngService.selectTotalProductList(CorpUserSession);
 		System.out.println("totalCount : " + totalCount);
 		int limit = 15;
 		int buttonAmount = 5;
 		
 		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 		
-		List<ProdMngProductDTO> productList = prodMngService.selectProductList(pageInfo);
+		Map<String, Object> params = new HashMap<>();
+		params.put("CorpUserSession", CorpUserSession);
+		params.put("pageInfo", pageInfo);
+		
+		
+		List<ProdMngProductDTO> productList = prodMngService.selectProductList(params);
 //		for(ProdMngProductDTO a : productList) {
-//			System.out.println(a);
+//			System.out.println("select All Prod : " + a);
 //		}
+		
 		model.addAttribute("productList", productList);
 		model.addAttribute("pageInfo", pageInfo);
 		
@@ -74,8 +85,9 @@ public class ProdMngController {
 									@RequestParam(required=false) String prodName,
 									@RequestParam(required=false) String currentPage) {
 		
-		System.out.println("prodCtgNo : " + prodCtgNo);
-		System.out.println("prodName : " + prodName);
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
+//		System.out.println("prodCtgNo : " + prodCtgNo);
+//		System.out.println("prodName : " + prodName);
 		
 		int pageNo = 1;
 		
@@ -87,6 +99,7 @@ public class ProdMngController {
 		}
 		
 		Map<String, Object> params = new HashMap<>();
+		params.put("CorpUserSession", CorpUserSession);
 		params.put("prodCtgNo", prodCtgNo);
 		params.put("prodName", prodName);
 		
@@ -97,17 +110,10 @@ public class ProdMngController {
 		int buttonAmount = 5;
 
 		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
-//		System.out.println(prodCtgNo);
 		
 		params.put("pageInfo", pageInfo);
 		
 		List<ProdMngProductDTO> productList = prodMngService.searchProductList(params);
-//		for(ProdMngProductDTO searchList : productList) {
-//			System.out.println("searchList : " + searchList);
-//		}
-		
-//		System.out.println("params.prodName : " + params.get("prodName"));
-//		System.out.println("params.prodCtgNo : " + params.get("prodCtgNo"));
 		
 		model.addAttribute("productList", productList);
 		model.addAttribute("pageInfo", pageInfo);
@@ -130,13 +136,16 @@ public class ProdMngController {
 								@RequestParam List<String> keywordsSet,
 								@RequestParam(required=false) List<MultipartFile> prodImg) {
 		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
+		prodMngProduct.setCorpNo(CorpUserSession.getCorpNo());
+		
 		// 상품 정보 insert
 		int insertProductInfo = prodMngService.insertProductInfo(prodMngProduct);
 		
 		// 상품 이미지 insert
 		String root = request.getSession().getServletContext().getRealPath("resources");
 //		System.out.println(root);
-		String filePath = root + "/uploadFiles";
+		String filePath = root + "\\uploadFiles";
 		
 		File mkdir = new File(filePath);
 		if(!mkdir.exists()) {
@@ -180,9 +189,6 @@ public class ProdMngController {
 			Map<String, String> key = new HashMap<>();
 			key.put("keywords", keywords);
 			
-			System.out.println("String keywords : " + keywords);
-			System.out.println("Map key.get : " + key.get("keywords"));
-			
 			if(!keywords.equals("")) {
 				insertKeywords += prodMngService.insertKeywords(key);
 			} else {
@@ -190,7 +196,7 @@ public class ProdMngController {
 			}
 		}
 		
-		System.out.println("insertKeywords : " + insertKeywords);
+//		System.out.println("insertKeywords : " + insertKeywords);
 		
 		if(insertProductInfo > 0 && insertProdImg >= 1 && insertKeywords >= 1) {
 			model.addAttribute("successCode", "insertProduct");
@@ -209,7 +215,10 @@ public class ProdMngController {
 	public String updateProductForm(Model model, @PathVariable("prodNo") String prodNo,
 									@ModelAttribute ProdMngProductDTO prodMngProduct) {
 		
-		List<ProdMngProductDTO> productList = prodMngService.selectProductForUpdate(prodNo);
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
+		prodMngProduct.setCorpNo(CorpUserSession.getCorpNo());
+		
+		List<ProdMngProductDTO> productList = prodMngService.selectProductForUpdate(prodMngProduct);
 		for(ProdMngProductDTO ListForUpdate : productList) {
 			System.out.println("ListForUpdate : " + ListForUpdate);
 		}
@@ -224,59 +233,60 @@ public class ProdMngController {
 								@ModelAttribute ProdMngProductDTO prodMngProduct,
 								@RequestParam(required=false) List<MultipartFile> prodImg) {
 		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
+		prodMngProduct.setCorpNo(CorpUserSession.getCorpNo());
+		
 		// 상품 정보 update
 		int updateProductInfo = prodMngService.updateProductInfo(prodMngProduct);
 		System.out.println("updateProductInfo : " + updateProductInfo);
 		
-		// 기존 상품 이미지 delete
-		int deleteProdImg = prodMngService.deleteProdImg(prodMngProduct);
-		System.out.println("deleteProdImg : " + deleteProdImg);
-		
-		// 상품 이미지 insert
-		String root = request.getSession().getServletContext().getRealPath("resources");
-//		System.out.println(root);
-		String filePath = root + "/uploadFiles";
-		
-		File mkdir = new File(filePath);
-		if(!mkdir.exists()) {
-			mkdir.mkdirs();
-		}
-		
-		List<Map<String, String>> files = new ArrayList<>();
-		for(int i = 0 ; i < prodImg.size() ; i++) {
-			String originFileName = prodImg.get(i).getOriginalFilename(); 
-			String ext = originFileName.substring(originFileName.lastIndexOf("."));
-			String changeName = UUID.randomUUID().toString().replace("-", "") + ext;
-			
-			Map<String, String> file = new HashMap<>();
-			file.put("originFileName", originFileName);
-			file.put("changeName", changeName);
-			file.put("filePath", filePath);
-			file.put("prodNo", prodNo);
-			files.add(file);
-		}
-		
-		System.out.println(files);
-		
 		int updateProdImg = 0;
-		try {
-			for(int i = 0 ; i < prodImg.size() ; i++) {
-				Map<String, String> file = files.get(i);
-				prodImg.get(i).transferTo(new File(filePath + "/" + file.get("changeName")));
-				
-				updateProdImg = prodMngService.updateProdImg(file);
+		if(!prodImg.isEmpty()) {
+			// 기존 상품 이미지 delete
+			int deleteProdImg = prodMngService.deleteProdImg(prodMngProduct);
+			System.out.println("deleteProdImg : " + deleteProdImg);
+			
+			// 상품 이미지 insert
+			String root = request.getSession().getServletContext().getRealPath("resources");
+//			System.out.println(root);
+			String filePath = root + "/uploadFiles";
+			
+			File mkdir = new File(filePath);
+			if(!mkdir.exists()) {
+				mkdir.mkdirs();
 			}
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-			for(int i = 0 ; i < prodImg.size(); i++) {
-				Map<String, String> file = files.get(i);
-				new File(filePath + "/" + file.get("changeName")).delete();
+			
+			List<Map<String, String>> files = new ArrayList<>();
+			for(int i = 0 ; i < prodImg.size() ; i++) {
+				String originFileName = prodImg.get(i).getOriginalFilename(); 
+				String ext = originFileName.substring(originFileName.lastIndexOf("."));
+				String changeName = UUID.randomUUID().toString().replace("-", "") + ext;
+				
+				Map<String, String> file = new HashMap<>();
+				file.put("originFileName", originFileName);
+				file.put("changeName", changeName);
+				file.put("filePath", filePath);
+				file.put("prodNo", prodNo);
+				files.add(file);
+			}
+		
+			try {
+				for(int i = 0 ; i < prodImg.size() ; i++) {
+					Map<String, String> file = files.get(i);
+					prodImg.get(i).transferTo(new File(filePath + "/" + file.get("changeName")));
+					updateProdImg = prodMngService.updateProdImg(file);
+				}
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+				for(int i = 0 ; i < prodImg.size(); i++) {
+					Map<String, String> file = files.get(i);
+					new File(filePath + "/" + file.get("changeName")).delete();
+				}
 			}
 		}
+//		System.out.println("updateProdImg : " + updateProdImg);
 		
-		System.out.println("updateProdImg : " + updateProdImg);
-		
-		if (updateProductInfo > 0 && updateProdImg > 0) {
+		if (updateProductInfo > 0 || updateProdImg > 0) {
 			model.addAttribute("successCode", "updateProduct");
 			return "/common/success";
 			

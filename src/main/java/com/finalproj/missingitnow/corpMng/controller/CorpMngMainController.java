@@ -48,7 +48,7 @@ public class CorpMngMainController {
 		Gson gson = new Gson();
 		
 		CorpUserDTO corpUserInfo = corpMngMainService.selectCorpUserInfo(CorpUserSession);
-		System.out.println("CorpUserInfoForNavi : " + corpUserInfo);
+//		System.out.println("CorpUserInfoForNavi : " + corpUserInfo);
 		
 		return gson.toJson(corpUserInfo);
 	}
@@ -61,10 +61,11 @@ public class CorpMngMainController {
 	// 정보 수정을 위한 정보 select
 	@GetMapping("/updateCorpUserInfo")
 	public String selectCorpUserInfo(Model model) {
+		
 		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
 		
 		CorpUserDTO corpUserInfo = corpMngMainService.selectCorpUserInfo(CorpUserSession);
-		System.out.println("corpUserInfo :" + corpUserInfo);
+//		System.out.println("corpUserInfo :" + corpUserInfo);
 		
 		model.addAttribute("corpUserInfo", corpUserInfo);
 		
@@ -76,8 +77,6 @@ public class CorpMngMainController {
 	public String updateCorpUserInfo(Model model, @RequestParam("corpNo") String corpNo, HttpServletRequest request, 
 									@ModelAttribute CorpUserDTO corpUser,
 									@RequestParam(required=false) MultipartFile corpUserImg) {
-		
-		System.out.println("corpUserImg : " + corpUserImg.isEmpty());
 		
 		corpUser.setCorpPwd(passwordEncoder.encode(corpUser.getCorpPwd()));
 		
@@ -92,7 +91,7 @@ public class CorpMngMainController {
 			System.out.println("deleteCorpUserImg : " + deleteCorpUserImg);
 			
 			String root = request.getSession().getServletContext().getRealPath("resources");
-			String filePath = root + "/corpUserImages";
+			String filePath = root + "\\corpUserImages";
 			
 			File mkdir = new File(filePath);
 			if(!mkdir.exists()) {
@@ -137,25 +136,3 @@ public class CorpMngMainController {
 		
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

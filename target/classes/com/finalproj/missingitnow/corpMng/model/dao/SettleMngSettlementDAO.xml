@@ -24,13 +24,12 @@
 	</resultMap>
 	
 	<select id="selectTotalSettlementList" resultType="_int">
-		SELECT
-		       COUNT(*)
+		SELECT COUNT(*)
 		  FROM TBL_SETTLEMENT A
-		 WHERE A.CORP_NO = 'CORP0001'
+		 WHERE A.CORP_NO = #{corpNo}
 	</select>
 	
-	<select id="selectSettlementList" resultMap="settleMngSettlementResultSet" parameterType="PageInfoDTO">
+	<select id="selectSettlementList" resultMap="settleMngSettlementResultSet" parameterType="hashmap">
 		SELECT E.*
 		  FROM (SELECT ROWNUM RNUM
 		             , D.*
@@ -43,10 +42,10 @@
 		                     , A.SETTLEMENT_DATE
 		                     , A.SETTLEMENT_CHK
 		                  FROM TBL_SETTLEMENT A
-		                 WHERE A.CORP_NO = 'CORP0001'
+		                 WHERE A.CORP_NO = #{corpNo}
 		                 ORDER BY A.SETTLEMENT_NO DESC) D
 		          ) E
-		 WHERE E.RNUM BETWEEN #{startRow} AND #{endRow}
+		 WHERE E.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
 	</select>
 	
 	<insert id="insertSettlement" parameterType="SettleMngSettlementDTO">
@@ -54,22 +53,21 @@
 		  INTO TBL_SETTLEMENT A
 		(
 		  A.SETTLEMENT_NO, A.CORP_NO, A.SETTLEMENT_START_DATE
-		, A.SETTLEMENT_END_DATE, A.TOTAL_SALES , A.COMMISSION_BY_SALES
+		, A.SETTLEMENT_END_DATE, A.TOTAL_SALES, A.COMMISSION_BY_SALES
 		, A.SETTLEMENT_AMT, A.SETTLEMENT_DATE
 		)
 		VALUES
 		(
-		  'SETT' || LPAD(SEQ_SETTLEMENT.NEXTVAL,4,0), 'CORP0001', #{settlementStartDate}
+		  'SETT' || LPAD(SEQ_SETTLEMENT.NEXTVAL,4,0), #{corpNo}, #{settlementStartDate}
 		, #{settlementEndDate}, ${totalSales}, #{commissionBySales}
 		, #{settlementAmt}, SYSDATE
 		)
 	</insert>
 
 	<select id="chkLastEndDate" resultMap="settleMngSettlementResultSet">
-		SELECT
-		       MAX(A.SETTLEMENT_END_DATE) AS LAST_END_DATE
+		SELECT MAX(A.SETTLEMENT_END_DATE) AS LAST_END_DATE
 		  FROM TBL_SETTLEMENT A
-		 WHERE A.CORP_NO = 'CORP0001'
+		 WHERE A.CORP_NO = #{corpNo}
 	</select>
 	
 	<resultMap id="settleMngDepositListResultSet" type="SettleMngDepositDTO">
@@ -85,13 +83,12 @@
 	</resultMap>
 	
 	<select id="selectTotalDepositList" resultType="_int">
-		SELECT
-		       COUNT(*)
+		SELECT COUNT(*)
 		  FROM TBL_DEPOSIT A
-		 WHERE A.CORP_NO = 'CORP0001'
+		 WHERE A.CORP_NO = #{corpNo}
 	</select>
 	
-	<select id="selectDepositList" resultMap="settleMngDepositListResultSet" parameterType="PageInfoDTO">
+	<select id="selectDepositList" resultMap="settleMngDepositListResultSet" parameterType="hashmap">
 		SELECT E.*
 		  FROM (SELECT ROWNUM RNUM
 		             , D.*
@@ -102,10 +99,10 @@
 		                     , A.DEPOSIT_DATE
 		                     , A.DEPOSIT_DETAILS
 		                  FROM TBL_DEPOSIT A
-		                 WHERE A.CORP_NO = 'CORP0001'
+		                 WHERE A.CORP_NO = #{corpNo}
 		                 ORDER BY A.DEPOSIT_NO DESC) D
 		          ) E
-		 WHERE E.RNUM BETWEEN #{startRow} AND #{endRow}
+		 WHERE E.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
 	</select>
 	
 	<resultMap id="corpUserInfoResultSet" type="CorpUserDTO">
@@ -122,7 +119,7 @@
 		     , A.CORP_CONTACTS
 		     , A.CORP_EMAIL
 		  FROM TBL_CORP_USER A
-		 WHERE A.CORP_NO = 'CORP0001'
+		 WHERE A.CORP_NO = #{corpNo}
 	</select>
 	
 	<insert id="insertPayment" parameterType="hashmap">
@@ -136,7 +133,7 @@
 		VALUES
 		(
 		  'CRPP' || LPAD(SEQ_CORP_PAYMENT.NEXTVAL,4,0)
-		, #{merchant_uid}, #{buyer_name}, #{pay_method}
+		, #{merchant_uid}, #{corpNo}, #{pay_method}
 		, #{name}, #{paid_amount}, SYSDATE
 		)
 	</insert>
@@ -150,7 +147,7 @@
 		)
 		VALUES
 		(
-		  'DEPO' || LPAD(SEQ_DEPOSIT.NEXTVAL,4,0), #{buyer_name}, '충전'
+		  'DEPO' || LPAD(SEQ_DEPOSIT.NEXTVAL,4,0), #{corpNo}, '충전'
 		, #{paid_amount}, SYSDATE, #{name}
 		)
 	</insert>
@@ -168,7 +165,7 @@
 		SELECT
 		       COUNT(*)
 		  FROM TBL_CORP_PAYMENT A
-		 WHERE A.CORP_NO = 'CORP0001'
+		 WHERE A.CORP_NO = #{corpNo}
 		   AND A.CORP_PAY_CHK = 'Y'
 	</select>
 	
@@ -177,16 +174,18 @@
 		  FROM (SELECT ROWNUM RNUM
 		             , D.*
 		          FROM (SELECT A.CORP_PAY_NO
-		                     , CASE WHEN A.CORP_PAY_METHOD = 'card' THEN '신용카드' END AS CORP_PAY_METHOD
+		                     , (CASE WHEN A.CORP_PAY_METHOD = 'card' THEN '신용카드' 
+		                     		 WHEN A.CORP_PAY_METHOD = 'point' THEN '신용카드(카카오페이)'
+		                     		 END) AS CORP_PAY_METHOD
 		                     , A.CORP_PAY_DETAILS
 		                     , A.CORP_PAY_AMOUNT
 		                     , A.CORP_PAY_DATE
 		                  FROM TBL_CORP_PAYMENT A
 		                 WHERE A.CORP_PAY_CHK = 'Y'
-		                   AND A.CORP_NO = 'CORP0001'
+		                   AND A.CORP_NO = #{corpNo}
 		                 ORDER BY A.CORP_PAY_NO DESC) D
 		          ) E
-		 WHERE E.RNUM BETWEEN #{startRow} AND #{endRow}
+		 WHERE E.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
 	</select>
 	
 	

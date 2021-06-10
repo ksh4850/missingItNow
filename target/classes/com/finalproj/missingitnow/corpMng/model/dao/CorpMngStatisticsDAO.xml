@@ -9,12 +9,16 @@
 		<result property="dailyTotal" column="DAILY_TOTAL"/>
 		<result property="weeklyDate" column="WEEKLY_DATE"/>
 		<result property="weeklyTotal" column="WEEKLY_TOTAL"/>
+		<result property="monthlyDate" column="MONTHLY_DATE"/>
+		<result property="monthlyTotal" column="MONTHLY_TOTAL"/>
+		<result property="prodCtgNo" column="PROD_CTG_NO"/>
+		<result property="prodCtgName" column="PROD_CTG_NAME"/>
+		<result property="ctgTotalAmt" column="CTG_TOTAL_AMT"/>
 	</resultMap>
 
 	<select id="selectDailyStatistics" resultMap="statisticsResultSet">
-		SELECT 
-		       A.DAILY_DATE
-		     , 'CORP0001' AS CORP_NO
+		SELECT A.DAILY_DATE
+		     , #{corpNo} AS CORP_NO
 		     , NVL(SUM(B.SALES_AMT),0) AS DAILY_TOTAL
 		  FROM (
 		  		<![CDATA[
@@ -25,25 +29,22 @@
 		          CONNECT BY LEVEL <= 15
 		          ]]>
 		          ) A
-		  LEFT JOIN (SELECT * FROM TBL_SALES C WHERE C.CORP_NO = 'CORP0001') B ON (A.DAILY_DATE = B.SALES_DATE)
+		  LEFT JOIN (SELECT * FROM TBL_SALES C WHERE C.CORP_NO = #{corpNo}) B ON (A.DAILY_DATE = B.SALES_DATE)
 		  GROUP BY A.DAILY_DATE, B.CORP_NO
 		  ORDER BY 1 ASC
 	</select>
 	
 	<select id="selectWeeklyStatistics" resultMap="statisticsResultSet">
-		SELECT
-		       A.CORP_NO
+		SELECT A.CORP_NO
 		     , A.WEEKLY_DATE
 		     , A.WEEKLY_TOTAL
-		  FROM (SELECT 
-		                ROWNUM RNUM
-		              , B.*
-		         FROM (SELECT
-		                      'CORP0001' AS CORP_NO
+		  FROM (SELECT ROWNUM RNUM
+		             , B.*
+		         FROM (SELECT #{corpNo} AS CORP_NO
 		                    , NEXT_DAY(A.SALES_DATE,1) AS WEEKLY_DATE
 		                    , NVL(SUM(A.SALES_AMT),0) AS WEEKLY_TOTAL
 		                 FROM TBL_SALES A
-		                WHERE A.CORP_NO = 'CORP0001'
+		                WHERE A.CORP_NO = #{corpNo}
 		                GROUP BY NEXT_DAY(A.SALES_DATE,1)
 		                ORDER BY NEXT_DAY(A.SALES_DATE,1) DESC
 		              ) B
@@ -51,6 +52,44 @@
 		 WHERE A.RNUM BETWEEN 1 AND 6
 		 ORDER BY A.RNUM DESC
 	</select>
+	
+	<select id="selectMonthlyStatistics" resultMap="statisticsResultSet">
+		SELECT TO_DATE(B.SALES_MONTH,'RRRR-MM') AS MONTHLY_DATE
+		     , SUM(B.SALES_AMT) AS MONTHLY_TOTAL
+		  FROM (SELECT A.SALES_NO
+		             , A.CORP_NO
+		             , TO_CHAR(A.SALES_DATE,'RRRR-MM') AS SALES_MONTH
+		             , A.SALES_AMT
+		          FROM TBL_SALES A
+		         WHERE A.CORP_NO = #{corpNo}) B
+		 GROUP BY B.SALES_MONTH
+		 ORDER BY 1 ASC
+	</select>
+	
+	<select id="selectCategoryStatistics" resultMap="statisticsResultSet">
+		SELECT *
+		  FROM (SELECT 
+		                ROWNUM RNUM
+		              , E.*
+		          FROM (SELECT #{corpNo} AS CORP_NO
+		                     , D.PROD_CTG_NAME AS PROD_CTG_NAME
+		                     , NVL(SUM(C.SALES_AMT),0) AS CTG_TOTAL_AMT
+		                  FROM (SELECT A.CORP_NO
+		                             , A.PROD_NO
+		                             , B.PROD_CTG_NO
+		                             , A.SALES_AMT
+		                          FROM TBL_SALES A
+		                          JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+		                         WHERE A.CORP_NO = #{corpNo} 
+		                        ) C
+		                 RIGHT OUTER JOIN TBL_PROD_CATEGORY D ON (C.PROD_CTG_NO = D.PROD_CTG_NO)
+		                 GROUP BY D.PROD_CTG_NAME, C.CORP_NO
+		                 ORDER BY CTG_TOTAL_AMT DESC     
+		                ) E
+		        ) F
+		WHERE F.RNUM BETWEEN 1 AND 5
+	</select>
+
 	
 
 

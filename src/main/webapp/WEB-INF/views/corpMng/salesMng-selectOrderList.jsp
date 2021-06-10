@@ -57,7 +57,7 @@
         <br><br>
         
         <div style="font-size: 20px;">
-            <form action="${ pageContext.servletContext.contextPath }/salesMng/selectOrderListByDate" method="GET">
+            <form action="${ pageContext.servletContext.contextPath }/salesMng/searchOrderListByDate" method="GET">
                 <div align="center">
                     <h3 style="display: inline; position: relative; vertical-align: middle;">조회기간</h3> 
                     <input type="date" name="startDate" style="width: 200px; height: 30px; font-size: 18px; position: relative; vertical-align: middle; margin-left: 50px;" required> <span> &nbsp; ~ &nbsp; </span> 

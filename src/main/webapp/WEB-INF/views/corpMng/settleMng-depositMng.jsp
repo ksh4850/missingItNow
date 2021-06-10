@@ -183,7 +183,7 @@
 				url:'/missingitnow/settleMng/selectCorpUserForPay',
 				type:'post',
 				success: function(data){
-					const corpNo = data.corpNo;
+					const corpName = data.corpName;
 					const corpEmail = data.corpEmail;
 					const corpContacts = data.corpContacts;
 					
@@ -194,7 +194,7 @@
 					    merchant_uid : 'merchant_' + new Date().getTime(),
 					    name : '예치금 충전 테스트',
 					    amount : $('#amount').val(),
-					    buyer_name : corpNo,
+					    buyer_name : corpName,
 					    buyer_email : corpEmail,
 					    buyer_tel : corpContacts,
 					    

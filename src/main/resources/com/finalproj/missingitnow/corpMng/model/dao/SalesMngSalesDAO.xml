@@ -26,18 +26,16 @@
 	</resultMap>
 	
 	<select id="selectTotalOrderList" resultType="_int">
-		SELECT
-		       COUNT(*)
+		SELECT COUNT(*)
 		  FROM TBL_ORDER A
-		 WHERE A.CORP_NO = 'CORP0001'
+		 WHERE A.CORP_NO = #{corpNo}
 	</select>
 	
-	<select id="selectOrderList" resultMap="salesMngOrderListResultSet" parameterType="PageInfoDTO">
+	<select id="selectOrderList" resultMap="salesMngOrderListResultSet" parameterType="hashmap">
 		SELECT E.*
 		  FROM (SELECT ROWNUM RNUM
 		             , D.*
-		          FROM (SELECT
-		                       A.ORDER_NO
+		          FROM (SELECT A.ORDER_NO
 		                     , C.PROD_NAME
 		                     , D.USER_NO
 		                     , A.ORDER_PRICE
@@ -49,18 +47,17 @@
 		                  JOIN TBL_CORP_USER B ON (A.CORP_NO = B.CORP_NO)
 		                  JOIN TBL_PRODUCT C ON (A.PROD_NO = C.PROD_NO)
 		                  JOIN TBL_USER D ON (A.USER_NO = D.USER_NO)
-		                 WHERE A.CORP_NO = 'CORP0001'
+		                 WHERE A.CORP_NO = #{corpNo}
 		                 ORDER BY A.ORDER_NO DESC) D
 		          ) E
-		 WHERE E.RNUM BETWEEN #{startRow} AND #{endRow}
+		 WHERE E.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
 	</select>
 	
 		
 	<select id="searchTotalOrderList" resultType="_int" parameterType="SalesMngOrderDTO">
-		SELECT
-		       COUNT(*)
+		SELECT COUNT(*)
 		  FROM TBL_ORDER A
-		 WHERE A.CORP_NO = 'CORP0001'
+		 WHERE A.CORP_NO = #{corpNo}
 		   AND A.ORDER_DATE BETWEEN #{startDate} AND #{endDate}
 	</select>
 	
@@ -68,8 +65,7 @@
 		SELECT E.*
 		  FROM (SELECT ROWNUM RNUM
 		             , D.*
-		          FROM (SELECT
-		                       A.ORDER_NO
+		          FROM (SELECT A.ORDER_NO
 		                     , C.PROD_NAME
 		                     , D.USER_NO
 		                     , A.ORDER_PRICE
@@ -81,13 +77,12 @@
 		                  JOIN TBL_CORP_USER B ON (A.CORP_NO = B.CORP_NO)
 		                  JOIN TBL_PRODUCT C ON (A.PROD_NO = C.PROD_NO)
 		                  JOIN TBL_USER D ON (A.USER_NO = D.USER_NO)
-		                 WHERE B.CORP_NO = 'CORP0001'
+		                 WHERE B.CORP_NO = #{corpNo}
 		                   AND A.ORDER_DATE BETWEEN #{startDate} AND #{endDate}
 		                 ORDER BY A.ORDER_NO DESC) D
 		        ) E
 		 WHERE E.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
 	</select>
-	
 	
 	<resultMap id="salesMngSalesListResultSet" type="SalesMngSalesDTO">
 		<id property="salesNo" column="SALES_NO"/>
@@ -117,10 +112,10 @@
 		SELECT
 		       COUNT(*)
 		  FROM TBL_SALES A
-		 WHERE A.CORP_NO = 'CORP0001'
+		 WHERE A.CORP_NO = #{corpNo}
 	</select>
 	
-	<select id="selectSalesList" resultMap="salesMngSalesListResultSet" parameterType="PageInfoDTO">
+	<select id="selectSalesList" resultMap="salesMngSalesListResultSet" parameterType="hashmap">
 		SELECT E.*
 		  FROM (SELECT ROWNUM RNUM
 		             , D.*
@@ -132,17 +127,16 @@
 		                     , A.SALES_AMT
 		                  FROM TBL_SALES A
 		                  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
-		                 WHERE A.CORP_NO = 'CORP0001'
+		                 WHERE A.CORP_NO = #{corpNo}
 		                 ORDER BY A.SALES_NO DESC, A.SALES_DATE DESC) D
 		          ) E
-		 WHERE E.RNUM BETWEEN #{startRow} AND #{endRow}
+		 WHERE E.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
 	</select>
 	
 	<select id="searchTotalSalesList" resultType="_int" parameterType="SalesMngSalesDTO">
-		SELECT
-		       COUNT(*)
+		SELECT COUNT(*)
 		  FROM TBL_SALES A
-		 WHERE A.CORP_NO = 'CORP0001'
+		 WHERE A.CORP_NO = #{corpNo}
 		   AND A.SALES_DATE BETWEEN #{startDate} AND #{endDate}
 	</select>
 	
@@ -158,7 +152,7 @@
 		                     , A.SALES_AMT
 		                  FROM TBL_SALES A
 		                  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
-		                 WHERE A.CORP_NO = 'CORP0001'
+		                 WHERE A.CORP_NO = #{corpNo}
 		                   AND A.SALES_DATE BETWEEN #{startDate} AND #{endDate}
 		                 ORDER BY A.SALES_NO DESC, A.SALES_DATE DESC) D
 		        ) E
@@ -166,21 +160,18 @@
 	</select>
 	
 	<select id="expectedSettlementList" resultMap="salesMngSalesListResultSet">
-		SELECT 
-		        D.TOTAL AS TOTAL_SALES
+		 SELECT D.TOTAL AS TOTAL_SALES
 		      , D.TOTAL * D.CORP_COMMISSION AS COMMISSION_BY_SALES
 		      , D.TOTAL * (1 - D.CORP_COMMISSION) AS SETTLEMENT_AMT
-		   FROM (SELECT 
-		                SUM(C.SALES_AMT) AS TOTAL
+		   FROM (SELECT SUM(C.SALES_AMT) AS TOTAL
 		              , C.CORP_NO
 		              , C.CORP_COMMISSION
-		           FROM (SELECT 
-		                        A.SALES_AMT
+		           FROM (SELECT A.SALES_AMT
 		                      , B.CORP_NO
 		                      , B.CORP_COMMISSION
 		                   FROM TBL_SALES A
 		                   JOIN TBL_CORP_USER B ON (A.CORP_NO = B.CORP_NO)
-		                  WHERE A.CORP_NO = 'CORP0001'
+		                  WHERE A.CORP_NO = #{corpNo}
 		                    AND A.SALES_DATE BETWEEN #{startDate} AND #{endDate}) C
 		        GROUP BY C.CORP_NO, C.CORP_COMMISSION
 		        ) D

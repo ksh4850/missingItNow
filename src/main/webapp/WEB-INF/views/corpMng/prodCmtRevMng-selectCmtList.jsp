@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +23,7 @@
         /* border: 1px solid black; */
     }
     
-    .paymentListTable{
+    .prodCmtListTable{
         border: hidden;
         border-top: 1px solid black;
         border-bottom: 1px solid black;
@@ -32,7 +32,7 @@
         width: 1500px;
     }
 
-    .paymentListTable td{
+    .prodCmtListTable td{
         border: 1px solid black;
         font-size: 20px;
         height: 50px;
@@ -52,22 +52,23 @@
 	<jsp:include page="corpMngNavi.jsp"/>
 	
 	<div class="section">
-        <h1 style="position: relative; left: 20px;">결제내역</h1>
+        <h1 style="position: relative; left: 20px;">상품 문의</h1>
         <hr width="1600px" align="left">
         <br><br>
 
-        <div class="paymentListDiv" align="center">
-            <table class="paymentListTable">
+        <div class="prodCmtListDiv" align="center">
+            <table class="prodCmtListTable">
                 <tr>
-                    <td style="width: 180px">결제번호</td>
-                    <td style="width: 230px">결제수단</td>
-                    <td>결제 내용</td> 
-                    <td style="width: 180px">결제금액 (원)</td>
-                    <td style="width: 150px">결제일자</td>
+                    <td style="width: 180px">상품번호</td>
+                    <td style="width: 250px">상품명</td>
+                    <td style="width: 180px">문의 등록자</td>
+                    <td>문의 내용</td> 
+                    <td style="width: 180px">문의 등록일</td>
+                    <td style="width: 150px">답변여부</td>
                 </tr>
-                <c:if test="${ empty paymentList }">
+                <c:if test="${ empty productCmtList }">
                 	<tr>
-                		<td colspan="5"><h3 align="center">결제 내역이 없습니다.</h3></td>
+                		<td colspan="6"><h3 align="center">문의 내역이 없습니다.</h3></td>
                 	</tr>
                 </c:if>
                 
@@ -75,20 +76,21 @@
                 <%-- 3자리 마다 쉼표 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${price}" /> --%>
 				<%-- 한국 통화 : <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${price}" /> --%>
                 
-                <c:forEach var="list" items="${ paymentList }">
+                <c:forEach var="list" items="${ productCmtList }">
                 <tr>
-                    <td><c:out value="${ list.corpPayNo }"/></td>
-                    <td><c:out value="${ list.corpPayMethod }"/></td>
-                    <td style="text-align: left; padding-left: 20px;"><c:out value="${ list.corpPayDetails }"/></td>
-                    <td style="text-align: right; padding-right: 20px;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ list.corpPayAmount }"/></td>
-                    <td><c:out value="${ list.corpPayDate }"/></td>
+                    <td><c:out value="${ list.prodNo }"/></td>
+                    <td style="text-align: left; padding-left: 20px;"><c:out value="${ list.prodMngProduct.prodName }"/></td>
+                    <td><c:out value="${ list.user.userId }"/></td>
+                    <td style="text-align: left; padding-left: 20px;"><c:out value="${ list.prodComtDetails }"/></td>
+                    <td><c:out value="${ list.prodComtDate }"/></td>
+                    <td><c:out value="${ list.prodComtReplyChk }"/></td>
                 </tr>
                 </c:forEach>
                 
             </table>
-        </div>       <!-- paymentListDiv 종료 -->
-        
-        <div class="pagingArea" align="center">
+        </div>       <!-- prodCmtListDiv 종료 -->
+		
+		<div class="pagingArea" align="center">
 			<button id="startPage"><<</button>
 	
 			<c:if test="${ pageInfo.pageNo == 1 }">
@@ -116,7 +118,8 @@
 	
 			<button id="maxPage">>></button>
 		</div>	<!-- pagingAreaDiv 종료 -->
-	
+		
+		
 	</div>	<!-- sectionDiv 종료 -->
 	
     <br clear=both>
@@ -125,7 +128,7 @@
 	</div>
 	
 	<script>
-		const link = "${ pageContext.servletContext.contextPath }/settleMng/paymentList";
+		const link = "${ pageContext.servletContext.contextPath }/prodCmtRevMng/productCmtList";
 		
 		function pageButtonAction(text) {
 			location.href = link + "?currentPage=" + text;
@@ -160,6 +163,6 @@
 		}
 	
 	</script>
-	
+
 </body>
 </html>

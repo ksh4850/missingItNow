@@ -85,12 +85,12 @@
         		style="position: relative; left: 20px; top: 5px; float: left;">
         <p class="headerTitle">기업회원 관리자 센터</p>
 		<button class="headerLogoutBtn" id="headerLogoutBtn">로그아웃</button>
-		<button class="updateCorpUserInfoBtn" id="updateCorpUserInfoBtn" onclick="location.href=''">정보수정</button>
+		<button class="updateCorpUserInfoBtn" id="updateCorpUserInfoBtn">정보수정</button>
     </div>
     
 	<script>
 		$("#headerLogoutBtn").click(function(){
-			location.href="${ pageContext.servletContext.contextPath }/main";
+			location.href="${ pageContext.servletContext.contextPath }/corporation/logout";
 		})
 		
 		$("#updateCorpUserInfoBtn").click(function(){

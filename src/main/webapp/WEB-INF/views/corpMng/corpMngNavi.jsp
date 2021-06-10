@@ -139,6 +139,9 @@
 			location.href="${ pageContext.servletContext.contextPath }/settleMng/paymentList";
 		})
 		
+		$("#productCmtList").click(function(){
+			location.href="${ pageContext.servletContext.contextPath }/prodCmtRevMng/productCmtList";
+		})
 		
 		
 		

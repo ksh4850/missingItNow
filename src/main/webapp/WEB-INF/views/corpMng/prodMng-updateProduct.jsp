@@ -122,18 +122,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">* 키워드 등록 : <br>
-                            <p style="margin: 0; font-size: 14px;">(최소 1개/최대 5개)&nbsp;</p>
-                        </td>
-                        <td style="text-indent: 20px;">
-                            <input type="text" name="keywordsSet" style="width: 200px; height: 30px; font-size: 20px;" required>
-                            <input type="text" name="keywordsSet" style="width: 200px; height: 30px; font-size: 20px;">
-                            <input type="text" name="keywordsSet" style="width: 200px; height: 30px; font-size: 20px;">
-                            <input type="text" name="keywordsSet" style="width: 200px; height: 30px; font-size: 20px;">
-                            <input type="text" name="keywordsSet" style="width: 200px; height: 30px; font-size: 20px;">
-                        </td>
-                    </tr>
-                    <tr>
                         <td style="text-align: right;">* 상품노출 여부 : </td>
                         <td style="text-indent: 20px;">
                             <select name="prodDisplayChk" style="width: 100px; height: 30px; font-size: 20px;" required>
