@@ -45,9 +45,9 @@ public class StatisticsController {
 		
 		List<CorpMngStatisticsDTO> dailyStatistics = corpMngStatisticsService.selectDailyStatistics(CorpUserSession);
 		
-		for(CorpMngStatisticsDTO a : dailyStatistics) {
-			System.out.println("daily : " + a);
-		}
+//		for(CorpMngStatisticsDTO a : dailyStatistics) {
+//			System.out.println("daily : " + a);
+//		}
 		
 		return gson.toJson(dailyStatistics);
 	}
@@ -63,9 +63,9 @@ public class StatisticsController {
 		
 		List<CorpMngStatisticsDTO> weeklyStatistics = corpMngStatisticsService.selectWeeklyStatistics(CorpUserSession);
 		
-		for(CorpMngStatisticsDTO a : weeklyStatistics) {
-			System.out.println("weekly : " + a);
-		}
+//		for(CorpMngStatisticsDTO a : weeklyStatistics) {
+//			System.out.println("weekly : " + a);
+//		}
 		
 		return gson.toJson(weeklyStatistics);
 	}
@@ -81,9 +81,9 @@ public class StatisticsController {
 		
 		List<CorpMngStatisticsDTO> monthlyStatistics = corpMngStatisticsService.selectMonthlyStatistics(CorpUserSession);
 		
-		for(CorpMngStatisticsDTO a : monthlyStatistics) {
-			System.out.println("monthly : " + a);
-		}
+//		for(CorpMngStatisticsDTO a : monthlyStatistics) {
+//			System.out.println("monthly : " + a);
+//		}
 		
 		return gson.toJson(monthlyStatistics);
 		}
@@ -99,9 +99,9 @@ public class StatisticsController {
 		
 		List<CorpMngStatisticsDTO> categoryStatistics = corpMngStatisticsService.selectCategoryStatistics(CorpUserSession);
 		
-		for(CorpMngStatisticsDTO a : categoryStatistics) {
-			System.out.println("category : " + a);
-		}
+//		for(CorpMngStatisticsDTO a : categoryStatistics) {
+//			System.out.println("category : " + a);
+//		}
 		
 		return gson.toJson(categoryStatistics);
 	}

@@ -19,8 +19,21 @@
         position: relative;
         float: right;
         width: 1650px;
-        min-height: 700px;
+        min-height: 1100px;
         /* border: 1px solid black; */
+    }
+    
+    .searchProductBtn{
+    	width: 100px; 
+    	height: 40px; 
+    	font-size: 20px; 
+    	position: relative; 
+    	vertical-align: middle; 
+    	margin-left: 50px;
+    	font-family: 'SCDream-Regular';
+    	background: transparent;
+    	border: 1px solid #775EEE;
+    	border-radius: 10px; 
     }
     
     .prodListTable{
@@ -30,12 +43,45 @@
         border-collapse: collapse;
         text-align: center;
         width: 1500px;
+        table-layout:fixed;
     }
 
     .prodListTable td{
         border: 1px solid black;
-        font-size: 20px;
+        font-family: 'SCDream-Regular';
+        font-size: 16px;
         height: 50px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    
+    .prodUpdateBtn{
+	    width: 100px; 
+    	height: 30px; 
+    	font-family: 'SCDream-Regular';
+    	font-size: 16px;
+    	color: white;
+    	background-color: #8877DA;
+    	border: none;
+    	border-radius: 10px;
+    }
+    
+    .pagingArea{
+    	position: absolute;
+    	left: 50%;
+    	transform: translateX(-50%);
+    	bottom: 0px;
+    }
+        
+    .pagingArea button{
+    	width: 40px;
+    	height: 40px;
+    	color: #775EEE;
+    	border: none;
+    	background: transparent;
+    	font-family: 'SCDream-Regular';
+    	font-size: 16px;
+    	font-weight: bold;
     }
     
     .footer{
@@ -56,15 +102,19 @@
         <hr width="1600px" align="left">
         <br><br>
         <div style="font-size: 20px;">
-            <div style="position: relative; left: 100px;">
-                <input type="radio" id="radioCategory" name="chooseMethod" value="radioCategory" checked><label for="radioCategory">카테고리 조회</label>
-                <input type="radio" id="radioProdName" name="chooseMethod" value="radioProdName"><label for="radioProdName">상품명 조회</label>
+            <div style="position: relative; left: 100px; font-family: 'SCDream-Regular'; font-size: 20px;">
+            	<div style="display: inline-block;">
+				<input type="radio" id="radioCategory" name="chooseMethod" value="radioCategory" checked><label for="radioCategory">카테고리 조회</label>
+            	</div>
+            	<div style="display: inline-block; position: relative; left: 50px;">
+               	<input type="radio" id="radioProdName" name="chooseMethod" value="radioProdName"><label for="radioProdName">상품명 조회</label>
+            	</div>
             </div>
             <br>
             
             <form id="selectByCtgForm" action="${ pageContext.servletContext.contextPath }/prodMng/searchProductList" method="GET">     <!-- form action 명시 필요 -->
                 <div id="radioCategory" style="position: relative; left: 100px;">
-                    <h3 style="display: inline; position: relative; vertical-align: middle;">카테고리 : </h3>
+                    <h3 style="font-family: 'SCDream-Regular'; display: inline; position: relative; vertical-align: middle;">카테고리 : </h3>
                     <select name="prodCtgNo" style="position: relative; left: 20px; vertical-align: middle; width: 400px; height: 30px; font-size: 20px;">
                         <option value="PRCT0001">거실/침실가구</option>
                         <option value="PRCT0002">학생/서재가구</option>
@@ -77,32 +127,31 @@
                         <option value="PRCT0009">홈데코</option>
                         <option value="PRCT0010">생활용품</option>
                     </select>
-                    <button type="submit" style="width: 100px; height: 30px; font-size: 20px; position: relative; vertical-align: middle; left: 50px;">조회</button>
+                    <button type="submit" class="searchProductBtn">조회</button>
                 </div>
             </form>	
             
             <form id="selectByProdNameForm" action="${ pageContext.servletContext.contextPath }/prodMng/searchProductList" method="GET" hidden>
            		<div id="radioProdName" style="position: relative; left: 100px;">
-                    <h3 style="display: inline; position: relative; vertical-align: middle;">상품명 : </h3>
+                    <h3 style="font-family: 'SCDream-Regular'; display: inline; position: relative; vertical-align: middle;">상품명 : </h3>
                     <input type="text" name="prodName" style="position: relative; left: 20px; vertical-align: middle; width: 400px; height: 30px; font-size: 20px;">
-                    <button type="submit" style="width: 100px; height: 30px; font-size: 20px; position: relative; vertical-align: middle; left: 50px;">조회</button>
+                    <button type="submit" class="searchProductBtn">조회</button>
                 </div>
             </form>
             <br>
         </div>
-
-        <br><br>
+        <br>
         <div class="prodListDiv" align="center">
             <table class="prodListTable">
                 <tr>
-                    <td style="width: 180px">카테고리명</td>
-                    <td style="width: 180px">상품번호</td>
-                    <td>상품명</td>
-                    <td style="width: 150px">판매가 (원)</td>
-                    <td style="width: 180px">등록일</td>
-                    <td style="width: 180px">판매종료일</td>
-                    <td style="width: 100px">노출여부</td>
-                    <td style="width: 150px">수정</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 160px">카테고리명</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">상품번호</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px;">상품명</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 180px">판매가 (원)</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">등록일</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">판매종료일</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 100px">노출여부</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">수정</td>
                 </tr>
                 <c:if test="${ empty productList }">
                 	<tr>
@@ -114,27 +163,28 @@
                 <tr>
                     <td><c:out value="${ list.category.prodCtgName }"/></td>
                     <td><c:out value="${ list.prodNo }"/></td>
-                    <td style="text-align: left; padding-left: 20px;"><c:out value="${ list.prodName }"/></td>
+                    <td style="text-align: left; padding-left: 20px;"><nobr><c:out value="${ list.prodName }"/></nobr></td>
                     <td style="text-align: right; padding-right: 20px;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ list.prodPrice }"/></td>
                     <td><c:out value="${ list.prodUploadDate }"/></td>
                     <td><c:out value="${ list.prodTerminateDate }"/></td>
                     <td><c:out value="${ list.prodDisplayChk }"/></td>
-                    <td><button onclick="location.href='${ pageContext.servletContext.contextPath }/prodMng/updateProduct/${ list.prodNo }'" style="width: 100px; height: 30px; font-size: 16px;">정보수정</button></td>
+                    <td><button onclick="location.href='${ pageContext.servletContext.contextPath }/prodMng/updateProduct/${ list.prodNo }'" class="prodUpdateBtn">정보수정</button></td>
                 </tr>
                 </c:forEach>
             </table>
         </div>
         
+        <br><br><br>
         <div class="pagingArea" align="center">
         	<c:choose>
 	        	<c:when test="${ empty params.prodCtgNo }">
-					<button id="searchNameStartPage"><<</button>
+					<button id="searchNameStartPage">◀◀</button>
 			
 					<c:if test="${ pageInfo.pageNo == 1 }">
-						<button disabled><</button>
+						<button disabled>◁</button>
 					</c:if>
 					<c:if test="${ pageInfo.pageNo > 1 }">
-						<button id="searchNamePrevPage"><</button>
+						<button id="searchNamePrevPage">◁</button>
 					</c:if>
 			
 					<c:forEach var="p" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1">
@@ -147,23 +197,23 @@
 					</c:forEach>
 			
 					<c:if test="${ pageInfo.pageNo == pageInfo.maxPage }">
-						<button disabled>></button>	
+						<button disabled>▷</button>	
 					</c:if>
 					<c:if test="${ pageInfo.pageNo < pageInfo.maxPage }">
-						<button id="searchNameNextPage">></button>
+						<button id="searchNameNextPage">▷</button>
 					</c:if>
 			
-					<button id="searchNameMaxPage">>></button>
+					<button id="searchNameMaxPage">▶▶</button>
 				</c:when>
 				
 				<c:when test="${ empty params.prodName }">
-					<button id="searchCtgStartPage"><<</button>
+					<button id="searchCtgStartPage">◀◀</button>
 			
 					<c:if test="${ pageInfo.pageNo == 1 }">
-						<button disabled><</button>
+						<button disabled>◁</button>
 					</c:if>
 					<c:if test="${ pageInfo.pageNo > 1 }">
-						<button id="searchCtgPrevPage"><</button>
+						<button id="searchCtgPrevPage">◁</button>
 					</c:if>
 			
 					<c:forEach var="p" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1">
@@ -176,23 +226,23 @@
 					</c:forEach>
 			
 					<c:if test="${ pageInfo.pageNo == pageInfo.maxPage }">
-						<button disabled>></button>	
+						<button disabled>▷</button>	
 					</c:if>
 					<c:if test="${ pageInfo.pageNo < pageInfo.maxPage }">
-						<button id="searchCtgNextPage">></button>
+						<button id="searchCtgNextPage">▷</button>
 					</c:if>
 			
-					<button id="searchCtgMaxPage">>></button>
+					<button id="searchCtgMaxPage">▶▶</button>
 				</c:when>
 				
 				<c:otherwise>
-					<button id="startPage"><<</button>
+					<button id="startPage">◀◀</button>
 			
 					<c:if test="${ pageInfo.pageNo == 1 }">
-						<button disabled><</button>
+						<button disabled>◁</button>
 					</c:if>
 					<c:if test="${ pageInfo.pageNo > 1 }">
-						<button id="prevPage"><</button>
+						<button id="prevPage">◁</button>
 					</c:if>
 			
 					<c:forEach var="p" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1">
@@ -205,13 +255,13 @@
 					</c:forEach>
 			
 					<c:if test="${ pageInfo.pageNo == pageInfo.maxPage }">
-						<button disabled>></button>	
+						<button disabled>▷</button>	
 					</c:if>
 					<c:if test="${ pageInfo.pageNo < pageInfo.maxPage }">
-						<button id="nextPage">></button>
+						<button id="nextPage">▷</button>
 					</c:if>
 			
-					<button id="maxPage">>></button>
+					<button id="maxPage">▶▶</button>
 				</c:otherwise>
 			</c:choose>
 		</div>	<!-- pagingArea 종료 -->

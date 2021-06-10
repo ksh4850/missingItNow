@@ -19,8 +19,21 @@
         position: relative;
         float: right;
         width: 1650px;
-        min-height: 700px;
+        min-height: 1100px;
         /* border: 1px solid black; */
+    }
+    
+    #searchSalesListByDateBtn {
+    	width: 100px; 
+    	height: 40px; 
+    	font-size: 20px; 
+    	position: relative; 
+    	vertical-align: middle; 
+    	margin-left: 50px;
+    	font-family: 'SCDream-Regular';
+    	background: transparent;
+    	border: 1px solid #775EEE;
+    	border-radius: 10px; 
     }
     
     .salesListTable{
@@ -30,12 +43,34 @@
         border-collapse: collapse;
         text-align: center;
         width: 1500px;
+        table-layout:fixed;
     }
 
     .salesListTable td{
         border: 1px solid black;
-        font-size: 20px;
+        font-family: 'SCDream-Regular';
+        font-size: 16px;
         height: 50px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    
+    .pagingArea{
+    	position: absolute;
+    	left: 50%;
+    	transform: translateX(-50%);
+    	bottom: 0px;
+    }
+        
+    .pagingArea button{
+    	width: 40px;
+    	height: 40px;
+    	color: #775EEE;
+    	border: none;
+    	background: transparent;
+    	font-family: 'SCDream-Regular';
+    	font-size: 16px;
+    	font-weight: bold;
     }
     
     .footer{
@@ -62,25 +97,25 @@
                     <h3 style="display: inline; position: relative; vertical-align: middle;">조회기간</h3> 
                     <input type="date" name="startDate" style="width: 200px; height: 30px; font-size: 18px; position: relative; vertical-align: middle; margin-left: 50px;"> <span> &nbsp; ~ &nbsp; </span> 
                     <input type="date" name="endDate" style="width: 200px; height: 30px; font-size: 18px; position: relative; vertical-align: middle; ">
-                    <button type="submit" style="width: 100px; height: 30px; font-size: 20px; position: relative; vertical-align: middle; margin-left: 50px;">조회</button>
+                    <button type="submit" id="searchSalesListByDateBtn">조회</button>
                 </div>
             </form>
         </div>
-        <br><br><br>
+        <br><br>
 
         <div class="salesListDiv" align="center">
             <table class="salesListTable">
                 <tr>
-                    <td style="width: 180px">매출번호</td>
-                    <td style="width: 180px">주문번호</td>
-                    <td>상품명</td> 
-                    <td style="width: 100px">수량</td>
-                    <td style="width: 180px">매출금액 (원)</td>
-                    <td style="width: 150px">매출일자</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">매출번호</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">주문번호</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px;">상품명</td> 
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 120px">수량</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 180px">매출금액 (원)</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">매출일자</td>
                 </tr>
                 <c:if test="${ empty salesList }">
                 	<tr>
-                		<td colspan="6"><h3 align="center">매출 내역이 없습니다.</h3></td>
+                		<td colspan="6" style="font-family: 'SCDream-Regular'; font-size: 20px; height: 100px;">매출 내역이 없습니다.</td>
                 	</tr>
                 </c:if>
                 
@@ -92,7 +127,7 @@
                 <tr>
                     <td><c:out value="${ list.salesNo }"/></td>
                     <td><c:out value="${ list.orderNo }"/></td>
-                    <td style="text-align: left; padding-left: 20px;"><c:out value="${ list.prodMngProduct.prodName }"/></td>
+                    <td style="text-align: left; padding-left: 20px;"><nobr><c:out value="${ list.prodMngProduct.prodName }"/></nobr></td>
                     <td><c:out value="${ list.salesQuantity }"/></td>
                     <td style="text-align: right; padding-right: 20px;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ list.salesAmt }"/></td>
                     <td><c:out value="${ list.salesDate }"/></td>
@@ -102,16 +137,17 @@
             </table>
         </div>       <!-- salesListDiv 종료 -->
 		
+		<br><br><br>
 		<div class="pagingArea" align="center">
         	<c:choose>
 				<c:when test="${ !empty params.startDate && !empty params.endDate }">
-					<button id="searchSalesStartPage"><<</button>
+					<button id="searchSalesStartPage">◀◀</button>
 			
 					<c:if test="${ pageInfo.pageNo == 1 }">
-						<button disabled><</button>
+						<button disabled>◁</button>
 					</c:if>
 					<c:if test="${ pageInfo.pageNo > 1 }">
-						<button id="searchSalesPrevPage"><</button>
+						<button id="searchSalesPrevPage">◁</button>
 					</c:if>
 			
 					<c:forEach var="p" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1">
@@ -124,23 +160,23 @@
 					</c:forEach>
 			
 					<c:if test="${ pageInfo.pageNo == pageInfo.maxPage }">
-						<button disabled>></button>	
+						<button disabled>▷</button>	
 					</c:if>
 					<c:if test="${ pageInfo.pageNo < pageInfo.maxPage }">
-						<button id="searchSalesNextPage">></button>
+						<button id="searchSalesNextPage">▷</button>
 					</c:if>
 			
-					<button id="searchSalesMaxPage">>></button>
+					<button id="searchSalesMaxPage">▶▶</button>
 				</c:when>
 				
 				<c:otherwise>
-					<button id="startPage"><<</button>
+					<button id="startPage">◀◀</button>
 			
 					<c:if test="${ pageInfo.pageNo == 1 }">
-						<button disabled><</button>
+						<button disabled>◁</button>
 					</c:if>
 					<c:if test="${ pageInfo.pageNo > 1 }">
-						<button id="prevPage"><</button>
+						<button id="prevPage">◁</button>
 					</c:if>
 			
 					<c:forEach var="p" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1">
@@ -153,13 +189,13 @@
 					</c:forEach>
 			
 					<c:if test="${ pageInfo.pageNo == pageInfo.maxPage }">
-						<button disabled>></button>	
+						<button disabled>▷</button>	
 					</c:if>
 					<c:if test="${ pageInfo.pageNo < pageInfo.maxPage }">
-						<button id="nextPage">></button>
+						<button id="nextPage">▷</button>
 					</c:if>
 			
-					<button id="maxPage">>></button>
+					<button id="maxPage">▶▶</button>
 				</c:otherwise>
 			</c:choose>
 		</div>	<!-- pagingAreaDiv 종료 -->

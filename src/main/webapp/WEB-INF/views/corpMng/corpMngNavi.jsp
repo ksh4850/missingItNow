@@ -12,20 +12,26 @@
         min-height: 1900px;
         margin: 0 auto;
     }
-
+	
     .nav{
         position: relative;
         float: left;
         width: 250px;
-        min-height: 700px;
+        min-height: 1200px;
         text-align: center;
         font-family: 'SCDream-Regular';
         border: 1px solid black;
     }
-
+	
+	.nav h2{
+		font-family: 'SCDream-Regular';
+		font-size: 26px;
+	}
+	
     .naviList li{
         list-style: none;
         padding-bottom: 15px;
+        font-size: 18px;
     }
 
     .corpProfileDiv{
@@ -76,7 +82,6 @@
             <div class="naviListDetails">                
                 <li id="insertProduct">상품등록</li>
                 <li id="selectProduct">상품조회/수정</li>
-                <li id="relatedProductMng" style="color: red;">연관상품관리(공사중)</li>
             </div>
             <div class="naviListTitle">
                 <h2>판매관리</h2>
@@ -84,8 +89,7 @@
             <div class="naviListDetails">                
                 <li id="selectOrderList">주문내역</li>
                 <li id="selectSalesList">매출내역</li>
-                <li id="selectCancelReturnList" style="color: red;">취소/반품/교환 내역(공사중)</li>
-                <li id="insertBlackUser" style="color: red;">판매방해 고객관리(공사중)</li>
+                <li id="selectCancelReturnList" style="color: red;">취소/반품/교환 내역</li>
             </div>
             <div class="naviListTitle">
                 <h2>정산관리</h2>
@@ -99,8 +103,8 @@
                 <h2 id="qnaNReviewMng">문의/리뷰관리</h2>
             </div>
             <div class="naviListDetails">                
-                <li id="productCmtList">상품문의</li>
-                <li id="productReviewList">상품리뷰 평점조회</li>
+                <li id="productCmtList">상품문의 내역</li>
+                <li id="productReviewList">상품리뷰 내역</li>
             </div>
             <div class="naviListTitle">
                 <h2 id="statistics">통계</h2>
@@ -110,7 +114,6 @@
     
 	<script>
 		
-	
 		$("#insertProduct").click(function(){
 			location.href="${ pageContext.servletContext.contextPath }/prodMng/insertProduct";
 		})
@@ -143,7 +146,9 @@
 			location.href="${ pageContext.servletContext.contextPath }/prodCmtRevMng/productCmtList";
 		})
 		
-		
+		$("#productReviewList").click(function(){
+			location.href="${ pageContext.servletContext.contextPath }/prodCmtRevMng/productRevList";
+		})
 		
 		$("#statistics").click(function(){
 			location.href="${ pageContext.servletContext.contextPath }/statistics/selectAllStatistics";

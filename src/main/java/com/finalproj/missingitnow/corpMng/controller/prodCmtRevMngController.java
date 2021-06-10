@@ -17,6 +17,7 @@ import com.finalproj.missingitnow.common.page.Pagenation;
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdCmtListDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.ProdRevListDTO;
 import com.finalproj.missingitnow.corpMng.model.service.ProdCmtRevMngService;
 
 
@@ -69,6 +70,42 @@ public class prodCmtRevMngController {
 		return "/corpMng/prodCmtRevMng-selectCmtList";
 	}
 	
+	// 상품리뷰 전체 조회
+	@GetMapping("/productRevList")
+	public String selectProductRevList(Model model, @RequestParam(required=false) String currentPage) {
+		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
+		
+		int pageNo = 1;
+		
+		if(currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			if(pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+		
+		int totalCount = prodCmtRevMngService.selectTotalProductRevList(CorpUserSession);
+		System.out.println("totalCount : " + totalCount);
+		int limit = 15;
+		int buttonAmount = 5;
+		
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("corpNo", CorpUserSession.getCorpNo());
+		params.put("pageInfo", pageInfo);
+		
+		List<ProdRevListDTO> productRevList = prodCmtRevMngService.selectProductRevList(params);
+//		for(ProdRevListDTO a : productRevList) {
+//			System.out.println("productRev : " + a);
+//		}
+		
+		model.addAttribute("productRevList", productRevList);
+		model.addAttribute("pageInfo", pageInfo);
+		
+		return "/corpMng/prodCmtRevMng-selectRevList";
+	}
 	
 	
 }

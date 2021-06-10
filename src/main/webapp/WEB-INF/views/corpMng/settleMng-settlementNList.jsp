@@ -19,17 +19,31 @@
         position: relative;
         float: right;
         width: 1650px;
-        min-height: 700px;
+        min-height: 1100px;
         /* border: 1px solid black; */
+    }
+    
+    #selectExpectedSettlementBtn{
+    	width: 100px; 
+    	height: 40px; 
+    	font-size: 20px; 
+    	position: relative; 
+    	vertical-align: middle; 
+    	margin-left: 50px;
+    	font-family: 'SCDream-Regular';
+    	background: transparent;
+    	border: 1px solid #775EEE;
+    	border-radius: 10px; 
     }
     
     .selectExpectedSettlementDiv{
         margin: 0 auto;
         text-align: center;
-        border: 1px solid black;
-        border-radius: 15px;
+        /* border: 1px solid black; */
+        border: 3px solid #8877DA;
+        border-radius: 20px;
         width: 800px;
-        height: 280px;
+        height: 300px;
     }
 
     .selectExpectedSettlementTable{
@@ -40,18 +54,31 @@
 
     .selectExpectedSettlementTable td{
         border: none;
+        font-family: 'SCDream-Regular';
         height: 60px;
         font-size: 20px;
     }
 
     .selectExpectedSettlementTable input{
         width: 200px; 
-        height: 30px; 
-        font-size: 20px; 
+        height: 30px;
+        font-family: 'SCDream-Regular';  
+        font-size: 24px; 
         position: relative;
         text-align: right;
         border: none;
         right: 10px;
+    }
+    
+    #settlementBtn{
+    	width: 150px; 
+    	height: 50px;
+    	font-family: 'SCDream-Regular'; 
+    	font-size: 22px;
+    	color: white;
+    	background-color: #8877DA;
+    	border: none;
+    	border-radius: 10px;
     }
     
     .settlementListTable{
@@ -61,12 +88,34 @@
         border-collapse: collapse;
         text-align: center;
         width: 1500px;
+        table-layout:fixed;
     }
 
     .settlementListTable td{
         border: 1px solid black;
-        font-size: 20px;
+        font-family: 'SCDream-Regular';
+        font-size: 16px;
         height: 50px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    
+    .pagingArea{
+    	position: absolute;
+    	left: 50%;
+    	transform: translateX(-50%);
+    	bottom: 0px;
+    }
+        
+    .pagingArea button{
+    	width: 40px;
+    	height: 40px;
+    	color: #775EEE;
+    	border: none;
+    	background: transparent;
+    	font-family: 'SCDream-Regular';
+    	font-size: 16px;
+    	font-weight: bold;
     }
     
     .footer{
@@ -92,7 +141,7 @@
                    <h3 style="display: inline; position: relative; vertical-align: middle;">예상 정산금 조회</h3> 
                    <input type="date" id="startDate" name="startDate" style="width: 200px; height: 30px; font-size: 18px; position: relative; vertical-align: middle; margin-left: 50px;"> <span> &nbsp; ~ &nbsp; </span> 
                    <input type="date" id="endDate" name="endDate" style="width: 200px; height: 30px; font-size: 18px; position: relative; vertical-align: middle; ">
-                   <button id="selectExpectedSettlementBtn" style="width: 100px; height: 30px; font-size: 20px; position: relative; vertical-align: middle; margin-left: 50px;">조회</button>
+                   <button id="selectExpectedSettlementBtn">조회</button>
                </div>
         </div>
         <br><br>
@@ -105,19 +154,19 @@
                 <table class="selectExpectedSettlementTable">
                     <tr>
                         <td style="width: 200px;">결제내역 합계 : </td>
-                        <td style="width: 300px;"><input type="text" name="totalSales">원</td> 
+                        <td style="width: 300px;"><input type="text" name="totalSales" readonly>원</td> 
                     </tr>
                     <tr>
                         <td>수수료 : </td>
-                        <td><input type="text" name="commissionBySales">원</td>
+                        <td><input type="text" name="commissionBySales" readonly>원</td>
                     </tr>
                     <tr>
                         <td>예상 정산 금액 : </td>
-                        <td><input type="text" name="settlementAmt">원</td>
+                        <td><input type="text" name="settlementAmt" readonly>원</td>
                     </tr>
                 </table>
                 <br>
-                <button id="settlementBtn" type="submit" style="width: 100px; height: 30px; font-size: 20px;">정산하기</button>
+                <button id="settlementBtn" type="submit">정산하기</button>
 	        </div>    
 		</form>
         
@@ -127,18 +176,18 @@
             <br>
             <table class="settlementListTable">
                 <tr>
-                    <td style="width: 180px">정산번호</td>
-                    <td style="width: 180px">정산시작일자</td> 
-                    <td style="width: 180px">정산종료일자</td>
-                    <td>매출액 (원)</td>
-                    <td style="width: 180px">수수료금액 (원)</td>
-                    <td style="width: 180px">정산금액 (원)</td>
-                    <td style="width: 180px">정산일자</td>
-                    <td style="width: 120px">정산여부</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">정산번호</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">정산시작일자</td> 
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">정산종료일자</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px;">매출액 (원)</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px;">수수료금액 (원)</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px;">정산금액 (원)</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">정산일자</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">정산여부</td>
                 </tr>
                 <c:if test="${ empty settlementList }">
                 	<tr>
-                		<td colspan="8"><h3 align="center">정산된 내역이 없습니다.</h3></td>
+                		<td colspan="8" style="font-family: 'SCDream-Regular'; font-size: 20px; height: 100px;">정산된 내역이 없습니다.</td>
                 	</tr>
                 </c:if>
                 
@@ -162,13 +211,13 @@
         </div>       <!-- settlementListDiv 종료 -->
         
         <div class="pagingArea" align="center">
-			<button id="startPage"><<</button>
+			<button id="startPage">◀◀</button>
 	
 			<c:if test="${ pageInfo.pageNo == 1 }">
-				<button disabled><</button>
+				<button disabled>◁</button>
 			</c:if>
 			<c:if test="${ pageInfo.pageNo > 1 }">
-				<button id="prevPage"><</button>
+				<button id="prevPage">◁</button>
 			</c:if>
 	
 			<c:forEach var="p" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1">
@@ -181,14 +230,14 @@
 			</c:forEach>
 	
 			<c:if test="${ pageInfo.pageNo == pageInfo.maxPage }">
-				<button disabled>></button>	
+				<button disabled>▷</button>	
 			</c:if>
 			<c:if test="${ pageInfo.pageNo < pageInfo.maxPage }">
-				<button id="nextPage">></button>
+				<button id="nextPage">▷</button>
 			</c:if>
 	
-			<button id="maxPage">>></button>
-		</div>	<!-- pagingAreaDiv 종료 -->
+			<button id="maxPage">▶▶</button>
+		</div> <!-- pagingAreaDiv 종료 -->
         
         
 	</div>	<!-- sectionDiv 종료-->
@@ -222,9 +271,9 @@
 									},
 							success:function(data){
 								if(data != null){
-									const totalSales = data.totalSales;
-									const commissionBySales = data.commissionBySales;
-									const settlementAmt = data.settlementAmt;
+									const totalSales = data.totalSales.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+									const commissionBySales = data.commissionBySales.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+									const settlementAmt = data.settlementAmt.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 									
 									$('input[name=totalSales]').attr('value',totalSales);
 									$('input[name=commissionBySales]').attr('value',commissionBySales);

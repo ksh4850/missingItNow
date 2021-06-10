@@ -19,7 +19,7 @@
         position: relative;
         float: right;
         width: 1650px;
-        min-height: 700px;
+        min-height: 1100px;
         /* border: 1px solid black; */
     }
     
@@ -30,12 +30,34 @@
         border-collapse: collapse;
         text-align: center;
         width: 1500px;
+        table-layout:fixed;
     }
 
     .paymentListTable td{
         border: 1px solid black;
-        font-size: 20px;
+        font-family: 'SCDream-Regular';
+        font-size: 16px;
         height: 50px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    
+    .pagingArea{
+    	position: absolute;
+    	left: 50%;
+    	transform: translateX(-50%);
+    	bottom: 0px;
+    }
+        
+    .pagingArea button{
+    	width: 40px;
+    	height: 40px;
+    	color: #775EEE;
+    	border: none;
+    	background: transparent;
+    	font-family: 'SCDream-Regular';
+    	font-size: 16px;
+    	font-weight: bold;
     }
     
     .footer{
@@ -59,15 +81,15 @@
         <div class="paymentListDiv" align="center">
             <table class="paymentListTable">
                 <tr>
-                    <td style="width: 180px">결제번호</td>
-                    <td style="width: 230px">결제수단</td>
-                    <td>결제 내용</td> 
-                    <td style="width: 180px">결제금액 (원)</td>
-                    <td style="width: 150px">결제일자</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">결제번호</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 230px">결제수단</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px;">결제 내용</td> 
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 180px">결제금액 (원)</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">결제일자</td>
                 </tr>
                 <c:if test="${ empty paymentList }">
                 	<tr>
-                		<td colspan="5"><h3 align="center">결제 내역이 없습니다.</h3></td>
+                		<td colspan="5"style="font-family: 'SCDream-Regular'; font-size: 20px; height: 100px;">결제 내역이 없습니다.</td>
                 	</tr>
                 </c:if>
                 
@@ -89,13 +111,13 @@
         </div>       <!-- paymentListDiv 종료 -->
         
         <div class="pagingArea" align="center">
-			<button id="startPage"><<</button>
+			<button id="startPage">◀◀</button>
 	
 			<c:if test="${ pageInfo.pageNo == 1 }">
-				<button disabled><</button>
+				<button disabled>◁</button>
 			</c:if>
 			<c:if test="${ pageInfo.pageNo > 1 }">
-				<button id="prevPage"><</button>
+				<button id="prevPage">◁</button>
 			</c:if>
 	
 			<c:forEach var="p" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1">
@@ -108,14 +130,14 @@
 			</c:forEach>
 	
 			<c:if test="${ pageInfo.pageNo == pageInfo.maxPage }">
-				<button disabled>></button>	
+				<button disabled>▷</button>	
 			</c:if>
 			<c:if test="${ pageInfo.pageNo < pageInfo.maxPage }">
-				<button id="nextPage">></button>
+				<button id="nextPage">▷</button>
 			</c:if>
 	
-			<button id="maxPage">>></button>
-		</div>	<!-- pagingAreaDiv 종료 -->
+			<button id="maxPage">▶▶</button>
+		</div> <!-- pagingAreaDiv 종료 -->
 	
 	</div>	<!-- sectionDiv 종료 -->
 	

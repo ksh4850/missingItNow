@@ -19,7 +19,7 @@
         position: relative;
         float: right;
         width: 1650px;
-        min-height: 700px;
+        min-height: 1100px;
         /* border: 1px solid black; */
     }
     
@@ -37,17 +37,66 @@
     	float: left;
     	margin-top: 50px;
     }
+    
+    #corpUserImgBtn{
+    	display: block;
+    	position: relative; 
+    	left: 50%;
+    	transform: translateX(-50%); 
+    	width: 150px;
+    	height: 40px;
+    	font-size: 20px;
+    	font-family: 'SCDream-Regular';
+    	color: white;
+    	background-color: #8877DA;
+    	border: none;
+    	border-radius: 10px;
+    	text-align: center;
+    	padding-top: 10px;
+    }
 	
     .updateCorpUserTable td{
     	/* border: 1px solid black; */
+    	font-family: 'SCDream-Regular';
         height: 60px;
         font-size: 20px;
     }
     
     .updateCorpUserTable input{
     	width: 300px; 
-    	height: 30px; 
+    	height: 30px;
     	font-size: 20px;
+    	border-color: #8877DA;
+    	border-radius: 10px;
+    	
+    }
+    
+    #searchZipCode{
+    	position: relative; 
+    	width: 100px;
+    	height: 40px;
+    	font-family: 'SCDream-Regular';
+    	font-size: 20px; 
+    	color: white;
+    	left: 30px;
+    	background-color: #8877DA;
+    	border: none;
+    	border-radius: 10px;
+    }
+    
+    #CorpUserInfoUpdateBtn {
+    	position: relative; 
+    	width: 200px; 
+    	height: 50px; 
+    	font-size: 20px; 
+    	color: white;
+    	font-family: 'SCDream-Regular';
+    	background-color: #8877DA;
+    	border: none;
+    	border-radius: 10px;
+    	left: 50%;
+    	transform: translateX(-50%);
+    	margin-top: 100px;
     }
     
     .footer{
@@ -73,12 +122,12 @@
             <form action="${ pageContext.servletContext.contextPath }/corpMng/updateCorpUserInfo" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="corpNo" value="${ corpUserInfo.corpNo }">
                 <div class="insertCorpUserImgDiv">
-                	<h2 align="center">프로필 이미지 등록</h2>
+                	<h2 style="font-family: 'SCDream-Regular';" align="center">프로필 이미지 등록</h2>
                 	<br>
                 	<img class="preview" id="preview" style="border: 1px solid black; width: 300px; height: 300px; margin: 0 auto; position: relative; left: 90px; border-radius: 100%;" 
-                	src="${ pageContext.servletContext.contextPath }/resources/corpUserImages/<c:if test="${ empty corpUserInfo.corpImg.corpImgRename }">CorpUserDefaultImg.PNG</c:if>${ corpUserInfo.corpImg.corpImgRename}">
+                		src="${ pageContext.servletContext.contextPath }/resources/corpUserImages/<c:if test="${ empty corpUserInfo.corpImg.corpImgRename }">CorpUserDefaultImg.PNG</c:if>${ corpUserInfo.corpImg.corpImgRename}">
                 	<br><br><br>
-                	<input type="file" name="corpUserImg" id="corpUserImg" onchange="loadImg(this);" style="position: relative; left: 190px; width: 105px; font-size: 20px;">
+                	<input type="file" name="corpUserImg" id="corpUserImg" onchange="loadImg(this);" hidden><label for="corpUserImg" id="corpUserImgBtn">이미지 선택</label>
                 </div>
                 
                 <table class="updateCorpUserTable">
@@ -117,7 +166,7 @@
                         <td style="text-align: right;">우편번호 : </td>
                         <td style="padding-left: 20px;">
                             <input type="text" name="corpAddress" id="zipCode" readonly required>
-                            <button type="button" id="searchZipCode" style="width: 100px; height: 40px; font-size: 20px; position: relative; left: 30px;">검색</button>
+                            <button type="button" id="searchZipCode">검색</button>
                         </td>
                     </tr>
                     <tr>
@@ -130,7 +179,7 @@
                     </tr>
                 </table>
                 <br><br><br>
-                <button type="submit" style="width: 200px; height: 50px; font-size: 20px; position: relative; left: 600px;">수정하기</button>
+                <button type="submit" id="CorpUserInfoUpdateBtn">수정하기</button>
             </form>
         </div>	<!-- updateCorpUserDiv 종료 -->
         

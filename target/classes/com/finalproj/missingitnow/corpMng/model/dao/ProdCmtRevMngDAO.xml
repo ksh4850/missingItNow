@@ -53,5 +53,55 @@
 		          ) E
 		 WHERE E.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
 	</select>
+	
+	<resultMap id="prodRevListResultSet" type="ProdRevListDTO">
+		<id property="reviewNo" column="REVIEW_NO"/>
+		<result property="prodNo" column="PROD_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="reviewDetails" column="REVIEW_DETAILS"/>
+		<result property="reviewScore" column="REVIEW_SCORE"/>
+		<result property="reviewDate" column="REVIEW_DATE"/>
+		<result property="" column=""/>
+				<association property="prodMngProduct" javaType="ProdMngProductDTO">
+			<id property="prodNo" column="PROD_NO"/>
+			<result property="prodName" column="PROD_NAME"/>
+			<result property="corpNo" column="CORP_NO"/>
+		</association>
+		<association property="user" javaType="UserDTO(forCorpMng)">
+			<id property="userNo" column="USER_NO"/>
+			<result property="userId" column="USER_ID"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectTotalProductRevList" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM TBL_PROD_REVIEW A
+		  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+		 WHERE B.CORP_NO = #{corpNo}
+	</select>
+	
+	<select id="selectProductRevList" resultMap="prodRevListResultSet" parameterType="hashmap">
+		SELECT E.*
+		  FROM (SELECT ROWNUM RNUM
+		             , D.*
+		          FROM (SELECT A.REVIEW_NO
+						     , A.REVIEW_DETAILS
+						     , A.REVIEW_SCORE
+						     , A.REVIEW_DATE
+						     , B.PROD_NO
+						     , B.CORP_NO
+						     , B.PROD_NAME
+						     , C.USER_NO
+						     , C.USER_ID
+						  FROM TBL_PROD_REVIEW A
+						  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+						  JOIN TBL_USER C ON (A.USER_NO = C.USER_NO)
+						 WHERE B.CORP_NO = 'CORP0001'
+						 ORDER BY A.REVIEW_DATE DESC) D
+		          ) E
+		 WHERE E.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+	</select>
+	
 
 </mapper>

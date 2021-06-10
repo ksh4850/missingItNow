@@ -23,7 +23,7 @@
         /* border: 1px solid black; */
     }
     
-    .prodCmtListTable{
+    .prodRevListTable{
         border: hidden;
         border-top: 1px solid black;
         border-bottom: 1px solid black;
@@ -32,8 +32,8 @@
         width: 1500px;
         table-layout:fixed;
     }
-
-    .prodCmtListTable td{
+    
+    .prodRevListTable td{
         border: 1px solid black;
         font-family: 'SCDream-Regular';
         font-size: 16px;
@@ -60,17 +60,6 @@
     	font-weight: bold;
     }
     
-    .prodComtReplyBtn {
-    	width: 100px; 
-    	height: 30px; 
-    	font-family: 'SCDream-Regular';
-    	font-size: 16px;
-    	color: white;
-    	background-color: #8877DA;
-    	border: none;
-    	border-radius: 10px;
-    }
-    
     .footer{
         width: 1920px;
         height: 100px;
@@ -78,49 +67,51 @@
         text-align: center;
     }
 </style>
+
 <body>
 	<!-- header jsp -->
 	<jsp:include page="corpMngHeader.jsp"/>
 	<!-- navi jsp -->
 	<jsp:include page="corpMngNavi.jsp"/>
 	
+	
 	<div class="section">
-        <h1 style="position: relative; left: 20px;">상품 문의</h1>
+        <h1 style="position: relative; left: 20px;">상품 리뷰 내역</h1>
         <hr width="1600px" align="left">
         <br><br>
 
-        <div class="prodCmtListDiv" align="center">
-            <table class="prodCmtListTable">
+        <div class="prodRevListDiv" align="center">
+            <table class="prodRevListTable">
                 <tr>
                     <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">상품번호</td>
                     <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 250px">상품명</td>
                     <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 180px">작성자</td>
-                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; ">문의 내용</td> 
-                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">문의 등록일</td>
-                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">답변여부</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px;">리뷰 내용</td> 
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">작성일</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">리뷰평점</td>
                 </tr>
-                <c:if test="${ empty productCmtList }">
+                <c:if test="${ empty productRevList }">
                 	<tr>
-                		<td colspan="6" style="font-family: 'SCDream-Regular'; font-size: 20px; height: 100px;">문의 내역이 없습니다.</td>
+                		<td colspan="6" style="font-family: 'SCDream-Regular'; font-size: 20px; height: 100px;">상품 리뷰 내역이 없습니다.</td>
                 	</tr>
                 </c:if>
                 
-                <c:forEach var="list" items="${ productCmtList }">
+                <c:forEach var="list" items="${ productRevList }">
                 <tr>
                     <td><c:out value="${ list.prodNo }"/></td>
                     <td style="text-align: left; padding-left: 20px;"><nobr><c:out value="${ list.prodMngProduct.prodName }"/></nobr></td>
                     <td><c:out value="${ list.user.userId }"/></td>
-                    <td style="text-align: left; padding-left: 20px;"><nobr><c:out value="${ list.prodComtDetails }"/></nobr></td>
-                    <td><c:out value="${ list.prodComtDate }"/></td>
+                    <td style="text-align: left; padding-left: 20px;"><c:out value="${ list.reviewDetails }"/></td>
+                    <td><c:out value="${ list.reviewDate }"/></td>
                     <td>
-                    	<c:if test="${ list.prodComtReplyChk eq 'Y' }">완료</c:if>
-                    	<c:if test="${ list.prodComtReplyChk eq 'N' }">
-                    		<button onclick="location.href=''" class="prodComtReplyBtn">답변하기</button>
-                    	</c:if>
+	                    <c:if test="${ list.reviewScore eq 5 }">★★★★★</c:if>
+	                    <c:if test="${ list.reviewScore eq 4 }">★★★★☆</c:if>
+	                    <c:if test="${ list.reviewScore eq 3 }">★★★☆☆</c:if>
+	                    <c:if test="${ list.reviewScore eq 2 }">★★☆☆☆</c:if>
+	                    <c:if test="${ list.reviewScore eq 1 }">★☆☆☆☆</c:if>
                     </td>
                 </tr>
                 </c:forEach>
-                
             </table>
         </div>       <!-- prodCmtListDiv 종료 -->
 		
@@ -162,7 +153,7 @@
 	</div>
 	
 	<script>
-		const link = "${ pageContext.servletContext.contextPath }/prodCmtRevMng/productCmtList";
+		const link = "${ pageContext.servletContext.contextPath }/prodCmtRevMng/productRevList";
 		
 		function pageButtonAction(text) {
 			location.href = link + "?currentPage=" + text;
