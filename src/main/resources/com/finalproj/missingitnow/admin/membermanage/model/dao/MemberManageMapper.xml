@@ -114,16 +114,16 @@
 			             <when test="largeSearchCondition == 'active'">
 			             	 <choose>
 					             <when test="smallSearchCondition == 'id'">
-									B.USER_ID LIKE '%' || #{ searchValue } || '%'
+									AND B.USER_ID LIKE '%' || #{ searchValue } || '%'
 								 </when>
 								 <when test="smallSearchCondition == 'name'">
-									B.USER_NAME LIKE '%' || #{ searchValue } || '%'
+									AND B.USER_NAME LIKE '%' || #{ searchValue } || '%'
 								 </when>
 								 <when test="smallSearchCondition == 'address'">
-									B.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
+									AND B.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
 								 </when>
 								 <when test="smallSearchCondition == 'contacts'">
-									B.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
+									AND B.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
 								 </when>
 							 </choose>
 							 AND B.USER_LEAVE_CHK = 'N'
@@ -146,16 +146,16 @@
 			             <when test="largeSearchCondition == 'leave'">
 				             <choose>
 					             <when test="smallSearchCondition == 'id'">
-									B.USER_ID LIKE '%' || #{ searchValue } || '%'
+									AND B.USER_ID LIKE '%' || #{ searchValue } || '%'
 								 </when>
 								 <when test="smallSearchCondition == 'name'">
-									B.USER_NAME LIKE '%' || #{ searchValue } || '%'
+									AND B.USER_NAME LIKE '%' || #{ searchValue } || '%'
 								 </when>
 								 <when test="smallSearchCondition == 'address'">
-									B.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
+									AND B.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
 								 </when>
 								 <when test="smallSearchCondition == 'contacts'">
-									B.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
+									AND B.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
 								 </when>
 							 </choose>
 							 AND B.USER_LEAVE_CHK = 'Y'
@@ -178,16 +178,16 @@
 			             <otherwise>
 				             <choose>
 					             <when test="smallSearchCondition == 'id'">
-									B.USER_ID LIKE '%' || #{ searchValue } || '%'
+									AND B.USER_ID LIKE '%' || #{ searchValue } || '%'
 								 </when>
 								 <when test="smallSearchCondition == 'name'">
-									B.USER_NAME LIKE '%' || #{ searchValue } || '%'
+									AND B.USER_NAME LIKE '%' || #{ searchValue } || '%'
 								 </when>
 								 <when test="smallSearchCondition == 'address'">
-									B.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
+									AND B.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
 								 </when>
 								 <when test="smallSearchCondition == 'contacts'">
-									B.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
+									AND B.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
 								 </when>
 							 </choose>
 							 <choose>
@@ -220,16 +220,16 @@
 	             <when test="largeSearchCondition == 'active'">
 	             	 <choose>
 			             <when test="smallSearchCondition == 'id'">
-							A.USER_ID LIKE '%' || #{ searchValue } || '%'
+							AND A.USER_ID LIKE '%' || #{ searchValue } || '%'
 						 </when>
 						 <when test="smallSearchCondition == 'name'">
-							A.USER_NAME LIKE '%' || #{ searchValue } || '%'
+							AND A.USER_NAME LIKE '%' || #{ searchValue } || '%'
 						 </when>
 						 <when test="smallSearchCondition == 'address'">
-							A.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
+							AND A.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
 						 </when>
 						 <when test="smallSearchCondition == 'contacts'">
-							A.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
+							AND A.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
 						 </when>
 					 </choose>
 					 AND A.USER_LEAVE_CHK = 'N'
@@ -252,16 +252,16 @@
 	             <when test="largeSearchCondition == 'leave'">
 		             <choose>
 			             <when test="smallSearchCondition == 'id'">
-							A.USER_ID LIKE '%' || #{ searchValue } || '%'
+							AND A.USER_ID LIKE '%' || #{ searchValue } || '%'
 						 </when>
 						 <when test="smallSearchCondition == 'name'">
-							A.USER_NAME LIKE '%' || #{ searchValue } || '%'
+							AND A.USER_NAME LIKE '%' || #{ searchValue } || '%'
 						 </when>
 						 <when test="smallSearchCondition == 'address'">
-							A.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
+							AND A.USER_ADDRESS LIKE '%' || #{ searchValue } || '%'
 						 </when>
 						 <when test="smallSearchCondition == 'contacts'">
-							A.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
+							AND A.USER_CONTACTS LIKE '%' || #{ searchValue } || '%'
 						 </when>
 					 </choose>
 					 AND A.USER_LEAVE_CHK = 'Y'
@@ -349,19 +349,19 @@
          </choose>
          <choose>
 	         <when test="search.smallSearchCondition == 'prodName'">
-				C.PROD_NAME LIKE '%' || #{ search.searchValue } || '%'
+				AND C.PROD_NAME LIKE '%' || #{ search.searchValue } || '%'
 			 </when>
 			 <when test="search.smallSearchCondition == 'prodNo'">
-				C.PROD_NO LIKE '%' || #{ search.searchValue } || '%'
+				AND C.PROD_NO LIKE '%' || #{ search.searchValue } || '%'
 			 </when>
 			 <when test="search.smallSearchCondition == 'orderNo'">
-				A.ORDER_NO LIKE '%' || #{ search.searchValue } || '%'
+				AND A.ORDER_NO LIKE '%' || #{ search.searchValue } || '%'
 			 </when>
 			 <when test="search.smallSearchCondition == 'corpId'">
-				B.CORP_ID LIKE '%' || #{ search.searchValue } || '%'
+				AND B.CORP_ID LIKE '%' || #{ search.searchValue } || '%'
 			 </when>
 			 <when test="search.smallSearchCondition == 'corpName'">
-				B.CORP_NAME LIKE '%' || #{ search.searchValue } || '%'
+				AND B.CORP_NAME LIKE '%' || #{ search.searchValue } || '%'
 			 </when>
 		 </choose>
 	</select>
@@ -373,6 +373,7 @@
    	         , A.CORP_NAME
    	         , A.PROD_NAME
    	         , A.PROD_CTG_NAME
+   	         , A.PROD_CTG_NO
    	         , A.USER_NO
    	         , A.ORDER_PRICE
    	         , A.ORDER_DATE
@@ -384,6 +385,7 @@
 	    	          , B.CORP_NAME
 	    	          , B.PROD_NAME
 	    	          , B.PROD_CTG_NAME
+	    	          , B.PROD_CTG_NO
 	    	          , B.USER_NO
 	    	          , B.ORDER_PRICE
 	    	          , B.ORDER_DATE
@@ -394,6 +396,7 @@
 	    			           , D.CORP_NAME
 	    			           , E.PROD_NAME
 	    			           , F.PROD_CTG_NAME
+	    			           , F.PROD_CTG_NO
 	    			           , G.USER_NO
 	    			           , C.ORDER_PRICE
 	    			           , C.ORDER_DATE

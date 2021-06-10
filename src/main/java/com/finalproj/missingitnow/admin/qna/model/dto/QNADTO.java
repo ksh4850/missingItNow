@@ -3,6 +3,8 @@ package com.finalproj.missingitnow.admin.qna.model.dto;
 import java.io.Serializable;
 import java.sql.Date;
 
+import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
+
 public class QNADTO implements Serializable{
 
 	private static final long serialVersionUID = -7645546289609771225L;
@@ -19,10 +21,11 @@ public class QNADTO implements Serializable{
 	private int hits;
 	
 	private UserDTO user;
+	private CorpUserDTO corpUser;
 	
 	public QNADTO() {}
 	public QNADTO(String no, String userNo, String title, String details, Date date, String reply, Date replyDate,
-			String replyChk, String status, int hits, UserDTO user) {
+			String replyChk, String status, int hits, UserDTO user, CorpUserDTO corpUser) {
 		this.no = no;
 		this.userNo = userNo;
 		this.title = title;
@@ -34,6 +37,7 @@ public class QNADTO implements Serializable{
 		this.status = status;
 		this.hits = hits;
 		this.user = user;
+		this.corpUser = corpUser;
 	}
 	
 	public String getNo() {
@@ -102,12 +106,18 @@ public class QNADTO implements Serializable{
 	public void setUser(UserDTO user) {
 		this.user = user;
 	}
-	
+	public CorpUserDTO getCorpUser() {
+		return corpUser;
+	}
+	public void setCorpUser(CorpUserDTO corpUser) {
+		this.corpUser = corpUser;
+	}
+
 	@Override
 	public String toString() {
 		return "QNADTO [no=" + no + ", userNo=" + userNo + ", title=" + title + ", details=" + details + ", date="
 				+ date + ", reply=" + reply + ", replyDate=" + replyDate + ", replyChk=" + replyChk + ", status="
-				+ status + ", hits=" + hits + ", user=" + user + "]";
+				+ status + ", hits=" + hits + ", user=" + user + ", corpUser=" + corpUser + "]";
 	}
 	
 }

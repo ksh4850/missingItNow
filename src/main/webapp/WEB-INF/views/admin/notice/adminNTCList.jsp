@@ -110,11 +110,11 @@
 <body>
 
     <header>
-
+		<jsp:include page="../../common/corpMngHeader.jsp"/>
     </header>
 
     <aside>
-
+		<jsp:include page="../../common/corpMngNavi.jsp"/>
     </aside>
     <section>
         <div class="system-notice-head">공지사항 관리</div>
@@ -236,21 +236,12 @@
 	});
 	
 	function pageButtonAction(text){
-		location.href = link + "?currentPage=" + text + "&searchWriteDateStart="
+		location.href = pageLink + "?currentPage=" + text + "&searchWriteDateStart="
 		+ document.getElementsByName("searchWriteDateStart")[0].value
 		+ "&searchWriteDateEnd=" + document.getElementsByName("searchWriteDateEnd")[0].value
 		+ "&searchCondition=" + document.getElementsByName("searchCondition")[0].value
 		+ "&searchValue=" + document.getElementsByName("searchValue")[0].value;
 	};
-	
-	function getFormatDate(date){
-	    var year = date.getFullYear();              
-	    var month = (1 + date.getMonth());          
-	    month = month >= 10 ? month : '0' + month;  
-	    var day = date.getDate();                   
-	    day = day >= 10 ? day : '0' + day;          
-	    return  year + '-' + month + '-' + day;       
-	}
 </script>
 </body>
 </html>

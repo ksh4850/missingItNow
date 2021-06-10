@@ -88,7 +88,14 @@
 				<c:forEach items="${ qnaList }" var="qna">
 					<tr>
 						<td><input type="hidden" value="${ qna.no }"/><c:out value="${ qna.title }"/></td>
-						<td><c:out value="${ qna.user.name }"/></td>
+						<td>
+							<c:if test="${ qna.user.name ne null}">
+								<c:out value="${ qna.user.name }"/>
+							</c:if>
+							<c:if test="${ qna.user.name eq null}">
+								<c:out value="${ qna.corpUser.corpName }"/>
+							</c:if>
+						</td>
 						<td><c:out value="${ qna.date }" /></td>
 					</tr>
 				</c:forEach>

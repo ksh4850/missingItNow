@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <%-- <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css"> --%>
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin_main.css">
     <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
     <style>
@@ -115,11 +115,11 @@
 </head>
 <body>
     <header>
-
+		<jsp:include page="../../common/corpMngHeader.jsp"/>
     </header>
 
     <aside>
-
+		<jsp:include page="../../common/corpMngNavi.jsp"/>
     </aside>
     <section>
         <div class="system-settlement-head">정산내역</div>
@@ -218,6 +218,9 @@
         </div>
     </section>
 <script>
+
+var link = "${ pageContext.servletContext.contextPath }/admin/settlement/breakdown";
+
 function pageButtonAction(text){
 	location.href = link + "?currentPage=" + text + "&searchWriteDateStart="
 	+ document.getElementsByName("searchWriteDateStart")[0].value

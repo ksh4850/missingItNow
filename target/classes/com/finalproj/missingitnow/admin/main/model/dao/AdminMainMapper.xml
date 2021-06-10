@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.finalproj.missingitnow.admin.main.model.dao.AdminMainMapper">
+	<!-- 일반회원 셀렉 -->
+	<select id="selectTotalUserCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_USER
+	</select>
+	<select id="selectTodayRegistUserCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_USER A
+	     WHERE A.USER_REGST_DATE = SYSDATE
+	</select>
+	<select id="selectUnpurchasedUserCount" resultType="_int">
+	    SELECT
+               COUNT(*)
+          FROM ( SELECT
+                        A.USER_NO
+                   FROM TBL_USER A
+          
+                 MINUS
+        
+                 SELECT
+                        A.USER_NO
+                   FROM TBL_ORDER A
+                  GROUP BY A.USER_NO
+               )
+	</select>
+	<select id="selectHighRateRefundUserCount" resultType="_int">
+	    SELECT
+		       COUNT(*)
+		  FROM TBL_USER A
+		 WHERE A.USER_NO IN (SELECT
+		                            B.USER_NO
+		                       FROM TBL_USER B
+		                       JOIN V_ALL_ORDER_COUNT C ON(B.USER_NO = C.유저)
+		                       JOIN V_ALL_RETURN_COUNT D ON(B.USER_NO = D.유저)
+		                       JOIN V_ALL_REFUND_COUNT E ON(B.USER_NO = E.유저)
+		                      WHERE B.USER_NO NOT IN(SELECT
+									                        A.USER_NO
+									                   FROM TBL_USER A
+									          
+									                 MINUS
+									        
+									                 SELECT
+									                        A.USER_NO
+									                   FROM TBL_ORDER A
+									                  GROUP BY A.USER_NO
+									                )
+		                        AND ((E.환불횟수 + D.반품횟수) / C.주문횟수) >= 0.3
+		                    )
+	</select>
+	<select id="selectReportedUserCount" resultType="_int">
+	
+	</select>
+	
+	<!-- 기업회원 셀렉 -->
+	<select id="selectTotalCorpUserCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_CORP_USER
+	</select>
+	<select id="selectUnacceptedCorpUserCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_CORP_USER A
+	     WHERE A.CORP_REGST_ACCEPTED = 'N'
+	</select>
+	<select id="selectTodayRegistCorpUserCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_CORP_USER A
+	     WHERE A.CORP_REGST_DATE = SYSDATE
+	</select>
+	<select id="selectReportedCorpUserCount" resultType="_int">
+	
+	</select>
+	<select id="selectBlackListCorpUserCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_CORP_USER A
+	     WHERE A.CORP_LV_NO = 'BLACK'
+	</select>
+	
+	<!-- Q&A 셀렉 -->
+	<select id="selectTotalQNACount" resultType="_int">
+	    SELECT
+               COUNT(*)
+	      FROM TBL_QNA A
+	</select>
+	<select id="selectTotalAnsweredCount" resultType="_int">
+	    SELECT
+               COUNT(*)
+	      FROM TBL_QNA A
+	     WHERE A.QNA_REPLY_CHK = 'Y'
+	</select>
+	<select id="selectTotalNonAnswerCount" resultType="_int">
+	    SELECT
+               COUNT(*)
+	      FROM TBL_QNA A
+	     WHERE A.QNA_REPLY_CHK = 'N'
+	</select>
+	<select id="selectTotalNonAnswerUserQuestionCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_QNA A
+	     WHERE SUBSTR(A.USER_NO, 0, 4) = 'USER'
+	       AND A.QNA_REPLY_CHK = 'N'
+	</select>
+	<select id="selectTotalNonAnswerCorpUserQuestionCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_QNA A
+	     WHERE SUBSTR(A.USER_NO, 0, 4) = 'CORP'
+	       AND A.QNA_REPLY_CHK = 'N'
+	</select>
+	
+	<!-- 정산신청현황 셀렉 -->
+	<select id="selectTotalSettlementCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_SETTLEMENT
+	</select>
+	<select id="selectUnsettlementCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_SETTLEMENT A
+	     WHERE A.SETTLEMENT_CHK = 'N'
+	</select>
+	<select id="selectShortPeriodSettlementCount" resultType="_int">
+	    <![CDATA[
+		    SELECT
+	               COUNT(*)
+	          FROM TBL_SETTLEMENT A
+	         WHERE A.SETTLEMENT_END_DATE - A.SETTLEMENT_START_DATE < 7
+		]]>
+	</select>
+	<select id="selectLargeAmountSettlementCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_SETTLEMENT A
+	     WHERE A.TOTAL_SALES >= 10000000
+	</select>
+	<select id="selectTodaySettlementCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_SETTLEMENT A
+	     WHERE A.SETTLEMENT_DATE = SYSDATE
+	</select>
+	
+	<!-- 주문현황 셀렉 -->
+	<select id="selectTotalOrderCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_ORDER A
+	</select>
+	<select id="selectLastMonthOrderCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_ORDER A
+	     WHERE A.ORDER_DATE > SYSDATE - 7
+	</select>
+	<select id="selectRefundOrReturnOrderCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_ORDER A
+	      LEFT JOIN TBL_DELIVERY B ON(A.ORDER_NO = B.ORDER_NO)
+	      LEFT JOIN TBL_RETURN C ON(B.DELIVERY_NO = C.DELIVERY_NO)
+	     WHERE A.ORDER_STATUS = 'N'
+	        OR C.RETURN_NO IS NOT NULL
+	</select>
+	<select id="selectDeliveringOrderCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_ORDER A
+	     WHERE A.DEALING_STATUS = '배송중'
+	       AND A.ORDER_STATUS = 'Y'
+	</select>
+	<select id="selectWaitingDepositOrderCount" resultType="_int">
+	    SELECT
+	           COUNT(*)
+	      FROM TBL_ORDER A
+	     WHERE A.DEALING_STATUS = '입금대기'
+	       AND A.ORDER_STATUS = 'Y'
+	</select>
+	
+	<!-- 수수료 셀렉 -->
+	<select id="selectTotalCommission" resultType="_int">
+	    SELECT
+	           NVL(SUM(COMMISSION_BY_SALES), 0)
+	      FROM TBL_SETTLEMENT A
+	     WHERE A.SETTLEMENT_CHK = 'Y' 
+	</select>
+	<select id="selectCommissionRate" resultType="_int">
+	    
+	</select>
+	<select id="selectLastMonthCommission" resultType="_int">
+	    SELECT
+	           NVL(SUM(COMMISSION_BY_SALES), 0)
+	      FROM TBL_SETTLEMENT A
+	     WHERE A.SETTLEMENT_CHK = 'Y'
+	       AND A.SETTLEMENT_DATE >= SYSDATE - 30
+	</select>
+	<select id="selectLastWeekCommission" resultType="_int">
+	    SELECT
+	           NVL(SUM(COMMISSION_BY_SALES), 0)
+	      FROM TBL_SETTLEMENT A
+	     WHERE A.SETTLEMENT_CHK = 'Y'
+	       AND A.SETTLEMENT_DATE >= SYSDATE - 7
+	</select>
+	<select id="selectLastDayCommission" resultType="_int">
+	    SELECT
+	           NVL(SUM(COMMISSION_BY_SALES), 0)
+	      FROM TBL_SETTLEMENT A
+	     WHERE A.SETTLEMENT_CHK = 'Y'
+	       AND A.SETTLEMENT_DATE >= SYSDATE - 1
+	</select>
+</mapper>

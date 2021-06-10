@@ -101,11 +101,11 @@
 </head>
 <body>
     <header>
-
+		<jsp:include page="../../common/corpMngHeader.jsp"/>
     </header>
 
     <aside>
-
+		<jsp:include page="../../common/corpMngNavi.jsp"/>
     </aside>
     <section>
         <div class="system-user-head">회원정보</div>

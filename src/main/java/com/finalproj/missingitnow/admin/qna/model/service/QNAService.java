@@ -18,11 +18,11 @@ public interface QNAService {
 
 	List<QNADTO> selectAllList(DetailSearchDTO search);
 
-	QNADTO selectDetail(int no);
+	QNADTO selectDetail(String no);
 
 	QNADTO updateQNA(QNADTO qnaDTO);
 
-	int deleteQNA(int no);
+	int deleteQNA(String no);
 
 	int updateResponse(QNADTO qnaDTO);
 

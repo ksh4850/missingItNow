@@ -107,18 +107,18 @@
 </head>
 <body>
     <header>
-
+		<jsp:include page="../../common/corpMngHeader.jsp"/>
     </header>
 
     <aside>
-
+		<jsp:include page="../../common/corpMngNavi.jsp"/>
     </aside>
     <section>
         <div class="system-purchase-head">구매내역</div>
         <br>
         <div class="system-purchase-searchBar">
-            <form action="${ pageContext.servletContext.contextPath }/admin/userManage/list" id="userSearchForm" method="GET">
-            <input type="hidden" id="userNo" value="${ orderSearch.no }">
+            <form action="${ pageContext.servletContext.contextPath }/admin/userManage/purchase/list" id="purchaseSearchForm" method="GET">
+            <input type="hidden" id="userNo" name="no" value="${ orderSearch.no }">
         	<input type="date" id="searchWriteDateStart" name="searchWriteDateStart" value=<c:if test="${ orderSearch.search.searchWriteDateStart ne null }">"${ orderSearch.search.searchWriteDateStart }"</c:if>> ~
             <input type="date" id="searchWriteDateEnd" name="searchWriteDateEnd" value=<c:if test="${ orderSearch.search.searchWriteDateEnd ne null }">"${ orderSearch.search.searchWriteDateEnd }"</c:if>>
             <select name="largeSearchCondition">
@@ -210,5 +210,19 @@
             </table>
         </div>
     </section>
+<script>
+
+var no = $("#userNo").val();
+var link = "${ pageContext.servletContext.contextPath }/admin/userManage/purchase/list?no=" + no;
+
+function pageButtonAction(text){
+	location.href = link + "&currentPage=" + text + "&searchWriteDateStart="
+	+ document.getElementsByName("searchWriteDateStart")[0].value
+	+ "&searchWriteDateEnd=" + document.getElementsByName("searchWriteDateEnd")[0].value
+	+ "&largeSearchCondition=" + document.getElementsByName("largeSearchCondition")[0].value
+	+ "&smallSearchCondition=" + document.getElementsByName("smallSearchCondition")[0].value
+	+ "&searchValue=" + document.getElementsByName("searchValue")[0].value;
+};
+</script>
 </body>
 </html>

@@ -99,7 +99,7 @@ public class AdminQNAController {
 	public String adminQNARegist(@ModelAttribute QNADTO qnaDTO, HttpServletRequest request, RedirectAttributes rttr) {
 		
 		System.out.println(qnaDTO);
-		HttpSession session = request.getSession();
+		/* HttpSession session = request.getSession().getAttribute("loginMember"); */
 		
 		if(qnaService.insertQNA(qnaDTO)) {
 			
@@ -184,7 +184,7 @@ public class AdminQNAController {
 	@GetMapping("/response")
 	public String adminQNAResponsePage(@ModelAttribute QNADTO qnaDTO, Model model) {
 		
-		QNADTO qna = qnaService.selectDetail(Integer.valueOf(qnaDTO.getNo()));
+		QNADTO qna = qnaService.selectDetail(qnaDTO.getNo());
 		
 		model.addAttribute("qna", qna);
 		
@@ -220,7 +220,7 @@ public class AdminQNAController {
 		
 		System.out.println(request.getParameter("qnaNo"));
 		
-		int no = Integer.valueOf(request.getParameter("qnaNo"));
+		String no = request.getParameter("qnaNo");
 		
 		QNADTO qna = qnaService.selectDetail(no);
 		
@@ -262,7 +262,7 @@ public class AdminQNAController {
 	@GetMapping("/delete")
 	public String adminQNADelete(@ModelAttribute QNADTO qnaDTO, RedirectAttributes rttr) {
 		
-		int no = Integer.valueOf(qnaDTO.getNo());
+		String no = qnaDTO.getNo();
 		
 		if(qnaService.deleteQNA(no) == 1) {
 			

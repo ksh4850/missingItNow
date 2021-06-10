@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin/bootstrap.css">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -85,6 +85,9 @@
 <body>
     <div class="nav">
         <ul class="asideMenu">
+            <li class="menu" id="subMenu" class="collapse subMenu" data-parent=".nav">
+                <div class="btn" id="main">메인</div>
+            </li>
             <li class="menu" id="settlement">
                 <div class="btn" data-toggle="collapse" data-target="#subMenuOne">정산관리</div>
                 <div id="subMenuOne" class="collapse subMenu" data-parent=".nav">
@@ -111,6 +114,12 @@
         </ul>
     </div>
 <script>
+	$("#main").click(function(){
+		
+		location.href="${ pageContext.servletContext.contextPath }/admin/main";
+		
+	});
+	
 	$("#settlementBreakdown").click(function(){
 		
 		location.href="${ pageContext.servletContext.contextPath }/admin/settlement/breakdown";

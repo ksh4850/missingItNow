@@ -18,13 +18,13 @@ public interface QNAMapper{
 
 	List<QNADTO> selectAllList(DetailSearchDTO search);
 
-	int increamentBoardCount(int no);
+	int increamentBoardCount(String no);
 
-	QNADTO selectDetail(int no);
+	QNADTO selectDetail(String no);
 
 	int updateQNA(QNADTO qnaDTO);
 
-	int deleteQNA(int no);
+	int deleteQNA(String no);
 
 	int updateResponse(QNADTO qnaDTO);
 

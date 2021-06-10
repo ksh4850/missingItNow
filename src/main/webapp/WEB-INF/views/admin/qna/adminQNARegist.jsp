@@ -13,7 +13,7 @@
             margin-left: 20px;
             font-size: 30px;
             padding: 15px;
-            border-bottom: 2px solid rgb(119, 94, 238) ;
+            border-bottom: 2px solid rgb(119, 94, 238);
             color: rgb(119, 94, 238);
 
         }

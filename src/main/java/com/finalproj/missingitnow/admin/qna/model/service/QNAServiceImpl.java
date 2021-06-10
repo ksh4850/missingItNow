@@ -64,22 +64,9 @@ public class QNAServiceImpl implements QNAService{
 	}
 
 	@Override
-	public QNADTO selectDetail(int no) {
-		
-		QNADTO qna = null;
-		if(mapper.increamentBoardCount(no) == 1) {
-			
-			qna = mapper.selectDetail(no);
-			
-		}
-		
-		return qna;
-	}
-
-	@Override
 	public QNADTO updateQNA(QNADTO qnaDTO) {
 		
-		int no = Integer.valueOf(qnaDTO.getNo());
+		String no = qnaDTO.getNo();
 		
 		QNADTO qna = null;
 		
@@ -94,7 +81,7 @@ public class QNAServiceImpl implements QNAService{
 	}
 
 	@Override
-	public int deleteQNA(int no) {
+	public int deleteQNA(String no) {
 		
 		return mapper.deleteQNA(no);
 		
@@ -116,6 +103,20 @@ public class QNAServiceImpl implements QNAService{
 		System.out.println(result);
 		
 		return result;
+		
+	}
+
+	@Override
+	public QNADTO selectDetail(String no) {
+		
+		QNADTO qna = null;
+		if(mapper.increamentBoardCount(no) == 1) {
+			
+			qna = mapper.selectDetail(no);
+			
+		}
+		
+		return qna;
 		
 	}
 
