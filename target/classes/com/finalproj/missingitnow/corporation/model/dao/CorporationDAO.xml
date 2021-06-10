@@ -85,6 +85,27 @@
 		)
 	</insert> -->
 	
+	<select id="idCheck" resultMap="CorpMemberResultSet">
+		SELECT 
+		       CORP_NO
+             , CORP_ID
+             , CORP_PWD
+             , CORP_NAME
+             , CORP_CONTACTS
+             , CORP_ADDRESS
+             , CORP_EMAIL
+             , CORP_REGISTRATION_NO
+             , CORP_LV_NO
+             , CORP_COMMISSION
+             , DEPOSIT_AMT
+             , CORP_REGST_DATE
+             , CORP_REGST_ACCEPTED
+             , CORP_LEAVE_CHK
+		  FROM TBL_CORP_USER A
+		 WHERE A.CORP_LEAVE_CHK='N'
+	</select>  
+	
+	
 </mapper>
 
 

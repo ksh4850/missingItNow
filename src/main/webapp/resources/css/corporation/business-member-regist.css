@@ -47,6 +47,14 @@ button{
     margin-right: 10px;
     float: left;
 }
+.input-label1{
+    width: 250px;
+    height: 32px;
+    text-align: left;
+    line-height: 32px;
+    margin-right: 400px;
+    float: right;
+}
 
 #memberRegistForm > div > input{
 
