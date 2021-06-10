@@ -11,6 +11,99 @@
 <script src="/missingitnow/resources/js/member/myPageNav.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
+
+<style>
+	
+	
+	/******************************************/
+	
+	#totalForm {
+        margin: 100px auto;
+        display: flex;
+        justify-content: center;
+        /* align-items: center; */
+    }
+	
+	.leftDiv {
+    	background-color : rgba(119, 94, 238, 0.75);
+    	margin-top:150px;
+        margin-bottom:10px;
+        border-radius: 15px;
+        width:430px;
+        height:490px;
+    }
+	
+	.myPageNavTable{		
+		margin-left:0;
+		margin-top:-30px;		
+		text-align: left;
+		font-size:30px;
+		width: 430px;
+		height: 450px;
+	}
+
+
+	.titleTable{
+		margin-left:1000px;
+		height:100px;
+		text-align: center;
+		vertical-align: bottom;	
+	}
+	
+	.titleColorBox{	
+		background-color: rgba(119, 94, 238, 0.7);
+		color:#fff;
+		font-size:30px;
+		vertical-align: bottom;	
+	}
+	
+	.titleNonColor{
+		font-size:30px;
+		vertical-align: bottom;
+	}
+	
+	.welcomeTd{
+
+	font-size:20px;
+	color:#ffff;
+	}
+	
+	#colorBox{
+        position: relative;      
+        background-color: rgba(119, 94, 238, 0.33);
+        width:900px;
+        height: 900px;
+    }
+    
+    #rightDiv {
+        position: absolute;
+    	width:800px;
+    	heignt:1200px;
+    	background: #FBF9F9;
+		border: 0.2px solid #000000;
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+		border-radius: 10px;
+    	margin-left:630px;
+        margin-top:100px;
+    }
+	
+	
+	.centerBlank{
+		width:200px;
+			
+	}
+	
+	section{
+	
+		height:750px;
+	}
+	
+	
+	/******************************************/
+	
+</style>
+
+
 </head>
 
 
@@ -42,6 +135,8 @@
     	
     
     		<div class="leftDiv">
+    		
+    		
                 <table class="myPageNavTable">
                     <tr>
                     <td align="center"><br>  <i id="userImg" class="fas fa-user"></i> <!--프로필 사진 영역-->
@@ -105,6 +200,8 @@
             
         </div>
         
+        <div class="centerBlank"><br></div>
+        
         
         <div id="colorBox">
     
@@ -129,7 +226,7 @@
                     </tr>
                     
                     <!-- DB와 트랜젝션 완성후 foreach 구문으로 바꿀 것 -->
-                    <c:set var = "total" value="0"/>
+                    
                     <c:forEach items="${purchaseList}" var="purchase">
                     	<tr>
                     	<td align="center"><input type=checkbox class="chk"></td>
@@ -139,7 +236,7 @@
                     	<td><c:out value="${purchase.productDTO.prodName}"/></td>
                     	<td><c:out value="${purchase.orderDTO.orderPrice}"/></td>
                     	<td>
-                    	<button type="button" class="deleteBtn" data-cartNum="${cart.wishListNo}"><i class="far fa-trash-alt"></i></button>
+                    	<button type="button" class="deleteBtn" data-cartNum="${cart.wishListNo}"></button>
                     	</td>
                     	</tr>
                     	
@@ -147,34 +244,7 @@
                     	
                     </c:forEach>                    
 					
-					<tr><td><br></td></tr>
 					
-                    <tr>
-                    	<td></td>
-                        <td colspan="4" class="calculateTd">총계 : <c:out value="${total}"/>원 </td>
-
-                    </tr>
-                    <tr>
-						<td></td>
-                        <td colspan="4" class="calculateTd">할인 금액 : <a class="pointColorFont"> xxxx원</a></td>
-
-                    </tr>
-                    <tr>
-						<td></td>
-                        <td colspan="4" class="calculateTd">최종 결제 금액 : <a class="redColorFont">xxxx원</a></td>
-                    </tr>
-					
-					<tr><td class="upperPaymentTd">&nbsp;</td></tr>
-					
-					<tr>
-					<td></td>
-					<td colspan="4" class="paymentTd">
-						
-						<button class="paymentBtn" type="submit">결제하기 </button> 
-					
-					
-					</td>
-					</tr>
                     
 
 
