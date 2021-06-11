@@ -20,7 +20,7 @@
         position: relative;
         float: right;
         width: 1650px;
-        min-height: 700px;
+        min-height: 1100px;
         /* border: 1px solid black; */
     }
     
@@ -28,18 +28,31 @@
         margin: 0 auto;
         /* border: 1px solid black; */
         /* border-radius: 15px; */
-        width: 1300px;
+        width: 1250px;
         height: 800px;
     }
+    
+    .salesStatTitle p{
+	   	font-family: 'SCDream-Medium'; 
+	   	font-size: 24px; 
+	   	position: relative; 
+	   	left: 20px; 
+	   	top: 20px; 
+	   	display: inline-block;
+	}
 
     .salesStatTitle button{
-        float: right;
         position: relative;
+        float: right;
         top: 40px;
-        margin-right: 20px;
         width: 80px;
         height: 40px;
-        font-size: 18px;
+        margin-right: 20px;
+        font-family: 'SCDream-Regular';
+        font-size: 20px;
+        background: transparent;
+    	border: 1px solid #775EEE;
+    	border-radius: 10px;
     }
 
     .salesStatDetails {
@@ -65,13 +78,13 @@
 	<jsp:include page="corpMngNavi.jsp"/>
 
 	<div class="section">
-		<h1 style="position: relative; left: 20px;">통계 관리</h1>
+		<h1 style="font-family: 'SCDream-Medium'; font-size: 40px; position: relative; left: 20px;">통계 관리</h1>
         <hr width="1600px" align="left">
         <br>
 
         <div class="salesStatDiv">
             <div class="salesStatTitle">
-                <h2 style="position: relative; left: 20px; top: 20px; display: inline-block;">일별/주별/월별 매출 통계</h2>
+                <p>일별/주별/월별 매출 통계</p>
                 <button id="monthlyStatBtn">월별</button>
                 <button id="weeklyStatBtn">주별</button>
                 <button id="dailyStatBtn">일별</button>
@@ -83,51 +96,51 @@
             	<div id="monthlyStatDiv" style="width: 1200px; height: 600px; margin: 0 auto; padding-top: 10px;" hidden></div>
             </div>
         </div>
-        <br><br>
+        <br>
 
         <div class="salesStatDiv">
             <div class="salesStatTitle">
-                <h2 style="position: relative; left: 20px; top: 20px;">카테고리별 매출 통계</h1>
+                <p>카테고리별 매출 통계</p>
             </div>
             <br>
             <div class="salesStatDetails">
                 <div id="categoryStatDiv" style="width: 1200px; height: 600px; margin: 0 auto; padding-top: 10px;"></div>
             </div>
         </div>
-        <br><br>
+        <br>
 
         <div class="salesStatDiv">
             <div class="salesStatTitle">
-                <h2 style="position: relative; left: 20px; top: 20px;">상품별 매출 통계</h1>
+                <p>상품별 매출 통계</p>
             </div>
             <br>
             <div class="salesStatDetails">
                 <h1 align="center"> 데이터 insert 이후 작업 예정 </h1>
             </div>
         </div>
-        <br><br>
+        <br>
         
         <div class="salesStatDiv">
             <div class="salesStatTitle">
-                <h2 style="position: relative; left: 20px; top: 20px;">나이대별 매출 통계</h1>
+                <p>나이대별 매출 통계</p>
             </div>
             <br>
             <div class="salesStatDetails">
                 <h1 align="center"> 데이터 insert 이후 작업 예정 </h1>
             </div>
         </div>
-        <br><br>
+        <br>
 
         <div class="salesStatDiv">
             <div class="salesStatTitle">
-                <h2 style="position: relative; left: 20px; top: 20px;">지역별 매출 통계</h1>
+                <p>지역별 매출 통계</p>
             </div>
             <br>
             <div class="salesStatDetails">
                 <h1 align="center"> 데이터 insert 이후 작업 예정 </h1>
             </div>
         </div>
-        <br><br>
+        <br>
         
 	</div>	<!-- section Div 종료-->
 	

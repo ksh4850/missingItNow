@@ -30,7 +30,7 @@
         border: 3px solid #8877DA;
         border-radius: 20px;
         width: 800px;
-        height: 250px;
+        height: 270px;
     }
 
     .depositChargeTable{
@@ -42,15 +42,15 @@
     .depositChargeTable td{
         border: none;
         font-family: 'SCDream-Regular';
-        height: 60px;
+        height: 70px;
         font-size: 20px;
     }
 
     .depositChargeTable input{
         width: 200px; 
-        height: 30px;
+        height: 40px;
         font-family: 'SCDream-Regular';  
-        font-size: 18px; 
+        font-size: 22px; 
         position: relative;
         text-align: right;
         right: 10px;
@@ -78,7 +78,7 @@
     }
 
     .depositListTable td{
-        border: 1px solid black;
+        border: 2px solid darkgray;
         font-family: 'SCDream-Regular';
         font-size: 16px;
         height: 50px;
@@ -125,7 +125,7 @@
 	<jsp:include page="corpMngNavi.jsp"/>
 	
 	<div class="section">
-		<h1 style="position: relative; left: 20px;">예치금 충전</h1>
+		<h1 style="position: relative; left: 20px; font-family: 'SCDream-Medium'; font-size: 40px;">예치금 충전</h1>
         <hr width="1600px" align="left">
         <br><br>
         
@@ -135,12 +135,12 @@
 			   <tr>
 			       <td style="width: 200px;">충전 방식 : </td>
 			       <td style="width: 300px;">
-			           <select id="chargeMethod" style="width: 240px; height: 30px; font-size: 20px;">
+			           <select id="chargeMethod" style="font-family: 'SCDream-Regular'; width: 240px; height: 40px; font-size: 20px;">
 			               <option value="card">신용카드</option>
 			               <!-- <option value="kakaopay">카카오페이</option> -->
 			               <!-- <option value="accountTransfer">무통장입금</option> --> 
 			           </select>
-			       </td> <!-- value는 결제 api에 따라 수정 필요 -->
+			       </td>
 			    </tr>
 			    <tr>
 			        <td>충전 금액 : </td>
@@ -154,7 +154,7 @@
         <br><br>
 
         <div class="depositListDiv" align="center">
-            <h1 style="text-align: left; position: relative; left: 20px;">예치금 내역</h1>
+            <h1 style="text-align: left; position: relative; left: 20px; font-family: 'SCDream-Medium'; font-size: 40px;">예치금 내역</h1>
             <hr width="1600px" align="left">
             <br>
             <table class="depositListTable">

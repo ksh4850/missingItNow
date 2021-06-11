@@ -45,7 +45,7 @@
         width: 800px;
         height: 300px;
     }
-
+    
     .selectExpectedSettlementTable{
         margin: 0 auto;
         border-collapse: collapse;
@@ -61,7 +61,7 @@
 
     .selectExpectedSettlementTable input{
         width: 200px; 
-        height: 30px;
+        height: 40px;
         font-family: 'SCDream-Regular';  
         font-size: 24px; 
         position: relative;
@@ -83,8 +83,8 @@
     
     .settlementListTable{
         border: hidden;
-        border-top: 1px solid black;
-        border-bottom: 1px solid black;
+        border-top: 2px solid darkgray;
+        border-bottom: 2px solid darkgray;
         border-collapse: collapse;
         text-align: center;
         width: 1500px;
@@ -92,7 +92,7 @@
     }
 
     .settlementListTable td{
-        border: 1px solid black;
+        border: 2px solid darkgray;
         font-family: 'SCDream-Regular';
         font-size: 16px;
         height: 50px;
@@ -132,15 +132,15 @@
 	<jsp:include page="corpMngNavi.jsp"/>
 	
 	<div class="section">
-        <h1 style="position: relative; left: 20px;">정산하기</h1>
+        <h1 style="position: relative; left: 20px; font-family: 'SCDream-Medium'; font-size: 40px;">정산하기</h1>
         <hr width="1600px" align="left">
         <br><br>
         
         <div style="font-size: 20px;">
 			<div align="center">
-                   <h3 style="display: inline; position: relative; vertical-align: middle;">예상 정산금 조회</h3> 
-                   <input type="date" id="startDate" name="startDate" style="width: 200px; height: 30px; font-size: 18px; position: relative; vertical-align: middle; margin-left: 50px;"> <span> &nbsp; ~ &nbsp; </span> 
-                   <input type="date" id="endDate" name="endDate" style="width: 200px; height: 30px; font-size: 18px; position: relative; vertical-align: middle; ">
+                   <h3 style="font-family: 'SCDream-Regular'; font-size: 26px; display: inline; position: relative; vertical-align: middle;">예상 정산금 조회</h3> 
+                   <input type="date" id="startDate" name="startDate" style="font-family: 'SCDream-Regular'; text-align: center; width: 200px; height: 30px; font-size: 18px; position: relative; vertical-align: middle; margin-left: 50px;"> <span> &nbsp; ~ &nbsp; </span> 
+                   <input type="date" id="endDate" name="endDate" style="font-family: 'SCDream-Regular'; text-align: center; width: 200px; height: 30px; font-size: 18px; position: relative; vertical-align: middle; ">
                    <button id="selectExpectedSettlementBtn">조회</button>
                </div>
         </div>
@@ -174,7 +174,7 @@
 		</form>
         
         <div class="settlementListDiv" align="center">
-            <h1 style="text-align: left; position: relative; left: 20px;">정산내역</h1>
+            <h1 style="text-align: left; position: relative; left: 20px; font-family: 'SCDream-Medium'; font-size: 40px;">정산내역</h1>
             <hr width="1600px" align="left">
             <br>
             <table class="settlementListTable">

@@ -54,21 +54,28 @@
     	text-align: center;
     	padding-top: 10px;
     }
+    
+    .updateCorpUserTable {
+    	/* border: 1px solid black; */
+    	position: relative;
+    	left: 50px;
+    	margin: 0;
+    	width: 900px;
+    }
 	
     .updateCorpUserTable td{
     	/* border: 1px solid black; */
+    	border-bottom: 1px solid darkgray;
     	font-family: 'SCDream-Regular';
-        height: 60px;
+        height: 80px;
         font-size: 20px;
     }
     
     .updateCorpUserTable input{
+    	font-family: 'SCDream-Regular';
     	width: 300px; 
-    	height: 30px;
+    	height: 40px;
     	font-size: 20px;
-    	border-color: #8877DA;
-    	border-radius: 10px;
-    	
     }
     
     #searchZipCode{
@@ -96,7 +103,7 @@
     	border-radius: 10px;
     	left: 50%;
     	transform: translateX(-50%);
-    	margin-top: 100px;
+    	margin-top: 50px;
     }
     
     .footer{
@@ -124,7 +131,7 @@
                 <div class="insertCorpUserImgDiv">
                 	<h2 style="font-family: 'SCDream-Regular';" align="center">프로필 이미지 등록</h2>
                 	<br>
-                	<img class="preview" id="preview" style="border: 1px solid black; width: 300px; height: 300px; margin: 0 auto; position: relative; left: 90px; border-radius: 100%;" 
+                	<img class="preview" id="preview" style="border: 1px solid #8877DA; width: 300px; height: 300px; margin: 0 auto; position: relative; left: 90px; border-radius: 100%;" 
                 		src="${ pageContext.servletContext.contextPath }/resources/corpUserImages/<c:if test="${ empty corpUserInfo.corpImg.corpImgRename }">CorpUserDefaultImg.PNG</c:if>${ corpUserInfo.corpImg.corpImgRename}">
                 	<br><br><br>
                 	<input type="file" name="corpUserImg" id="corpUserImg" onchange="loadImg(this);" hidden><label for="corpUserImg" id="corpUserImgBtn">이미지 선택</label>
@@ -132,49 +139,49 @@
                 
                 <table class="updateCorpUserTable">
                 	<tr>
-                		<td colspan='2' style="color: red; font-size: 16px; padding-left: 420px; vertical-align: bottom;">* 는 수정이 불가합니다.</td>
+                		<td colspan='2' style="color: red; font-size: 16px; padding-left: 420px; vertical-align: bottom; border: none;">* 는 수정이 불가합니다.</td>
                 	</tr>
                     <tr>
-                        <td style="text-align: right; width: 250px; color: red;"> * 아이디 : </td>
+                        <td style="text-align: right; padding-right: 20px; width: 230px; color: red;"> * 아이디 : </td>
                         <td style="padding-left: 20px;"><input type="text" name="corpId" value="${ corpUserInfo.corpId }" readonly></td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">비밀번호 수정 : </td>
+                        <td style="text-align: right; padding-right: 20px;">비밀번호 수정 : </td>
                         <td style="padding-left: 20px;"><input type="password" name="corpPwd" id="corpPwd" onchange="checkPwd()" required></td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">비밀번호 확인 : </td>
-                        <td style="padding-left: 20px;"><input type="password" name="corpPwd2" id="corpPwd2" onchange="checkPwd()" required>&nbsp;<span id="pwdChk"></span></td>
+                        <td style="text-align: right; padding-right: 20px;">비밀번호 확인 : </td>
+                        <td style="padding-left: 20px;"><input type="password" name="corpPwd2" id="corpPwd2" onchange="checkPwd()" required><span id="pwdChk" style="margin-left: 20px;"></span></td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">대표  연락처 : </td>
+                        <td style="text-align: right; padding-right: 20px;">대표  연락처 : </td>
                         <td style="padding-left: 20px;"><input type="text" name="corpContacts" value="${ corpUserInfo.corpContacts }" placeholder="' - '을 포함하여 작성 바랍니다." required></td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">이메일 : </td>
+                        <td style="text-align: right; padding-right: 20px;">이메일 : </td>
                         <td style="padding-left: 20px;"><input type="email" name="corpEmail" value="${ corpUserInfo.corpEmail }"required></td>
                     </tr>
                     <tr>
-                        <td style="text-align: right; color: red;">* 회사명 : </td>
+                        <td style="text-align: right; color: red; padding-right: 20px;">* 회사명 : </td>
                         <td style="padding-left: 20px;"><input type="text" name="corpName" value="${ corpUserInfo.corpName }" readonly></td>
                     </tr>
                     <tr>
-                        <td style="text-align: right; color: red;">* 사업자등록번호 : </td>
+                        <td style="text-align: right; color: red; padding-right: 20px;">* 사업자등록번호 : </td>
                         <td style="padding-left: 20px;"><input type="text" name="corpRegistrationNo" value="${ corpUserInfo.corpRegistrationNo }" readonly></td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">우편번호 : </td>
+                        <td style="text-align: right; padding-right: 20px;">우편번호 : </td>
                         <td style="padding-left: 20px;">
                             <input type="text" name="corpAddress" id="zipCode" readonly required>
                             <button type="button" id="searchZipCode">검색</button>
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">주소 : </td>
+                        <td style="text-align: right; padding-right: 20px;">주소 : </td>
                         <td style="padding-left: 20px;"><input type="text" name="corpAddress" id="address1" readonly required></td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">상세주소 : </td>
+                        <td style="text-align: right; padding-right: 20px;">상세주소 : </td>
                         <td style="padding-left: 20px;"><input type="text" name="corpAddress" id="address2" placeholder="상세주소를 입력해 주세요" required></td>
                     </tr>
                 </table>
@@ -182,7 +189,7 @@
                 <button type="submit" id="CorpUserInfoUpdateBtn">수정하기</button>
             </form>
         </div>	<!-- updateCorpUserDiv 종료 -->
-        
+        <br><br><br><br>
     </div> <!-- sectionDiv 종료 -->
 
     <br clear=both>
@@ -217,7 +224,9 @@
 		}
 		
 		function loadImg(value){
+			
 			if (value.files && value.files[0]) {
+				
                 var reader = new FileReader();
                 
                 reader.onload = function (e) {

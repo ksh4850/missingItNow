@@ -25,8 +25,8 @@
     
     .prodRevListTable{
         border: hidden;
-        border-top: 1px solid black;
-        border-bottom: 1px solid black;
+        border-top: 2px solid darkgray;
+        border-bottom: 2px solid darkgray;
         border-collapse: collapse;
         text-align: center;
         width: 1500px;
@@ -34,7 +34,7 @@
     }
     
     .prodRevListTable td{
-        border: 1px solid black;
+        border: 2px solid darkgray;
         font-family: 'SCDream-Regular';
         font-size: 16px;
         height: 50px;
@@ -76,7 +76,7 @@
 	
 	
 	<div class="section">
-        <h1 style="position: relative; left: 20px;">상품 리뷰 내역</h1>
+        <h1 style="position: relative; left: 20px; font-family: 'SCDream-Medium'; font-size: 40px;">상품 리뷰 내역</h1>
         <hr width="1600px" align="left">
         <br><br>
 

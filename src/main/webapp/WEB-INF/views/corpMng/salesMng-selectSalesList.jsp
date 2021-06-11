@@ -38,8 +38,8 @@
     
     .salesListTable{
         border: hidden;
-        border-top: 1px solid black;
-        border-bottom: 1px solid black;
+        border-top: 2px solid darkgray;
+        border-bottom: 2px solid darkgray;
         border-collapse: collapse;
         text-align: center;
         width: 1500px;
@@ -47,7 +47,7 @@
     }
 
     .salesListTable td{
-        border: 1px solid black;
+        border: 2px solid darkgray;
         font-family: 'SCDream-Regular';
         font-size: 16px;
         height: 50px;
@@ -87,16 +87,16 @@
 	<jsp:include page="corpMngNavi.jsp"/>
 	
 	<div class="section">
-        <h1 style="position: relative; left: 20px;">매출내역</h1>
+        <h1 style="position: relative; left: 20px; font-family: 'SCDream-Medium'; font-size: 40px;">매출내역</h1>
         <hr width="1600px" align="left">
         <br><br>
 		
         <div style="font-size: 20px;">
             <form action="${ pageContext.servletContext.contextPath }/salesMng/searchSalesListByDate" method="GET">
                 <div align="center">
-                    <h3 style="display: inline; position: relative; vertical-align: middle;">조회기간</h3> 
-                    <input type="date" name="startDate" style="width: 200px; height: 30px; font-size: 18px; position: relative; vertical-align: middle; margin-left: 50px;"> <span> &nbsp; ~ &nbsp; </span> 
-                    <input type="date" name="endDate" style="width: 200px; height: 30px; font-size: 18px; position: relative; vertical-align: middle; ">
+                    <h3 style="font-family: 'SCDream-Regular'; font-size: 26px;  display: inline; position: relative; vertical-align: middle;">조회기간</h3> 
+                    <input type="date" name="startDate" style="font-family: 'SCDream-Regular'; text-align: center; width: 200px; height: 30px; font-size: 18px; position: relative; vertical-align: middle; margin-left: 50px;"> <span> &nbsp; ~ &nbsp; </span> 
+                    <input type="date" name="endDate" style="font-family: 'SCDream-Regular'; text-align: center; width: 200px; height: 30px; font-size: 18px; position: relative; vertical-align: middle; ">
                     <button type="submit" id="searchSalesListByDateBtn">조회</button>
                 </div>
             </form>

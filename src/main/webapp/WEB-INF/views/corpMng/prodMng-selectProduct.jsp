@@ -47,7 +47,7 @@
     }
 
     .prodListTable td{
-        border: 1px solid black;
+        border: 2px solid darkgray;
         font-family: 'SCDream-Regular';
         font-size: 16px;
         height: 50px;
@@ -98,11 +98,11 @@
 	<jsp:include page="corpMngNavi.jsp"/>
 
     <div class="section">
-        <h1 style="position: relative; left: 20px;">등록 상품 조회/수정</h1>
+        <h1 style="position: relative; left: 20px; font-family: 'SCDream-Medium'; font-size: 40px;">등록 상품 조회/수정</h1>
         <hr width="1600px" align="left">
         <br><br>
         <div style="font-size: 20px;">
-            <div style="position: relative; left: 100px; font-family: 'SCDream-Regular'; font-size: 20px;">
+            <div style="position: relative; left: 100px; font-family: 'SCDream-Regular'; font-size: 24px;">
             	<div style="display: inline-block;">
 				<input type="radio" id="radioCategory" name="chooseMethod" value="radioCategory" checked><label for="radioCategory">카테고리 조회</label>
             	</div>
@@ -114,8 +114,8 @@
             
             <form id="selectByCtgForm" action="${ pageContext.servletContext.contextPath }/prodMng/searchProductList" method="GET">     <!-- form action 명시 필요 -->
                 <div id="radioCategory" style="position: relative; left: 100px;">
-                    <h3 style="font-family: 'SCDream-Regular'; display: inline; position: relative; vertical-align: middle;">카테고리 : </h3>
-                    <select name="prodCtgNo" style="position: relative; left: 20px; vertical-align: middle; width: 400px; height: 30px; font-size: 20px;">
+                    <h3 style="font-family: 'SCDream-Regular'; font-size: 26px; display: inline; position: relative; vertical-align: middle;">카테고리 : </h3>
+                    <select name="prodCtgNo" style="font-family: 'SCDream-Regular'; position: relative; left: 20px; vertical-align: middle; width: 400px; height: 40px; font-size: 20px;">
                         <option value="PRCT0001">거실/침실가구</option>
                         <option value="PRCT0002">학생/서재가구</option>
                         <option value="PRCT0003">테이블/의자</option>
@@ -133,8 +133,8 @@
             
             <form id="selectByProdNameForm" action="${ pageContext.servletContext.contextPath }/prodMng/searchProductList" method="GET" hidden>
            		<div id="radioProdName" style="position: relative; left: 100px;">
-                    <h3 style="font-family: 'SCDream-Regular'; display: inline; position: relative; vertical-align: middle;">상품명 : </h3>
-                    <input type="text" name="prodName" style="position: relative; left: 20px; vertical-align: middle; width: 400px; height: 30px; font-size: 20px;">
+                    <h3 style="font-family: 'SCDream-Regular'; font-size: 26px; display: inline; position: relative; vertical-align: middle;">상품명 : </h3>
+                    <input type="text" name="prodName" style="font-family: 'SCDream-Regular'; position: relative; left: 20px; vertical-align: middle; width: 400px; height: 40px; font-size: 20px;">
                     <button type="submit" class="searchProductBtn">조회</button>
                 </div>
             </form>

@@ -133,7 +133,7 @@
 		VALUES
 		(
 		  'PROD' || LPAD(SEQ_PRODUCT.NEXTVAL,4,0), #{prodName}, #{prodPrice}
-		, #{prodDetails}, SYSDATE, #{prodTerminateDate}, #{prodManufacturer}
+		, '임시', SYSDATE, #{prodTerminateDate}, #{prodManufacturer}
 		, #{stockQuantity}, #{prodCtgNo}, #{corpNo}
 		)
 	</insert>

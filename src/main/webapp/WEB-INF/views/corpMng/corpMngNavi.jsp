@@ -39,26 +39,23 @@
         position: relative;
         width: 240px;
         height: 250px;
+        font-size: 18px;
         /* border: 1px solid blue; */
     }
     
-    #corpName {
-    	margin-top: 20px;
-    	margin-bottom: 10px;
-		padding: 0; 
-		display: inline;
+    #corpNameOnNavi {
 		width: 120px;
-		font-size: 20px; 
+		font-size: 28px; 
 		font-family: 'SCDream-Regular';
 		text-align: center;
-		border: none;
+		margin-right: 10px;
     }
 
     .corpProfileImg{
         margin: 0 auto;
         width: 200px;
         height: 200px;
-        border: 1px solid black;
+        border: 1px solid #8877DA;
         border-radius: 50%;
     }
 </style>
@@ -70,8 +67,7 @@
             src="${ pageContext.servletContext.contextPath }/resources/corpUserImages/CorpUserDefaultImg.PNG"/>
             <br>
             <div align="center">
-	            <input type="text" id="corpName" readonly>
-	            <p style="display: inline;">님 <br>환영합니다.</p>
+	            <p><span id="corpNameOnNavi"></span>님 <br>환영합니다.</p>
             </div>
         </div>
         <br>
@@ -162,7 +158,7 @@
 				const corpName = data.corpName;
 				const corpImg = data.corpImg.corpImgRename;
 				
-				$('#corpName').attr('value',corpName);
+				$('#corpNameOnNavi').text(corpName);
 				
 				if(corpImg == null){
 					$('#corpImg').attr('src','${ pageContext.servletContext.contextPath }/resources/corpUserImages/CorpUserDefaultImg.PNG');
