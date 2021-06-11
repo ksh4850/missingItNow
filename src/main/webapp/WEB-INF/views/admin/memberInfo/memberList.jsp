@@ -97,9 +97,8 @@
        }
 
        .system-user-info td{
-            padding-top: 10px;
-            
-            
+            padding-top: 8px;
+            padding-bottom: 8px;
        }
 
         .first-tr {
@@ -150,7 +149,7 @@
     <header>
 		<jsp:include page="../../common/corpMngHeader.jsp"/>
     </header>
-
+	<div style="overflow:hidden; display: flex;">
     <aside>
 		<jsp:include page="../../common/corpMngNavi.jsp"/>
     </aside>
@@ -191,10 +190,10 @@
                     <th width=160px;>생년월일</th>
                     <th width=300px;>주소</th>
                     <th width=160px;>전화번호</th>
-                    <th width=260px;>이메일</th>
+                    <th width=200px;>이메일</th>
                     <th width=160px;>가입일</th>
                     <th width=80px;>회원상태</th>
-                    <th width=80px;>관리</th>
+                    <th width=200px;>관리</th>
                  </tr>
                  <c:forEach items="${ userList }" var="user">
                  <tr>
@@ -207,7 +206,7 @@
                      <td><c:out value="${ user.email }"/></td>
                      <td><c:out value="${ user.registDate }"/></td>
                      <td><c:if test="${ user.leaveChk eq 'N' }">활동중</c:if><c:if test="${ user.leaveChk eq 'Y' }">탈퇴</c:if></td>
-                     <td><input type="button" class="purchaseListButton" value="구매내역"><input type="button" class="userDataUpdateButton" value="회원정보 수정"></td>
+                     <td><input type="button" class="purchaseListButton" value="구매내역" style="margin-right: 5px;"><input type="button" class="userDataUpdateButton" value="회원정보 수정"></td>
                  </tr>
                  </c:forEach>
             </table>
@@ -239,6 +238,10 @@
             </table>
         </div>
     </section>
+    </div>
+    <footer>
+		<jsp:include page="../../common/footer.jsp"/>
+	</footer>
 <script>
 function pageButtonAction(text){
 	location.href = link + "?currentPage=" + text + "&searchWriteDateStart="

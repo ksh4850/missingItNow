@@ -11,43 +11,49 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
     <style>
         .system-purchase-head{
-            margin-left: 20px;
             font-size: 30px;
             padding: 15px;
             border-bottom: 2px solid rgb(119, 94, 238) ;
             color: rgb(119, 94, 238);
 
         }
-
+		
+		.system-purchase-list{
+		
+			width: 1380px;
+			margin: 0 auto;
+		
+		}
+		
         .system-purchase-searchBar{
             margin-top: 20px;
             margin-bottom: 20px;
-            margin-left: 130px;
             font-size: 20px;
            
         }
 
-        .system-purchase-searchBar>select{
-            border: 2px solid rgb(119, 94, 238);
-            font-size: 18px;
-        }
-
-
-        .system-purchase-searchBar > input[type="search"] {
-            border: 2px solid rgb(119, 94, 238);
-            width: 400px;
-        }
-
-        .system-purchase-searchBar > input[type="button"] {
-            font-size: 18px;
-            padding: 3px;
-            background-color: rgb(119, 94, 238);
-        }
-       
+        .system-purchase-searchBar select,
+		.system-purchase-searchBar input[type=search],
+		.system-purchase-searchBar input[type=date]{
+		
+			background-color: #fff;
+			border: 1px solid black;
+			height: 30px;
+			padding-left: 10px;
+			padding-right: 10px;
+		
+		}
         
 
+        .system-purchase-searchBar input[type="submit"] {
+            background-color: rgb(119, 94, 238); 
+			color: white;
+			width: 50px;
+			height: 30px;
+			border-radius: 8px;
+        }
+
         .system-purchase-info{
-             margin-left: 130px;
              text-align: center; 
              line-height: 2;
              
@@ -73,8 +79,6 @@
             color: white;
             
         }
-        .first-tr > th:nth-child(1) {border-radius:15px 0 0 15px;}
-        .first-tr > th:nth-child(9) {border-radius:0 15px 15px 0;}
 
         input[type ="search"]{
             width: 300px;
@@ -89,11 +93,18 @@
             padding: 3px;
         }
 
+		.pageButtons{
+		
+			background-color: #fff;
+			border: 1px solid black;
+			width: 30px;
+			height: 40px;
+		
+		}
         
-        .system-purchase-page>td{
-            border: 1px solid  rgb(119, 94, 238); 
-            color: rgb(47, 16, 201);
-            padding: 5px;
+        .system-purchase-page{
+        
+            margin:0 auto;
             
         }
 
@@ -109,11 +120,12 @@
     <header>
 		<jsp:include page="../../common/corpMngHeader.jsp"/>
     </header>
-
+	<div style="overflow:hidden; display: flex;">
     <aside>
 		<jsp:include page="../../common/corpMngNavi.jsp"/>
     </aside>
     <section>
+    <div class="system-purchase-list">
         <div class="system-purchase-head">구매내역</div>
         <br>
         <div class="system-purchase-searchBar">
@@ -121,7 +133,7 @@
             <input type="hidden" id="userNo" name="no" value="${ orderSearch.no }">
         	<input type="date" id="searchWriteDateStart" name="searchWriteDateStart" value=<c:if test="${ orderSearch.search.searchWriteDateStart ne null }">"${ orderSearch.search.searchWriteDateStart }"</c:if>> ~
             <input type="date" id="searchWriteDateEnd" name="searchWriteDateEnd" value=<c:if test="${ orderSearch.search.searchWriteDateEnd ne null }">"${ orderSearch.search.searchWriteDateEnd }"</c:if>>
-            <select name="largeSearchCondition">
+            <select name="largeSearchCondition" style="margin-left: 415px;">
                 <option value="all" <c:if test="${ orderSearch.search.largeSearchCondition eq 'all' }">selected</c:if>>전체</option>
                 <option value="PRCT0001" <c:if test="${ orderSearch.search.largeSearchCondition eq 'PRCT0001' }">selected</c:if>>거실/침실가구</option>
                 <option value="PRCT0002" <c:if test="${ orderSearch.search.largeSearchCondition eq 'PRCT0002' }">selected</c:if>>학생/서재가구</option>
@@ -134,7 +146,7 @@
                 <option value="PRCT0009" <c:if test="${ orderSearch.search.largeSearchCondition eq 'PRCT0009' }">selected</c:if>>홈데코</option>
                 <option value="PRCT0010" <c:if test="${ orderSearch.search.largeSearchCondition eq 'PRCT0010' }">selected</c:if>>생활용품</option>
             </select>
-            <select name="smallSearchCondition" style="width: 50px;">
+            <select name="smallSearchCondition">
                 <option value="all" <c:if test="${ orderSearch.search.smallSearchCondition eq 'all' }">selected</c:if>>전체</option>
                 <option value="prodName" <c:if test="${ orderSearch.search.smallSearchCondition eq 'prodName' }">selected</c:if>>상품이름</option>
                 <option value="prodNo" <c:if test="${ orderSearch.search.smallSearchCondition eq 'prodNo' }">selected</c:if>>상품번호</option>
@@ -168,7 +180,7 @@
 	                    <td><c:out value="${ order.product.category.prodCtgName }"/></td>
 	                    <td><c:out value="${ order.corpUser.corpId }"/></td>
 	                    <td><c:out value="${ order.corpUser.corpName }"/></td>
-	                    <td><c:out value="${ order.price }"/></td>
+	                    <td><c:out value="${ order.price }원"/></td>
 	                    <td><c:out value="${ order.date }"/></td>
 	                    <td>
 	                    	<c:choose>
@@ -187,20 +199,20 @@
 
         <br>
 
-        <div  align="center">
-            <table>
-                <tr class="system-purchase-page">
+        <div>	
+            <table class="system-purchase-page">
+                <tr>
                     <c:forEach var="page" begin="${ orderSearch.search.pageInfo.startPage }" end="${ orderSearch.search.pageInfo.endPage }" step="1">
                     	<c:if test="${orderSearch.search.pageInfo.pageNo eq page }">
                     	<td>
-							<button disabled>
+							<button class="pageButtons" disabled>
 								<c:out value="${ page }" />
 							</button>
 						</td>
 						</c:if>
 						<c:if test="${orderSearch.search.pageInfo.pageNo ne page }">
 						<td>
-							<button onclick="pageButtonAction(this.innerText);">
+							<button class="pageButtons" onclick="pageButtonAction(this.innerText);">
 								<c:out value="${ page }"/>
 							</button>
 						</td>
@@ -209,7 +221,12 @@
                 </tr>
             </table>
         </div>
+        </div>
     </section>
+    </div>
+    <footer>
+		<jsp:include page="../../common/footer.jsp"/>
+	</footer>
 <script>
 
 var no = $("#userNo").val();

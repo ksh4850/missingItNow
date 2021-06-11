@@ -17,11 +17,10 @@
 	<header>
 		<jsp:include page="../../common/corpMngHeader.jsp"/>
     </header>
-
+	<div style="overflow:hidden; display: flex;">
     <aside>
 		<jsp:include page="../../common/corpMngNavi.jsp"/>
     </aside>
-	
 	<section>
 	<div class="sectionBodyDiv">
 		<div class="userDiv contentDiv">
@@ -156,5 +155,9 @@
         </div>
 	</div>
 	</section>
+	</div>
+	<footer>
+		<jsp:include page="../../common/footer.jsp"/>
+	</footer>
 </body>
 </html>

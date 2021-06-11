@@ -12,7 +12,6 @@
     <style>
    
         .system-settlement-head{
-            margin-left: 20px;
             font-size: 30px;
             padding: 15px;
             border-bottom: 2px solid rgb(119, 94, 238) ;
@@ -23,31 +22,38 @@
         .system-settlement-searchBar{
             margin-top: 20px;
             margin-bottom: 20px;
-            margin-left: 70px;
             font-size: 20px;
            
         }
-
-        .system-settlement-searchBar>select{
-            border: 2px solid rgb(119, 94, 238);
-            font-size: 18px;
-        }
-
-
-        .system-settlement-searchBar > input[type="search"] {
-            border: 2px solid rgb(119, 94, 238);
-        }
-
-        .system-settlement-searchBar > input[type="button"] {
-            font-size: 18px;
-            padding: 3px;
-            background-color: rgb(119, 94, 238);
-        }
-       
         
+        .system-settlement-list{
+        
+        	width: 1370px;
+        	margin: 0 auto;
+        
+        }
+
+        .system-settlement-searchBar select,
+		.system-settlement-searchBar input[type=search],
+		.system-settlement-searchBar input[type=date]{
+		
+			background-color: #fff;
+			border: 1px solid black;
+			height: 30px;
+			padding-left: 10px;
+			padding-right: 10px;
+		
+		}
+		
+        .system-settlement-searchBar input[type="button"] {
+            background-color: rgb(119, 94, 238); 
+			color: white;
+			width: 50px;
+			height: 30px;
+			border-radius: 8px;
+        }
 
         .system-settlement-info{
-             margin-left: 70px;
              text-align: center; 
              line-height: 2;
         }
@@ -69,8 +75,6 @@
             color: white;
             
         }
-        .first-tr > th:nth-child(1) {border-radius:15px 0 0 15px;}
-        .first-tr > th:nth-child(9) {border-radius:0 15px 15px 0;}
 
         input[type ="search"]{
             width: 300px;
@@ -87,29 +91,34 @@
 
         .system-settlement-info input[type="checkbox"]{
            
-           border: 1px solid black;
-           margin-top: 6px;
-       }
+            border: 1px solid black;
+            margin-top: 6px;
+        }
 
-       .system-settlement-info label{
-           color: red;
-       }
+        .system-settlement-page{
 
-        
-        .system-settlement-page>td{
-            border: 1px solid  rgb(119, 94, 238); 
-            color: rgb(47, 16, 201);
-            padding: 5px;
+			margin: 0 auto;
             
         }
-
-        .system-settlement-searchBar > input[type="date"]{
-            border: 2px solid  rgb(119, 94, 238); 
-        }
         
-
-
-
+        .pageButtons{
+		
+			background-color: #fff;
+			border: 1px solid black;
+			width: 30px;
+			height: 40px;
+		
+		}
+        
+        #settlementButton{
+        
+        	background-color: rgb(119, 94, 238); 
+			color: white;
+			width: 100px;
+			height: 30px;
+			border-radius: 8px;
+        
+        }
     </style>
 
 </head>
@@ -117,106 +126,109 @@
     <header>
 		<jsp:include page="../../common/corpMngHeader.jsp"/>
     </header>
-
+	<div style="overflow:hidden; display: flex;">
     <aside>
 		<jsp:include page="../../common/corpMngNavi.jsp"/>
     </aside>
     <section>
-        <div class="system-settlement-head">정산내역</div>
-        <br>
-        <div class="system-settlement-searchBar">
-        <form action="${ pageContext.servletContext.contextPath }/admin/settlement/breakdown" id="settlementSearchForm" method="GET">
-            <input type="date" id="searchWriteDateStart" name="searchWriteDateStart" value=<c:if test="${ search.searchWriteDateStart ne null }">"${ search.searchWriteDateStart }"</c:if>> ~
-            <input type="date" id="searchWriteDateEnd" name="searchWriteDateEnd" value=<c:if test="${ search.searchWriteDateEnd ne null }">"${ search.searchWriteDateEnd }"</c:if>>
-            <select name="largeSearchCondition" style="margin-left: 530px;">
-                <option value="all" <c:if test="${ search.largeSearchCondition eq 'all' }">selected</c:if>>전체</option>
-                <option value="settlement" <c:if test="${ search.largeSearchCondition eq 'settlement' }">selected</c:if>>정산</option>
-                <option value="noneSettlement" <c:if test="${ search.largeSearchCondition eq 'noneSettlement' }">selected</c:if>>미정산</option>
-            </select>
-            <select name="smallSearchCondition">
-                <option value="id" <c:if test="${ search.smallSearchCondition eq 'id' }">selected</c:if>>아이디</option>
-                <option value="name" <c:if test="${ search.smallSearchCondition eq 'name' }">selected</c:if>>기업명</option>
-                <option value="contacts" <c:if test="${ search.smallSearchCondition eq 'contacts' }">selected</c:if>>주소</option>
-            </select>
-            <input type="search" name="searchValue" width="300px" value="${ search.searchValue }">
-            <input type="button" id="searchButton" value="검색"/>
-            <br>
-            <br>
-        </form>
-            
-            
-        </div>
-        
-        <div class="system-settlement-info" >
-            <table>
-                <tr class="first-tr">
-                    <th width=160px;>정산 신청 번호</th>
-                    <th width=160px;>아이디</th>
-                    <th width=160px;>기업명</th>
-                    <th width=160px;>정산 신청일</th>
-                    <th width=160px;>정산 만료일</th>
-                    <th width=250px;>정산 금액</th>
-                    <th width=160px;>수수료 비율</th>
-                    <th width=80px;><input type="checkbox" id="allCheckboxController"></th>
-                    <th width=80px;>상태</th>
-                 </tr>
-                 <c:forEach items="${ settlementList }" var="settlement">
-                 	<tr>
-	                    <td><c:out value="${ settlement.settlementNo }"/></td>
-	                    <td><c:out value="${ settlement.corpUser.corpId }"/></td>
-	                    <td><c:out value="${ settlement.corpUser.corpName }"/></td>
-	                    <td><c:out value="${ settlement.settlementStartDate }"/></td>
-	                    <td><c:out value="${ settlement.settlementEndDate }"/></td>
-	                    <td><c:out value="${ settlement.totalSales }"/></td>
-	                    <td><c:out value="${ settlement.commissionBySales }"/></td>
-	                    <td>
-		                    <c:if test="${ settlement.settlementChk eq 'N' }">
-	                    		<input type="checkbox" name="ischecked" style="width: 20px; height: 20px;">
-	                    	</c:if>
-                    	</td>
-	                    <td>
-		                    <c:choose>
-		                    	<c:when test="${ settlement.settlementChk eq 'Y' }">
-		                    		정산완료
-		                    	</c:when>
-		                    	<c:when test="${ settlement.settlementChk eq 'N' }">
-		                    		미정산
-		                    		<input type="button" value="정산하기">
-		                    	</c:when>
-		                    </c:choose>
-	                    </td>
-                 	</tr>
-                 </c:forEach>
-            </table>
-        </div>
+	    <div class="system-settlement-list">
+	        <div class="system-settlement-head">정산내역</div>
+	        <br>
+	        <div class="system-settlement-searchBar">
+		        <form action="${ pageContext.servletContext.contextPath }/admin/settlement/breakdown" id="settlementSearchForm" method="GET">
+		            <input type="date" id="searchWriteDateStart" name="searchWriteDateStart" value=<c:if test="${ search.searchWriteDateStart ne null }">"${ search.searchWriteDateStart }"</c:if>> ~
+		            <input type="date" id="searchWriteDateEnd" name="searchWriteDateEnd" value=<c:if test="${ search.searchWriteDateEnd ne null }">"${ search.searchWriteDateEnd }"</c:if>>
+		            <select name="largeSearchCondition" style="margin-left: 475px;">
+		                <option value="all" <c:if test="${ search.largeSearchCondition eq 'all' }">selected</c:if>>전체</option>
+		                <option value="settlement" <c:if test="${ search.largeSearchCondition eq 'settlement' }">selected</c:if>>정산</option>
+		                <option value="noneSettlement" <c:if test="${ search.largeSearchCondition eq 'noneSettlement' }">selected</c:if>>미정산</option>
+		            </select>
+		            <select name="smallSearchCondition">
+		                <option value="id" <c:if test="${ search.smallSearchCondition eq 'id' }">selected</c:if>>아이디</option>
+		                <option value="name" <c:if test="${ search.smallSearchCondition eq 'name' }">selected</c:if>>기업명</option>
+		                <option value="contacts" <c:if test="${ search.smallSearchCondition eq 'contacts' }">selected</c:if>>주소</option>
+		            </select>
+		            <input type="search" name="searchValue" width="300px" value="${ search.searchValue }">
+		            <input type="button" id="searchButton" value="검색"/>
+		            <br>
+		            <br>
+		        </form>
+	        </div>
+	        <div class="system-settlement-info" >
+	            <table>
+	                <tr class="first-tr">
+	                    <th width=160px;>정산 신청 번호</th>
+	                    <th width=160px;>아이디</th>
+	                    <th width=160px;>기업명</th>
+	                    <th width=160px;>정산 신청일</th>
+	                    <th width=160px;>정산 만료일</th>
+	                    <th width=250px;>정산 금액</th>
+	                    <th width=160px;>수수료 비율</th>
+	                    <th width=80px;><input type="checkbox" id="allCheckboxController"></th>
+	                    <th width=80px;>상태</th>
+	                 </tr>
+	                 <c:forEach items="${ settlementList }" var="settlement">
+	                 	<tr>
+		                    <td><c:out value="${ settlement.settlementNo }"/></td>
+		                    <td><c:out value="${ settlement.corpUser.corpId }"/></td>
+		                    <td><c:out value="${ settlement.corpUser.corpName }"/></td>
+		                    <td><c:out value="${ settlement.settlementStartDate }"/></td>
+		                    <td><c:out value="${ settlement.settlementEndDate }"/></td>
+		                    <td><c:out value="${ settlement.totalSales }"/></td>
+		                    <td><c:out value="${ settlement.commissionBySales }"/></td>
+		                    <td>
+			                    <c:if test="${ settlement.settlementChk eq 'N' }">
+		                    		<input type="checkbox" name="ischecked" style="width: 20px; height: 20px;">
+		                    	</c:if>
+	                    	</td>
+		                    <td>
+			                    <c:choose>
+			                    	<c:when test="${ settlement.settlementChk eq 'Y' }">
+			                    		정산완료
+			                    	</c:when>
+			                    	<c:when test="${ settlement.settlementChk eq 'N' }">
+			                    		미정산
+			                    		<input type="button" value="정산하기">
+			                    	</c:when>
+			                    </c:choose>
+		                    </td>
+	                 	</tr>
+	                 </c:forEach>
+	            </table>
+	       	</div>
 
-        <br>
+        	<br>
 
-		<button type="button" id="settlementButton">정산하기</button>
+			<button type="button" id="settlementButton">정산하기</button>
 
-        <div  align="center">
-            <table>
-                <tr class="system-settlement-page">
-                    <c:forEach var="page" begin="${ search.pageInfo.startPage }" end="${ search.pageInfo.endPage }" step="1">
-                    	<c:if test="${search.pageInfo.pageNo eq page }">
-                    	<td>
-							<button disabled>
-								<c:out value="${ page }" />
-							</button>
-						</td>
-						</c:if>
-						<c:if test="${search.pageInfo.pageNo ne page }">
-						<td>
-							<button onclick="pageButtonAction(this.innerText);">
-								<c:out value="${ page }" />
-							</button>
-						</td>
-						</c:if>
-                    </c:forEach>
-                </tr>
-            </table>
+	        <div>
+	            <table class="system-settlement-page">
+	                <tr>
+	                    <c:forEach var="page" begin="${ search.pageInfo.startPage }" end="${ search.pageInfo.endPage }" step="1">
+	                    	<c:if test="${search.pageInfo.pageNo eq page }">
+	                    	<td>
+								<button class="pageButtons" disabled>
+									<c:out value="${ page }" />
+								</button>
+							</td>
+							</c:if>
+							<c:if test="${search.pageInfo.pageNo ne page }">
+							<td>
+								<button class="pageButtons" onclick="pageButtonAction(this.innerText);">
+									<c:out value="${ page }" />
+								</button>
+							</td>
+							</c:if>
+	                    </c:forEach>
+	                </tr>
+	            </table>
+	        </div>
         </div>
     </section>
+    </div>
+  	<footer>
+		<jsp:include page="../../common/footer.jsp"/>
+	</footer>
 <script>
 
 var link = "${ pageContext.servletContext.contextPath }/admin/settlement/breakdown";

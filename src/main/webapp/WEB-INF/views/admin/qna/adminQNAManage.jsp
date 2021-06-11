@@ -113,7 +113,7 @@
     <header>
 		<jsp:include page="../../common/corpMngHeader.jsp"/>
     </header>
-
+	<div style="overflow:hidden; display: flex;">
     <aside>
 		<jsp:include page="../../common/corpMngNavi.jsp"/>
     </aside>
@@ -213,8 +213,11 @@
 	            </table>
 	        </div>
         </div>
-
     </section>
+    </div>
+    <footer>
+		<jsp:include page="../../common/footer.jsp"/>
+	</footer>
 <script>
 	const link = "${ pageContext.servletContext.contextPath }/admin/qna/manage";
 	const responseLink = "${ pageContext.servletContext.contextPath }/admin/qna/response";

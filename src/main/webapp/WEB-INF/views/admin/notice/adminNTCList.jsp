@@ -12,47 +12,52 @@
 
     <style>
         .system-notice-head{
-            margin-left: 20px;
             font-size: 30px;
             padding: 15px;
             border-bottom: 2px solid rgb(119, 94, 238) ;
             color: rgb(119, 94, 238);
 
         }
+        
+        .system-noticeList{
+        
+        	width: 1100px;
+        	margin: 0 auto;
+        	line-height: 2;
+        
+        }
 
         .system-notice-searchBar{
             margin-top: 20px;
             margin-bottom: 20px;
-            margin-left: 250px;
             font-size: 20px;
            
         }
+        
+    	.system-notice-searchBar select,
+		.system-notice-searchBar input[type=search],
+		.system-notice-searchBar input[type=date]{
+		
+			background-color: #fff;
+			border: 1px solid black;
+			height: 30px;
+			padding-left: 10px;
+			padding-right: 10px;
+		
+		}
+        
 
-        .system-notice-searchBar>select{
-            border: 2px solid rgb(119, 94, 238);
-            font-size: 18px;
+        .system-notice-searchBar input[type="button"] {
+            background-color: rgb(119, 94, 238); 
+			color: white;
+			width: 50px;
+			height: 30px;
+			border-radius: 8px;
         }
-
-
-        .system-notice-searchBar > input[type="search"]{
-            border: 2px solid rgb(119, 94, 238);
-            width: 400px;
-            line-height: 2;
-        }
-
-        .system-notice-searchBar > input[type="button"] {
-            font-size: 18px;
-            padding: 3px;
-            background-color: rgb(119, 94, 238);
-            color: white;
-        }
-
+        
         .system-notice-list{
             line-height: 2;
-            margin-left: 250px;
         }
-
-       
 
         .system-notice-list tr{
             border-bottom: 1px solid rgb(119, 94, 238);
@@ -65,12 +70,6 @@
             
         }
 
-        .first-tr > th:nth-child(1) {border-radius:15px 0 0 15px;}
-        .first-tr > th:nth-child(3) {border-radius:0 15px 15px 0;}
-
-        
-        
-
         .system-notice-list td{
            padding: 8px;
            padding-left: 35px;
@@ -78,32 +77,26 @@
         }
 
         .system-notice-p{
-            margin-left: 700px;
-            border: 1px solid rgb(119, 94, 238);
-        }
-
-        .system-notice-page>td{
-            border: 1px solid  rgb(119, 94, 238); 
-            color: rgb(47, 16, 201);
-            padding: 5px;
-           
-            
+            margin: 0 auto;
         }
 
         .notice-regist{
             background-color: rgb(119, 94, 238); 
             color: white;
-            margin-left: 1280px;
             margin-bottom: 10px;
             padding: 5px;
             line-height: 2;
             border-radius: 10px;
         }
-
-        .system-notice-searchBar > input[type="date"]{
-            border: 2px solid  rgb(119, 94, 238); 
-        }
-
+        
+        .pageButtons{
+		
+			background-color: #fff;
+			border: 1px solid black;
+			width: 30px;
+			height: 40px;
+		
+		}
 
     </style>
 </head>
@@ -112,18 +105,19 @@
     <header>
 		<jsp:include page="../../common/corpMngHeader.jsp"/>
     </header>
-
+	<div style="overflow:hidden; display: flex;">
     <aside>
 		<jsp:include page="../../common/corpMngNavi.jsp"/>
     </aside>
     <section>
+    <div class="system-noticeList">
         <div class="system-notice-head">공지사항 관리</div>
         <br>
         <div class="system-notice-searchBar" >
         	<form action="${ pageContext.servletContext.contextPath }/admin/ntc/list" id="noticeSearchForm" method="post">
 	            <input type="date" id="searchWriteDateStart" name="searchWriteDateStart" value=<c:if test="${ search.searchWriteDateStart ne null }">"${ search.searchWriteDateStart }"</c:if> min="2021-05-11"> ~
 	            <input type="date" id="searchWriteDateEnd" name="searchWriteDateEnd" value=<c:if test="${ search.searchWriteDateEnd ne null }">"${ search.searchWriteDateEnd }"</c:if> max="2021-06-30">
-	            <select name="searchCondition" style="margin-left: 80px;">
+	            <select name="searchCondition" style="margin-left: 380px;">
 	                <option value="all" <c:if test="${ search.searchCondition eq 'all' }">selected</c:if>>전체</option>
 	                <option value="title" <c:if test="${ search.searchCondition eq 'title' }">selected</c:if>>제목</option>
 	                <option value="body" <c:if test="${ search.searchCondition eq 'body' }">selected</c:if>>내용</option>
@@ -157,14 +151,14 @@
                     <c:forEach var="page" begin="${ search.pageInfo.startPage }" end="${ search.pageInfo.endPage }" step="1">
                     	<c:if test="${search.pageInfo.pageNo eq page }">
                     	<td>
-							<button disabled>
+							<button class="pageButtons" disabled>
 								<c:out value="${ page }" />
 							</button>
 						</td>
 						</c:if>
 						<c:if test="${search.pageInfo.pageNo ne page }">
 						<td>
-							<button onclick="pageButtonAction(this.innerText);">
+							<button class="pageButtons" onclick="pageButtonAction(this.innerText);">
 								<c:out value="${ page }" />
 							</button>
 						</td>
@@ -173,7 +167,12 @@
                 </tr>
             </table>
         </div>
+        </div>
     </section>
+    </div>
+    <footer>
+		<jsp:include page="../../common/footer.jsp"/>
+	</footer>
 <script>
 	const pageLink = "${ pageContext.servletContext.contextPath }/admin/ntc/list";
 	const detailLink = "${ pageContext.servletContext.contextPath }/admin/ntc/detail";

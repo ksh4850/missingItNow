@@ -13,7 +13,6 @@
 <style>
  	body{
         width: 1920px;
-        min-height: 1900px;
         margin: 0 auto;
     }
 
@@ -21,7 +20,7 @@
         position: relative;
         float: left;
         width: 250px;
-        min-height: 700px;
+        height: 100%;
         background-color: #775EEE;
         text-align: center;
         font-family: 'SCDream-Regular';

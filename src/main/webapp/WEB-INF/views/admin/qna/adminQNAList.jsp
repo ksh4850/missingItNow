@@ -20,7 +20,8 @@
 
         .system-qnaList-list{
             line-height: 2;
-            margin-left: 250px;
+            width: 1100px;
+            margin: 0 auto;
         }
 
         .system-qnalist tr{
@@ -97,7 +98,7 @@
     <header>
 		<jsp:include page="../../common/corpMngHeader.jsp"/>
     </header>
-
+	<div style="overflow:hidden; display: flex;">
     <aside>
 		<jsp:include page="../../common/corpMngNavi.jsp"/>
     </aside>
@@ -164,10 +165,11 @@
 	            </table>
 	        </div>
         </div>
-
-
     </section>
-
+	</div>
+	<footer>
+		<jsp:include page="../../common/footer.jsp"/>
+	</footer>
 <script>
 	const pageLink = "${ pageContext.servletContext.contextPath }/admin/qna/list";
 	const detailLink = "${ pageContext.servletContext.contextPath }/admin/qna/detail";

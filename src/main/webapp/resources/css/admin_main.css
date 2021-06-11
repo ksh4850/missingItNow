@@ -1,4 +1,3 @@
 header{width: 100%; height: 100px; }
-aside{width: 15%; float: left; height: 1000px; }
-
-section{width: 85%; height: 1000px;  float: left;}
+aside{width: 250px; float: left;}
+section{width: 1670px; float: left; padding-bottom: 100px;}
