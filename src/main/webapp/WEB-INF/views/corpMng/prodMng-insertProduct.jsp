@@ -127,13 +127,6 @@
                             <input type="text" name="keywordsSet" style="width: 200px; height: 30px; font-size: 20px;">
                         </td>
                     </tr>
-                    <tr>
-                        <td style="text-align: right;">연관상품 등록 : </td>
-                        <td style="text-indent: 20px;">
-                            <h3>그룹만들기 기능 + 기존에 등록한 상품을 조회하여 해당 상품과 연결</h3>
-                            <h3>아니면...조회/수정에서 등록하는 방법</h3>
-                        </td>
-                    </tr>
                 </table>
                 <br><br>
                 <button type="submit" style="width: 200px; height: 50px; font-size: 20px; position: relative; left: 600px;">상품등록</button>

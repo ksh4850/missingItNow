@@ -149,20 +149,23 @@
         <form action="${ pageContext.servletContext.contextPath }/settleMng/insertSettlement" method="POST">
 	        <input type="hidden" id="startDate2" name="settlementStartDate">
 	        <input type="hidden" id="endDate2" name="settlementEndDate">
+	        <input type="hidden" name="totalSales">
+	        <input type="hidden" name="commissionBySales">
+	        <input type="hidden" name="settlementAmt">
 	        <div class="selectExpectedSettlementDiv">
 	            <br>
                 <table class="selectExpectedSettlementTable">
-                    <tr>
+                	<tr>
                         <td style="width: 200px;">결제내역 합계 : </td>
-                        <td style="width: 300px;"><input type="text" name="totalSales" readonly>원</td> 
+                        <td style="width: 300px;"><input type="text" name="total" readonly>원</td> 
                     </tr>
                     <tr>
                         <td>수수료 : </td>
-                        <td><input type="text" name="commissionBySales" readonly>원</td>
+                        <td><input type="text" name="commission" readonly>원</td>
                     </tr>
                     <tr>
                         <td>예상 정산 금액 : </td>
-                        <td><input type="text" name="settlementAmt" readonly>원</td>
+                        <td><input type="text" name="settleAmt" readonly>원</td>
                     </tr>
                 </table>
                 <br>
@@ -271,13 +274,17 @@
 									},
 							success:function(data){
 								if(data != null){
-									const totalSales = data.totalSales.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-									const commissionBySales = data.commissionBySales.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-									const settlementAmt = data.settlementAmt.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+									const total = data.totalSales.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+									const commission = data.commissionBySales.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+									const settlement = data.settlementAmt.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 									
-									$('input[name=totalSales]').attr('value',totalSales);
-									$('input[name=commissionBySales]').attr('value',commissionBySales);
-									$('input[name=settlementAmt]').attr('value',settlementAmt);
+									$('input[name=total]').attr('value',total);
+									$('input[name=commission]').attr('value',commission);
+									$('input[name=settleAmt]').attr('value',settlement);
+									
+									$('input[name=totalSales]').attr('value',data.totalSales);
+									$('input[name=commissionBySales]').attr('value',data.commissionBySales);
+									$('input[name=settlementAmt]').attr('value',data.settlementAmt);
 								}
 								
 								if(data == null){

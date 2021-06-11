@@ -57,7 +57,7 @@
                 <input type="hidden" name="prodNo" value="${ prodNo }">
                 <table class="updateProductTable">
                     <tr>
-                        <td style="text-align: right; width: 200px;">* 카테고리 : </td>
+                        <td style="text-align: right; width: 200px;">카테고리 : </td>
                         <td style="width: 1200px; text-indent: 20px;">
                             <select name="prodCtgNo" style="width: 400px; height: 30px; font-size: 20px;">
                                 <option value="PRCT0001">거실/침실가구</option>
@@ -74,13 +74,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">상품명 : </td>
+                        <td style="text-align: right; color: red;">* 상품명 : </td>
                         <td style="text-indent: 20px;">
                             <input type="text" name="prodName" style="width: 900px; height: 30px; font-size: 20px;" value="${productList[0].prodName}" readonly>
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">* 상품 이미지 : <br>
+                        <td style="text-align: right;">상품 이미지 : <br>
                             <p style="margin: 0; font-size: 14px;">(최소 1개/최대 10개)&nbsp;</p>
                         </td>
                         <td style="text-indent: 20px; height: 100px;">
@@ -88,53 +88,58 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">등록 판매가 : </td>
+                        <td style="text-align: right; color: red;">* 등록 판매가 : </td>
                         <td style="text-indent: 20px;">
-                            <input type="number" min="10" name="prodPrice" style="width: 200px; height: 30px; font-size: 20px; text-align: right;" value="${productList[0].prodPrice}" readonly> 원
+                            <input type="number" min="10" name="prodPrice" style="width: 200px; height: 30px; font-size: 20px; text-align: right;" 
+                            		value="${productList[0].prodPrice}" readonly> 원
                         </td>
                     </tr>
                     <tr>
                         <td style="text-align: right;">적용 할인율 : </td>
                         <td style="text-indent: 20px;">
-                            <input type="number" name="prodDiscountRate" style="width: 200px; height: 30px; font-size: 20px; text-align: right;" value="0"> %
+                            <input type="number" name="prodDiscountRate" style="width: 200px; height: 30px; font-size: 20px; text-align: right;" 
+                            		value="${productList[0].prodDiscountRate}"> %
                         </td>
                     </tr>
+                    <tr>
+                        <td style="text-align: right; color: red;">* 할인 적용가 : </td>
+                        <td style="text-indent: 20px;">
+                            <input type="number" name="prodDiscountedPrice" style="width: 200px; height: 30px; font-size: 20px; text-align: right;" 
+                            		value="${productList[0].prodDiscountedPrice}" readonly> 원
+                        </td>
+                    </tr>
+                    <tr>
                         <td style="text-align: right;">할인 종료일 : </td>
                         <td style="text-indent: 20px;">
                             <input type="date" id="prodDiscountPeriod" name="prodDiscountPeriod" style="width: 200px; height: 30px; font-size: 16px; text-align: center;">
                         </td>
+                    </tr>
                     <tr>
-                        <td style="text-align: right;">* 상품 상세설명 : </td>
-                        <td style="text-indent: 20px;">
-                            <input type="text" name="prodDetails" style="width: 900px; height: 30px; font-size: 20px;" placeholder=" 텍스트로 할것인지 이미지로 할것인지..." required>
+                        <td style="text-align: right;">상품 상세설명 : </td>
+                        <td style="text-indent: 20px; height: 100px;">
+                            <input type="file" name="prodImg" style="height: 30px; font-size: 18px;">
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">* 판매 종료일 : </td>
+                        <td style="text-align: right; color: red;">* 판매 종료일 : </td>
                         <td style="text-indent: 20px;">
                             <input type="date" name="prodTerminateDate" style="width: 200px; height: 30px; font-size: 16px; text-align: center;" required>
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">* 현재 재고 수량 : </td>
+                        <td style="text-align: right;">현재 재고 수량 : </td>
                         <td style="text-indent: 20px;">
-                            <input type="text" name="stockQuantity" style="width: 200px; height: 30px; font-size: 20px; text-align: right;" required> 개
+                            <input type="text" name="stockQuantity" style="width: 200px; height: 30px; font-size: 20px; text-align: right;"
+                            		value="${productList[0].stockQuantity}"> 개
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">* 상품노출 여부 : </td>
+                        <td style="text-align: right;">상품노출 여부 : </td>
                         <td style="text-indent: 20px;">
                             <select name="prodDisplayChk" style="width: 100px; height: 30px; font-size: 20px;" required>
                                 <option value="Y">Y</option>
                                 <option value="N">N</option>
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right;">연관상품 등록 : </td>
-                        <td style="text-indent: 20px;">
-                            <h3>그룹만들기 기능 + 기존에 등록한 상품을 조회하여 해당 상품과 연결</h3>
-                            <h3>아니면...조회/수정에서 등록하는 방법</h3>
                         </td>
                     </tr>
                 </table>

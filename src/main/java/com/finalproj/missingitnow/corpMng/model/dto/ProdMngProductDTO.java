@@ -17,6 +17,7 @@ public class ProdMngProductDTO implements Serializable {
 	private Date prodTerminateDate;
 	private int prodDiscountRate;
 	private Date prodDiscountPeriod;
+	private int prodDiscountedPrice; 
 	private String prodManufacturer;
 	private int stockQuantity;
 	private String prodDisplayChk;
@@ -31,9 +32,9 @@ public class ProdMngProductDTO implements Serializable {
 	}
 
 	public ProdMngProductDTO(String prodNo, String prodName, int prodPrice, String prodDetails, Date prodUploadDate,
-			Date prodTerminateDate, int prodDiscountRate, Date prodDiscountPeriod, String prodManufacturer,
-			int stockQuantity, String prodDisplayChk, String prodCtgNo, String corpNo, int prodHits,
-			ProdMngCategoryDTO category, List<ProdMngProductImgDTO> prodImgList,
+			Date prodTerminateDate, int prodDiscountRate, Date prodDiscountPeriod, int prodDiscountedPrice,
+			String prodManufacturer, int stockQuantity, String prodDisplayChk, String prodCtgNo, String corpNo,
+			int prodHits, ProdMngCategoryDTO category, List<ProdMngProductImgDTO> prodImgList,
 			List<ProdMngProductKeywordsDTO> prodKeywordsList) {
 		this.prodNo = prodNo;
 		this.prodName = prodName;
@@ -43,6 +44,7 @@ public class ProdMngProductDTO implements Serializable {
 		this.prodTerminateDate = prodTerminateDate;
 		this.prodDiscountRate = prodDiscountRate;
 		this.prodDiscountPeriod = prodDiscountPeriod;
+		this.prodDiscountedPrice = prodDiscountedPrice;
 		this.prodManufacturer = prodManufacturer;
 		this.stockQuantity = stockQuantity;
 		this.prodDisplayChk = prodDisplayChk;
@@ -116,6 +118,14 @@ public class ProdMngProductDTO implements Serializable {
 
 	public void setProdDiscountPeriod(Date prodDiscountPeriod) {
 		this.prodDiscountPeriod = prodDiscountPeriod;
+	}
+
+	public int getProdDiscountedPrice() {
+		return prodDiscountedPrice;
+	}
+
+	public void setProdDiscountedPrice(int prodDiscountedPrice) {
+		this.prodDiscountedPrice = prodDiscountedPrice;
 	}
 
 	public String getProdManufacturer() {
@@ -195,11 +205,12 @@ public class ProdMngProductDTO implements Serializable {
 		return "ProdMngProductDTO [prodNo=" + prodNo + ", prodName=" + prodName + ", prodPrice=" + prodPrice
 				+ ", prodDetails=" + prodDetails + ", prodUploadDate=" + prodUploadDate + ", prodTerminateDate="
 				+ prodTerminateDate + ", prodDiscountRate=" + prodDiscountRate + ", prodDiscountPeriod="
-				+ prodDiscountPeriod + ", prodManufacturer=" + prodManufacturer + ", stockQuantity=" + stockQuantity
-				+ ", prodDisplayChk=" + prodDisplayChk + ", prodCtgNo=" + prodCtgNo + ", corpNo=" + corpNo
-				+ ", prodHits=" + prodHits + ", category=" + category + ", prodImgList=" + prodImgList
-				+ ", prodKeywordsList=" + prodKeywordsList + "]";
+				+ prodDiscountPeriod + ", prodDiscountedPrice=" + prodDiscountedPrice + ", prodManufacturer="
+				+ prodManufacturer + ", stockQuantity=" + stockQuantity + ", prodDisplayChk=" + prodDisplayChk
+				+ ", prodCtgNo=" + prodCtgNo + ", corpNo=" + corpNo + ", prodHits=" + prodHits + ", category="
+				+ category + ", prodImgList=" + prodImgList + ", prodKeywordsList=" + prodKeywordsList + "]";
 	}
 
+	
 	
 }

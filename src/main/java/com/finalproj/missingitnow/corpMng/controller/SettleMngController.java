@@ -79,15 +79,19 @@ public class SettleMngController {
 	
 	// 정산 요청하기
 	@PostMapping("/insertSettlement")
-	public String insertSettlement(Model model, @ModelAttribute SettleMngSettlementDTO settleMngSettlement) {
+	public String insertSettlement(Model model, 
+									@RequestParam(required=false) String totalSales,
+									@RequestParam(required=false) String commissionBySales,
+									@RequestParam(required=false) String settlementAmt,
+									@ModelAttribute SettleMngSettlementDTO settleMngSettlement) {
 		
-		System.out.println("settleMngSettlement1 : " + settleMngSettlement);
+		System.out.println("totalSales : " + totalSales);
+		System.out.println("commissionBySales : " + commissionBySales);
+		System.out.println("settlementAmt : " + settlementAmt);
 		
 		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
 		settleMngSettlement.setCorpNo(CorpUserSession.getCorpNo());
 
-		System.out.println("settleMngSettlement2 : " + settleMngSettlement);
-		
 		int insertSettlement = settleMngService.insertSettlement(settleMngSettlement);
 		
 		if(insertSettlement > 0) {
