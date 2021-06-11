@@ -157,7 +157,7 @@
                     <th width=80px;>가입일</th>
                     <th width=50px;>등급</th>
                     <th width=80px;>판매 승인</th>
-                    <th width=160px;>관리</th>
+                    <th width=200px;>관리</th>
                  </tr>
               </thead> 
               <tbody>

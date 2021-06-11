@@ -68,7 +68,11 @@
  		<typeAlias alias="SCategoryDTO" type="com.finalproj.missingitnow.system.model.dto.SCategoryDTO"/>
  		<typeAlias alias="OrderPageDTO" type="com.finalproj.missingitnow.system.model.dto.OrderPageDTO"/>
  		<typeAlias alias="CorpSellPageDTO" type="com.finalproj.missingitnow.system.model.dto.CorpSellPageDTO"/>
- 		
+ 		<typeAlias alias="SPostImgDTO" type="com.finalproj.missingitnow.communty.model.dto.SPostImgDTO"/>
+ 		<typeAlias alias="SPostDTO" type="com.finalproj.missingitnow.communty.model.dto.SPostDTO"/>
+ 		<typeAlias alias="SPCommentDTO" type="com.finalproj.missingitnow.communty.model.dto.SPCommentDTO"/>
+ 		<typeAlias alias="SPostListDTO" type="com.finalproj.missingitnow.communty.model.dto.SPostListDTO"/>
+ 		<typeAlias alias="SPReCommentDTO" type="com.finalproj.missingitnow.communty.model.dto.SPReCommentDTO"/>
  		
  		
  	</typeAliases>

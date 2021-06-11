@@ -51,4 +51,12 @@ public interface SystemMapper {
 
 	List<Map<String, Object>> selectAjaxCategoryInfo(CorpSellPageDTO corpSellPage);
 
+	Map<String, Object> selectAgeSalseInfo(CorpSellPageDTO corpSellPage);
+
+	Map<String, Object> selectAJaxAgeSalseInfo(CorpSellPageDTO corpSellPage);
+
+	List<Map<String, Object>> selectCategorySalseInfo(CorpSellPageDTO corpSellPage);
+
+	List<Map<String, Object>> selectAjaxCategorySalseInfo(CorpSellPageDTO corpSellPage);
+
 }

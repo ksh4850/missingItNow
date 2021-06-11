@@ -136,7 +136,7 @@
 							  </c:if>
 									
 										
-                                <a href="#">
+                                 <a href="${ pageContext.servletContext.contextPath}/communty/communtyList">
                                     <li class="category-title">
                                         <div class="category-title-style">커뮤니티</div>
                                     </li>

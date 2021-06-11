@@ -93,6 +93,27 @@
 
         }
         
+        .sellInfo6{   
+            width: 550px;
+            height: 290px;
+            line-height: 2;
+            display: inline-block;
+            border: 2px solid rgb(119, 94, 238);
+            border-radius: 10px;
+        }
+
+        
+
+        .sellInfo7{
+            display: inline-block;
+            border: 2px solid rgb(119, 94, 238);
+            width: 550px;
+            height: 290px;
+            margin-left: 35px;
+            border-radius: 10px;
+
+        }
+        
         .system-comSell-sellInfo6{
         	   margin-top: 30px;
         	  margin-left: 850px;
@@ -317,116 +338,37 @@
                
             </div>
         </div>
+        
+        <div class="system-comSell-sellInfo4">
+            <div class="sellInfo4" id="sellInfo6">
+               
+            </div>
 
-        <div class="system-comSell-so">최근 판매내역</div>
-        <br>
-        <div class="system-comSell-info" >
-          
-            <table>
-                <tr class="first-tr">
-                    <th width=80px;>회원번호</th>
-                    <th width=160px;>기업명</th>
-                    <th width=80px;>상품번호</th>
-                    <th width=300px;>상품이름</th>
-                    <th width=100px;>주문번호</th>
-                    <th width=100px;>구매자ID</th>
-                    <th width=100px;>구매자</th>
-                    <th width=100px;>결제금액</th>
-                    <th width=100px;>판매일시</th>
-                 </tr>
-                 <tr>
-                     <td >comp0001</td>
-                     <td >회사</td>
-                     <td >p0001</td>
-                     <td >존나 비싼 가구</td>
-                     <td >r0001</td>
-                     <td >user01</td>
-                     <td >김수형</td>
-                     <td >10,000,000</td>
-                     <td >2021-05-12</td>
-                 </tr>
-                
-                
-                 
-            </table>
-
+            <div class="sellInfo5" id="sellInfo7">
+               
+            </div>
         </div>
+        
+        
+        
 
-        <br>
-        <br>
-
-         <div class="pagingArea" align="center">
-			
-					<button id="startPage"><<</button>
-						
-					<c:if test="${ requestScope.depositPage.pageInfo.pageNo == 1 }">
-						<button disabled><</button>
-					</c:if>
-					 <c:if test="${ requestScope.depositPage.pageInfo.pageNo > 1 }">
-						<button id="prevPage"><</button>
-					</c:if>
-					
-					<c:forEach var="p" begin="${ requestScope.depositPage.pageInfo.startPage }" end="${ requestScope.depositPage.pageInfo.endPage }" step="1">
-					<c:if test="${ requestScope.depositPage.pageInfo.pageNo eq p }">
-						<button disabled><c:out value="${ p }"/></button>
-					</c:if>
-					<c:if test="${ requestScope.depositPage.pageInfo.pageNo ne p }">
-						<button onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></button>
-					</c:if>
-					</c:forEach>
-			
-					<c:if test="${ requestScope.depositPage.pageInfo.pageNo == requestScope.depositPage.pageInfo.maxPage }">
-						<button disabled>></button>	
-					</c:if>
-					<c:if test="${ requestScope.depositPage.pageInfo.pageNo < requestScope.depositPage.pageInfo.maxPage }">
-						<button id="nextPage">></button>
-					</c:if> 
-			
-					<button id="maxPage">>></button>
-		</div><!-- pagingArea end -->
-
+ 
 		
-   
-    </section>
+     </section>
     
     <script >
     
+    const link = "${ pageContext.servletContext.contextPath }/system/corpSalesInfo";
     
-		 const link = "${ pageContext.servletContext.contextPath }/system/corpSalesInfo";
-			
-			
-			/* 
-			function pageButtonAction(text) {
-				location.href = link + "?currentPage=" + text + "&startDate=${depositPage.startDate}&endDate=${depositPage.endDate }" */
-			
-			$(document).on('click',"#corpSellSearchBtn" ,function(){
+		$(document).on('click',"#corpSellSearchBtn" ,function(){
 				
 				var startDate = $("#startDate").val();
 				var endDate = $("#endDate").val();
 				var condition = $("#condition").val(); 
 				var corpSellText = $("#corpSellText").val(); 
-				
 		
 			 location.href = link + "?currentPage=1&startDate=" + startDate +  "&endDate=" + endDate + "&condition=" + condition + "&corpSellText=" +corpSellText ;
-			})
-			
-			
-			/* $(document).on('click',"#startPage" , function(){
-				location.href = link + "?currentPage=1&startDate=${requestScope.depositPage.startDate}&endDate=${requestScope.depositPage.endDate }&depositSort=${requestScope.depositPage.depositSort}&depositCondition=${requestScope.depositPage.depositCondition}&depositSearchText=${requestScope.depositPage.depositSearchText}";
-			})
-			
-			$(document).on('click',"#maxPage" , function(){
-				location.href = link + "?currentPage=${ requestScope.depositPage.pageInfo.maxPage }&startDate=${requestScope.depositPage.startDate}&endDate=${requestScope.depositPage.endDate }&depositSort=${requestScope.depositPage.depositSort}&depositCondition=${requestScope.depositPage.depositCondition}&depositSearchText=${requestScope.depositPage.depositSearchText}";
-			})
-			
-			$(document).on('click',"#prevPage" , function(){
-				location.href = link + "?currentPage=${ requestScope.depositPage.pageInfo.pageNo - 1 }&startDate=${requestScope.depositPage.startDate}&endDate=${requestScope.depositPage.endDate }&depositSort=${requestScope.depositPage.depositSort}&depositCondition=${requestScope.depositPage.depositCondition}&depositSearchText=${requestScope.depositPage.depositSearchText}";
-			})
-			
-			$(document).on('click',"#nextPage" , function(){
-				location.href = link + "?currentPage=${ requestScope.depositPage.pageInfo.pageNo + 1 }&startDate=${requestScope.depositPage.startDate}&endDate=${requestScope.depositPage.endDate }&depositSort=${requestScope.depositPage.depositSort}&depositCondition=${requestScope.depositPage.depositCondition}&depositSearchText=${requestScope.depositPage.depositSearchText}";
-			}) */
-			
+			})	
 			
 		 $(function(){
 			var date = new Date();
@@ -441,8 +383,11 @@
 			if($("#endDate").val() == ""){
 				$("#endDate").val(sysDate);
 			}
+			
+			
 		
 		})
+	
 		
 		function dateformat(date){
 			var year = date.getFullYear();
@@ -522,20 +467,28 @@
           		  var $info1 =  $("#system-comSell-sellInfo3");
           		  var $info2 =  $("#sellInfo4");
           		  var $info3 =  $("#sellInfo5");
+          		  var $info4 =  $("#sellInfo6");
+          		  var $info5 =  $("#sellInfo7");
           		  
           		  $info1.html(""); 
           		  $info2.html("");
           		  $info3.html(""); 
+          		  $info4.html(""); 
+          		  $info5.html(""); 
           		  
           		 
-          		 google.charts.load('current', {'packages':['corechart']});
-          		 google.charts.setOnLoadCallback(drawDaySalseInfo1);
+          		 google.charts.load('current', {'packages':['corechart']}); 
+          		 google.charts.setOnLoadCallback(drawDaySalseInfo1); 
           		 google.charts.setOnLoadCallback(drawDayProductTopInfo1);
           		 google.charts.setOnLoadCallback(drawDayCategoryTopInfo1);
+          		 google.charts.setOnLoadCallback(drawAgesalseInfo1);
+          		 google.charts.setOnLoadCallback(drawCategorysalseInfo1); 
           		  
-          		 function drawDaySalseInfo1() {
+          		 
+          		 
+          		  function drawDaySalseInfo1() {
           			 
-          	        console.log(data.daySalseInfo.length); 
+          	        
           	        
           	      	
           	      var data1 = new google.visualization.DataTable();
@@ -563,11 +516,11 @@
 	          	        var chart = new google.visualization.ComboChart(document.getElementById('system-comSell-sellInfo3'));
 	          	        chart.draw(data1, options1);
           	        
-          	      } 
+          	      }  
           		 
           		 
                 
-                function drawDayProductTopInfo1() {
+                 function drawDayProductTopInfo1() {
                     
                	 var data2 =  new google.visualization.DataTable();
                		
@@ -625,6 +578,93 @@
                     var chart = new google.visualization.ComboChart(document.getElementById('sellInfo5'));
                     chart.draw(data3, options3);
                   }
+                
+                
+          function drawAgesalseInfo1() {
+              	  
+        	  console.log(data.categorySalseInfo);  
+
+     	  var data4 = google.visualization.arrayToDataTable([
+               ['연령대', '판매금액'],
+               ['10대',    data.ageSalseInfo.tens],
+               ['20대',     data.ageSalseInfo.twentys],
+               ['30대',     data.ageSalseInfo.thirtys],
+               ['40대',     data.ageSalseInfo.fortys],
+               ['50대',     data.ageSalseInfo.dother]
+             
+
+             ]);
+
+             var options4 = {
+               title: '연령대별 판매금액 비율',
+               is3D: true,
+             };
+             
+            
+             var isTrue = false;
+             for (variable in data.ageSalseInfo) { 
+            	 
+            	 if(data.ageSalseInfo[variable] != 0){
+            		 isTrue = true;
+            		 break;
+            	 }
+            	 
+             }
+             
+            
+			
+             if(isTrue){
+            	  var chart = new google.visualization.PieChart(document.getElementById('sellInfo6'));
+                  chart.draw(data4, options4);
+                  
+             }else{
+            	 
+            	  $info5.html("연령대별 매출 데이터가 존재하지 않습니다.").css("text-align","center").css("line-height","10");
+             }
+
+           
+           }
+          
+          
+          function drawCategorysalseInfo1() {
+          	  
+    	  	  var selseJson =  ${selseJson};
+    	  	  
+    	  	  
+    	
+    	  	  var data5 = new google.visualization.DataTable();
+    			  data5.addColumn('string' , '카테고리 명');
+    		   	  data5.addColumn('number' , '판매수량');
+    		  
+    		  var arr = new Array();
+    	       for(var i=0 ; i < data.categorySalseInfo.length ; i++){
+    				 arr[i] = [data.categorySalseInfo[i].categoryName , data.categorySalseInfo[i].categoryCount ];
+    					
+    		    	} 
+    	     data5.addRows(arr);
+    	   	 
+
+              var options5 = {
+                title: '카테고리별 판매 비율',
+                is3D: true,
+               
+              };
+              
+             console.log(data.categorySalseInfo.length != 0);
+              
+             
+    			
+               if( data.categorySalseInfo.length != 0){  
+
+              var chart = new google.visualization.PieChart(document.getElementById('sellInfo7'));
+              chart.draw(data5, options5);
+              
+                }else{
+             	 
+            	  $("#sellInfo6").html("카테고리별 매출 데이터가 존재하지 않습니다.").css("text-align","center").css("line-height","10");
+              }  
+              
+            } 
           		 
 
           	   },
@@ -632,6 +672,8 @@
           		   console.log(error)
           	   }
              }) 
+             
+       
 			
 			
 		
@@ -642,10 +684,17 @@
       google.charts.setOnLoadCallback(drawDaySalseInfo);
       google.charts.setOnLoadCallback(drawDayProductTopInfo);
       google.charts.setOnLoadCallback(drawDayCategoryTopInfo);
+      google.charts.setOnLoadCallback(drawAgesalseInfo);
+      google.charts.setOnLoadCallback(drawCategorysalseInfo);
+      
+      
+      
+      
+      
       
       function drawDaySalseInfo( ) {
  
-        var selseJson =  ${selseJson}; 
+         var selseJson = ${selseJson};  
         
         var data1 = new google.visualization.DataTable();
 
@@ -675,11 +724,10 @@
       }
       
       
-     
       
-      function drawDayProductTopInfo() {
+      function drawDayProductTopInfo(data) {
           
-    	 var selseJson =  ${selseJson};
+    	  var selseJson =  ${selseJson}; 
     	 
     	 var data2 =  new google.visualization.DataTable();
     		
@@ -708,10 +756,9 @@
      	
        }
       
-      
-      function drawDayCategoryTopInfo() {
+      function drawDayCategoryTopInfo(data) {
           
-    	  var selseJson =  ${selseJson}; 
+    	   var selseJson =  ${selseJson} ; 
     	  
     	  var data3 = new google.visualization.DataTable();
     	  data3.addColumn('string' , '카테고리명');
@@ -741,7 +788,87 @@
 	     	  
         }
       
-      
+	function drawAgesalseInfo() {
+    	 
+    	   var selseJson =  ${selseJson}; 
+    	  
+    	  
+
+    	  var data4 = google.visualization.arrayToDataTable([
+              ['연령대', '판매금액'],
+              ['10대',     selseJson.ageSalseInfo.tens],
+              ['20대',     selseJson.ageSalseInfo.twentys],
+              ['30대',     selseJson.ageSalseInfo.thirtys],
+              ['40대',     selseJson.ageSalseInfo.fortys],
+              ['50대',     selseJson.ageSalseInfo.dother]
+
+            ]);
+
+            var options4 = {
+              title: '연령대별 판매금액 비율',
+              is3D: true,
+             
+            };
+            
+            var isTrue = false;
+            for (variable in  selseJson.ageSalseInfo) { 
+           	 
+           	 if( selseJson.ageSalseInfo[variable] != 0){
+           		 isTrue = true;
+           		 break;
+           	 }
+           	 
+            }
+            
+           
+			
+            if(isTrue){
+
+            var chart = new google.visualization.PieChart(document.getElementById('sellInfo6'));
+            chart.draw(data4, options4);
+            
+            }else{
+           	 
+          	  $("#sellInfo6").html("연령대별 매출 데이터가 존재하지 않습니다.").css("text-align","center").css("line-height","10");
+           }
+            
+          }
+	
+	function drawCategorysalseInfo() {
+  	  
+	  	   var selseJson =  ${selseJson}; 
+	  	  
+	  	  
+	
+	  	  var data5 = new google.visualization.DataTable();
+			  data5.addColumn('string' , '카테고리 명');
+		   	  data5.addColumn('number' , '판매수량');
+		  
+		  var arr = new Array();
+	       for(var i=0 ; i < selseJson.categorySalseInfo.length ; i++){
+				 arr[i] = [selseJson.categorySalseInfo[i].categoryName ,selseJson.categorySalseInfo[i].categoryCount ];
+					
+		    	} 
+	     data5.addRows(arr);
+	   	 
+
+          var options5 = {
+            title: '카테고리별 판매 비율',
+            is3D: true,
+           
+          };
+          
+           if(selseJson.categorySalseInfo.length != 0){ 
+
+          var chart = new google.visualization.PieChart(document.getElementById('sellInfo7'));
+          chart.draw(data5, options5);
+          
+           }else{
+         	 
+        	  $("#sellInfo7").html("카테고리별 매출 데이터가 존재하지 않습니다.").css("text-align","center").css("line-height","10");
+         } 
+          
+        }
       
       
       

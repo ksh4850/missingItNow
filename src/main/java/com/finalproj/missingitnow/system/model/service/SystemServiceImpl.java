@@ -119,4 +119,25 @@ public class SystemServiceImpl implements SystemService {
 		return systemMapper.selectAjaxCategoryInfo(corpSellPage);
 	}
 
+	@Override
+	public Map<String, Object> selectAgeSalseInfo(CorpSellPageDTO corpSellPage) {
+		// TODO Auto-generated method stub
+		return systemMapper.selectAgeSalseInfo(corpSellPage);
+	}
+
+	@Override
+	public Map<String, Object> selectAJaxAgeSalseInfo(CorpSellPageDTO corpSellPage) {
+		return systemMapper.selectAJaxAgeSalseInfo(corpSellPage);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectCategorySalseInfo(CorpSellPageDTO corpSellPage) {
+		return systemMapper.selectCategorySalseInfo(corpSellPage);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAjaxCategorySalseInfo(CorpSellPageDTO corpSellPage) {
+		return systemMapper.selectAjaxCategorySalseInfo(corpSellPage);
+	}
+
 }

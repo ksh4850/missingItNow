@@ -455,7 +455,7 @@
 		      NVL(SUM(A.ORDER_PRICE),0)
 		 FROM TBL_ORDER A
 		 JOIN TBL_CORP_USER B ON(A.CORP_NO =  B.CORP_NO)
-		WHERE A.DEALING_STATUS = '완료'
+		WHERE A.DEALING_STATUS NOT IN ('입금대기')
 		  AND A.ORDER_STATUS = 'Y'
 		  AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD')
 		   <if test="condition == 'corpNo'">
@@ -477,7 +477,7 @@
 	          NVL(SUM(A.ORDER_PRICE),0)
 	     FROM TBL_ORDER A
 	     JOIN TBL_CORP_USER B ON(A.CORP_NO =  B.CORP_NO)
-	    WHERE A.DEALING_STATUS = '완료'
+	    WHERE A.DEALING_STATUS NOT IN ('입금대기')
 	      AND A.ORDER_STATUS = 'Y'
 	      <![CDATA[
 		      AND A.ORDER_DATE >=  ADD_MONTHS(SYSDATE,-1)
@@ -511,7 +511,7 @@
 			          , SUM(A.ORDER_PRICE) AS SUM_PRICE
 			        FROM TBL_ORDER A
 			        JOIN TBL_CORP_USER D ON(A.CORP_NO =  D.CORP_NO)
-			        WHERE A.DEALING_STATUS = '완료'
+			        WHERE A.DEALING_STATUS NOT IN ('입금대기')
 				    <if test="condition == 'corpNo'">
 					  AND D.CORP_NO LIKE '%' || #{ corpSellText } || '%'
 				    </if>
@@ -553,7 +553,7 @@
 			  FROM TBL_ORDER A
 			   JOIN TBL_CORP_USER B ON(A.CORP_NO =  B.CORP_NO)
 			   JOIN TBL_PRODUCT C ON(A.PROD_NO = C.PROD_NO)
-			  WHERE A.DEALING_STATUS = '완료'
+			  WHERE A.DEALING_STATUS NOT IN ('입금대기')
 				AND A.ORDER_STATUS = 'Y'
 			    <if test="condition == 'corpNo'">
 					AND B.CORP_NO LIKE '%' || #{ corpSellText } || '%'
@@ -590,7 +590,7 @@
 			   JOIN TBL_CORP_USER B ON(A.CORP_NO =  B.CORP_NO)
 			   JOIN TBL_PRODUCT C ON(A.PROD_NO = C.PROD_NO)
 			   JOIN TBL_PROD_CATEGORY F ON (C.PROD_CTG_NO =F.PROD_CTG_NO)
-			  WHERE A.DEALING_STATUS = '완료'
+			  WHERE A.DEALING_STATUS NOT IN ('입금대기')
 				AND A.ORDER_STATUS = 'Y'
 			    <if test="condition == 'corpNo'">
 					AND B.CORP_NO LIKE '%' || #{ corpSellText } || '%'
@@ -620,7 +620,7 @@
 			          , SUM(A.ORDER_PRICE) AS SUM_PRICE
 			        FROM TBL_ORDER A
 			        JOIN TBL_CORP_USER D ON(A.CORP_NO =  D.CORP_NO)
-			        WHERE A.DEALING_STATUS = '완료'
+			        WHERE A.DEALING_STATUS NOT IN ('입금대기')
 				    <if test="condition == 'corpNo'">
 					  AND D.CORP_NO LIKE '%' || #{ corpSellText } || '%'
 				    </if>
@@ -657,7 +657,7 @@
 			  FROM TBL_ORDER A
 			   JOIN TBL_CORP_USER B ON(A.CORP_NO =  B.CORP_NO)
 			   JOIN TBL_PRODUCT C ON(A.PROD_NO = C.PROD_NO)
-			  WHERE A.DEALING_STATUS = '완료'
+			  WHERE A.DEALING_STATUS NOT IN ('입금대기')
 				AND A.ORDER_STATUS = 'Y'
 			    <if test="condition == 'corpNo'">
 					AND B.CORP_NO LIKE '%' || #{ corpSellText } || '%'
@@ -689,7 +689,7 @@
 			   JOIN TBL_CORP_USER B ON(A.CORP_NO =  B.CORP_NO)
 			   JOIN TBL_PRODUCT C ON(A.PROD_NO = C.PROD_NO)
 			   JOIN TBL_PROD_CATEGORY F ON (C.PROD_CTG_NO =F.PROD_CTG_NO)
-			  WHERE A.DEALING_STATUS = '완료'
+			  WHERE A.DEALING_STATUS NOT IN ('입금대기')
 				AND A.ORDER_STATUS = 'Y'
 			    <if test="condition == 'corpNo'">
 					AND B.CORP_NO LIKE '%' || #{ corpSellText } || '%'
@@ -710,9 +710,333 @@
 	</select>
 	
 	
-
-
 	
+	<resultMap type="map" id="ageSalseInfoMap">
+		<result property="tens" column="TENS"/>
+		<result property="twentys" column="TWENTYS"/>
+		<result property="thirtys" column="THIRTYS"/>
+		<result property="fortys" column="FORTYS"/>
+		<result property="dother" column="OTHER"/>
+	</resultMap>
+	
+	
+	<select id="selectAgeSalseInfo"  parameterType="CorpSellPageDTO" resultMap="ageSalseInfoMap">
+		SELECT
+          C.TENS
+        , D.TWENTYS
+        , E.THIRTYS
+        , F.FORTYS
+        , G.OTHER 
+        
+     FROM (SELECT
+             NVL(SUM(a.ORDER_PRICE),0) AS TENS
+         FROM TBL_ORDER A
+         JOIN TBL_USER B ON(A.USER_NO =  B.USER_NO)
+         JOIN TBL_CORP_USER H ON(A.CORP_NO =  H.CORP_NO)
+         WHERE DEALING_STATUS NOT IN ('입금대기')
+           AND A.ORDER_STATUS = 'Y'
+             <if test="condition == 'corpNo'">
+					AND H.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpId'">
+					AND H.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpName'">
+					 AND H.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+			</if> 
+		<![CDATA[ 	 
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) >= 1
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) <= 19
+           AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+		   AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+           ) C
+            ]]>
+            ,
+         (SELECT
+             NVL(SUM(a.ORDER_PRICE),0) AS TWENTYS
+         FROM TBL_ORDER A
+         JOIN TBL_USER B ON(A.USER_NO =  B.USER_NO)
+         JOIN TBL_CORP_USER H ON(A.CORP_NO =  H.CORP_NO)
+         WHERE DEALING_STATUS NOT IN ('입금대기')
+           AND A.ORDER_STATUS = 'Y'
+             <if test="condition == 'corpNo'">
+					AND H.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpId'">
+					AND H.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+			</if>
+		    <if test="condition == 'corpName'">
+					 AND H.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+			</if>  
+		<![CDATA[
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) >= 20
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) <= 29
+           AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+		   AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+           ) D 
+            ]]>
+             ,
+         (SELECT
+              NVL(SUM(a.ORDER_PRICE),0) AS THIRTYS
+         FROM TBL_ORDER A
+         JOIN TBL_USER B ON(A.USER_NO =  B.USER_NO)
+         JOIN TBL_CORP_USER H ON(A.CORP_NO =  H.CORP_NO)
+         WHERE DEALING_STATUS NOT IN ('입금대기')
+           AND A.ORDER_STATUS = 'Y'
+             <if test="condition == 'corpNo'">
+					AND H.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpId'">
+					AND H.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpName'">
+					 AND H.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+			</if>  
+			<![CDATA[
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) >= 30
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) <= 39
+           AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+		   AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+           ) E 
+            ]]>
+             ,
+         (SELECT
+             NVL(SUM(a.ORDER_PRICE),0) AS FORTYS
+         FROM TBL_ORDER A
+         JOIN TBL_USER B ON(A.USER_NO =  B.USER_NO)
+         JOIN TBL_CORP_USER H ON(A.CORP_NO =  H.CORP_NO)
+         WHERE DEALING_STATUS NOT IN ('입금대기')
+           AND A.ORDER_STATUS = 'Y'
+             <if test="condition == 'corpNo'">
+					AND H.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpId'">
+					AND H.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpName'">
+					 AND H.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+			</if>  
+			<![CDATA[
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) >= 40
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) <= 49
+           AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+		   AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+           ) F 
+           ]]>
+             ,
+         (SELECT
+             NVL(SUM(a.ORDER_PRICE),0) AS OTHER
+         FROM TBL_ORDER A
+         JOIN TBL_USER B ON(A.USER_NO =  B.USER_NO)
+         JOIN TBL_CORP_USER H ON(A.CORP_NO =  H.CORP_NO)
+         WHERE DEALING_STATUS NOT IN ('입금대기')
+           AND A.ORDER_STATUS = 'Y'
+             <if test="condition == 'corpNo'">
+					AND H.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpId'">
+					AND H.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpName'">
+					 AND H.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+			</if>  
+			<![CDATA[
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) >= 50
+           AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+		   AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+           ) G 
+          ]]> 
+	</select>
+	
+	
+	
+	<select id="selectAJaxAgeSalseInfo"  parameterType="CorpSellPageDTO" resultMap="ageSalseInfoMap">
+		SELECT
+          C.TENS
+        , D.TWENTYS
+        , E.THIRTYS
+        , F.FORTYS
+        , G.OTHER 
+        
+     FROM (SELECT
+            NVL(SUM(a.ORDER_PRICE),0) AS TENS
+         FROM TBL_ORDER A
+         JOIN TBL_USER B ON(A.USER_NO =  B.USER_NO)
+         JOIN TBL_CORP_USER H ON(A.CORP_NO =  H.CORP_NO)
+         WHERE DEALING_STATUS NOT IN ('입금대기')
+           AND A.ORDER_STATUS = 'Y'
+             <if test="condition == 'corpNo'">
+					AND H.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpId'">
+					AND H.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpName'">
+					 AND H.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+			</if> 
+		<![CDATA[ 	 
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) >= 1
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) <= 19
+           AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+		   AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+           ) C
+            ]]>
+            ,
+         (SELECT
+            NVL(SUM(a.ORDER_PRICE),0) AS TWENTYS
+         FROM TBL_ORDER A
+         JOIN TBL_USER B ON(A.USER_NO =  B.USER_NO)
+         JOIN TBL_CORP_USER H ON(A.CORP_NO =  H.CORP_NO)
+         WHERE DEALING_STATUS NOT IN ('입금대기')
+           AND A.ORDER_STATUS = 'Y'
+             <if test="condition == 'corpNo'">
+					AND H.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpId'">
+					AND H.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+			</if>
+		    <if test="condition == 'corpName'">
+					 AND H.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+			</if>  
+		<![CDATA[
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) >= 20
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) <= 29
+           AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+		   AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+           ) D 
+            ]]>
+             ,
+         (SELECT
+              NVL(SUM(a.ORDER_PRICE),0) AS THIRTYS
+         FROM TBL_ORDER A
+         JOIN TBL_USER B ON(A.USER_NO =  B.USER_NO)
+         JOIN TBL_CORP_USER H ON(A.CORP_NO =  H.CORP_NO)
+         WHERE DEALING_STATUS NOT IN ('입금대기')
+           AND A.ORDER_STATUS = 'Y'
+             <if test="condition == 'corpNo'">
+					AND H.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpId'">
+					AND H.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpName'">
+					 AND H.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+			</if>  
+			<![CDATA[
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) >= 30
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) <= 39
+           AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+		   AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+           ) E 
+            ]]>
+             ,
+         (SELECT
+              NVL(SUM(a.ORDER_PRICE),0) AS FORTYS
+         FROM TBL_ORDER A
+         JOIN TBL_USER B ON(A.USER_NO =  B.USER_NO)
+         JOIN TBL_CORP_USER H ON(A.CORP_NO =  H.CORP_NO)
+         WHERE DEALING_STATUS NOT IN ('입금대기')
+           AND A.ORDER_STATUS = 'Y'
+             <if test="condition == 'corpNo'">
+					AND H.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpId'">
+					AND H.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpName'">
+					 AND H.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+			</if>  
+			<![CDATA[
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) >= 40
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) <= 49
+           AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+		   AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+           ) F 
+           ]]>
+             ,
+         (SELECT
+             NVL(SUM(a.ORDER_PRICE),0) AS OTHER
+         FROM TBL_ORDER A
+         JOIN TBL_USER B ON(A.USER_NO =  B.USER_NO)
+         JOIN TBL_CORP_USER H ON(A.CORP_NO =  H.CORP_NO)
+         WHERE DEALING_STATUS NOT IN ('입금대기')
+           AND A.ORDER_STATUS = 'Y'
+             <if test="condition == 'corpNo'">
+					AND H.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpId'">
+					AND H.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpName'">
+					 AND H.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+			</if>  
+			<![CDATA[
+           AND SUBSTR(TO_CHAR(SYSDATE,'YYYY-MM-DD'),0,4)-SUBSTR(TO_CHAR(B.USER_BIRTH,'YYYY-MM-DD'),0,4) >= 50
+           AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+		   AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+           ) G 
+          ]]> 
+	</select>
+	
+	<resultMap type="map" id="catagorySalseInfoMap">
+		<result property="categoryName" column="PROD_CTG_NAME"/>
+		<result property="categoryCount" column="CTG_COUNT"/>
+	</resultMap>
+	
+	<select id="selectCategorySalseInfo"  parameterType="CorpSellPageDTO" resultMap="catagorySalseInfoMap" >
+		 SELECT
+             DISTINCT(D.PROD_CTG_NAME)
+            ,COUNT(*) AS CTG_COUNT
+        FROM TBL_ORDER A
+        JOIN TBL_CORP_USER B ON(A.CORP_NO =  B.CORP_NO)
+        JOIN TBL_PRODUCT C ON(A.PROD_NO = C.PROD_NO)
+        JOIN TBL_PROD_CATEGORY D ON(C.PROD_CTG_NO = D.PROD_CTG_NO)
+        WHERE DEALING_STATUS NOT IN ('입금대기')
+          AND A.ORDER_STATUS = 'Y'
+           <if test="condition == 'corpNo'">
+					AND B.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpId'">
+					AND B.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpName'">
+					 AND B.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<![CDATA[
+		 AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+	     AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD') 
+	   		  ]]> 
+        GROUP BY PROD_CTG_NAME
+	
+	</select>
+
+
+	<select id="selectAjaxCategorySalseInfo"  parameterType="CorpSellPageDTO" resultMap="catagorySalseInfoMap" >
+		 SELECT
+             DISTINCT(D.PROD_CTG_NAME)
+            ,COUNT(*) AS CTG_COUNT
+        FROM TBL_ORDER A
+        JOIN TBL_CORP_USER B ON(A.CORP_NO =  B.CORP_NO)
+        JOIN TBL_PRODUCT C ON(A.PROD_NO = C.PROD_NO)
+        JOIN TBL_PROD_CATEGORY D ON(C.PROD_CTG_NO = D.PROD_CTG_NO)
+        WHERE DEALING_STATUS NOT IN ('입금대기')
+          AND A.ORDER_STATUS = 'Y'
+           <if test="condition == 'corpNo'">
+					AND B.CORP_NO LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpId'">
+					AND B.CORP_ID LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<if test="condition == 'corpName'">
+					 AND B.CORP_NAME LIKE '%' || #{ corpSellText } || '%'
+			</if>
+			<![CDATA[
+		 AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startDate},'YYYY-MM-DD') , 'YYYY-MM-DD')
+	     AND TO_CHAR(A.ORDER_DATE,'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{endDate},'YYYY-MM-DD') , 'YYYY-MM-DD') 
+	   		  ]]> 
+        GROUP BY PROD_CTG_NAME
+	
+	</select>
 	
 	
 	
