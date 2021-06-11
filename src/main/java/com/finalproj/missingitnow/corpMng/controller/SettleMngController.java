@@ -113,7 +113,7 @@ public class SettleMngController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		
 		SettleMngSettlementDTO chkLastEndDate = settleMngService.chkLastEndDate(CorpUserSession);
-		System.out.println("chkLastEndDate : " + chkLastEndDate);
+//		System.out.println("chkLastEndDate : " + chkLastEndDate);
 		
 		return gson.toJson(chkLastEndDate);
 	}
@@ -238,9 +238,9 @@ public class SettleMngController {
 		params.put("pageInfo", pageInfo);
 		
 		List<SettleMngPaymentDTO> paymentList = settleMngService.selectPaymentList(params);
-		for(SettleMngPaymentDTO pay : paymentList) {
-			System.out.println("pay : " + pay);
-		}
+//		for(SettleMngPaymentDTO pay : paymentList) {
+//			System.out.println("pay : " + pay);
+//		}
 		
 		model.addAttribute("paymentList", paymentList);
 		model.addAttribute("pageInfo", pageInfo);

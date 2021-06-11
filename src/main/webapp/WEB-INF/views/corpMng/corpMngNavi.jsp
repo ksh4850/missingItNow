@@ -154,7 +154,6 @@
 			url: '/missingitnow/corpMng/selectCorpUserInfoForNavi',
 			type: 'post',
 			success: function(data){
-				console.log(data)
 				const corpName = data.corpName;
 				const corpImg = data.corpImg.corpImgRename;
 				
