@@ -51,7 +51,7 @@
                         <c:out value="${ productList[0].prodPrice }" />원
                     </div>
                     <div class="final-left final-bottom">할인가</div>
-                    <div class="final-right final-bottom">8,000원</div>
+                    <div class="final-right final-bottom">${ salePrice }원</div>
                 </div>
 
                 <div class="product-button">
