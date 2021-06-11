@@ -59,7 +59,7 @@
             <div class="right">
                 <div class="right-header">
                     <div class="right-header-search">검색결과 303,303건</div>
-                    <input type="hidden" id="prodCtgNo" value="${ productList[0].prodCtgNo }">
+                    <input type="hidden" id="prodCtgNo" value="${ productList[0].product.prodCtgNo }">
                     <div class="right-header-button">
                         <a id="button3" href="#">
                             <div class="right-header-button-1">낮은가격순</div>
@@ -79,9 +79,9 @@
                          <c:forEach var="List" items="${ productList }" begin="0" end="5" step="1">
                         <a href="#">
                             <div class="right-contest-recommendation-box">
-                                <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/${ List.prodImgRename }" alt="">
-                                <div class="product-font-1"><c:out value="${ List.prodName }"/></div>
-                                <div class="product-font-2"><c:out value="${ List.prodPrice }"/>원</div>
+                                <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/${ List.product.prodImgRename }" alt="">
+                                <div class="product-font-1"><c:out value="${ List.product.prodName }"/></div>
+                                <div class="product-font-2"><c:out value="${ List.product.prodPrice }"/>원</div>
                                 <div class="product-font-1">무료배송</div>
                             </div>
                         </a>
@@ -94,18 +94,37 @@
                     
 					<div class = "productChange">
                     <c:forEach var="List" items="${ productList }">  <!-- 처음 뜨는 화면 -->
-                    <a href="${ pageContext.servletContext.contextPath}/product/product?prodNo=<c:out value="${ List.prodNo }"/>&corpNo=<c:out value="${ List.corpNo }"/>">
+                    <a href="${ pageContext.servletContext.contextPath}/product/product?prodNo=<c:out value="${ List.product.prodNo }"/>&corpNo=<c:out value="${ List.product.corpNo }"/>">
                         <div class="right-contest-advertisement-product">
                             <div class="right-contest-advertisement-product-img">
-                                <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ List.prodImgRename }"/>" alt="">
+                                <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ List.product.prodImgRename }"/>" alt="">
                             </div>
                             <div class="right-contest-advertisement-text">
-                                <div class="product-contest-1"><c:out value="${ List.prodName }"/> </div>
-                                <div class="product-font-review"><span class="color-yellow">★★★★★</span>리뷰 40건</div>
-                                <div class="product-contest-2"><c:out value="${ List.prodPrice }"/> 할인가 <c:out value="${ List.prodDiscountRate }"/>% 
+                                <div class="product-contest-1"><c:out value="${ List.product.prodName }"/> </div>
+                                <div class="product-font-review"><span class="color-yellow">
+                                	<c:if test="${ List.starsScore.starsScore == 5}">
+                                		★★★★★
+                                	</c:if>
+                                	<c:if test="${ List.starsScore.starsScore == 4}">
+                                		★★★★☆
+                                	</c:if>
+                                	<c:if test="${ List.starsScore.starsScore == 3}">
+                                		★★★☆☆
+                                	</c:if>
+                                	<c:if test="${ List.starsScore.starsScore == 2}">
+                                		★★☆☆☆
+                                	</c:if>
+                                	<c:if test="${ List.starsScore.starsScore == 1}">
+                                		★☆☆☆☆
+                                	</c:if>
+                                	<c:if test="${ List.starsScore.starsScore == 0}">
+                                		☆☆☆☆☆
+                                	</c:if>
+                                	</span>리뷰 ${ List.starsScore.count }건</div>
+                                <div class="product-contest-2"><c:out value="${ List.product.prodPrice }"/> 할인가 <c:out value="${ List.product.prodDiscountRate }"/>% 
                                 
                                 <c:forEach var="price" items="${ price }">
-                                	<c:if test="${ price.prodNo == List.prodNo }">
+                                	<c:if test="${ price.prodNo == List.product.prodNo }">
                                 		<c:out value="${ price.prodPrice }"/>원
                                 	</c:if>
                                 </c:forEach>  
@@ -113,7 +132,7 @@
                                 <div class="product-contest-1">무료배송</div>
                             </div>
                             <div class="right-contest-advertisement-company">
-                                <div class="product-contest-1"><c:out value="${ List.corpName }"/></div>
+                                <div class="product-contest-1"><c:out value="${ List.product.corpName }"/></div>
                             </div>
                         </div>
                     </a>

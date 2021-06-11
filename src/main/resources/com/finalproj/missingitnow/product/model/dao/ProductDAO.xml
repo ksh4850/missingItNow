@@ -202,6 +202,17 @@
 		  WHERE A.PROD_NO = #{prodNo}
 	</select>
 	
+	<select id="reviewCtgNo" resultMap="ReviewResultSet" parameterType="string">
+		 SELECT 
+                A.*
+              , B.USER_NAME
+              , C.*
+           FROM TBL_PROD_REVIEW A
+           JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
+           JOIN TBL_PRODUCT C ON (A.PROD_NO = C.PROD_NO)
+		  WHERE C.PROD_CTG_NO = #{prodCtgNo}
+	</select> 
+	
  	<insert  id="reviewStar" parameterType="hashmap" >
  	  <selectKey keyProperty="REVIEW_NO" order="BEFORE" resultType="string">
 		    SELECT

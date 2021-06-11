@@ -16,7 +16,7 @@ import com.finalproj.missingitnow.product.model.dto.starsScoreDTO;
 public interface ProductService {
 	
 	/* 상품 리스트 쓰일 정보들 */
-	List<ProductDTO> selectProduct(String prodCtgNo);
+	List<ProductListDTO> selectProduct(String prodCtgNo);
 	
 	/* 가격 높은순 상품 */
 	List<ProductDTO> selectProductHigh(String prodCtgNo);

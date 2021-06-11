@@ -96,6 +96,9 @@ public interface ProductDAO {
 	
 	/* 장바구니에 등록 */
 	int cart(HashMap<String, Object> myPageCart);
+	
+	/* 상품 리스트 별점 뿌려주기 위해 리뷰 불러오기 */
+	List<ReviewDTO> reviewCtgNo(String prodCtgNo);
 
 
 

@@ -30,29 +30,37 @@ public class ProductServiceImpl implements ProductService {
 	
 	/* 상품 리스트 페이지 */
 	@Override
-	public List<ProductDTO> selectProduct(String prodCtgNo) {
-//		System.out.println("여기오시나요 혹시");
-//		List<ProductDTO> as = productDAO.selectProduct(prodCtgNo);
-//		List<ProductListDTO> productList = new ArrayList<>();
-//		int count = 0;
-//		for(ProductDTO product : as) {
-//			String prodNo = product.getProdNo();
-//			starsScoreDTO StarsScoreDTO = new starsScoreDTO();
-//			String starsScore = productDAO.starsScore(prodNo);
-//			String starsScore2 = productDAO.starsScore2(prodNo);
-//			StarsScoreDTO.setCount(Integer.valueOf(starsScore));
-//			StarsScoreDTO.setStarsScore(Integer.valueOf(starsScore2));
-//	
-//			ProductListDTO productStarsScore = new ProductListDTO();
-//			productStarsScore.setProduct(product);
-//			productStarsScore.setStarsScore(StarsScoreDTO);
-//			productList.add(count,productStarsScore);
-//			
-//			System.out.println(productList);
-//			count += 1;
-//		}
-		System.out.println(prodCtgNo);
-		return productDAO.selectProduct(prodCtgNo);
+	public List<ProductListDTO> selectProduct(String prodCtgNo) {
+		List<ProductDTO> selectProduct = productDAO.selectProduct(prodCtgNo);
+		List<ReviewDTO> reviewCtgNo = productDAO.reviewCtgNo(prodCtgNo);
+		List<ProductListDTO> productList = new ArrayList<>();
+		int count = 0;
+		double score = 0.0;
+		for(ProductDTO product : selectProduct) {
+			ProductListDTO productDTO = new ProductListDTO();
+			starsScoreDTO starsScore = new starsScoreDTO();
+			productDTO.setProduct(product);
+			
+			System.out.println(productDTO);
+			
+			for(ReviewDTO review : reviewCtgNo) {
+				if(product.getProdNo().equals(review.getProdNo())){
+					count += 1;
+					score += review.getReviewScore();
+				}
+			}
+			score = score / count;
+			starsScore.setCount(count);
+			starsScore.setStarsScore((int)score);
+			
+			System.out.println(starsScore);
+			
+			productDTO.setStarsScore(starsScore);
+			score = 0.0;
+			count = 0;
+			productList.add(productDTO);
+		}
+		return productList;
 	}
 
 	@Override

@@ -59,18 +59,16 @@ public class ProductController {
 	@GetMapping("productList")
 	   public String test(Model model, @RequestParam(required=false) String prodCtgNo) {
 		System.out.println(prodCtgNo);
-		  List<ProductDTO> productList = productService.selectProduct(prodCtgNo);
-//		  HashMap<String, Object> price = new	HashMap<String, Object>(); 
+		  List<ProductListDTO> productList = productService.selectProduct(prodCtgNo);
 		  List<ProductDTO> price = new ArrayList<ProductDTO>(); 
 		  int salePrice = 0;
 		  int count = 0;
-		  for(ProductDTO list : productList) {
-			  
-				double prodDiscountRate = (double) list.getProdDiscountRate() / 100;
-				double salePrice2 =  list.getProdPrice() * ( 1 - prodDiscountRate);
+		  for(ProductListDTO list : productList) {
+				double prodDiscountRate = (double) list.getProduct().getProdDiscountRate() / 100;
+				double salePrice2 =  list.getProduct().getProdPrice() * ( 1 - prodDiscountRate);
 				salePrice = (int)salePrice2;
 				ProductDTO product = new ProductDTO();
-				product.setProdNo(list.getProdNo());
+				product.setProdNo(list.getProduct().getProdNo());
 				product.setProdPrice(salePrice);
 				price.add(product);
 				count+=1;
@@ -88,9 +86,8 @@ public class ProductController {
 		List<CorpDTO> corpList = productService.corp(corpNo);
 		List<ProductImgDTO> productImgList = productService.ProductImg(prodNo);
 		List<ReviewDTO> reviewList = productService.review(prodNo);
-		System.out.println(reviewList+"reviewList");
 		List<CommentDTO> commentList = productService.comment(prodNo);
-		System.out.println(commentList+"commentList");
+		
 		int count = 0;
 		int sum = 0;
 		int salePrice = 0;
@@ -121,11 +118,8 @@ public class ProductController {
 		}
 		
 		if(reviewList.size() == 0) {
-			System.out.println("하지마");
 		} else {
 		for (ReviewDTO a : reviewList) {
-			
-			
 			
 			sum += a.getReviewScore();
 

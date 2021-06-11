@@ -25,9 +25,10 @@ public class ProductDTO implements Serializable {
 	private String prodImgRename;
 	private String prodImgPath;
 	private String corpName;
-	private starsScoreDTO starsScore;
+
 	
 	public ProductDTO() {}
+	
 
 	public ProductDTO(String prodNo, String prodName, int prodPrice, String prodDetails, Date prodUploadDate,
 			Date prodTerminateDate, int prodDiscountRate, Date prodDiscountPeriod, String prodManufacturer,
@@ -51,34 +52,10 @@ public class ProductDTO implements Serializable {
 		this.prodImgRename = prodImgRename;
 		this.prodImgPath = prodImgPath;
 		this.corpName = corpName;
+		
 	}
-	
-	
 
-	public ProductDTO(String prodNo, String prodName, int prodPrice, String prodDetails, Date prodUploadDate,
-			Date prodTerminateDate, int prodDiscountRate, Date prodDiscountPeriod, String prodManufacturer,
-			String stockQuantity, String prodDisplayChk, String prodCtgNo, String corpNo, int prodHits,
-			String prodImgRename, String prodImgPath, String corpName, starsScoreDTO starsScore) {
-		super();
-		this.prodNo = prodNo;
-		this.prodName = prodName;
-		this.prodPrice = prodPrice;
-		this.prodDetails = prodDetails;
-		this.prodUploadDate = prodUploadDate;
-		this.prodTerminateDate = prodTerminateDate;
-		this.prodDiscountRate = prodDiscountRate;
-		this.prodDiscountPeriod = prodDiscountPeriod;
-		this.prodManufacturer = prodManufacturer;
-		this.stockQuantity = stockQuantity;
-		this.prodDisplayChk = prodDisplayChk;
-		this.prodCtgNo = prodCtgNo;
-		this.corpNo = corpNo;
-		this.prodHits = prodHits;
-		this.prodImgRename = prodImgRename;
-		this.prodImgPath = prodImgPath;
-		this.corpName = corpName;
-		this.starsScore = starsScore;
-	}
+	
 
 	public String getProdNo() {
 		return prodNo;
@@ -216,13 +193,7 @@ public class ProductDTO implements Serializable {
 		this.corpName = corpName;
 	}
 
-	public starsScoreDTO getStarsScore() {
-		return starsScore;
-	}
-
-	public void setStarsScore(starsScoreDTO starsScore) {
-		this.starsScore = starsScore;
-	}
+	
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -236,8 +207,10 @@ public class ProductDTO implements Serializable {
 				+ ", prodManufacturer=" + prodManufacturer + ", stockQuantity=" + stockQuantity + ", prodDisplayChk="
 				+ prodDisplayChk + ", prodCtgNo=" + prodCtgNo + ", corpNo=" + corpNo + ", prodHits=" + prodHits
 				+ ", prodImgRename=" + prodImgRename + ", prodImgPath=" + prodImgPath + ", corpName=" + corpName
-				+ ", starsScore=" + starsScore + "]";
+				+ "] ";
 	}
+
+	
 
 	
 
