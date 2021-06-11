@@ -128,7 +128,6 @@
                               <!-- 기업회원으로 로그인했을때 표시되는 마이페이지 링크 -->  
 									
 						      <c:if test="${!empty CorpUserSession }">
-									
 		                                <a href="${ pageContext.servletContext.contextPath}/corpMng/main">
 		                                    <li class="category-title">
 		                                        <div class="category-title-style">MY PAGE</div>
@@ -184,7 +183,6 @@
             	<c:if test="${ empty loginMember && empty CorpUserSession}">
             		<div class="icons">
                			<a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu1.png" class="icons_img" alt=""></a>
-		                <a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu2.png" class="icons_img" alt=""></a>
 		                <a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu3.png" class="icons_img" alt=""></a>
             		</div>
             	</c:if>
@@ -193,7 +191,12 @@
             	<!-- 로그인 상태에 보여줄 헤더 아이콘 -->            	
             	<c:if test="${!empty loginMember || !empty CorpUserSession}">
 	            	<div class="icons">
-			                <a href="${ pageContext.servletContext.contextPath}/corporation/loginPage"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu2.png" class="icons_img" alt=""></a>
+	            		<c:if test="${!empty CorpUserSession}">
+			                <a href="${ pageContext.servletContext.contextPath}/corpMng/main"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu1.png" class="icons_img" alt=""></a>
+			        	</c:if>
+			         	<c:if test="${!empty loginMember}">
+			                <a href="javascript:goCartPaging('${loginMember.userNo}');"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu1.png" class="icons_img" alt=""></a>
+			         	</c:if>
 			                <a href="javascript:goCartPaging('${loginMember.userNo}');"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu3.png" class="icons_img" alt=""></a>
 	             		    <a href="${ pageContext.servletContext.contextPath}/member/logout"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu4.png" class="icons_img" alt=""></a>
 	            	</div>
