@@ -76,10 +76,10 @@
                 <div class="right-contest">
                     <div class="right-contest-advertisement">추천상품</div>
                     <div class="right-contest-recommendation">
-                         <c:forEach var="List" items="${ productList }" begin="0" end="5" step="1">
+                         <c:forEach var="List" items="${ productList }" begin="0" end="4" step="1">
                         <a href="#">
                             <div class="right-contest-recommendation-box">
-                                <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/${ List.product.prodImgRename }" alt="">
+                                <img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/${ List.product.prodImgRename }" alt="">
                                 <div class="product-font-1"><c:out value="${ List.product.prodName }"/></div>
                                 <div class="product-font-2"><c:out value="${ List.product.prodPrice }"/>원</div>
                                 <div class="product-font-1">무료배송</div>
@@ -97,7 +97,7 @@
                     <a href="${ pageContext.servletContext.contextPath}/product/product?prodNo=<c:out value="${ List.product.prodNo }"/>&corpNo=<c:out value="${ List.product.corpNo }"/>">
                         <div class="right-contest-advertisement-product">
                             <div class="right-contest-advertisement-product-img">
-                                <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ List.product.prodImgRename }"/>" alt="">
+                                <img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ List.product.prodImgRename }"/>" alt="">
                             </div>
                             <div class="right-contest-advertisement-text">
                                 <div class="product-contest-1"><c:out value="${ List.product.prodName }"/> </div>
@@ -169,7 +169,7 @@
 
                     $floatDiv = $("<div>").attr("class", "right-contest-advertisement-product");
                     $rightImgDiv = $("<div>").attr("class", "right-contest-advertisement-product-img");
-                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/" + data[index].prodImgRename);
+                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
 
                     $centerDiv = $("<div>").attr("class", "right-contest-advertisement-text");
                     $prodName = $("<div>").text(data[index].prodName).attr("class", "product-contest-1");
@@ -231,7 +231,7 @@
 
                     $floatDiv = $("<div>").attr("class", "right-contest-advertisement-product");
                     $rightImgDiv = $("<div>").attr("class", "right-contest-advertisement-product-img");
-                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/" + data[index].prodImgRename);
+                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
 
                     $centerDiv = $("<div>").attr("class", "right-contest-advertisement-text");
                     $prodName = $("<div>").text(data[index].prodName).attr("class", "product-contest-1");
@@ -292,7 +292,7 @@
 
                     $floatDiv = $("<div>").attr("class", "right-contest-advertisement-product");
                     $rightImgDiv = $("<div>").attr("class", "right-contest-advertisement-product-img");
-                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/" + data[index].prodImgRename);
+                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
 
                     $centerDiv = $("<div>").attr("class", "right-contest-advertisement-text");
                     $prodName = $("<div>").text(data[index].prodName).attr("class", "product-contest-1");
@@ -353,7 +353,7 @@
 
                     $floatDiv = $("<div>").attr("class", "right-contest-advertisement-product");
                     $rightImgDiv = $("<div>").attr("class", "right-contest-advertisement-product-img");
-                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/" + data[index].prodImgRename);
+                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
 
                     $centerDiv = $("<div>").attr("class", "right-contest-advertisement-text");
                     $prodName = $("<div>").text(data[index].prodName).attr("class", "product-contest-1");

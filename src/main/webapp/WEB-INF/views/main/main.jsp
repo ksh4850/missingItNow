@@ -174,7 +174,7 @@
                                             <% count += 1; %>
                                         </div>
                                             <div class="img-wrap">
-                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/product/${ List.prodImgRename }" alt="">
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/${ List.prodImgRename }" alt="">
                                             </div>
                                             <p><c:out value="${ List.prodName }" /></p>
                                             <span>제품가격<h4><c:out value="${ List.prodPrice }" />원</h4></span>
@@ -407,7 +407,7 @@
                                     <div class="container-wrap">
                                         <div class="img-wrap">
                                             <div class="img">
-                                            	<img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ List.prodImgRename }"/>" alt="">
+                                            	<img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ List.prodImgRename }"/>" alt="">
                                             </div>
                                         </div>
                                        <!--  <div class="halin">
@@ -459,7 +459,7 @@
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
 					
                    
 					
@@ -525,7 +525,7 @@
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
 					
                    
 					
@@ -591,7 +591,7 @@
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
 					
                    
 					
@@ -657,7 +657,7 @@
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
 					
                    
 					
@@ -723,7 +723,7 @@
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
 					
                    
 					
@@ -789,7 +789,7 @@
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
 					
                    
 					
@@ -855,7 +855,7 @@
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
 					
                    
 					
@@ -921,7 +921,7 @@
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
 					
                    
 					
@@ -987,7 +987,7 @@
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
 					
                    
 					
@@ -1053,7 +1053,7 @@
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
 					
                    
 					
