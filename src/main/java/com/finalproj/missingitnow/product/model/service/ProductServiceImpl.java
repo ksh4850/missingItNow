@@ -51,8 +51,7 @@ public class ProductServiceImpl implements ProductService {
 //			System.out.println(productList);
 //			count += 1;
 //		}
-		System.out.println("왜안아와");
-		
+		System.out.println(prodCtgNo);
 		return productDAO.selectProduct(prodCtgNo);
 	}
 

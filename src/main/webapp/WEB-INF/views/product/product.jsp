@@ -18,7 +18,7 @@
     <section1>
         <div class="product intro">
             <div class="thumbnail">
-                <img id="img" src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[0].prodImgRename }" />" alt="" width="540px">
+                <img id="img" src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ productList[0].prodImgRename }" />" alt="" width="540px">
             </div>
             <div class="information">
                 <div class="title">
@@ -70,28 +70,28 @@
 				}
             </script>
             <div>
-                <button onclick="Sumname1()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[4].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Sumname2()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[0].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Sumname3()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[1].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Sumname4()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[2].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Sumname5()"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[3].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Sumname1()"><img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ productList[0].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Sumname2()"><img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ productList[1].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Sumname3()"><img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ productList[2].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Sumname4()"><img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ productList[3].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                <button onclick="Sumname5()"><img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ productList[4].prodImgRename }" />" alt="" class="thumbnail-img"></button>
             </div>
         </div>
         <script>
             function Sumname1() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[4].prodImgRename } " />";
+                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ productList[0].prodImgRename } " />";
             }
             function Sumname2() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[0].prodImgRename } " />";
+                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ productList[1].prodImgRename } " />";
             }
             function Sumname3() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[1].prodImgRename } " />";
+                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ productList[2].prodImgRename } " />";
             }
             function Sumname4() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[2].prodImgRename } " />";
+                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ productList[3].prodImgRename } " />";
             }
             function Sumname5() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ productList[3].prodImgRename } " />";
+                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ productList[4].prodImgRename } " />";
             }
         </script>
     </section1>
@@ -101,7 +101,7 @@
                 <div class="exhibitions-right">신나는 램프 기획전</div>
                 <div class="exhibitions-left"><a href="#">더보기 +</a></div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/1.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/1.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -109,7 +109,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/2.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/2.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/3.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/3.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -125,7 +125,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/4.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/4.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -138,7 +138,7 @@
                 <div class="exhibitions-right">화나는 램프 기획전</div>
                 <div class="exhibitions-left"><a href="#">더보기 +</a></div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/5.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/5.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -146,7 +146,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/10.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/10.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -154,7 +154,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/1.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/1.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -174,7 +174,7 @@
                 <div class="exhibitions-right">확인만 할깨요</div>
                 <div class="exhibitions-left"><a href="#">더보기 +</a></div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/3.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/3.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -182,7 +182,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/7.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/7.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -198,7 +198,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/9.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/9.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -210,7 +210,7 @@
                 <div class="exhibitions-right">넘어가는거 확인용</div>
                 <div class="exhibitions-left"><a href="#">더보기 +</a></div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/6.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/6.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -218,7 +218,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/7.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/7.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -226,7 +226,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/8.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/8.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -234,7 +234,7 @@
                     </div>
                 </div>
                 <div class="exhibitions-img">
-                    <img src="${ pageContext.servletContext.contextPath }/resources/images/product/10.jpg" alt="">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/10.jpg" alt="">
                     <div class="exhibitions-font">
                         [준원나라]<br>
                         게이밍의자 1<br>
@@ -292,10 +292,8 @@
                 <br><br><br>
                 <div class="notations2" id="click1">
                     <c:forEach var="List" items="${ productImgList }" >
-                    	<c:if test="${ List.prodImgThnName != 'SUMNAME' }">
-                    		<c:if test="${ List.prodImgThnName != 'SUMNAME2' }">
-                        		<img src="${ pageContext.servletContext.contextPath }/resources/images/product/test/<c:out value="${ List.prodImgRename } " />" alt="">
-                        	</c:if>
+                    	<c:if test="${ List.prodImgThnName == 'ST' }">
+                        		<img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ List.prodImgRename } " />" alt="">
                     	</c:if>
                     </c:forEach>
 
@@ -579,6 +577,7 @@
     <div class="section3">
             <div class="section4_rv">상품 문의</div>
 				<input type="hidden" id="prodNames" value="${productList[0].prodManufacturer}">
+				<input type="hidden" id="userNo" value="${loginMember.userNo}">
 				문의 내용 : <input type="text" name="pordComtDetails" id="pordComtDetails"><br>
 				<button id="insertComment" > 댓글 등록</button>
 			
@@ -623,7 +622,7 @@
 			const context = document.getElementById("reviewDetails").value;
 			const starValue = document.getElementById("starsValue").value;
 			const productNo = document.getElementById("productNo").value;
-			
+			const userNo = document.getElementById("userNo").value;
 			alert("dd");
 			$.ajax({
 				url : "insertReview",
@@ -631,7 +630,8 @@
 				data : {
 					context : context,
 					starValue :starValue,
-					productNo : productNo
+					productNo : productNo,
+					userNo : userNo
 				},
 				success : function(data){
 					console.log(data)
@@ -686,6 +686,7 @@
 		$("#insertComment").click(function(){
 			const context = document.getElementById("pordComtDetails").value;
 			const prodNo = document.getElementById("productNo").value;
+			const userNo = document.getElementById("userNo").value;
 			
 			alert("문의 성공");
 			$.ajax({
@@ -693,7 +694,8 @@
 				method : "post",
 				data : {
 					context : context,
-					prodNo : prodNo
+					prodNo : prodNo,
+					userNo : userNo
 				},
 				success : function(data){
 					console.log(data)
@@ -710,14 +712,14 @@
 						$tr.append($pordComtdate);
 						
 						$tr2 = $("<tr>");
-						$prodManufacturer = $("<td>").text(document.getElementById("prodNames").value);
 						$pordComtDetails = $("<td>").text(data[index].pordComtDetails);
-						$tr2.append($prodManufacturer);
 						$tr2.append($pordComtDetails);
 						
 						$tr3 = $("<tr>");
+						$prodManufacturer = $("<td>").text(document.getElementById("prodNames").value);
 						$pordComtReply = $("<td>").text(data[index].pordComtReply);
-						$tr2.append($pordComtReply);
+						$tr3.append($prodManufacturer);
+						$tr3.append($pordComtReply);
 						
 						
 						$table.append($tr);

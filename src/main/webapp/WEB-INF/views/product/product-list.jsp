@@ -20,34 +20,34 @@
             <div class="left-space"></div>
             <div class="left-menu">
                 <div class="menu-name">카테고리</div>
-                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0001">
+                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0001">
                 <li>거실/침실가구</li>
                 </a>
-                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0002">
+                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0002">
                 <li>학생/서재가구</li>
                 </a>
-                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0003">
+                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0003">
                 <li>테이블/의자</li>
                 </a>
-                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0004">
+                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0004">
                 <li>침구/커튼</li>
                 </a>
-                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0005">
+                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0005">
                 <li>쿠션/방석</li>
                 </a>
-                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0006">
+                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0006">
                 <li>가전</li>
                 </a>
-                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0007">
+                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0007">
                 <li>수납/정리</li>
                 </a>
-                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0008">
+                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0008">
                 <li>조명</li>
                 </a>
-                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT0009">
+                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0009">
                 <li>홈데코</li>
                 </a>
-                <a href="${ pageContext.servletContext.contextPath}/product/test?prodCtgNo=PRCT00010">
+                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT00010">
                 <li>생활용품</li>
                 </a>
                 <div class="menu-name">가격</div>
@@ -79,7 +79,7 @@
                          <c:forEach var="List" items="${ productList }" begin="0" end="5" step="1">
                         <a href="#">
                             <div class="right-contest-recommendation-box">
-                                <img src="${ pageContext.servletContext.contextPath }/resources/images/product/${ List.prodImgRename }" alt="">
+                                <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/${ List.prodImgRename }" alt="">
                                 <div class="product-font-1"><c:out value="${ List.prodName }"/></div>
                                 <div class="product-font-2"><c:out value="${ List.prodPrice }"/>원</div>
                                 <div class="product-font-1">무료배송</div>
@@ -97,7 +97,7 @@
                     <a href="${ pageContext.servletContext.contextPath}/product/product?prodNo=<c:out value="${ List.prodNo }"/>&corpNo=<c:out value="${ List.corpNo }"/>">
                         <div class="right-contest-advertisement-product">
                             <div class="right-contest-advertisement-product-img">
-                                <img src="${ pageContext.servletContext.contextPath }/resources/images/product/<c:out value="${ List.prodImgRename }"/>" alt="">
+                                <img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ List.prodImgRename }"/>" alt="">
                             </div>
                             <div class="right-contest-advertisement-text">
                                 <div class="product-contest-1"><c:out value="${ List.prodName }"/> </div>
@@ -150,7 +150,7 @@
 
                     $floatDiv = $("<div>").attr("class", "right-contest-advertisement-product");
                     $rightImgDiv = $("<div>").attr("class", "right-contest-advertisement-product-img");
-                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/" + data[index].prodImgRename);
 
                     $centerDiv = $("<div>").attr("class", "right-contest-advertisement-text");
                     $prodName = $("<div>").text(data[index].prodName).attr("class", "product-contest-1");
@@ -212,7 +212,7 @@
 
                     $floatDiv = $("<div>").attr("class", "right-contest-advertisement-product");
                     $rightImgDiv = $("<div>").attr("class", "right-contest-advertisement-product-img");
-                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/" + data[index].prodImgRename);
 
                     $centerDiv = $("<div>").attr("class", "right-contest-advertisement-text");
                     $prodName = $("<div>").text(data[index].prodName).attr("class", "product-contest-1");
@@ -273,7 +273,7 @@
 
                     $floatDiv = $("<div>").attr("class", "right-contest-advertisement-product");
                     $rightImgDiv = $("<div>").attr("class", "right-contest-advertisement-product-img");
-                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/" + data[index].prodImgRename);
 
                     $centerDiv = $("<div>").attr("class", "right-contest-advertisement-text");
                     $prodName = $("<div>").text(data[index].prodName).attr("class", "product-contest-1");
@@ -334,7 +334,7 @@
 
                     $floatDiv = $("<div>").attr("class", "right-contest-advertisement-product");
                     $rightImgDiv = $("<div>").attr("class", "right-contest-advertisement-product-img");
-                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/product/" + data[index].prodImgRename);
+                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/" + data[index].prodImgRename);
 
                     $centerDiv = $("<div>").attr("class", "right-contest-advertisement-text");
                     $prodName = $("<div>").text(data[index].prodName).attr("class", "product-contest-1");

@@ -56,9 +56,9 @@ public class ProductController {
 	}
 	
 	/* 상품 리스트 부르기 카테고리  */
-	@GetMapping("test")
+	@GetMapping("productList")
 	   public String test(Model model, @RequestParam(required=false) String prodCtgNo) {
-		
+		System.out.println(prodCtgNo);
 		  List<ProductDTO> productList = productService.selectProduct(prodCtgNo);
 //		  HashMap<String, Object> price = new	HashMap<String, Object>(); 
 		  List<ProductDTO> price = new ArrayList<ProductDTO>(); 
@@ -213,9 +213,10 @@ public class ProductController {
 	// 상품등록
 	@PostMapping(value="/insertReview", produces ="application/json; charset=UTF-8")
 	@ResponseBody public String insertProduct(Model model, HttpServletRequest request,
-	@RequestParam("starValue") int starValue,@RequestParam("context") String context,@RequestParam("productNo") String productNo) {
+	@RequestParam("starValue") int starValue,@RequestParam("context") String context,@RequestParam("productNo") String productNo
+	, @RequestParam("userNo") String userNo) {
 
-		  String userNo = "USER0002"; 
+		   
 		  HashMap<String, Object> insertReview = new HashMap<String, Object>(); 
 		  insertReview.put("starValue", starValue);
 		  insertReview.put("context", context); 
@@ -234,10 +235,10 @@ public class ProductController {
 	// 상품문의등록
 		@PostMapping(value="/insertComment", produces ="application/json; charset=UTF-8")
 		@ResponseBody public String insertProduct(Model model, HttpServletRequest request,
-		@RequestParam("context") String context,@RequestParam("prodNo") String prodNo) {
+		@RequestParam("context") String context,@RequestParam("prodNo") String prodNo
+		, @RequestParam("userNo") String userNo) {
 			
 			System.out.println(prodNo);
-			  String userNo = "USER0002"; 
 			  HashMap<String, Object> insertComment = new HashMap<String, Object>(); 
 			  insertComment.put("text", context); 
 			  insertComment.put("prodNo",prodNo);
@@ -386,6 +387,7 @@ public class ProductController {
 
 		List<ProductDTO> productList = productService.productSearch(search);
 		  List<ProductDTO> price = new ArrayList<ProductDTO>(); 
+		  System.out.println(productList);
 		  int salePrice = 0;
 		  int count = 0;
 		  for(ProductDTO list : productList) {

@@ -19,7 +19,7 @@
     	결재 완료 홈으로 돌아가기
     	<table class="product-table">
                     <tr>
-                        <td class="product-table-row-1"><img src="${ pageContext.servletContext.contextPath }/resources/images/product/1.jpg" alt="" width="130px"></td>
+                        <td class="product-table-row-1"><img src="${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/1.jpg" alt="" width="130px"></td>
                         <td class="product-table-row-2"><c:out value="${ productList[0].prodName }" /></td>
                         <td class="product-table-row-3">1개</td>
                         <td class="product-table-row-4">8,000원<br><span class="product-price"><del><c:out value="${ productList[0].prodPrice }" />원</del></span>

@@ -174,7 +174,6 @@ public class MainController {
 	@PostMapping(value = "/ketSearch", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String ketSearch(Model model, HttpServletRequest request, @RequestParam("search") String search) {
-		System.out.println(search);
 		List<ProductDTO> ketSearchList = new ArrayList<ProductDTO>();
 		
 		int ketTrue = 0;
@@ -233,9 +232,6 @@ public class MainController {
 			ProductDTO product = new ProductDTO();
 			product.setProdName("검색결과가 없습니다");
 			ketSearchList.add(product);
-		}
-		for(ProductDTO list : ketSearchList) {
-			System.out.println(list);
 		}
 		Gson gson = new GsonBuilder().setDateFormat("").create();
 		return gson.toJson(ketSearchList);
