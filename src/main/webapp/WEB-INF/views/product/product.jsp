@@ -55,11 +55,12 @@
                 </div>
 
                 <div class="product-button">
-                    <button onclick="location.href='https://www.naver.com'" class="one-button">장바구니</button>
                     <c:if test="${ empty sessionScope.loginMember }">
+                    <button onclick="purchase()" class="one-button">장바구니</button>
                     <button onclick="purchase()" class="two-button">바로구매</button>
                     </c:if>
                    	<c:if test="${ !empty sessionScope.loginMember }">
+                    <button onclick="" id="cart" class="one-button">장바구니</button>
                     <a href="${ pageContext.servletContext.contextPath}/product/payment?prodNo=<c:out value="${ productList[0].prodNo }" />"><button onclick="" class="two-button">바로구매</button></a>
                		</c:if>
                 </div>
@@ -78,6 +79,33 @@
             </div>
         </div>
         <script>
+        /* 상품 문의 */
+		$("#cart").click(function(){
+			const prodNo = document.getElementById("productNo").value;
+			const userNo = document.getElementById("userNo").value;
+			
+			$.ajax({
+				url : "myPageCart",
+				method : "post",
+				data : {
+					prodNo : prodNo,
+					userNo : userNo
+				},
+				success : function(data){
+					console.log(data)
+					console.table(data);
+					
+					
+					alert(data);
+					
+				},
+				
+				error : function(error){
+					console.log(error);
+				}
+				}); 
+			
+		});
             function Sumname1() {
                 document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/images/uploadFiles/<c:out value="${ productList[0].prodImgRename } " />";
             }
@@ -623,7 +651,6 @@
 			const starValue = document.getElementById("starsValue").value;
 			const productNo = document.getElementById("productNo").value;
 			const userNo = document.getElementById("userNo").value;
-			alert("dd");
 			$.ajax({
 				url : "insertReview",
 				method : "post",

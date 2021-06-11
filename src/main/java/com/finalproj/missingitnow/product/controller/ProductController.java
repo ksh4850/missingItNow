@@ -323,6 +323,7 @@ public class ProductController {
 		return "/product/productPayment";
 	}
 	
+	/* 결재 하면 */
 	@PostMapping("/completioninster")
 	public String insertProduct(Model model, @ModelAttribute OrderDTO orderDTO) {
 		String prodNo = orderDTO.getProdNo();
@@ -407,5 +408,28 @@ public class ProductController {
 		return "/product/product-list";
 	}
 	
+	@PostMapping(value = "/myPageCart", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String myPageCart(Model model, HttpServletRequest request, 
+			@RequestParam("prodNo") String prodNo , @RequestParam("userNo") String userNo
+			) {
+		int count = 1;
+		
+		HashMap<String, Object> myPageCart = new	HashMap<String, Object>(); 
+		myPageCart.put("userNo", userNo);
+		myPageCart.put("prodNo", prodNo);
+		myPageCart.put("count", count);
+		boolean cart = productService.cart(myPageCart);
+		System.out.println(cart);
+		String myCart = "";
+		if(cart) {
+			myCart = "장바구니 등록 성공";
+		} else {
+			myCart = "장바구니 등록 실패";	
+		}
+		Gson gson = new GsonBuilder().setDateFormat("").create();
+		
+		return gson.toJson(myCart);
+	}
 	
 }

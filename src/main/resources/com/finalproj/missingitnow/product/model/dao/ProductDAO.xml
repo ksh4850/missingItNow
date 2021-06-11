@@ -92,7 +92,7 @@
           JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
           JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
 		 WHERE A.PROD_CTG_NO = #{prodCtgNo}
-		   AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+		   AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
 	</select>
 	
 	<select id="starsScore" resultType="String" parameterType="string">
@@ -121,7 +121,7 @@
           JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
           JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
 		 WHERE A.PROD_CTG_NO = #{prodCtgNo}
-		   AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+		   AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
 		 ORDER BY A.PROD_PRICE DESC
 	</select>
 	
@@ -135,7 +135,7 @@
           JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
           JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
 		 WHERE A.PROD_CTG_NO = #{prodCtgNo}
-		   AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+		   AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
 		 ORDER BY A.PROD_PRICE
 	</select>
 	
@@ -149,7 +149,7 @@
           JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
           JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
 		 WHERE A.PROD_CTG_NO = #{prodCtgNo}
-		   AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+		   AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
 		 ORDER BY A.PROD_HITS DESC
 	</select>
 	
@@ -164,7 +164,7 @@
           JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
 		 WHERE A.PROD_CTG_NO = #{prodCtgNo}
            AND  A.PROD_PRICE BETWEEN  #{lowPrice} AND #{highPrice}
-		   AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+		   AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
 	</select>
 	
 	<select id="product" resultMap="ProductResultSet" parameterType="string">
@@ -397,7 +397,7 @@
        FROM TBL_PRODUCT A
        JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 6
-        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
        ]]>
 	</select>
 	
@@ -412,7 +412,7 @@
        JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 6
         AND A.PROD_CTG_NO = 'PRCT0001'
-        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
        ]]>
 	</select>
 	
@@ -426,7 +426,7 @@
        JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 6
         AND A.PROD_CTG_NO = 'PRCT0002'
-        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
        ]]>
 	</select>
 	
@@ -440,7 +440,7 @@
        JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 6
         AND A.PROD_CTG_NO = 'PRCT0003'
-        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
        ]]>
 	</select>
 	
@@ -454,7 +454,7 @@
        JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 6
         AND A.PROD_CTG_NO = 'PRCT0004'
-        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
        ]]>
 	</select>
 	
@@ -468,7 +468,7 @@
        JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 6
         AND A.PROD_CTG_NO = 'PRCT0005'
-        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
        ]]>
 	</select>
 	
@@ -482,7 +482,7 @@
        JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 6
         AND A.PROD_CTG_NO = 'PRCT0006'
-        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
        ]]>
 	</select>
 	
@@ -496,7 +496,7 @@
        JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 6
         AND A.PROD_CTG_NO = 'PRCT0007'
-        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
        ]]>
 	</select>
 	
@@ -510,7 +510,7 @@
        JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 6
         AND A.PROD_CTG_NO = 'PRCT0008'
-        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
        ]]>
 	</select>
 	<select id="selectProduct0009" resultMap="ProductResultSet" >
@@ -523,7 +523,7 @@
        JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 6
         AND A.PROD_CTG_NO = 'PRCT0009'
-        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
        ]]>
 	</select>
 	<select id="selectProduct0010" resultMap="ProductResultSet" >
@@ -536,7 +536,7 @@
        JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 6
         AND A.PROD_CTG_NO = 'PRCT0010'
-        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
        ]]>
 	</select>
 	
@@ -549,7 +549,7 @@
        FROM TBL_PRODUCT A
        JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 7
-        AND B.PROD_IMG_THN_NAME = 'SUMNAME'
+        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
       ORDER BY A.PROD_HITS DESC
        ]]>
 	</select>
@@ -561,7 +561,7 @@
 	      , B.PROD_IMG_RENAME
        FROM TBL_PRODUCT A
        JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
-      WHERE B.PROD_IMG_THN_NAME = 'SUMNAME'
+      WHERE B.PROD_IMG_THN_NAME = 'THUMBNAIL'
   	]]>
 	</select> 
 	
@@ -575,9 +575,32 @@
           JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
           JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
           JOIN TBL_KEYWORDS D ON (A.PROD_NO = D.PROD_NO)
-		 WHERE B.PROD_IMG_THN_NAME = 'SUMNAME'  
+		 WHERE B.PROD_IMG_THN_NAME = 'THUMBNAIL'  
 		   AND A.PROD_NAME = #{search} OR D.KEYWORDS_SET = #{search}
 	</select>
+	
+	<insert  id="cart" parameterType="hashmap" >
+	 	
+		 INSERT 
+		        INTO TBL_WISHLIST
+		 (
+		   WISHLIST_NO
+		 , USER_NO
+		 , WISHLIST_DATE
+		 , WISHLIST_STATUS
+		 , PROD_NO
+		 , PROD_AMOUNT
+		 ) 
+		 VALUES 
+		 (
+		   'WISH' || LPAD(SEQ_WISHLIST.NEXTVAL,4,0)
+		 , #{userNo}
+		 , SYSDATE
+		 , 'Y'
+		 , #{prodNo}
+		 , #{count}
+		 )
+	</insert>
 	
 </mapper>
 

@@ -245,6 +245,12 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductDTO> productSearch(String search) {
 		return productDAO.productSearch(search);
 	}
+	
+	/* 장바구니에 등록하기 */
+	@Override
+	public boolean cart(HashMap<String, Object> myPageCart) {
+		return productDAO.cart(myPageCart) > 0? true: false;
+	}
 
 	
 

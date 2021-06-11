@@ -93,6 +93,9 @@ public interface ProductDAO {
 	
 	/* 검색에서 상품 리스트 페이지로 넘어갈때 */
 	List<ProductDTO> productSearch(String search);
+	
+	/* 장바구니에 등록 */
+	int cart(HashMap<String, Object> myPageCart);
 
 
 
