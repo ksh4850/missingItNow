@@ -11,7 +11,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +29,8 @@ import com.finalproj.missingitnow.common.page.PageInfoDTO;
 import com.finalproj.missingitnow.common.page.Pagenation;
 import com.finalproj.missingitnow.common.search.DetailSearchDTO;
 import com.finalproj.missingitnow.common.search.SearchDTO;
+import com.finalproj.missingitnow.member.model.dto.PrivateMemberDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 
 @Controller
 @RequestMapping("/admin/qna")
@@ -47,8 +48,21 @@ public class AdminQNAController {
 	@GetMapping("/list")
 	public String adminQNAListPage(HttpServletRequest request, Model model) {
 		
-		String condition = "writer";
-		String value = "";
+		String condition = request.getParameter("searchCondition");
+		String value = request.getParameter("searchValue");
+		
+		if(condition == null || "".equals(condition)) {
+			
+			condition = "all";
+			
+		}
+		if(value == null) {
+			
+			value = "";
+			
+		}
+		
+		String no = null;
 		
 		String currentPage = request.getParameter("currentPage");
 		
@@ -65,18 +79,35 @@ public class AdminQNAController {
 			}
 		}
 
-		int totalCount = qnaService.selectTotalCount();
+		if(request.getSession().getAttribute("loginMember") != null) {
+			
+			PrivateMemberDTO loginMember = (PrivateMemberDTO)request.getSession().getAttribute("loginMember");
+			no = loginMember.getUserNo();
+			
+		} else if(request.getSession().getAttribute("CorpUserSession") != null) {
+			
+			CorpUserDTO loginMember = (CorpUserDTO)request.getSession().getAttribute("CorpUserSession");
+			no = loginMember.getCorpNo();
+			
+		}
+		System.out.println(no);
+		SearchDTO search = new SearchDTO(null, condition, value);
 		
+		Map<String, Object> mapperMap = new HashMap<>();
+		
+		mapperMap.put("no", no);
+		mapperMap.put("search", search);
+		
+		int totalCount = qnaService.selectTotalCount(mapperMap);
 		System.out.println(totalCount);
-		
 		int limit = 10;
 
 		int buttonAmount = 10;
 		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 		
-		SearchDTO search = new SearchDTO(pageInfo, condition, value);
-
-		List<QNADTO> boardList = qnaService.selectList(search);
+		search.setPageInfo(pageInfo);
+		
+		List<QNADTO> boardList = qnaService.selectList(mapperMap);
 		
 		System.out.println(boardList);
 		System.out.println(search);

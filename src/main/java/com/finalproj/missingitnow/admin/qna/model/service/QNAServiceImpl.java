@@ -1,6 +1,7 @@
 package com.finalproj.missingitnow.admin.qna.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,19 +24,19 @@ public class QNAServiceImpl implements QNAService{
 	}
 
 	@Override
-	public int selectTotalCount() {
+	public int selectTotalCount(Map<String, Object> mapperMap) {
 		
 		int totalCount = 0;
 		
-		totalCount = mapper.selectTotalCount();
+		totalCount = mapper.selectTotalCount(mapperMap);
 		
 		return totalCount;
 	}
 
 	@Override
-	public List<QNADTO> selectList(SearchDTO search) {
+	public List<QNADTO> selectList(Map<String, Object> mapperMap) {
 		
-		List<QNADTO> boardList = mapper.selectList(search);
+		List<QNADTO> boardList = mapper.selectList(mapperMap);
 		
 		return boardList;
 		

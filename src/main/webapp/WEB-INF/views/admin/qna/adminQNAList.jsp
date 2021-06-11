@@ -12,7 +12,6 @@
 
     <style>
         .system-qnaList-head{
-            margin-left: 20px;
             font-size: 30px;
             padding: 15px;
             border-bottom: 2px solid rgb(119, 94, 238) ;
@@ -24,7 +23,7 @@
             margin-left: 250px;
         }
 
-        .system-qnaList-list tr{
+        .system-qnalist tr{
             border-bottom: 1px solid rgb(119, 94, 238);
         }
 
@@ -33,35 +32,64 @@
             color: white;
         }
 
-        .first-tr > th:nth-child(1) {border-radius:15px 0 0 15px;}
-        .first-tr > th:nth-child(3) {border-radius:0 15px 15px 0;}
 
         .system-qnaList-list td{
-           padding: 8px;
-           padding-left: 35px;
+           padding-top: 7px;
+           padding-bottom: 7px;
         }
 
         .system-qnaList-p{
-            margin-left: 700px;
-            border: 1px solid rgb(119, 94, 238);
+            margin: 0 auto;
+            border-bottom: none;
         }
-
-        .system-qnaList-page>td{
-            border: 1px solid  rgb(119, 94, 238); 
-            color: rgb(47, 16, 201);
-            padding: 5px;
+        .system-qnaList-p > table{
+            margin: 0 auto;
+            vertical-align: middle;
         }
 
         .qnaList-regist{
             background-color: rgb(119, 94, 238); 
             color: white;
-            margin-left: 1280px;
+            margin-left: 1030px;
             margin-bottom: 10px;
             padding: 5px;
             line-height: 2;
             border-radius: 10px;
         }
-
+		
+		.pageButtons{
+		
+			background-color: #fff;
+			border: 1px solid black;
+			width: 30px;
+			height: 40px;
+		
+		}
+		
+		.system-qnalist{
+		
+			text-align: center;
+		
+		}
+		
+		.system-qna-searchBar select,
+		.system-qna-searchBar input{
+		
+			background-color: #fff;
+			border: 1px solid black;
+			height: 30px;
+			padding-left: 10px;
+			padding-right: 10px;
+		
+		}
+		
+		.system-qna-searchBar input[type=button]{
+		
+			background-color: rgb(119, 94, 238); 
+			color: white;
+			border-radius: 8px;
+		
+		}
     </style>
 </head>
 <body>
@@ -74,12 +102,22 @@
 		<jsp:include page="../../common/corpMngNavi.jsp"/>
     </aside>
     <section>
-        <div class="system-qnaList-head">Q&amp;A 리스트</div>
-        <br>
-       
-        <button type="button" id="qnaRegistButton" class="qnaList-regist">작성하기</button>
         <div class="system-qnaList-list">
-            <table>
+	        <div class="system-qnaList-head">Q&amp;A 리스트</div>
+	        <br>
+	        <div class="system-qna-searchBar" >
+	        	<form action="${pageContext.request.contextPath}/admin/qna/list" id="manageSearchForm" method="GET">
+		            <select name="searchCondition">
+		                <option value="all" <c:if test="${ search.searchCondition eq 'all' }">selected</c:if>>전체</option>
+		                <option value="writer" <c:if test="${ search.searchCondition eq 'writer' }">selected</c:if>>작성자</option>
+		                <option value="title" <c:if test="${ search.searchCondition eq 'title' }">selected</c:if>>제목</option>
+		            </select>
+		            <input type="search" name="searchValue" width="300px" value="${ search.searchValue }">
+		            <input type="button" id="manageSearchButton" value="검색"/>
+				</form>
+	        </div>
+	        <button type="button" id="qnaRegistButton" class="qnaList-regist">작성하기</button>
+            <table class="system-qnalist">
                 <tr class="first-tr">
                     <th width="700px">제목 </th>
                     <th width="200px">작성자</th>
@@ -102,31 +140,31 @@
                
             </table>
 
+	        <br>
+	        <div class="system-qnaList-p">
+	            <table>
+	                <tr class="system-qnaList-page">
+	                    <c:forEach var="page" begin="${ search.pageInfo.startPage }" end="${ search.pageInfo.endPage }" step="1">
+	                    	<c:if test="${search.pageInfo.pageNo eq page }">
+	                    	<td>
+								<button class="pageButtons" disabled>
+									<c:out value="${ page }" />
+								</button>
+							</td>
+							</c:if>
+							<c:if test="${search.pageInfo.pageNo ne page }">
+							<td>
+								<button class="pageButtons" onclick="pageButtonAction(this.innerText);">
+									<c:out value="${ page }" />
+								</button>
+							</td>
+							</c:if>
+	                    </c:forEach>
+	                </tr>
+	            </table>
+	        </div>
         </div>
 
-        <br>
-        <div >
-            <table class="system-qnaList-p">
-                <tr class="system-qnaList-page">
-                    <c:forEach var="page" begin="${ search.pageInfo.startPage }" end="${ search.pageInfo.endPage }" step="1">
-                    	<c:if test="${search.pageInfo.pageNo eq page }">
-                    	<td>
-							<button disabled>
-								<c:out value="${ page }" />
-							</button>
-						</td>
-						</c:if>
-						<c:if test="${search.pageInfo.pageNo ne page }">
-						<td>
-							<button onclick="pageButtonAction(this.innerText);">
-								<c:out value="${ page }" />
-							</button>
-						</td>
-						</c:if>
-                    </c:forEach>
-                </tr>
-            </table>
-        </div>
 
     </section>
 

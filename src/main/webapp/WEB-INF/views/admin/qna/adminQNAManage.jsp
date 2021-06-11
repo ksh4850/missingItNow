@@ -13,7 +13,6 @@
     <style>
    
         .system-qna-head{
-            margin-left: 20px;
             font-size: 30px;
             padding: 15px;
             border-bottom: 2px solid rgb(119, 94, 238) ;
@@ -22,53 +21,35 @@
         }
 
         .system-qna-searchBar{
-            margin-top: 20px;
-            margin-bottom: 20px;
-            margin-left: 150px;
-            font-size: 20px;
-           
-        }
-
-        .system-qna-searchBar > form > select{
-            border: 2px solid rgb(119, 94, 238);
-            font-size: 18px;
-        }
-
-
-        .system-qna-searchBar > form > input[type="search"] {
-            border: 2px solid rgb(119, 94, 238);
+        	width: 1340px;
         }
         
-        .system-qna-searchBar > form > input[type="date"] {
-            border: 2px solid rgb(119, 94, 238);
+        #manageSearchForm input,
+        #manageSearchForm select,
+        #manageSearchForm label{
+        	height: 40px;
+        	vertical-align: middle;
+        	line-height: 40px;
+        	font-size: 18px;
+        	padding: 3px;
         }
-
-        .system-qna-searchBar > form > input[type="button"] {
-            font-size: 18px;
-            padding: 3px;
-            background-color: rgb(119, 94, 238);
-        }
-       
-        
 
         .system-qna-info{
              margin-left: 150px;
-             text-align: center; 
              line-height: 2;
         }
 
-        
+        .system-qnalist{
+        	text-align: center;
+        }
 
-        .system-qna-info tr{
+        .system-qnalist tr{
             border-bottom: 1px solid  rgb(119, 94, 238) ;
-            
-            
        }
 
        .system-qna-info td{
-            padding-top: 10px;
-            
-            
+            padding-top: 8px;
+            padding-bottom: 8px;
        }
 
         .first-tr {
@@ -76,36 +57,55 @@
             color: white;
             
         }
-        .first-tr > th:nth-child(1) {border-radius:15px 0 0 15px;}
-        .first-tr > th:nth-child(8) {border-radius:0 15px 15px 0;}
 
-        input[type ="search"]{
-            width: 300px;
-            line-height: 2;
-        }
-
-        .system-qna-info input[type="button"]{
+        .system-qnalist button[type=button]{
            
             border: 1px solid rgb(119, 94, 238);
-            border-radius: 5px ;
+            border-radius: 5px;
             color: rgb(47, 16, 201);
             padding: 3px;
         }
-
+		
+		.system-qna-page{
+		
+			margin: 0 auto;
+		
+		}
         
-        .system-qna-page>td{
-            border: 1px solid  rgb(119, 94, 238); 
-            color: rgb(47, 16, 201);
-            padding: 5px;
-            
+        .pageButtons{
+        
+        	background-color: #fff;
+			border: 1px solid black;
+			width: 30px;
+			height: 40px;
+        
         }
 
-        
-        .system-qna-searchBar > input[type="date"]{
-            border: 2px solid  rgb(119, 94, 238); 
-        }
-
-
+		.system-qna-searchBar select,
+		.system-qna-searchBar input{
+		
+			background-color: #fff;
+			border: 1px solid black;
+			height: 30px;
+			padding-left: 10px;
+			padding-right: 10px;
+		
+		}
+		
+		.system-qna-searchBar input[type=button]{
+		
+			background-color: rgb(119, 94, 238); 
+			color: white;
+			width: 50px;
+			border-radius: 8px;
+			
+		
+		}
+		.system-qna-searchBar input[type=date]{
+		
+			font-size: 10px;
+			
+		}
     </style>
 
 </head>
@@ -118,14 +118,17 @@
 		<jsp:include page="../../common/corpMngNavi.jsp"/>
     </aside>
     <section>
+
+       
+        <div class="system-qna-info" >
         <div class="system-qna-head">Q&A 관리</div>
         <br>
-        <div class="system-qna-searchBar" >
+        <div class="system-qna-searchBar">
         	<form action="${pageContext.request.contextPath}/admin/qna/manage" id="manageSearchForm">
         		<label>작성일 : </label>
 	            <input type="date" name="searchWriteDateStart" value=<c:if test="${ search.searchWriteDateStart ne null }">"${ search.searchWriteDateStart }"</c:if>> ~
 	            <input type="date" name="searchWriteDateEnd" value=<c:if test="${ search.searchWriteDateEnd ne null }">"${ search.searchWriteDateEnd }"</c:if>>
-	            <select name="largeSearchCondition" style="margin-left: 460px;">
+	            <select name="largeSearchCondition" style="margin-left: 350px;">
 	                <option value="all" <c:if test="${ search.largeSearchCondition eq 'all' }">selected</c:if>>전체</option>
 	                <option value="answer" <c:if test="${ search.largeSearchCondition eq 'answer' }">selected</c:if>>답변</option>
 	                <option value="noneAnswer" <c:if test="${ search.largeSearchCondition eq 'noneAnswer' }">selected</c:if>>미답변</option>
@@ -135,14 +138,12 @@
 	                <option value="name" <c:if test="${ search.smallSearchCondition eq 'name' }">selected</c:if>>이름</option>
 	                <option value="title" <c:if test="${ search.smallSearchCondition eq 'title' }">selected</c:if>>제목</option>
 	            </select>
-	            <input type="search" name="searchValue" width="300px" value="${ search.searchValue }">
+	            <input type="search" name="searchValue" style="width: 300px;" value="${ search.searchValue }">
 	            <input type="button" id="manageSearchButton" value="검색"/>
 			</form>
         </div>
-
         <br>
-        <div class="system-qna-info" >
-            <table>
+            <table class="system-qnalist">
                 <tr class="first-tr">
                     <th width=160px;>Q&A 번호</th>
                     <th width=160px;>작성자 아이디</th>
@@ -153,9 +154,11 @@
                     <th width=160px;>답변 여부</th>
                     <th width=80px;>관리</th>
                  </tr>
+                 <c:set var="num" value="${ search.pageInfo.startRow }"/>
                  <c:forEach items="${ qnaList }" var="qna">
                  	<tr>
-                 		<td><c:out value="${ qna.no }"/></td>
+                 		<td><input type="hidden" value="${ qna.no }"/><c:out value="${ search.pageInfo.totalCount + 1 - num }"/></td>
+                 		<c:set var="num" value="${ num + 1 }"/>
                  		<td>
                  			<c:if test="${ qna.user.id ne null}">
 								<c:out value="${ qna.user.id }"/>
@@ -185,32 +188,32 @@
                  </c:forEach>
                  
             </table>
+	        <br>
+	
+	        <div>
+	            <table class="system-qna-page">
+	                <tr>
+	                    <c:forEach var="page" begin="${ search.pageInfo.startPage }" end="${ search.pageInfo.endPage }" step="1">
+	                    	<c:if test="${search.pageInfo.pageNo eq page }">
+	                    	<td>
+								<button class="pageButtons" disabled>
+									<c:out value="${ page }" />
+								</button>
+							</td>
+							</c:if>
+							<c:if test="${search.pageInfo.pageNo ne page }">
+							<td>
+								<button class="pageButtons" onclick="pageButtonAction(this.innerText);">
+									<c:out value="${ page }" />
+								</button>
+							</td>
+							</c:if>
+	                    </c:forEach>
+	                </tr>
+	            </table>
+	        </div>
         </div>
 
-        <br>
-
-        <div  align="center">
-            <table>
-                <tr class="system-qna-page">
-                    <c:forEach var="page" begin="${ search.pageInfo.startPage }" end="${ search.pageInfo.endPage }" step="1">
-                    	<c:if test="${search.pageInfo.pageNo eq page }">
-                    	<td>
-							<button disabled>
-								<c:out value="${ page }" />
-							</button>
-						</td>
-						</c:if>
-						<c:if test="${search.pageInfo.pageNo ne page }">
-						<td>
-							<button onclick="pageButtonAction(this.innerText);">
-								<c:out value="${ page }" />
-							</button>
-						</td>
-						</c:if>
-                    </c:forEach>
-                </tr>
-            </table>
-        </div>
     </section>
 <script>
 	const link = "${ pageContext.servletContext.contextPath }/admin/qna/manage";

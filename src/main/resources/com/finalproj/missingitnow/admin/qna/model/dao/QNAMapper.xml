@@ -45,7 +45,75 @@
 	    SELECT
 	           COUNT(*)
 	      FROM TBL_QNA A
+	      LEFT JOIN TBL_USER B ON(A.USER_NO = B.USER_NO)
+	      LEFT JOIN TBL_CORP_USER C ON(A.USER_NO = C.CORP_NO)
 	     WHERE A.QNA_STATUS = 'Y'
+	       AND SUBSTR(A.USER_NO, 0, 4) = SUBSTR(#{ no }, 0, 4)
+	     <choose>
+         <when test="search.searchCondition == 'writer'">
+         	AND (B.USER_NAME LIKE '%' || #{ search.searchValue } || '%'
+         	 OR C.CORP_NAME LIKE '%' || #{ search.searchValue } || '%')
+		 </when> 
+		 <when test="search.searchCondition == 'title'">
+			AND A.QNA_TITLE LIKE '%' || #{ search.searchValue } || '%'
+		 </when>
+		 </choose>
+	</select>
+	<select id="selectList" resultMap="QNAResultSet" >
+	    SELECT
+	           A.RNUM
+	         , A.QNA_NO
+	         , A.USER_NO
+             , A.USER_NAME
+             , A.CORP_NAME
+	         , A.QNA_TITLE
+	         , A.QNA_DETAILS
+	         , A.QNA_DATE
+	         , A.QNA_REPLY
+	         , A.QNA_REPLY_DATE
+	         , A.QNA_REPLY_CHK
+	         , A.QNA_STATUS
+	      FROM (SELECT ROWNUM RNUM
+	                 , B.QNA_NO
+                     , B.USER_NO
+                     , B.USER_NAME
+                     , B.CORP_NAME
+	                 , B.QNA_TITLE
+	                 , B.QNA_DETAILS
+	                 , B.QNA_DATE
+	                 , B.QNA_REPLY
+	                 , B.QNA_REPLY_DATE
+	                 , B.QNA_REPLY_CHK
+	                 , B.QNA_STATUS
+	              FROM ( SELECT C.QNA_NO
+	                          , C.USER_NO
+	                          , D.USER_NAME
+	                          , E.CORP_NAME
+	                          , C.QNA_TITLE
+	                          , C.QNA_DETAILS
+	                          , C.QNA_DATE
+	                          , C.QNA_REPLY
+	                          , C.QNA_REPLY_DATE
+	                          , C.QNA_REPLY_CHK
+	                          , C.QNA_STATUS
+	                       FROM TBL_QNA C
+                           LEFT JOIN TBL_USER D ON(C.USER_NO = D.USER_NO)
+                           LEFT JOIN TBL_CORP_USER E ON(C.USER_NO = E.CORP_NO)
+	                      WHERE C.QNA_STATUS = 'Y'
+	                        AND SUBSTR(C.USER_NO, 0, 4) = SUBSTR(#{ no }, 0, 4)
+	                      ORDER BY C.QNA_NO DESC
+	                   )B
+	             <choose>
+	             <when test="search.searchCondition == 'writer'">
+                    WHERE (B.USER_NAME LIKE '%' || #{ search.searchValue } || '%'
+                       OR B.CORP_NAME LIKE '%' || #{ search.searchValue } || '%')
+				 </when> 
+				 <when test="search.searchCondition == 'title'">
+					WHERE B.QNA_TITLE LIKE '%' || #{ search.searchValue } || '%'
+				 </when>
+				 </choose>
+	           ) A
+	     WHERE A.RNUM BETWEEN #{ search.pageInfo.startRow } AND #{ search.pageInfo.endRow }
 	</select>
 	<select id="selectSearchTotalCount" resultType="_int">
 	    SELECT
@@ -131,89 +199,6 @@
 			            AND C.QNA_STATUS = 'Y'
                    )
 	      FROM DUAL
-	</select>
-	<select id="selectList" resultMap="QNAResultSet" >
-	    SELECT
-	           A.RNUM
-	         , A.QNA_NO
-	         , A.USER_NO
-	         <if test="SUBSTR(search.no, 0, 4) == USER">
-             , A.USER_NAME
-             </if>
-             <if test="SUBSTR(search.no, 0, 4) == CORP">
-             , A.CORP_NAME
-             </if>
-	         , A.QNA_TITLE
-	         , A.QNA_DETAILS
-	         , A.QNA_DATE
-	         , A.QNA_REPLY
-	         , A.QNA_REPLY_DATE
-	         , A.QNA_REPLY_CHK
-	         , A.QNA_STATUS
-	      FROM (SELECT ROWNUM RNUM
-	                 , B.QNA_NO
-	                 <if test="SUBSTR(search.no, 0, 4) == USER">
-                     , B.USER_NAME
-                     </if>
-                     <if test="SUBSTR(search.no, 0, 4) == CORP">
-                     , B.CORP_NAME
-                     </if>
-	                 , B.USER_NAME
-	                 , B.QNA_TITLE
-	                 , B.QNA_DETAILS
-	                 , B.QNA_DATE
-	                 , B.QNA_REPLY
-	                 , B.QNA_REPLY_DATE
-	                 , B.QNA_REPLY_CHK
-	                 , B.QNA_STATUS
-	              FROM ( SELECT C.QNA_NO
-	                          , C.USER_NO
-	                          <if test="SUBSTR(search.no, 0, 4) == USER">
-	                          , D.USER_NAME
-	                          </if>
-	                          <if test="SUBSTR(search.no, 0, 4) == CORP">
-	                          , D.CORP_NAME
-	                          </if>
-	                          , C.QNA_TITLE
-	                          , C.QNA_DETAILS
-	                          , C.QNA_DATE
-	                          , C.QNA_REPLY
-	                          , C.QNA_REPLY_DATE
-	                          , C.QNA_REPLY_CHK
-	                          , C.QNA_STATUS
-	                       FROM TBL_QNA C
-	                       <if test="SUBSTR(search.no, 0, 4) == USER">
-                           JOIN TBL_USER D ON(C.USER_NO = D.USER_NO)
-                           </if>
-                           <if test="SUBSTR(search.no, 0, 4) == CORP">
-                           JOIN TBL_CORP_USER D ON(C.USER_NO = D.CORP_NO)
-                           </if>
-	                      WHERE C.QNA_STATUS = 'Y'
-	                        AND SUBSTR(C.USER_NO, 0, 4) = SUBSTR(#{ search.no }, 0, 4)
-	                      ORDER BY C.QNA_NO DESC
-	                   )B
-	             <choose>
-	             <when test="search.searchCondition == 'writer'">
-					<if test="SUBSTR(search.no, 0, 4) == USER">
-                    WHERE B.USER_NAME LIKE '%' || #{ search.searchValue } || '%'
-                    </if>
-                    <if test="SUBSTR(search.no, 0, 4) == CORP">
-                    WHERE B.CORP_NAME LIKE '%' || #{ search.searchValue } || '%'
-                    </if>
-				 </when> 
-				 <when test="search.searchCondition == 'title'">
-					WHERE B.QNA_TITLE LIKE '%' || #{ search.searchValue } || '%'
-				 </when>
-				 <when test="search.searchCondition == 'titleAndBody'">
-					WHERE B.QNA_TITLE LIKE '%' || #{ search.searchValue } || '%'
-					   OR B.QNA_DETAILS LIKE '%' || #{ search.searchValue } || '%'
-				 </when>
-				 <otherwise>
-				 	WHERE B.QNA_DETAILS LIKE '%' || #{ search.searchValue } || '%'
-				 </otherwise>
-				 </choose>
-	           ) A
-	     WHERE A.RNUM BETWEEN #{ search.pageInfo.startRow } AND #{ search.pageInfo.endRow }
 	</select>
 	<insert id="insertQNA">
 	    INSERT
@@ -346,6 +331,7 @@
 	           A.QNA_NO
 	         , B.USER_NO
 	         , B.USER_NAME
+	         , C.CORP_NAME	
 	         , A.QNA_TITLE
 	         , A.QNA_DETAILS
 	         , A.QNA_DATE
@@ -354,7 +340,8 @@
 	         , A.QNA_REPLY_CHK
 	         , A.QNA_STATUS
 	      FROM TBL_QNA A
-	      JOIN TBL_USER B ON(A.USER_NO = B.USER_NO)
+	      LEFT JOIN TBL_USER B ON(A.USER_NO = B.USER_NO)
+	      LEFT JOIN TBL_CORP_USER C ON(A.USER_NO = C.CORP_NO)
 	     WHERE A.QNA_NO = #{ no }
 	       AND A.QNA_STATUS = 'Y'
 	</select>

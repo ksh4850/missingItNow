@@ -51,7 +51,7 @@ public class MemberManageController {
 			searchValue = "";
 		}
 		if(smallSearchCondition == null || "".equals(smallSearchCondition)) {
-			smallSearchCondition = "id";
+			smallSearchCondition = "all";
 		}
 		if(largeSearchCondition == null || "".equals(largeSearchCondition)) {
 			largeSearchCondition = "all";

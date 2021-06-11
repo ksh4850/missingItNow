@@ -1,6 +1,7 @@
 package com.finalproj.missingitnow.admin.qna.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.finalproj.missingitnow.admin.qna.model.dto.QNADTO;
 import com.finalproj.missingitnow.common.search.DetailSearchDTO;
@@ -8,11 +9,7 @@ import com.finalproj.missingitnow.common.search.SearchDTO;
 
 public interface QNAService {
 
-	int selectTotalCount();
-	
 	int selectSearchTotalCount(DetailSearchDTO search);
-
-	List<QNADTO> selectList(SearchDTO search);
 
 	boolean insertQNA(QNADTO qnaDTO);
 
@@ -25,5 +22,9 @@ public interface QNAService {
 	int deleteQNA(String no);
 
 	int updateResponse(QNADTO qnaDTO);
+
+	int selectTotalCount(Map<String, Object> mapperMap);
+
+	List<QNADTO> selectList(Map<String, Object> mapperMap);
 
 }

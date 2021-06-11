@@ -1,18 +1,18 @@
 package com.finalproj.missingitnow.admin.qna.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.finalproj.missingitnow.admin.qna.model.dto.QNADTO;
 import com.finalproj.missingitnow.common.search.DetailSearchDTO;
-import com.finalproj.missingitnow.common.search.SearchDTO;
 
 public interface QNAMapper{
 
-	int selectTotalCount();
+	int selectTotalCount(Map<String, Object> mapperMap);
 	
 	int selectSearchTotalCount(DetailSearchDTO search);
 
-	List<QNADTO> selectList(SearchDTO search);
+	List<QNADTO> selectList(Map<String, Object> mapperMap);
 
 	int insertQNA(QNADTO qnaDTO);
 
