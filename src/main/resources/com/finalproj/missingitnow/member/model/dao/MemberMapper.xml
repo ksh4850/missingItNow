@@ -85,4 +85,21 @@
 	     WHERE USER_ID = #{userId}
 	</update>
 	
+	
+	<select id="loginCheck" resultType="int">
+		   SELECT 
+			      COUNT(*) 
+			 FROM TBL_USER
+			WHERE USER_ID = #{userId}
+	
+	</select>
+	
+	<select id="leaveCheck" resultType="int">
+		SELECT
+			   COUNT(*)
+	      FROM TBL_USER
+	     WHERE USER_ID = #{userId}
+	       AND USER_LEAVE_CHK = 'Y' 
+	</select>
+	
 </mapper>

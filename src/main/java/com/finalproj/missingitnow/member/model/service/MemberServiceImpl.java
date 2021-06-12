@@ -44,10 +44,12 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public PrivateMemberDTO loginMember(PrivateMemberDTO member) throws LoginFailedException {
+	public PrivateMemberDTO loginMember(PrivateMemberDTO member){
 		
 		if(!passwordEncoder.matches(member.getUserPwd(), mapper.selectEncPassword(member))){
-			throw new LoginFailedException("로그인 실패!");
+			
+			return null;
+			
 		}
 				
 		return mapper.selectMember(member);
@@ -129,6 +131,25 @@ public class MemberServiceImpl implements MemberService{
 		
 		
 		return result;
+	}
+
+
+	@Override
+	public int loginCheck(PrivateMemberDTO member) {
+	
+		int result = mapper.loginCheck(member);
+		
+		return result;
+	}
+
+
+	@Override
+	public int leaveCheck(PrivateMemberDTO member) {
+		
+		
+		int leaveCheck = mapper.leaveCheck(member);
+		
+		return leaveCheck;	
 	}
 
 

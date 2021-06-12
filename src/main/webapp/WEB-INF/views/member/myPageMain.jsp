@@ -30,6 +30,10 @@
 
 }
     
+   .pointTd{
+   		background: #B1A7E4;
+   } 
+    
 </style>
 
 <body>
@@ -60,7 +64,7 @@
                     </tr>
 					<tr> <td><br></td> </tr>
                     <tr>
-                        <td>
+                        <td class="pointTd">
                         <a href="${pageContext.servletContext.contextPath}/member/myPageMain">
                         		&nbsp;프로필
                         		</a>
