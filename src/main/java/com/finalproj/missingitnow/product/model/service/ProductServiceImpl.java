@@ -33,6 +33,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductListDTO> selectProduct(String prodCtgNo) {
 		List<ProductDTO> selectProduct = productDAO.selectProduct(prodCtgNo);
 		List<ReviewDTO> reviewCtgNo = productDAO.reviewCtgNo(prodCtgNo);
+		List<ProductImgDTO> productImg = productDAO.productImgList(prodCtgNo);
 		List<ProductListDTO> productList = new ArrayList<>();
 		int count = 0;
 		double score = 0.0;
@@ -41,7 +42,12 @@ public class ProductServiceImpl implements ProductService {
 			starsScoreDTO starsScore = new starsScoreDTO();
 			productDTO.setProduct(product);
 			
-			System.out.println(productDTO);
+			for(ProductImgDTO img : productImg) {
+				if(product.getProdNo().equals(img.getProdNo())) {
+					productDTO.setProductImg(img);
+					break;
+				}
+			}
 			
 			for(ReviewDTO review : reviewCtgNo) {
 				if(product.getProdNo().equals(review.getProdNo())){
@@ -53,7 +59,6 @@ public class ProductServiceImpl implements ProductService {
 			starsScore.setCount(count);
 			starsScore.setStarsScore((int)score);
 			
-			System.out.println(starsScore);
 			
 			productDTO.setStarsScore(starsScore);
 			score = 0.0;
@@ -105,8 +110,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	/* 상품 리뷰 등록 */
 	@Override
-	public String reviewStar(HashMap<String, Object> insertReview) {
-		return productDAO.reviewStar(insertReview);
+	public void reviewStar(HashMap<String, Object> insertReview) {
 	}
 
 
@@ -160,14 +164,12 @@ public class ProductServiceImpl implements ProductService {
 	/* 구매결재 코드번호 셀렉 작업 */
 	@Override
 	public OrderPaymentDTO orderPayment(String noOrder) {
-		System.out.println(noOrder + noOrder + "noOrder");
 		return productDAO.orderPayment(noOrder);
 	}
 	
 	/* 구매 결재 중간다리 테이블 인설트 작업 */
 	@Override
 	public void orderPaymentInsert(HashMap<String, Object> orderPaymentInsert) {
-		System.out.println(orderPaymentInsert);
 		productDAO.orderPaymentInsert(orderPaymentInsert);
 	}
 
@@ -250,8 +252,43 @@ public class ProductServiceImpl implements ProductService {
 
 	/* 검색에서 상품 리스트 페이지로 넘어갈때 */
 	@Override
-	public List<ProductDTO> productSearch(String search) {
-		return productDAO.productSearch(search);
+	public List<ProductListDTO> productSearch(String search) {
+		List<ProductDTO> selectProduct = productDAO.productSearch(search);
+		List<ReviewDTO> reviewCtgNo = productDAO.reviewSearchCtgNo(search);
+		List<ProductImgDTO> productImg = productDAO.productSearchImgList(search);
+		System.out.println(productImg);
+		List<ProductListDTO> productList = new ArrayList<>();
+		int count = 0;
+		double score = 0.0;
+		for(ProductDTO product : selectProduct) {
+			ProductListDTO productDTO = new ProductListDTO();
+			starsScoreDTO starsScore = new starsScoreDTO();
+			productDTO.setProduct(product);
+			
+			for(ProductImgDTO img : productImg) {
+				if(product.getProdNo().equals(img.getProdNo())) {
+					productDTO.setProductImg(img);
+					break;
+				}
+			}
+			
+			for(ReviewDTO review : reviewCtgNo) {
+				if(product.getProdNo().equals(review.getProdNo())){
+					count += 1;
+					score += review.getReviewScore();
+				}
+			}
+			score = score / count;
+			starsScore.setCount(count);
+			starsScore.setStarsScore((int)score);
+			
+			
+			productDTO.setStarsScore(starsScore);
+			score = 0.0;
+			count = 0;
+			productList.add(productDTO);
+		}
+		return productList;
 	}
 	
 	/* 장바구니에 등록하기 */
@@ -259,6 +296,15 @@ public class ProductServiceImpl implements ProductService {
 	public boolean cart(HashMap<String, Object> myPageCart) {
 		return productDAO.cart(myPageCart) > 0? true: false;
 	}
+
+//	/* 댓글 이미지 */
+//	@Override
+//	public void reviewImgInsert(Map<String, String> file) {
+//		productDAO.reviewImgInsert(file);
+//		
+//	}
+	
+	
 
 	
 

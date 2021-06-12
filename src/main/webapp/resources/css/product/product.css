@@ -23,7 +23,8 @@
 .thumbnail{width: 540px; height: 540px; float: left;}
 .one-button{width: 180px; height: 50px; border: 1px solid #B0B0B0; font-family: 'Roboto'; font-weight: 600; font-size: 21px; float: left; margin-top: 50px;}
 .two-button{width: 180px; height: 50px; background: #EF3F43; font-weight: 600; font-size: 21px; color: #fff; float: right; margin-top: 50px;}
-.thumbnail-img{width: 85px; height: 85px; margin: 8.2px; border: 1px solid #434343;}
+.thumbnail-img{width: 65px; height: 65px; margin: 8.2px; }
+.thumbnail-button-img{ margin: 8.2px; width: 38px; height: 65px; }
 
 /* 중단 css */
 /* 기획전 부분 */

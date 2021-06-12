@@ -79,7 +79,7 @@
                          <c:forEach var="List" items="${ productList }" begin="0" end="4" step="1">
                         <a href="#">
                             <div class="right-contest-recommendation-box">
-                                <img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/${ List.product.prodImgRename }" alt="">
+                                <img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/${ List.productImg.prodImgRename }" alt="">
                                 <div class="product-font-1"><c:out value="${ List.product.prodName }"/></div>
                                 <div class="product-font-2"><c:out value="${ List.product.prodPrice }"/>원</div>
                                 <div class="product-font-1">무료배송</div>
@@ -97,7 +97,7 @@
                     <a href="${ pageContext.servletContext.contextPath}/product/product?prodNo=<c:out value="${ List.product.prodNo }"/>&corpNo=<c:out value="${ List.product.corpNo }"/>">
                         <div class="right-contest-advertisement-product">
                             <div class="right-contest-advertisement-product-img">
-                                <img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ List.product.prodImgRename }"/>" alt="">
+                                <img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ List.productImg.prodImgRename }"/>" alt="">
                             </div>
                             <div class="right-contest-advertisement-text">
                                 <div class="product-contest-1"><c:out value="${ List.product.prodName }"/> </div>

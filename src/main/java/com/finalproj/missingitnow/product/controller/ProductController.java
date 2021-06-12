@@ -1,8 +1,12 @@
 package com.finalproj.missingitnow.product.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.finalproj.missingitnow.corporation.model.dto.MemberDTO;
 import com.finalproj.missingitnow.product.model.dto.CommentDTO;
@@ -58,7 +63,7 @@ public class ProductController {
 	/* 상품 리스트 부르기 카테고리  */
 	@GetMapping("productList")
 	   public String test(Model model, @RequestParam(required=false) String prodCtgNo) {
-		System.out.println(prodCtgNo);
+		
 		  List<ProductListDTO> productList = productService.selectProduct(prodCtgNo);
 		  List<ProductDTO> price = new ArrayList<ProductDTO>(); 
 		  int salePrice = 0;
@@ -84,9 +89,10 @@ public class ProductController {
 			@RequestParam(required = false) String corpNo) {
 		List<ProductDTO> productList = productService.Product(prodNo);
 		List<CorpDTO> corpList = productService.corp(corpNo);
-		List<ProductImgDTO> productImgList = productService.ProductImg(prodNo);
 		List<ReviewDTO> reviewList = productService.review(prodNo);
 		List<CommentDTO> commentList = productService.comment(prodNo);
+		
+		int imgSize = productList.size();
 		
 		int count = 0;
 		int sum = 0;
@@ -111,9 +117,7 @@ public class ProductController {
 		
 		for(ProductDTO list : productList) {
 			double prodDiscountRate = (double) list.getProdDiscountRate() / 100;
-			System.out.println(list.getProdDiscountRate());
 			double salePrice2 =  list.getProdPrice() * ( 1 - prodDiscountRate);
-			System.out.println(salePrice2);
 			salePrice = (int)salePrice2;
 		}
 		
@@ -179,7 +183,6 @@ public class ProductController {
 		}
 		model.addAttribute("productList", productList);
 		model.addAttribute("corpList", corpList);
-		model.addAttribute("productImgList", productImgList);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("onePoint", onePoint);
@@ -195,34 +198,76 @@ public class ProductController {
 		model.addAttribute("average", sum);
 		model.addAttribute("count", count);
 		model.addAttribute("salePrice", salePrice);
+		model.addAttribute("imgSize", imgSize);
 
 		return "/product/product";
 	}
 
-	
-	  @GetMapping("/insertReview") public String insertForm() {
-	  System.out.println("와지냐 여기"); return "/product/product-list"; }
-	 
-
-	// 상품등록
+	// 상품댓글등록
 	@PostMapping(value="/insertReview", produces ="application/json; charset=UTF-8")
 	@ResponseBody public String insertProduct(Model model, HttpServletRequest request,
 	@RequestParam("starValue") int starValue,@RequestParam("context") String context,@RequestParam("productNo") String productNo
-	, @RequestParam("userNo") String userNo) {
-
-		   
-		  HashMap<String, Object> insertReview = new HashMap<String, Object>(); 
+	, @RequestParam("userNo") String userNo  /*, List<MultipartFile> multiFilesImg*/) {
+		
+		HashMap<String, Object> insertReview = new HashMap<String, Object>(); 
 		  insertReview.put("starValue", starValue);
 		  insertReview.put("context", context); 
 		  insertReview.put("productNo",productNo);
 		  insertReview.put("userNo", userNo);
-		 
-		  String reviewStar = productService.reviewStar(insertReview);
+		  
+		  productService.reviewStar(insertReview);
 		  
 		  List<ReviewDTO> reviewList = productService.review(productNo);
-		  System.out.println(reviewList); 
+		  
+		  String reviewNo = "";
+		  
+		  for(ReviewDTO list : reviewList) {
+			  if(list.getUserNo().equals(userNo) && list.getReviewDetails().equals(context)) {
+				  reviewNo = list.getReviewNo();
+			  }
+		  }
+		  
 		  Gson gson = new	GsonBuilder().setDateFormat("").create();
-	
+//	
+//		  String root = request.getSession().getServletContext().getRealPath("resources");
+//			String filePath = root + "\\uploadFiles";
+//			
+//			List<Map<String, String>> files = new ArrayList<>();
+//			for(int i = 0 ; i < multiFilesImg.size() ; i++) {
+//				String originFileName = multiFilesImg.get(i).getOriginalFilename();
+//				String ext = originFileName.substring(originFileName.lastIndexOf("."));
+//				String saveName = UUID.randomUUID().toString().replace("-", "") + ext;
+//				
+//				Map<String, String> file = new HashMap<>();
+//				file.put("originFileName", originFileName);
+//				file.put("saveName", saveName);
+//				file.put("filePath", filePath);
+//				
+//				files.add(file);
+//			}
+//			
+//			/* 파일을 저장한다. */
+//			try {
+//				for(int i = 0 ; i < multiFilesImg.size() ; i++) {
+//					Map<String, String> file = files.get(i);
+//					file.put("productNo", productNo);
+//					file.put("reviewNo", reviewNo);
+//					
+//					multiFilesImg.get(i).transferTo(new File(filePath + "\\" + file.get("saveName")));
+//					
+//					productService.reviewImgInsert(file);
+//				}
+//				
+//			} catch (IllegalStateException | IOException e) {
+//				e.printStackTrace();
+//				
+//				/* 실패시 파일 삭제 */
+//				for(int i = 0 ; i < multiFilesImg.size(); i++) {
+//					Map<String, String> file = files.get(i);
+//					new File(filePath + "\\" + file.get("saveName")).delete();
+//				}
+//			}
+		  
 		  return gson.toJson(reviewList); 
 	}
 	
@@ -380,18 +425,16 @@ public class ProductController {
 	@GetMapping("/productSearch")
 	public String productSearch(Model model, @RequestParam(required=false) String search) {
 
-		List<ProductDTO> productList = productService.productSearch(search);
+		  List<ProductListDTO> productList = productService.productSearch(search);
 		  List<ProductDTO> price = new ArrayList<ProductDTO>(); 
-		  System.out.println(productList);
 		  int salePrice = 0;
 		  int count = 0;
-		  for(ProductDTO list : productList) {
-			  
-				double prodDiscountRate = (double) list.getProdDiscountRate() / 100;
-				double salePrice2 =  list.getProdPrice() * ( 1 - prodDiscountRate);
+		  for(ProductListDTO list : productList) {
+				double prodDiscountRate = (double) list.getProduct().getProdDiscountRate() / 100;
+				double salePrice2 =  list.getProduct().getProdPrice() * ( 1 - prodDiscountRate);
 				salePrice = (int)salePrice2;
 				ProductDTO product = new ProductDTO();
-				product.setProdNo(list.getProdNo());
+				product.setProdNo(list.getProduct().getProdNo());
 				product.setProdPrice(salePrice);
 				price.add(product);
 				count+=1;

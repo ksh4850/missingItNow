@@ -71,15 +71,89 @@
 				}
             </script>
             <div>
-                <button onclick="Sumname1()"><img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[0].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Sumname2()"><img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[1].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Sumname3()"><img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[2].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Sumname4()"><img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[3].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-                <button onclick="Sumname5()"><img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[4].prodImgRename }" />" alt="" class="thumbnail-img"></button>
-            </div>
+            <input type="hidden" value="${ imgSize }" id="imgSize">
+            			
+            		<button onclick="aaaa()"> <img src="${ pageContext.servletContext.contextPath }/resources/images/product/leftButton.jpg" alt="" class="thumbnail-button-img" > </button>
+            		
+            		<c:if test="${ imgSize-1 != 0 }">
+            			<button onclick="Sumname1()"><img id="imgButton1" src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[0].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+               		</c:if>
+               		<c:if test="${ imgSize-1 != 1 }">
+               			<button onclick="Sumname2()"><img id="imgButton2" src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[1].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                	</c:if>
+                	<c:if test="${ imgSize-1 != 2 }">
+                		<button onclick="Sumname3()"><img id="imgButton3" src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[2].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+                	</c:if>
+                	<c:if test="${ imgSize-1 != 3 }">
+                		<button onclick="Sumname4()"><img id="imgButton4" src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[3].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+               		</c:if>
+               		<c:if test="${ imgSize-1 != 4 }">
+               			<button onclick="Sumname5()"><img id="imgButton5" src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[4].prodImgRename }" />" alt="" class="thumbnail-img"></button>
+           			</c:if>
+           			<c:if test="${ imgSize-1 != 5 }">
+           			<button onclick="cccc()"> <img src="${ pageContext.servletContext.contextPath }/resources/images/product/rightButton.jpg" alt="" class="thumbnail-button-img"></button>
+          			</c:if>
+ 			</div>
         </div>
         <script>
+        
         /* 상품 문의 */
+        	 function aaaa() {
+                document.getElementById("imgButton1").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[0].prodImgRename } " />";
+                document.getElementById("imgButton2").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[1].prodImgRename } " />";
+                document.getElementById("imgButton3").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[2].prodImgRename } " />";
+                document.getElementById("imgButton4").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[3].prodImgRename } " />";
+                document.getElementById("imgButton5").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[4].prodImgRename } " />";
+            };
+        	 function cccc() {
+        		const imgSize = document.getElementById("imgSize").value;
+        		if(!(imgSize-1 <= 5)){
+                document.getElementById("imgButton1").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[5].prodImgRename } " />";
+        		}else {
+        		document.getElementById("imgButton1").src = "${ pageContext.servletContext.contextPath }/resources/images/product/ready.jpg";
+        		 }
+        		if(!(imgSize-1 <= 6)){
+                document.getElementById("imgButton2").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[6].prodImgRename } " />";
+        		 }else {
+        		document.getElementById("imgButton2").src = "${ pageContext.servletContext.contextPath }/resources/images/product/ready.jpg";
+        		 }
+        		if(!(imgSize-1 <= 7)){
+                document.getElementById("imgButton3").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[7].prodImgRename } " />";
+        		 }else {
+        		document.getElementById("imgButton3").src = "${ pageContext.servletContext.contextPath }/resources/images/product/ready.jpg";
+        		 }
+        		if(!(imgSize-1 <= 8)){
+                document.getElementById("imgButton4").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[8].prodImgRename } " />";
+        		 }else {
+        		document.getElementById("imgButton4").src = "${ pageContext.servletContext.contextPath }/resources/images/product/ready.jpg";
+        		 }
+        		if(!(imgSize-1 <= 9)){
+                document.getElementById("imgButton5").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[9].prodImgRename } " />";
+        		 }else {
+        		document.getElementById("imgButton5").src = "${ pageContext.servletContext.contextPath }/resources/images/product/ready.jpg";
+        		 }
+            };
+        	function Sumname1() {
+        		const imgButton1 = document.getElementById("imgButton1").src;
+                document.getElementById("img").src = imgButton1;
+            };
+            function Sumname2() {
+        		const imgButton2 = document.getElementById("imgButton2").src;
+                document.getElementById("img").src = imgButton2;
+            };
+            function Sumname3() {
+        		const imgButton3 = document.getElementById("imgButton3").src;
+                document.getElementById("img").src = imgButton3;
+            };
+            function Sumname4() {
+        		const imgButton4 = document.getElementById("imgButton4").src;
+                document.getElementById("img").src = imgButton4;
+            };
+            function Sumname5() {
+        		const imgButton5 = document.getElementById("imgButton5").src;
+                document.getElementById("img").src = imgButton5;
+            };
+        
 		$("#cart").click(function(){
 			const prodNo = document.getElementById("productNo").value;
 			const userNo = document.getElementById("userNo").value;
@@ -106,21 +180,7 @@
 				}); 
 			
 		});
-            function Sumname1() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[0].prodImgRename } " />";
-            }
-            function Sumname2() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[1].prodImgRename } " />";
-            }
-            function Sumname3() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[2].prodImgRename } " />";
-            }
-            function Sumname4() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[3].prodImgRename } " />";
-            }
-            function Sumname5() {
-                document.getElementById("img").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[4].prodImgRename } " />";
-            }
+            
         </script>
     </section1>
     <section2>
@@ -319,10 +379,12 @@
                 </table>
                 <br><br><br>
                 <div class="notations2" id="click1">
-                    <c:forEach var="List" items="${ productImgList }" >
-                    	<c:if test="${ List.prodImgThnName == 'ST' }">
-                        		<img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ List.prodImgRename } " />" alt="">
-                    	</c:if>
+
+				
+                    <c:forEach var="List" items="${ productList }" varStatus="i">
+                    	<c:if test="${i.last}">
+                        	<img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ List.prodImgRename } " />" alt="">
+                   	</c:if>
                     </c:forEach>
 
                 </div>
@@ -546,7 +608,7 @@
 
         </div>
         <div class="section4_test">
-            dfs
+            
         </div>
         </div>
         </div>
@@ -562,8 +624,9 @@
 				</span>
 
 				별점 :  <input type="text" value="0" name="stars" id="starsValue"><br>
-				글내용 : <input type="text" name="reviewDetails" id="reviewDetails"><br>
+				글내용 : <input type="text" name="reviewDetails" id="reviewDetails"><br><br>
                       <input type="hidden" id="productNo" value="${productList[0].prodNo}">
+                      <!-- <input type="file" name="multiFiles" id="multiFilesImg" multiple><br><br> -->
 				<button id="insertReview" > 댓글 등록</button>
 			
             <table>
@@ -610,7 +673,6 @@
 				<button id="insertComment" > 댓글 등록</button>
 			
             <table>
-                <thead><tr><td>zz</td><td>zz</td></tr>
                 </thead>
                 <tbody class="tbodyComment">
                     <c:forEach var="commentList" items="${ commentList }">
@@ -651,6 +713,8 @@
 			const starValue = document.getElementById("starsValue").value;
 			const productNo = document.getElementById("productNo").value;
 			const userNo = document.getElementById("userNo").value;
+			const multiFilesImg = document.getElementById("multiFilesImg").value;
+			alert("성공");
 			$.ajax({
 				url : "insertReview",
 				method : "post",
@@ -658,13 +722,14 @@
 					context : context,
 					starValue :starValue,
 					productNo : productNo,
-					userNo : userNo
+					userNo : userNo,
+					multiFilesImg : multiFilesImg
 				},
 				success : function(data){
 					console.log(data)
 					console.table(data);
-					const $table = $(".tbodyReview");
-					$table.html("");
+					const $tbody = $(".tbodyReview");
+					$tbody.html("");
 					
 					for(var index in data){
 						$stScore = $("<td>").text(data[index].reviewScore + "점");
@@ -692,12 +757,12 @@
 						$tr2.append($reviewDetails);
 						
 						
-						$table.append($tr);
-						$table.append($tr1); 
-						$table.append($tr2); 
-					
-
-					} 	
+						$tbody.append($tr);
+						$tbody.append($tr1); 
+						$tbody.append($tr2); 
+						} 	
+					document.getElementById("Img1()").click();
+					document.getElementById("reviewDetails").value = "";
 					
 				},
 				
@@ -730,6 +795,7 @@
 					const $table = $(".tbodyComment");
 					$table.html("");
 					
+					document.getElementById("pordComtDetails").value = "";
 					for(var index in data){
 						
 						$tr = $("<tr>");
@@ -755,6 +821,7 @@
 						$table.append($tr3);
 						}
 					
+
 					}
 				},
 				

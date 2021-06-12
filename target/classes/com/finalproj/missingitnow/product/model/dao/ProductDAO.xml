@@ -81,34 +81,50 @@
 		<id property="count" column="1"/>
 		<result property="starsScore" column="2"/>
 	</resultMap>
+	
+	<!-- <resultMap id="ReviewImgResultSet" type="ReviewImgDTO">
+		<id property="reviewImgNo" column="REVIEW_IMG_NO"/>
+		<result property="reviewNo" column="REVIEW_NO"/>
+		<result property="revImgOriginName" column="REV_IMG_ORIGIN_NAME"/>
+		<result property="revImgRename" column="REV_IMG_RENAME"/>
+		<result property="revImgThnName" column="REV_IMG_THN_NAME"/>
+		<result property="revImgPath" column="REV_IMG_PATH"/>
+	</resultMap> -->
 
 	<select id="selectProduct" resultMap="ProductResultSet" parameterType="string">
 		SELECT 
-		       A.*
-             , B.PROD_IMG_RENAME
-             , B.PROD_IMG_PATH
-             , c.CORP_NAME
+		       A.PROD_NO
+             , A.PROD_NAME
+             , A.PROD_PRICE
+             , A.PROD_DETAILS
+             , A.PROD_UPLOAD_DATE
+             , A.PROD_TERMINATE_DATE
+             , A.PROD_DISCOUNT_RATE
+             , A.PROD_DISCOUNT_PERIOD
+             , A.PROD_MANUFACTURER
+             , A.STOCK_QUANTITY
+             , A.PROD_DISPLAY_CHK
+             , A.PROD_CTG_NO
+             , A.CORP_NO
+             , A.PROD_HITS
+             , C.CORP_NAME
 		  FROM TBL_PRODUCT A
-          JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
           JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
 		 WHERE A.PROD_CTG_NO = #{prodCtgNo}
-		   AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
 	</select>
 	
-	<select id="starsScore" resultType="String" parameterType="string">
-		SELECT
-      COUNT(*)
-  FROM TBL_PRODUCT A
-  JOIN TBL_PROD_REVIEW D ON (A.PROD_NO = D.PROD_NO)
-  WHERE D.PROD_NO = #{prodNo}
-	</select>
-	
-	<select id="starsScore2" resultType="String" parameterType="string">
-		SELECT
-      ROUND(SUM(D.REVIEW_SCORE) / COUNT(*))
-  FROM TBL_PRODUCT A
-  JOIN TBL_PROD_REVIEW D ON (A.PROD_NO = D.PROD_NO)
-  WHERE D.PROD_NO = #{prodNo}
+	<select id="productImgList" resultMap="ProductImgResultSet" parameterType="string">
+		SELECT 
+		       A.PROD_IMG_NO
+             , A.PROD_NO
+             , A.PROD_IMG_ORIGIN_NAME
+             , A.PROD_IMG_RENAME
+             , A.PROD_IMG_THN_NAME
+             , A.PROD_IMG_PATH
+		  FROM TBL_PROD_IMG A
+          JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+		 WHERE B.PROD_CTG_NO =#{prodCtgNo}
+		 ORDER BY A.PROD_IMG_NO
 	</select>
 	
 	<select id="selectProductHigh" resultMap="ProductResultSet" parameterType="string">
@@ -195,30 +211,39 @@
 	
 	<select id="review" resultMap="ReviewResultSet" parameterType="string">
 		 SELECT 
-		        A.*
+		        A.REVIEW_NO
+              , A.ORDER_NO
+              , A.PROD_NO
+              , A.USER_NO
+              , A.REVIEW_DETAILS
+              , A.REVIEW_SCORE
+              , A.REVIEW_DATE
               , B.USER_NAME
 		   FROM TBL_PROD_REVIEW A
            JOIN TBL_USER B ON (A.USER_NO = B.USER_NO) 
 		  WHERE A.PROD_NO = #{prodNo}
 	</select>
 	
+	
+	
 	<select id="reviewCtgNo" resultMap="ReviewResultSet" parameterType="string">
 		 SELECT 
-                A.*
+		        A.REVIEW_NO
+              , A.ORDER_NO
+              , A.PROD_NO
+              , A.USER_NO
+              , A.REVIEW_DETAILS
+              , A.REVIEW_SCORE
+              , A.REVIEW_DATE
               , B.USER_NAME
-              , C.*
            FROM TBL_PROD_REVIEW A
            JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
            JOIN TBL_PRODUCT C ON (A.PROD_NO = C.PROD_NO)
 		  WHERE C.PROD_CTG_NO = #{prodCtgNo}
+
 	</select> 
 	
  	<insert  id="reviewStar" parameterType="hashmap" >
- 	  <selectKey keyProperty="REVIEW_NO" order="BEFORE" resultType="string">
-		    SELECT
-		           'REVW' || LPAD(SEQ_REVIEW.NEXTVAL,4,0)
-		      FROM DUAL
-		</selectKey> 
  	  
 		 INSERT 
 		        INTO TBL_PROD_REVIEW
@@ -233,7 +258,7 @@
 		 ) 
 		 VALUES 
 		 (
-		   #{REVIEW_NO}
+		   'REVW' || LPAD(SEQ_REVIEW.NEXTVAL,4,0)
 		 , '1fff'  
 		 , #{productNo}
 		 , #{userNo}
@@ -578,17 +603,56 @@
 	
 	<select id="productSearch" resultMap="ProductResultSet" parameterType="string">
 		SELECT 
-		       A.*
-             , B.PROD_IMG_RENAME
-             , B.PROD_IMG_PATH
+		       A.PROD_NO
+             , A.PROD_NAME
+             , A.PROD_PRICE
+             , A.PROD_DETAILS
+             , A.PROD_UPLOAD_DATE
+             , A.PROD_TERMINATE_DATE
+             , A.PROD_DISCOUNT_RATE
+             , A.PROD_DISCOUNT_PERIOD
+             , A.PROD_MANUFACTURER
+             , A.STOCK_QUANTITY
+             , A.PROD_DISPLAY_CHK
+             , A.PROD_CTG_NO
+             , A.CORP_NO
+             , A.PROD_HITS
              , C.CORP_NAME
 		  FROM TBL_PRODUCT A
-          JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
           JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
           JOIN TBL_KEYWORDS D ON (A.PROD_NO = D.PROD_NO)
-		 WHERE B.PROD_IMG_THN_NAME = 'THUMBNAIL'  
-		   AND A.PROD_NAME = #{search} OR D.KEYWORDS_SET = #{search}
+		   AND A.PROD_NAME = #{search}
+		    OR D.KEYWORDS_SET = #{search}
 	</select>
+	
+	<select id="productSearchImgList" resultMap="ProductImgResultSet" parameterType="string">
+		SELECT 
+		       A.PROD_IMG_NO
+             , A.PROD_NO
+             , A.PROD_IMG_ORIGIN_NAME
+             , A.PROD_IMG_RENAME
+             , A.PROD_IMG_THN_NAME
+             , A.PROD_IMG_PATH
+		  FROM TBL_PROD_IMG A
+          JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+		 WHERE A.PROD_NAME = #{search}
+		 ORDER BY A.PROD_IMG_NO
+	</select>
+	
+	<select id="reviewSearchCtgNo" resultMap="ReviewResultSet" parameterType="string">
+		 SELECT 
+                A.REVIEW_NO
+              , A.PROD_NO
+              , A.USER_NO
+              , A.REVIEW_DETAILS
+              , A.REVIEW_SCORE
+              , A.REVIEW_DATE
+              , B.USER_NAME
+           FROM TBL_PROD_REVIEW A
+           JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
+           JOIN TBL_PRODUCT C ON (A.PROD_NO = C.PROD_NO)
+		  WHERE A.PROD_NAME = #{search}
+	</select> 
 	
 	<insert  id="cart" parameterType="hashmap" >
 	 	
@@ -612,6 +676,29 @@
 		 , #{count}
 		 )
 	</insert>
+	
+	<!-- <insert  id="reviewImgInsert" parameterType="hashmap" >
+ 	  
+		 INSERT 
+		        INTO TBL_PROD_REVIEW_IMG
+		 (
+		   REVIEW_IMG_NO
+		 , REVIEW_NO
+		 , REV_IMG_ORIGIN_NAME
+		 , REV_IMG_RENAME
+		 , REV_IMG_THN_NAME
+		 , REV_IMG_PATH
+		 ) 
+		 VALUES 
+		 (
+		   'REVI' || LPAD(SEQ_PROD_REVIEW_IMG.NEXTVAL,4,0)
+		 , #{reviewNo}  
+		 , #{originFileName}
+		 , #{saveName}
+		 , 'NULLNAME'
+		 , #{filePath}
+		 )
+	</insert>  -->
 	
 </mapper>
 

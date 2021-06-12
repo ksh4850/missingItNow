@@ -12,46 +12,48 @@ public class ProductListDTO implements Serializable {
 	
 	private ProductDTO product;
 	private starsScoreDTO starsScore;
+	private ProductImgDTO productImg;
 
-	
 	public ProductListDTO() {}
 
-
-	public ProductListDTO(ProductDTO product, starsScoreDTO starsScore) {
+	public ProductListDTO(ProductDTO product, starsScoreDTO starsScore, ProductImgDTO productImg) {
 		super();
 		this.product = product;
 		this.starsScore = starsScore;
+		this.productImg = productImg;
 	}
-
 
 	public ProductDTO getProduct() {
 		return product;
 	}
 
-
 	public void setProduct(ProductDTO product) {
 		this.product = product;
 	}
-
 
 	public starsScoreDTO getStarsScore() {
 		return starsScore;
 	}
 
-
 	public void setStarsScore(starsScoreDTO starsScore) {
 		this.starsScore = starsScore;
 	}
 
+	public ProductImgDTO getProductImg() {
+		return productImg;
+	}
+
+	public void setProductImg(ProductImgDTO productImg) {
+		this.productImg = productImg;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-
 	@Override
 	public String toString() {
-		return "testDTO [product=" + product + ", starsScore=" + starsScore + "]";
+		return "ProductListDTO [product=" + product + ", starsScore=" + starsScore + ", productImg=" + productImg + "]";
 	}
 
 	

@@ -37,11 +37,7 @@ public interface ProductDAO {
 
 	List<ProductDTO> selectProductPriceChoice(HashMap<String, Object> price);
 
-	String starsScore(String prodNo);
-
-	String starsScore2(String prodNo);
-
-	String reviewStar(HashMap<String, Object> insertReview);
+	void reviewStar(HashMap<String, Object> insertReview);
 
 	void commentInsert(HashMap<String, Object> insertComment);
 
@@ -99,6 +95,18 @@ public interface ProductDAO {
 	
 	/* 상품 리스트 별점 뿌려주기 위해 리뷰 불러오기 */
 	List<ReviewDTO> reviewCtgNo(String prodCtgNo);
+	
+	/* 상품 이미지 */
+	List<ProductImgDTO> productImgList(String prodCtgNo);
+	
+	/* 검색 리뷰 */
+	List<ReviewDTO> reviewSearchCtgNo(String search);
+	
+	/* 검색 상품 이미지 */
+	List<ProductImgDTO> productSearchImgList(String search);
+	
+	/* 댓글 이미지 */
+//	void reviewImgInsert(Map<String, String> file);
 
 
 
