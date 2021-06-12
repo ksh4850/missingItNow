@@ -32,6 +32,15 @@
         	margin: 0 auto;
         
         }
+        
+        input[type=checkbox]{
+        
+			-webkit-appearance: auto;
+    		-moz-appearance: auto;
+        	width: 20px;
+        	height: 20px;
+        
+        }
 
         .system-settlement-searchBar select,
 		.system-settlement-searchBar input[type=search],
@@ -188,7 +197,7 @@
 			                    	</c:when>
 			                    	<c:when test="${ settlement.settlementChk eq 'N' }">
 			                    		미정산
-			                    		<input type="button" value="정산하기">
+			                    		<input type="button" value="정산하기" class="oneSettlementButton">
 			                    	</c:when>
 			                    </c:choose>
 		                    </td>
@@ -199,7 +208,7 @@
 
         	<br>
 
-			<button type="button" id="settlementButton">정산하기</button>
+			<button type="button" id="allSettlementButton">정산하기</button>
 
 	        <div>
 	            <table class="system-settlement-page">
@@ -242,7 +251,25 @@ function pageButtonAction(text){
 	+ "&searchValue=" + document.getElementsByName("searchValue")[0].value;
 };
 
-$("#settlementButton").click(function(){
+$(".oneSettlementButton").click(function(){
+	
+	var no = this.parentNode.parentNode.children[0].innerText;
+	
+	var newForm = $('<form></form>');
+	
+	newForm.attr("name","newForm");
+	newForm.attr("method","post"); 
+	newForm.attr("action","${ pageContext.servletContext.contextPath }/admin/settlement/progress");
+	
+	newForm.append($('<input/>', {type: 'hidden', name: 'data', value:no }));
+	
+	newForm.appendTo('body'); 
+	
+	newForm.submit();
+
+})
+
+$("#allSettlementButton").click(function(){
 	
 	var settlementNo = [];
 	var checkboxs = document.getElementsByName("ischecked");
@@ -258,11 +285,11 @@ $("#settlementButton").click(function(){
 	
 	if(settlementNo.length != 0){
 		
-		var newForm = $('<form></form>'); 
+		var newForm = $('<form></form>');
 		
 		newForm.attr("name","newForm");
 		newForm.attr("method","post"); 
-		newForm.attr("action","${ pageContext.servletContext.contextPath }/admin/settlement/progress"); 
+		newForm.attr("action","${ pageContext.servletContext.contextPath }/admin/settlement/progress");
 		
 		for(var i = 0 ; i < settlementNo.length ; i++){
 			
