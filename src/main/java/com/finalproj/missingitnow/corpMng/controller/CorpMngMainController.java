@@ -135,4 +135,31 @@ public class CorpMngMainController {
 		}
 		
 	}
+	
+	// 기업회원 공지사항 List
+	@GetMapping("/noticeList")
+	public String selectNoticeList(Model model) {
+		
+		return "/corpMng/corpMng-noticeList";
+	}
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

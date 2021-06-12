@@ -77,6 +77,21 @@
         background: transparent;
         border: none;
     }
+    
+    .corpMngNoticeBtn{
+        margin: 0;
+        float: right;
+        position: relative; 
+        font-size: 20px;
+        font-family: 'SCDream-Regular'; 
+        font-weight: bold;
+        color: white;
+        right: 120px;
+        top: 50px;
+        background: transparent;
+        border: none;
+    }
+    
 </style>
 <body>
 	<div class="header">
@@ -86,6 +101,7 @@
         <p class="headerTitle">기업회원 관리자 센터</p>
 		<button class="headerLogoutBtn" id="headerLogoutBtn">로그아웃</button>
 		<button class="updateCorpUserInfoBtn" id="updateCorpUserInfoBtn">정보수정</button>
+		<button class="corpMngNoticeBtn" id="corpMngNoticeBtn">공지사항</button>
     </div>
     
 	<script>
@@ -95,6 +111,10 @@
 		
 		$("#updateCorpUserInfoBtn").click(function(){
 			location.href="${ pageContext.servletContext.contextPath }/corpMng/updateCorpUserInfo";
+		})
+		
+		$("#corpMngNoticeBtn").click(function(){
+			location.href="${ pageContext.servletContext.contextPath }/corpMng/noticeList";
 		})
 	</script>
 </body>
