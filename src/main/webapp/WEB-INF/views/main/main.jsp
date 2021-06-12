@@ -19,10 +19,31 @@
 <body>
 
     <script>
-    console.log("${CorpUserSession}");
     
+    
+    /* 로그인 실패시 나오는 경고창 (일반 유저) */
+    
+       $(document).ready(function(){
+    	
+    	
+	
+    		
+    	if ("${loginFailMessage}"===""){
+    		
+    		    		
+    	} else {
+    		         
+    		
+    		alert("${loginFailMessage}");
+    		
+    	}
+    	
+    	
+    	
+    });
+     
     </script>
-
+   
 
     <div id="wrap">
 <jsp:include page="../common/header.jsp"/>

@@ -10,7 +10,7 @@ public interface MemberService {
 
 	boolean registMember(PrivateMemberDTO member);
 
-	PrivateMemberDTO loginMember(PrivateMemberDTO member) throws LoginFailedException;
+	PrivateMemberDTO loginMember(PrivateMemberDTO member);
 
 	void userUpdate(PrivateMemberDTO member);
 
@@ -20,5 +20,9 @@ public interface MemberService {
 
 
 	String pwdFind(HttpServletResponse response, PasswordFindDTO passwordFind, PrivateMemberDTO member);
+
+	int loginCheck(PrivateMemberDTO member);
+
+	int leaveCheck(PrivateMemberDTO member);
 
 }

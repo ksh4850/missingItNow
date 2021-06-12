@@ -15,5 +15,9 @@ public interface MemberMapper {
 	void userQuit(PrivateMemberDTO member);
 
 	void pwdChange(PrivateMemberDTO member);
+
+	int loginCheck(PrivateMemberDTO member);
+
+	int leaveCheck(PrivateMemberDTO member);
 	
 }

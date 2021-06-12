@@ -13,21 +13,161 @@
 </head>
 
 
+<style>
+	
+		#totalForm {
+        margin: 100px auto;
+        display: flex;
+        justify-content: center;
+        /* align-items: center; */
+    }
+	
+	.leftDiv {
+    	background-color : rgba(119, 94, 238, 0.75);
+    	margin-top:150px;
+        margin-bottom:10px;
+        border-radius: 15px;
+        width:430px;
+        height:490px;
+    }
+	
+	.myPageNavTable{		
+		margin-left:0;
+		margin-top:-30px;		
+		text-align: left;
+		font-size:30px;
+		width: 430px;
+		height: 450px;
+	}
+
+
+	.titleTable{
+		margin-left:800px;		
+		text-align: center;
+		vertical-align: bottom;	
+	}
+	
+	.titleColorBox{	
+		background-color: rgba(119, 94, 238, 0.7);
+		color:#fff;
+		font-size:30px;
+		vertical-align: bottom;	
+	}
+	
+	.titleNonColor{
+		font-size:30px;
+		vertical-align: bottom;
+	}
+	
+	.welcomeTd{
+
+	font-size:20px;
+	color:#ffff;
+	}
+	
+	#colorBox{
+        position: relative;      
+        background-color: rgba(119, 94, 238, 0.33);
+        width:900px;
+        height: 900px;
+    }
+    
+    #rightDiv {
+        position: absolute;
+    	width:800px;
+    	heignt:1200px;
+    	background: #FBF9F9;
+		border: 0.2px solid #000000;
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+		border-radius: 10px;
+    	margin-left:630px;
+        margin-top:50px;
+    }
+	
+	
+	.centerBlank{
+		width:200px;
+			
+	}
+	
+	section{
+	
+		height:750px;
+	}
+	
+	.cartTable{
+		margin-left:50px;
+	}
+	
+	.emptyTable{
+		margin-left:140px;
+	
+	}
+	
+	.goShoppingBtn{	
+		color:#ffff;
+		background:rgba(119, 94, 238);
+		width:150px;
+		height:60px;
+		border-radius: 10px;
+		font-size:20px;
+	}
+	
+	.emptyMessage{
+		font-size:30px;
+	
+	}
+	
+	.reviewListTable{
+		margin-top:50px;
+		margin-left:100px;
+		width:600px;
+	    height:150px;
+	    text-align:center;
+	    vertical-align:bottom;
+	    border-radius: 30px;
+        border-collapse: collapse;
+        font-family: Roboto;
+        table-layout:fixed
+	}
+	
+	.bottomLineTr{
+		border-bottom: 2px solid #775EEE;
+		line-height: 60px;	
+	}
+	
+	.pointTd{
+   		background: #B1A7E4;   		
+   } 
+   
+   .ellipsisTd{	     
+      overflow:hidden;
+      text-overflow:ellipsis;		
+	}
+   
+	
+</style>
+
 
 
 <body>
-		 	<div class="header">
+	
+	<div class="header">
 	<jsp:include page="../common/header.jsp"/>
 	
-	</div> 
+	</div>  
 	
 	
     <div id="registFormTitle">
    
+   
+   		<div></div>
 	   <table class="titleTable">
+	   
+	   		
 		   	<tr>
-		   		<td class="titleColorBox">xx회원님의 </td> 
-		   		<td class="titleNonColor">리뷰내역입니다</td>
+		   		<td class="titleColorBox"><br><br><br><br><c:out value="${loginMember.userName }" />&nbsp;회원님의&nbsp; </td> 
+		   		<td class="titleNonColor">리뷰내역입니다.</td>
 		   	</tr>
 	   </table>           
    
@@ -35,13 +175,15 @@
    </div>
 
     <div id="totalForm">
-    
-    	     			<form name="Paging">
+        
+             	<form name="Paging">
                      <input type="hidden" name="userNo" value="${loginMember.userNo}">				
 				</form>
     	
     
     		<div class="leftDiv">
+    		
+    		
                 <table class="myPageNavTable">
                     <tr>
                     <td align="center"><br>  <i id="userImg" class="fas fa-user"></i> <!--프로필 사진 영역-->
@@ -71,7 +213,7 @@
                     </tr>
                     <tr> <td><br></td> </tr>
                     <tr>
-                        <td>
+						 <td>
 						<a href="javascript:goCancelExchangeRefundPage('${loginMember.userNo}');">
                         &nbsp;취소/교환/반품내역
                         </a>
@@ -93,7 +235,7 @@
                     </tr>
                     <tr> <td><br></td> </tr>
                     <tr>
-                        <td>
+                        <td class="pointTd">
                         <a href="javascript:goReviewPage('${loginMember.userNo}');">
                         &nbsp;리뷰내역
                         </a>
@@ -104,79 +246,77 @@
 
             
         </div>
-    
-    
+        
+        <div class="centerBlank"><br></div>
+        
+        
         <div id="colorBox">
     
         </div>
-
+		
+		
+		
+		
         <div id="rightDiv">
 
             <section>
-                <table class="cartTable" border="1">
+                    
+                    <!-- DB와 트랜젝션 완성후 foreach 구문으로 바꿀 것 -->
+                    
+                    <c:if test="${!empty reviewList }">
+                <table class="reviewListTable" border="1">
 					<tr><td><br></td></tr>
-                    <tr>
-                        <th><input type="checkbox" class="chk_all" id="chk_all"></th>
+                    <tr class="bottomLineTr">                        
                         <th>주문일시</th>
                         <th>상품명</th>
                         <th>상품가격</th>
                         <th>주문수량</th>
-                        <th>총 가격</th>
-
+                        <th>금액</th>
+                        <th>내용</th>
                     </tr>
-                    
-                    <!-- DB와 트랜젝션 완성후 foreach 구문으로 바꿀 것 -->
-                    <c:set var = "total" value="0"/>
                     <c:forEach items="${reviewList}" var="review">
-                    	<tr>
-                    	<td align="center"><input type=checkbox class="chk"></td>
+                    	<tr class="bottomLineTr" align="center">                    	
                     	<td><c:out value="${review.orderDTO.orderDate}"/></td>
-                    	<td><c:out value="${review.productDTO.prodName}"/></td>
+                    	<td><c:out value="${review.productDTO.prodName}"/></td>            							
                     	<td><c:out value="${review.productDTO.prodPrice}"/></td>
                     	<td><c:out value="${review.orderDTO.orderQuantity}"/></td>
                     	<td><c:out value="${review.orderDTO.orderPrice}"/></td>
-                    	<td><c:out value="${review.reviewDetails}"/> </td>
-                    	<td>
-                    	<button type="button" class="deleteBtn" data-cartNum="${cart.wishListNo}"><i class="far fa-trash-alt"></i></button>
-                    	</td>
-                    	</tr>
-                    	
-                    	<c:set var="total" value="${total + cart.productDTO.prodPrice}"/>
+                    	<td class="ellipsisTd"><nobr><c:out value="${review.reviewDetails}"/></nobr> </td>
+                    	</tr>        	
                     	
                     </c:forEach>                    
-					
-					<tr><td><br></td></tr>
-					
-                    <tr>
-                    	<td></td>
-                        <td colspan="4" class="calculateTd">총계 : <c:out value="${total}"/>원 </td>
-
-                    </tr>
-                    <tr>
-						<td></td>
-                        <td colspan="4" class="calculateTd">할인 금액 : <a class="pointColorFont"> xxxx원</a></td>
-
-                    </tr>
-                    <tr>
-						<td></td>
-                        <td colspan="4" class="calculateTd">최종 결제 금액 : <a class="redColorFont">xxxx원</a></td>
-                    </tr>
-					
-					<tr><td class="upperPaymentTd">&nbsp;</td></tr>
-					
-					<tr>
-					<td></td>
-					<td colspan="4" class="paymentTd">
-						
-						<button class="paymentBtn" type="submit">결제하기 </button> 
-					
-					
-					</td>
-					</tr>
+			     </table>
                     
+               </c:if>
+                    
+               <c:if test="${empty reviewList}"> 
+               		
+               		<table class="emptyTable">
+			         	<tr><td><br><br></td></tr>
+			         	<tr>
+			         		<td class="emptyMessage" align="center">&nbsp;아직 구매하신 내역이 없습니다.</td>
+			         	</tr>
+			         	
+			         	<tr><td><br><br><br></td></tr>
+			         	
+			         	<tr>
+			         		<td>
+			        			<img class="emptyBox" src="/missingitnow/resources/images/member/box.png">
+					        </td>
+			         	</tr>
+			         	<tr><td><br><br></td></tr>
+			         	<tr>
+			         		<td align="center">
+			         			&nbsp;<button class="goShoppingBtn" type="button" onclick="${pageContext.servletContext.contextPath}/">상품 보러가기</button>
+			         		</td>
+			         	</tr>
+			         	
+			         </table>
+               
+               </c:if>     
+                    
+				
 
-
-        </table>
         
         
         
@@ -187,10 +327,10 @@
 	
 	
 
-    <div class="footer">
+     <div class="footer">
     
     <jsp:include page="../common/footer.jsp"/>
     
-	</div>
+	</div> 
 </body>
 </html>

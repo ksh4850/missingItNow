@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="kr">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -44,8 +44,7 @@
 
 
 	.titleTable{
-		margin-left:1000px;
-		height:100px;
+		margin-left:800px;		
 		text-align: center;
 		vertical-align: bottom;	
 	}
@@ -84,7 +83,7 @@
 		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 		border-radius: 10px;
     	margin-left:630px;
-        margin-top:100px;
+        margin-top:50px;
     }
 	
 	
@@ -98,8 +97,52 @@
 		height:750px;
 	}
 	
+	.cartTable{
+		margin-left:50px;
+	}
 	
-	/******************************************/
+	.emptyTable{
+		margin-left:140px;
+	
+	}
+	
+	.goShoppingBtn{	
+		color:#ffff;
+		background:rgba(119, 94, 238);
+		width:150px;
+		height:60px;
+		border-radius: 10px;
+		font-size:20px;
+	}
+	
+	.emptyMessage{
+		font-size:30px;
+	
+	}
+	
+	.purchaseListTable{
+		margin-top:50px;
+		margin-left:100px;
+		width:600px;
+	    height:150px;
+	    text-align:center;
+	    vertical-align:bottom;
+	    border-radius: 30px;
+        border-collapse: collapse;
+        font-family: Roboto;
+	}
+	
+	.bottomLineTr{
+		border-bottom: 2px solid #775EEE;
+		line-height: 60px;	
+	}
+	
+	.pointTd{
+   		background: #B1A7E4;
+   } 
+	
+	
+	/****************************************/
 	
 </style>
 
@@ -109,18 +152,22 @@
 
 <body>
 	
-		 	<div class="header">
+ 	<div class="header">
 	<jsp:include page="../common/header.jsp"/>
 	
-	</div> 
+	</div>  
 	
 	
     <div id="registFormTitle">
    
+   
+   		<div></div>
 	   <table class="titleTable">
+	   
+	   		
 		   	<tr>
-		   		<td class="titleColorBox">xx회원님의 구매내역입니다.</td> 
-		   		<td class="titleNonColor">ㅇㅇㅇ</td>
+		   		<td class="titleColorBox"><br><br><br><br><c:out value="${loginMember.userName }" />&nbsp;회원님의&nbsp; </td> 
+		   		<td class="titleNonColor">구매내역입니다.</td>
 		   	</tr>
 	   </table>           
    
@@ -158,7 +205,7 @@
                     </tr>
                     <tr> <td><br></td> </tr>
                     <tr>
-                        <td>
+                        <td class="pointTd">
                         <a href="javascript:goPurchaseListPage('${loginMember.userNo}');">
                         &nbsp;구매내역
                         </a>
@@ -213,42 +260,64 @@
         <div id="rightDiv">
 
             <section>
-                <table class="cartTable" border="1">
+                    
+                    <!-- DB와 트랜젝션 완성후 foreach 구문으로 바꿀 것 -->
+                    
+                    <c:if test="${!empty purchaseList }">
+                <table class="purchaseListTable" border="1">
 					<tr><td><br></td></tr>
-                    <tr>
-                        <th><input type="checkbox" class="chk_all" id="chk_all"></th>
+                    <tr class="bottomLineTr">                        
                         <th>구매일시</th>
                         <th>구매번호</th>
                         <th>주문자</th>
                         <th>주문상품명</th>
                         <th>주문금액</th>
-
                     </tr>
-                    
-                    <!-- DB와 트랜젝션 완성후 foreach 구문으로 바꿀 것 -->
-                    
                     <c:forEach items="${purchaseList}" var="purchase">
-                    	<tr>
-                    	<td align="center"><input type=checkbox class="chk"></td>
+                    	<tr class="bottomLineTr" align="center">                    	
                     	<td><c:out value="${purchase.purchasedDate}"/></td>
                     	<td><c:out value="${purchase.purchaseNo}"/></td>            							
                     	<td><c:out value="${purchase.privateMemberDTO.userName}"/></td>
                     	<td><c:out value="${purchase.productDTO.prodName}"/></td>
                     	<td><c:out value="${purchase.orderDTO.orderPrice}"/></td>
                     	<td>
-                    	<button type="button" class="deleteBtn" data-cartNum="${cart.wishListNo}"></button>
-                    	</td>
-                    	</tr>
                     	
-                    	<c:set var="total" value="${total + cart.productDTO.prodPrice}"/>
+                    	</td>
+                    	</tr>        	
                     	
                     </c:forEach>                    
-					
-					
+			     </table>
                     
+               </c:if>
+                    
+               <c:if test="${empty purchaseList}"> 
+               		
+               		<table class="emptyTable">
+			         	<tr><td><br><br></td></tr>
+			         	<tr>
+			         		<td class="emptyMessage" align="center">&nbsp;아직 구매하신 내역이 없습니다.</td>
+			         	</tr>
+			         	
+			         	<tr><td><br><br><br></td></tr>
+			         	
+			         	<tr>
+			         		<td>
+			        			<img class="emptyBox" src="/missingitnow/resources/images/member/box.png">
+					        </td>
+			         	</tr>
+			         	<tr><td><br><br></td></tr>
+			         	<tr>
+			         		<td align="center">
+			         			&nbsp;<button class="goShoppingBtn" type="button" onclick="${pageContext.servletContext.contextPath}/">상품 보러가기</button>
+			         		</td>
+			         	</tr>
+			         	
+			         </table>
+               
+               </c:if>     
+                    
+				
 
-
-        </table>
         
         
         
@@ -259,10 +328,10 @@
 	
 	
 
-    <div class="footer">
+     <div class="footer">
     
     <jsp:include page="../common/footer.jsp"/>
     
-	</div>
+	</div> 
 </body>
 </html>
