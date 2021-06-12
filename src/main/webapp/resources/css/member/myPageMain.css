@@ -11,18 +11,20 @@
 
     .contentForm {
         margin: 90px auto;
-        margin-bottom:400px;
+        margin-left: 400px;
+        margin-top:-1900px;
+        margin-bottom:10px;
         width:1920px;
         height: 1080px;
         display: flex;
         justify-content: center; 
-        
+        position:absolute;
         /* align-items: center; */
     }
 
     .colorBox{
         position: relative;
-        margin-bottom:300px;       
+        margin-bottom:100px;       
         background-color: #FBF9F9;        
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 10px;

@@ -41,7 +41,7 @@
 	
 	
 	.titleTable{
-		margin-left:1000px;
+		margin-left:600px;
 		height:100px;
 		text-align: center;
 		vertical-align: bottom;	
@@ -65,6 +65,8 @@
 
 	
     #totalForm {
+    	position:absolute;
+    	margin-left:500px;
         margin: 100px auto;
         display: flex;
         justify-content: center;

@@ -22,8 +22,19 @@
 </head>
 
 <style>
-	    
-		
+	 .leftBg{
+		position:relative;
+		margin-top:600px;
+		margin-left:-100px;
+		margin-bottom:300px;
+	}   
+	#contentForm{
+		margin: 90px auto;
+        margin-left: 490px;
+        margin-top:-1500px;
+        margin-bottom:100px;
+        position:absolute;
+	}		
 </style>
 
 <body>
@@ -33,8 +44,10 @@
 	<jsp:include page="../common/header.jsp"/>
 	
 	</div> 
-	
-	
+<div>
+<img class="leftBg" src="/missingitnow/resources/images/member/cartLeft.png">
+</div> 	
+<div id="contentForm">	
     <div id="registFormTitle">
    
 	   <table class="titleTable">
@@ -106,10 +119,10 @@
                     </tr>
 
                     <tr> <td><br></td> </tr>
-                    <tr>
+<!--                     <tr>
                         <td>&nbsp;쿠폰</td>
                     </tr>
-                    <tr> <td><br></td> </tr>
+                    <tr> <td><br></td> </tr> -->
                     <tr>
                         <td>
                         <a href="javascript:goReviewPage('${loginMember.userNo}');">
@@ -234,7 +247,7 @@
         
         </div>
     </div>
-	
+</div>	
 	
 	
 

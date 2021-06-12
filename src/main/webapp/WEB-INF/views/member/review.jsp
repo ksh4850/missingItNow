@@ -145,7 +145,20 @@
       text-overflow:ellipsis;		
 	}
    
-	
+	.leftBg{
+		position:relative;
+		margin-top:500px;
+		margin-left:-100px;
+		margin-bottom:150px;
+	}
+		
+	#contentForm{
+		margin: 90px auto;
+        margin-left: 490px;
+        margin-top:-1200px;
+        margin-bottom:800px;
+        position:absolute;
+	}	
 </style>
 
 
@@ -156,7 +169,10 @@
 	<jsp:include page="../common/header.jsp"/>
 	
 	</div>  
-	
+<div>
+<img class="leftBg" src="/missingitnow/resources/images/member/qnaReviewLeft.png">
+</div> 		
+<div id="contentForm">		
 	
     <div id="registFormTitle">
    
@@ -229,10 +245,10 @@
                         </td>
                     </tr>
 
-                    <tr> <td><br></td> </tr>
+<!--                     <tr> <td><br></td> </tr>
                     <tr>
                         <td>&nbsp;쿠폰</td>
-                    </tr>
+                    </tr> -->
                     <tr> <td><br></td> </tr>
                     <tr>
                         <td class="pointTd">
@@ -323,7 +339,7 @@
         </section>
         </div>
     </div>
-	
+</div>	
 	
 	
 

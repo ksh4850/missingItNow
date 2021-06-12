@@ -24,15 +24,22 @@
 
 <style>
 
-#userImg{
+	#userImg{
 	width:50px;
 	height:66px;
 
-}
+	}
     
    .pointTd{
    		background: #B1A7E4;
    } 
+   
+   .leftBg{
+		position:relative;
+		margin-top:400px;
+		margin-left:0px;
+		margin-bottom:50px;
+		}
     
 </style>
 
@@ -41,7 +48,9 @@
     <div class="header">
 	<jsp:include page="../common/header.jsp"/>
     </div>
-
+<div>
+<img class="leftBg" src="/missingitnow/resources/images/member/myPageLeft.png">
+</div> 
     <div class="contentForm">
 				
 				<form name="Paging">
@@ -97,10 +106,10 @@
                     </tr>
 
                     <tr> <td><br></td> </tr>
-                    <tr>
-                        <td>&nbsp;쿠폰</td>
+                    <!-- <tr>
+                        <td>&nbsp;</td>
                     </tr>
-                    <tr> <td><br></td> </tr>
+                    <tr> <td><br></td> </tr> -->
                     <tr>
                         <td>
                         <a href="javascript:goReviewPage('${loginMember.userNo}');">
@@ -205,10 +214,10 @@
                         <td class="lineApply">
                         <br>
                             <h3>가입일</h3> <br>
-                            <input type="text" readonly value="">
+                            <input type="text" readonly value="${loginMember.user_Regst_Date }">
                         </td>
                     </tr>
-                    <tr>
+<!--                     <tr>
                         <td>
                         <br>
                             <h3>프로필 이미지 등록/변경</h3> <br>
@@ -217,13 +226,13 @@
                     </tr>
                     <tr>
                     <td class="upload">
-                      <!--이미지 등록 버튼-->                    
+                      이미지 등록 버튼                    
 					        <div class="filebox">
 					  <label for="ex_file" >업로드</label>
 					  <input type="file" id="ex_file">
 						</div>
                             <button class="subBtn">삭제하기</button><br><br>
-                    </td></tr>
+                    </td></tr> -->
                     
                     <tr>
                     

@@ -140,7 +140,22 @@
 	.pointTd{
    		background: #B1A7E4;
    } 
-	
+	   
+   .leftBg{
+		position:relative;
+		margin-top:200px;
+		margin-left:-100px;
+		margin-bottom:50px;
+	}
+		
+	#contentForm{
+		margin: 90px auto;
+        margin-left: 490px;
+        margin-top:-1600px;
+        margin-bottom:10px;
+        position:absolute;
+	}	
+		
 	
 	/****************************************/
 	
@@ -156,7 +171,11 @@
 	<jsp:include page="../common/header.jsp"/>
 	
 	</div>  
-	
+<div>
+<img class="leftBg" src="/missingitnow/resources/images/member/purchaseListLeft.png">
+</div> 
+
+<div id="contentForm">
 	
     <div id="registFormTitle">
    
@@ -230,10 +249,10 @@
                     </tr>
 
                     <tr> <td><br></td> </tr>
-                    <tr>
+<!--                     <tr>
                         <td>&nbsp;쿠폰</td>
                     </tr>
-                    <tr> <td><br></td> </tr>
+                    <tr> <td><br></td> </tr> -->
                     <tr>
                         <td>
                         <a href="javascript:goReviewPage('${loginMember.userNo}');">
@@ -324,7 +343,7 @@
         </section>
         </div>
     </div>
-	
+</div>	
 	
 	
 
