@@ -16,23 +16,36 @@
     .nav{
         position: relative;
         float: left;
-        width: 250px;
+        width: 260px;
         min-height: 1200px;
         text-align: center;
         font-family: 'SCDream-Regular';
-        border: 1px solid black;
+        color: white;
+        text-shadow: 2px 1px 3px darkslategray;
+        /* border: 1px solid black; */
+        background-color: #a091e8;
     }
 	
 	.nav h2{
 		font-family: 'SCDream-Regular';
-		font-size: 26px;
+		font-size: 28px;
 	}
 	
     .naviList li{
         list-style: none;
+        padding-top: 10px;
         padding-bottom: 15px;
-        font-size: 18px;
+        font-size: 20px;
+        background-color: #775EEE;
     }
+    
+    .naviListTitle{
+        cursor: pointer;
+   	}
+
+	.naviListDetails{
+	     display: none;
+	}
 
     .corpProfileDiv{
         display: inline-block;
@@ -64,7 +77,7 @@
         <div class="corpProfileDiv">
             <br> 
             <img id="corpImg" class="corpProfileImg" 
-            src="${ pageContext.servletContext.contextPath }/resources/corpUserImages/CorpUserDefaultImg.PNG"/>
+            src="${ pageContext.servletContext.contextPath }/resources/corpUserImages/CorpUserDefaultImg.png"/>
             <br>
             <div align="center">
 	            <p><span id="corpNameOnNavi"></span>님 <br>환영합니다.</p>
@@ -160,7 +173,7 @@
 				$('#corpNameOnNavi').text(corpName);
 				
 				if(corpImg == null){
-					$('#corpImg').attr('src','${ pageContext.servletContext.contextPath }/resources/corpUserImages/CorpUserDefaultImg.PNG');
+					$('#corpImg').attr('src','${ pageContext.servletContext.contextPath }/resources/corpUserImages/CorpUserDefaultImg.png');
 				} else {
 					$('#corpImg').attr('src','${ pageContext.servletContext.contextPath }/resources/corpUserImages/'+corpImg);
 				}
@@ -170,6 +183,18 @@
 				console.log(error)
 			}
 		});
+		
+		$(document).ready(function(){
+            $(".naviListTitle").click(function(){
+                var submenu = $(this).next("div");
+                
+                if( submenu.is(":visible") ){
+                    submenu.slideUp();
+                } else {
+                    submenu.slideDown();
+                }
+            });
+        });
 	</script>
 	
 </body>

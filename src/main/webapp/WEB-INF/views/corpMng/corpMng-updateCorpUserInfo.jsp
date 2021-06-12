@@ -132,7 +132,7 @@
                 	<h2 style="font-family: 'SCDream-Regular';" align="center">프로필 이미지 등록</h2>
                 	<br>
                 	<img class="preview" id="preview" style="border: 1px solid #8877DA; width: 300px; height: 300px; margin: 0 auto; position: relative; left: 90px; border-radius: 100%;" 
-                		src="${ pageContext.servletContext.contextPath }/resources/corpUserImages/<c:if test="${ empty corpUserInfo.corpImg.corpImgRename }">CorpUserDefaultImg.PNG</c:if>${ corpUserInfo.corpImg.corpImgRename}">
+                		src="${ pageContext.servletContext.contextPath }/resources/corpUserImages/<c:if test="${ empty corpUserInfo.corpImg.corpImgRename }">CorpUserDefaultImg.png</c:if>${ corpUserInfo.corpImg.corpImgRename}">
                 	<br><br><br>
                 	<input type="file" name="corpUserImg" id="corpUserImg" onchange="loadImg(this);" hidden><label for="corpUserImg" id="corpUserImgBtn">이미지 선택</label>
                 </div>
