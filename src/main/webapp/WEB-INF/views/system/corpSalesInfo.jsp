@@ -234,6 +234,11 @@
             color: rgb(47, 16, 201);
             padding: 5px;
         }
+        
+        .system-comsell-section{
+        
+        	 margin-left: 150px;
+        }
 
     </style>
 
@@ -250,6 +255,8 @@
 		 <jsp:include page="../common/corpMngNavi.jsp"/>  
 	</aside>
     <section >
+    <div class="system-comsell-section">
+    
         <div class="system-comSell-head">기업 매출내역</div>
 
         <br>
@@ -352,7 +359,7 @@
         </div>
         
         
-        
+        </div>
 
  			<br>
  			<br>
