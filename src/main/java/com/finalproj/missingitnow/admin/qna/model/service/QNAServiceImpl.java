@@ -121,4 +121,24 @@ public class QNAServiceImpl implements QNAService{
 		
 	}
 
+	@Override
+	public int selectAdminTotalCount(SearchDTO search) {
+
+		int totalCount = 0;
+		
+		totalCount = mapper.selectAdminTotalCount(search);
+		
+		return totalCount;
+		
+	}
+
+	@Override
+	public List<QNADTO> selectAdminList(SearchDTO search) {
+		
+		List<QNADTO> boardList = mapper.selectAdminList(search);
+		
+		return boardList;
+		
+	}
+
 }

@@ -42,10 +42,7 @@
         .system-qnaList-p{
             margin: 0 auto;
             border-bottom: none;
-        }
-        .system-qnaList-p > table{
-            margin: 0 auto;
-            vertical-align: middle;
+            text-align: center;
         }
 
         .qnaList-regist{
@@ -143,26 +140,18 @@
 
 	        <br>
 	        <div class="system-qnaList-p">
-	            <table>
-	                <tr class="system-qnaList-page">
-	                    <c:forEach var="page" begin="${ search.pageInfo.startPage }" end="${ search.pageInfo.endPage }" step="1">
-	                    	<c:if test="${search.pageInfo.pageNo eq page }">
-	                    	<td>
-								<button class="pageButtons" disabled>
-									<c:out value="${ page }" />
-								</button>
-							</td>
-							</c:if>
-							<c:if test="${search.pageInfo.pageNo ne page }">
-							<td>
-								<button class="pageButtons" onclick="pageButtonAction(this.innerText);">
-									<c:out value="${ page }" />
-								</button>
-							</td>
-							</c:if>
-	                    </c:forEach>
-	                </tr>
-	            </table>
+	            <c:forEach var="page" begin="${ search.pageInfo.startPage }" end="${ search.pageInfo.endPage }" step="1">
+	                <c:if test="${search.pageInfo.pageNo eq page }">
+						<button class="pageButtons" disabled>
+							<c:out value="${ page }" />
+						</button>
+					</c:if>
+					<c:if test="${search.pageInfo.pageNo ne page }">
+						<button class="pageButtons" onclick="pageButtonAction(this.innerText);">
+							<c:out value="${ page }" />
+						</button>
+					</c:if>
+	            </c:forEach>
 	        </div>
         </div>
     </section>

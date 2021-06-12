@@ -27,4 +27,8 @@ public interface QNAService {
 
 	List<QNADTO> selectList(Map<String, Object> mapperMap);
 
+	int selectAdminTotalCount(SearchDTO search);
+
+	List<QNADTO> selectAdminList(SearchDTO search);
+
 }

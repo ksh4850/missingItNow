@@ -87,6 +87,28 @@ public class AdminQNAController {
 		} else if(request.getSession().getAttribute("CorpUserSession") != null) {
 			
 			CorpUserDTO loginMember = (CorpUserDTO)request.getSession().getAttribute("CorpUserSession");
+			
+			if("ADMIN".equals(loginMember.getCorpNo())) {
+				
+				SearchDTO search = new SearchDTO(null, condition, value);
+				int totalCount = qnaService.selectAdminTotalCount(search);
+				
+				int limit = 10;
+				int buttonAmount = 10;
+				
+				PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+				
+				search.setPageInfo(pageInfo);
+				
+				List<QNADTO> boardList = qnaService.selectAdminList(search);
+				
+				model.addAttribute("qnaList", boardList);
+				model.addAttribute("search", search);
+				
+				return "admin/qna/adminQNAList";
+				
+			}
+			
 			no = loginMember.getCorpNo();
 			
 		}

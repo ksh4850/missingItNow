@@ -78,6 +78,7 @@
 
         .system-notice-p{
             margin: 0 auto;
+            text-align: center;
         }
 
         .notice-regist{
@@ -145,27 +146,19 @@
             </table>
         </div>
         <br>
-        <div >
-            <table class="system-notice-p">
-                <tr class="system-notice-page">
-                    <c:forEach var="page" begin="${ search.pageInfo.startPage }" end="${ search.pageInfo.endPage }" step="1">
-                    	<c:if test="${search.pageInfo.pageNo eq page }">
-                    	<td>
-							<button class="pageButtons" disabled>
-								<c:out value="${ page }" />
-							</button>
-						</td>
-						</c:if>
-						<c:if test="${search.pageInfo.pageNo ne page }">
-						<td>
-							<button class="pageButtons" onclick="pageButtonAction(this.innerText);">
-								<c:out value="${ page }" />
-							</button>
-						</td>
-						</c:if>
-                    </c:forEach>
-                </tr>
-            </table>
+        <div class="system-notice-p">
+            <c:forEach var="page" begin="${ search.pageInfo.startPage }" end="${ search.pageInfo.endPage }" step="1">
+                <c:if test="${search.pageInfo.pageNo eq page }">
+					<button class="pageButtons" disabled>
+						<c:out value="${ page }" />
+					</button>
+					</c:if>
+				<c:if test="${search.pageInfo.pageNo ne page }">
+					<button class="pageButtons" onclick="pageButtonAction(this.innerText);">
+						<c:out value="${ page }" />
+					</button>
+				</c:if>
+            </c:forEach>
         </div>
         </div>
     </section>

@@ -111,7 +111,7 @@ private final NoticeService ntcService;
 	public String adminNTCRegist(@ModelAttribute NoticeDTO ntcDTO, HttpServletRequest request, RedirectAttributes rttr) {
 		
 		HttpSession session = request.getSession();
-		
+		System.out.println(ntcDTO);
 		if(ntcService.insertNTC(ntcDTO)) {
 			
 			rttr.addFlashAttribute("message", "공지사항 작성에 성공하셨습니다!");

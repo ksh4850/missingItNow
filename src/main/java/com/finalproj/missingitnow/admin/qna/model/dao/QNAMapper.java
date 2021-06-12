@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.finalproj.missingitnow.admin.qna.model.dto.QNADTO;
 import com.finalproj.missingitnow.common.search.DetailSearchDTO;
+import com.finalproj.missingitnow.common.search.SearchDTO;
 
 public interface QNAMapper{
 
@@ -29,5 +30,9 @@ public interface QNAMapper{
 	int updateResponse(QNADTO qnaDTO);
 
 	int updateReplyCheck(QNADTO qnaDTO);
+
+	int selectAdminTotalCount(SearchDTO search);
+
+	List<QNADTO> selectAdminList(SearchDTO search);
 
 }

@@ -84,7 +84,7 @@
             <br>
             <label for="">공지사항 내용</label>
             <br>
-            <div name="details" class="system-ntcDetail-detail" contenteditable="true"></div>
+            <textarea name="details" class="system-ntcDetail-detail"></textarea>
             <br>
             <div class="system-ntcDetail-bottom">
                 <input type="submit" value="작성하기">
