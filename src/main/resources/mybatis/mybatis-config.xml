@@ -11,6 +11,7 @@
  		<typeAlias alias="SalesMngOrderDTO" type="com.finalproj.missingitnow.corpMng.model.dto.SalesMngOrderDTO"/>
  		<typeAlias alias="SalesMngSalesDTO" type="com.finalproj.missingitnow.corpMng.model.dto.SalesMngSalesDTO"/>
  		<typeAlias alias="CorpUserDTO" type="com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO"/>
+ 		<typeAlias alias="CorpUserLvDTO" type="com.finalproj.missingitnow.corpMng.model.dto.CorpUserLvDTO"/>
  		<typeAlias alias="UserDTO(forCorpMng)" type="com.finalproj.missingitnow.corpMng.model.dto.UserDTO"/>
  		<typeAlias alias="CorpDepositDTO" type="com.finalproj.missingitnow.corpMng.model.dto.CorpDepositDTO"/>
  		<typeAlias alias="SettleMngSettlementDTO" type="com.finalproj.missingitnow.corpMng.model.dto.SettleMngSettlementDTO"/>
@@ -22,6 +23,7 @@
  		<typeAlias alias="PageInfoDTO" type="com.finalproj.missingitnow.common.page.PageInfoDTO"/>
  		<typeAlias alias="ProdCmtListDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdCmtListDTO"/>
  		<typeAlias alias="ProdRevListDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdRevListDTO"/>
+ 		
  		
  		<!-- systemAdmin -->
  		<typeAlias alias="qnaDTO" type="com.finalproj.missingitnow.admin.qna.model.dto.QNADTO"/>

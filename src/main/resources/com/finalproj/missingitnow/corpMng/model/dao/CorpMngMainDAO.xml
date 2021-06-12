@@ -14,6 +14,10 @@
 		<result property="corpRegistrationNo" column="CORP_REGISTRATION_NO"/>
 		<result property="corpRegstDate" column="CORP_REGST_DATE"/>
 		<result property="corpLeaveChk" column="CORP_LEAVE_CHK"/>
+		<association property="corpLv" javaType="CorpUserLvDTO">
+			<id property="corpLvNo" column="CORP_LV_NO"/>
+			<result property="corpLvName" column="CORP_LV_NAME"/>
+		</association>
 		<association property="corpImg" javaType="CorpUserImgDTO">
 			<id property="corpImgNo" column="CORP_IMG_NO"/>
 			<result property="corpNo" column="CORP_NO"/>
@@ -33,11 +37,91 @@
 		     , A.CORP_REGISTRATION_NO
 		     , A.CORP_REGST_DATE
 		     , A.CORP_LEAVE_CHK
-		     , B.CORP_IMG_NO
-		     , B.CORP_IMG_RENAME
+		     , B.CORP_LV_NO
+		     , B.CORP_LV_NAME
+		     , C.CORP_IMG_NO
+		     , C.CORP_IMG_RENAME
 		  FROM TBL_CORP_USER A
-		  LEFT JOIN TBL_CORP_IMG B ON (A.CORP_NO = B.CORP_NO)
+		  JOIN TBL_CORP_LV B ON (A.CORP_LV_NO = B.CORP_LV_NO)
+		  LEFT JOIN TBL_CORP_IMG C ON (A.CORP_NO = C.CORP_NO)
 		 WHERE A.CORP_NO = #{corpNo}
+	</select>
+	
+	<select id="selectDepositTotal" resultType="_int" parameterType="CorpUserDTO">
+		SELECT NVL(SUM(A.AMOUNT),0) AS DEPOSIT_AMT
+		  FROM TBL_DEPOSIT A
+		 WHERE A.CORP_NO = #{corpNo}
+	</select>
+	
+	<resultMap id="prodMngProductResultSet" type="ProdMngProductDTO">
+		<id property="prodNo" column="PROD_NO"/>
+		<result property="prodName" column="PROD_NAME"/>
+		<result property="prodPrice" column="PROD_PRICE"/>
+		<result property="corpNo" column="CORP_NO"/>
+	</resultMap>
+	
+	<select id="selectRecentProductList" resultMap="prodMngProductResultSet" parameterType="CorpUserDTO">
+		SELECT A.PROD_NO
+             , A.PROD_NAME
+             , A.PROD_PRICE
+             , A.CORP_NO
+          FROM TBL_PRODUCT A
+         WHERE A.CORP_NO = #{corpNo}
+         ORDER BY A.PROD_NO DESC
+	</select>
+	
+	<resultMap id="countOrderStatusResultSet" type="SalesMngOrderDTO">
+		<id property="orderNo" column="orderNo"/>
+		<result property="waitCount" column="WAIT_COUNT"/>
+		<result property="paidCount" column="PAID_COUNT"/>
+		<result property="preparingCount" column="PREPARING_COUNT"/>
+		<result property="deliveringCount" column="DELIVERING_COUNT"/>
+		<result property="deliveredCount" column="DELIVERED_COUNT"/>
+		<result property="corpNo" column="CORP_NO"/>
+	</resultMap>
+	
+	<select id="selectCountOrderStatus" resultMap="countOrderStatusResultSet" parameterType="CorpUserDTO">
+		SELECT COUNT(CASE WHEN A.DEALING_STATUS = '입금대기' THEN 1 END) AS WAIT_COUNT
+		     , COUNT(CASE WHEN A.DEALING_STATUS = '결제완료' THEN 1 END) AS PAID_COUNT
+		     , COUNT(CASE WHEN A.DEALING_STATUS = '상품준비중' THEN 1 END) AS PREPARING_COUNT
+		     , COUNT(CASE WHEN A.DEALING_STATUS = '배송중' THEN 1 END) AS DELIVERING_COUNT
+		     , COUNT(CASE WHEN A.DEALING_STATUS = '완료' THEN 1 END) AS DELIVERED_COUNT
+		  FROM TBL_ORDER A
+		 WHERE A.CORP_NO = #{corpNo}
+	</select>
+	
+	<resultMap id="prodCmtListResultSet" type="ProdCmtListDTO">
+		<id property="prodComtNo" column="PROD_COMT_NO"/>
+		<result property="prodComtDetails" column="PROD_COMT_DETAILS"/>
+		<result property="prodComtDate" column="PROD_COMT_DATE"/>
+	</resultMap>
+	
+	<select id="selectRecentProductCmtList" resultMap="prodCmtListResultSet" parameterType="CorpUserDTO">
+		SELECT A.PROD_COMT_NO
+		     , A.PROD_COMT_DETAILS
+		     , A.PROD_COMT_DATE
+		  FROM TBL_PROD_COMMENT A
+		  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+		 WHERE B.CORP_NO = #{corpNo}
+		 ORDER BY A.PROD_COMT_NO DESC
+	</select>
+	
+	<resultMap id="prodRevListResultSet" type="ProdRevListDTO">
+		<id property="reviewNo" column="REVIEW_NO"/>
+		<result property="reviewDetails" column="REVIEW_DETAILS"/>
+		<result property="reviewScore" column="REVIEW_SCORE"/>
+		<result property="reviewDate" column="REVIEW_DATE"/>
+	</resultMap>
+	
+	<select id="selectRecentProductRevList" resultMap="prodRevListResultSet" parameterType="CorpUserDTO">
+		SELECT A.REVIEW_NO
+		     , A.REVIEW_DETAILS
+		     , A.REVIEW_SCORE
+		     , A.REVIEW_DATE
+		  FROM TBL_PROD_REVIEW A
+		  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+		 WHERE B.CORP_NO = #{corpNo}
+		 ORDER BY A.REVIEW_NO DESC
 	</select>
 	
 	<update id="updateCorpUserInfo" parameterType="CorpUserDTO">

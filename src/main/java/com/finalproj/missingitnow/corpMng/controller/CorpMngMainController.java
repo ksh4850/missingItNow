@@ -3,6 +3,7 @@ package com.finalproj.missingitnow.corpMng.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -21,8 +22,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finalproj.missingitnow.common.exception.LoginFailedException;
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.ProdCmtListDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.ProdRevListDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.SalesMngOrderDTO;
 import com.finalproj.missingitnow.corpMng.model.service.CorpMngMainService;
+import com.finalproj.missingitnow.corpMng.model.service.ProdMngService;
+import com.finalproj.missingitnow.corporation.model.service.CorporationService;
 import com.google.gson.Gson;
 
 @Controller
@@ -31,13 +39,17 @@ import com.google.gson.Gson;
 public class CorpMngMainController {
 	
 	private final CorpMngMainService corpMngMainService;
+	private final ProdMngService prodMngService;
 	private final BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
-	public CorpMngMainController(CorpMngMainService corpMngMainService, BCryptPasswordEncoder passwordEncoder) {
+	public CorpMngMainController(CorpMngMainService corpMngMainService, BCryptPasswordEncoder passwordEncoder, ProdMngService prodMngService) {
 		this.corpMngMainService = corpMngMainService;
+		this.prodMngService = prodMngService;
 		this.passwordEncoder = passwordEncoder;
 	}
+	
+	
 	
 	@PostMapping(value="/selectCorpUserInfoForNavi", produces="application/json; charset=UTF-8")
 	@ResponseBody
@@ -53,8 +65,41 @@ public class CorpMngMainController {
 		return gson.toJson(corpUserInfo);
 	}
 	
-	@GetMapping("/main")
-	public String corpMngMain() {
+	// 메인 페이지
+	@GetMapping(value={"/", "/main"})
+	public String corpMngMain(Model model) {
+		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
+		
+		if(CorpUserSession == null) {
+			return "redirect:/";
+		}
+		
+		// 판매자 정보
+		CorpUserDTO corpUserInfo = corpMngMainService.selectCorpUserInfo(CorpUserSession);
+		int totalCount = prodMngService.selectTotalProductList(CorpUserSession);
+		int depositTotal = corpMngMainService.selectDepositTotal(CorpUserSession);
+		
+		// 최근 등록 상품
+		List<ProdMngProductDTO> recentProductList = corpMngMainService.selectRecentProductList(CorpUserSession);
+		
+		// 주문
+		SalesMngOrderDTO countOrderStatus = corpMngMainService.selectCountOrderStatus(CorpUserSession);
+		
+		// 최근 상품 문의
+		List<ProdCmtListDTO> recentProductCmtList = corpMngMainService.selectRecentProductCmtList(CorpUserSession);
+
+		// 최근 상품 리뷰
+		List<ProdRevListDTO> recentProdRevList = corpMngMainService.selectRecentProductRevList(CorpUserSession);
+		
+		model.addAttribute("corpUserInfo", corpUserInfo);
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("depositTotal", depositTotal);
+		model.addAttribute("recentProductList", recentProductList);
+		model.addAttribute("countOrderStatus", countOrderStatus);
+		model.addAttribute("recentProductCmtList", recentProductCmtList);
+		model.addAttribute("recentProdRevList", recentProdRevList);
+		
 		return "/corpMng/corpMngMain";
 	}
 	
@@ -65,7 +110,7 @@ public class CorpMngMainController {
 		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
 		
 		CorpUserDTO corpUserInfo = corpMngMainService.selectCorpUserInfo(CorpUserSession);
-//		System.out.println("corpUserInfo :" + corpUserInfo);
+		System.out.println("corpUserInfo :" + corpUserInfo);
 		
 		model.addAttribute("corpUserInfo", corpUserInfo);
 		

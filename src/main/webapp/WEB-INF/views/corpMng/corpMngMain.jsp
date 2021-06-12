@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,7 +75,7 @@
         height: 300px;
     }
 
-    .qnaSummaryDiv{
+    .prodCmtSummaryDiv{
         border: 1px solid black;
         position: relative;
         float: left;
@@ -135,21 +136,15 @@
             <table class="corpInfoTable" align="center">
                 <tr>
                     <td style="width: 150px; height: 40px; text-align: right;">기업명 : </td>
-                    <td style="width: 200px; text-indent: 10px">다이소</td>
+                    <td style="width: 200px; text-indent: 10px"><c:out value="${corpUserInfo.corpName}"/></td>
                     <td style="width: 150px; height: 40px; text-align: right;">등급 : </td>
-                    <td style="width: 250px; text-indent: 10px; text-align: right;">VVIP</td>
+                    <td style="width: 250px; text-indent: 10px; text-align: right;">${corpUserInfo.corpLv.corpLvName}</td>
                 </tr>
                 <tr>
                     <td style="height: 40px; text-align: right;">등록된 상품 수 : </td>
-                    <td style="text-indent: 10px">300</td>
+                    <td style="text-indent: 10px"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ totalCount }"/>건</td>
                     <td style="height: 40px; text-align: right;">예치금 잔액 : </td>
-                    <td style="text-indent: 10px; text-align: right;">2000000 원</td>
-                </tr>
-                <tr>
-                    <td style="height: 40px; text-align: right;">품절 상품 수 : </td>
-                    <td style="text-indent: 10px">300</td>
-                    <td style="height: 40px; text-align: right;">금월 매출액 : </td>
-                    <td style="text-indent: 10px; text-align: right;">2000000 원</td>
+                    <td style="text-indent: 10px; text-align: right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ depositTotal }"/> 원</td>
                 </tr>
             </table>
         </div>
@@ -158,19 +153,12 @@
             <hr>
             <div class="productSummaryList">
                 <table>
-                    <!-- select for문 시작 -->
-                    <tr>
-                        <td style="width: 680px; height: 40px; text-indent: 20px;">상품명 3</td>
-                        <td style="text-align: right;">500000 원</td>
-                    </tr>
-                    <tr>
-                        <td style="height: 40px; text-indent: 20px;">상품명 2</td>
-                        <td style="text-align: right;">150000 원</td>
-                    </tr>
-                    <tr>
-                        <td style="height: 40px; text-indent: 20px;">상품명 1</td>
-                        <td style="text-align: right;">50000 원</td>
-                    </tr>
+	                <c:forEach var="recentProd" items="${ recentProductList }" begin="1" end="5" step="1">
+	                	<tr>
+	                        <td style="width: 680px; height: 40px; text-indent: 20px;"><nobr>${ recentProd.prodName }</nobr></td>
+	                        <td style="text-align: right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ recentProd.prodPrice }"/> 원</td>
+	                    </tr>
+					</c:forEach>
                 </table>
             </div>
         </div>
@@ -179,44 +167,40 @@
             <hr>
             <div class="orderSummaryList">
                 <table>
-                    <!-- select for문 시작 -->
                     <tr>
                         <td style="width: 400px; height: 40px; text-indent: 20px;">입금 대기 : </td>
-                        <td>5 건</td>
+                        <td>${ countOrderStatus.waitCount } 건</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 400px; height: 40px; text-indent: 20px;">결제 완료 : </td>
+                        <td>${ countOrderStatus.paidCount } 건</td>
                     </tr>
                     <tr>
                         <td style="height: 40px; text-indent: 20px;">상품 준비중 : </td>
-                        <td>4 건</td>
+                        <td>${ countOrderStatus.preparingCount } 건</td>
                     </tr>
                     <tr>
                         <td style="height: 40px; text-indent: 20px;">배송중 : </td>
-                        <td>2 건</td>
+                        <td>${ countOrderStatus.deliveringCount } 건</td>
                     </tr>
                     <tr>
                         <td style="height: 40px; text-indent: 20px;">배송완료 : </td>
-                        <td>1 건</td>
+                        <td>${ countOrderStatus.deliveredCount } 건</td>
                     </tr>
                 </table>
             </div>
         </div>
-        <div class="qnaSummaryDiv">
+        <div class="prodCmtSummaryDiv">
             <button class="titleBtn" onclick="location.href=''" style="border: none; background-color: transparent;"> 상품 문의 > </button>   <!-- 주문내역조회 페이지 이동 btn-->
             <hr>
-            <div class="qnaSummaryList">
+            <div class="prodCmtSummaryList">
                 <table>
-                    <!-- select for문 시작 -->
-                    <tr>
-                        <td style="width: 680px; height: 40px; text-indent: 20px;">상품명 3</td>
-                        <td style="text-align: right;">2021-05-03</td>
-                    </tr>
-                    <tr>
-                        <td style="height: 40px; text-indent: 20px;">상품명 2</td>
-                        <td style="text-align: right;">2021-05-02</td>
-                    </tr>
-                    <tr>
-                        <td style="height: 40px; text-indent: 20px;">상품명 1</td>
-                        <td style="text-align: right;">2021-05-01</td>
-                    </tr>
+                    <c:forEach var="recentProdCmt" items="${ recentProductCmtList }" begin="1" end="5" step="1">
+	                	<tr>
+	                        <td style="width: 680px; height: 40px; text-indent: 20px;"><nobr>${ recentProdCmt.prodComtDetails }</nobr></td>
+	                        <td style="text-align: right;">${ recentProdCmt.prodComtDate }</td>
+	                    </tr>
+					</c:forEach>
                 </table>
             </div>
         </div>
@@ -225,26 +209,22 @@
             <hr>
             <div class="reviewSummaryList">
                 <table>
-                    <!-- select for문 시작 -->
-                    <tr>
-                        <td style="width: 500px; height: 40px; text-indent: 20px;">상품명 3</td>
-                        <td style="width: 180px; text-align: center;">★★★★★</td>
-                        <td style="text-align: right;">2021-05-03</td>
-                    </tr>
-                    <tr>
-                        <td style="height: 40px; text-indent: 20px;">상품명 2</td>
-                        <td style="text-align: center;">★★★★</td>
-                        <td style="text-align: right;">2021-05-02</td>
-                    </tr>
-                    <tr>
-                        <td style="height: 40px; text-indent: 20px;">상품명 1</td>
-                        <td style="text-align: center;">★</td>
-                        <td style="text-align: right;">2021-05-02</td>
-                    </tr>
+					<c:forEach var="recentProdRev" items="${ recentProdRevList }" begin="1" end="5" step="1">
+	                	<tr>
+	                        <td style="width: 600px; height: 40px; text-indent: 20px;"><nobr>${ recentProdRev.reviewDetails }</nobr></td>
+	                        <td style="text-align: right;">
+	                        	<c:if test="${ recentProdRev.reviewScore eq 5 }">★★★★★</c:if>
+			                    <c:if test="${ recentProdRev.reviewScore eq 4 }">★★★★☆</c:if>
+			                    <c:if test="${ recentProdRev.reviewScore eq 3 }">★★★☆☆</c:if>
+			                    <c:if test="${ recentProdRev.reviewScore eq 2 }">★★☆☆☆</c:if>
+			                    <c:if test="${ recentProdRev.reviewScore eq 1 }">★☆☆☆☆</c:if>
+	                        </td>
+	                        <td style="text-align: right;">${ recentProdRev.reviewDate }</td>
+	                    </tr>
+					</c:forEach>
                 </table>
             </div>
         </div>
-		
 	</div>	<!-- sectionDiv 종료 -->
 	
 	<br clear="both">

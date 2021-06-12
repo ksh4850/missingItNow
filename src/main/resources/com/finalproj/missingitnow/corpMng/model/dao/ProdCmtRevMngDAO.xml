@@ -61,8 +61,7 @@
 		<result property="reviewDetails" column="REVIEW_DETAILS"/>
 		<result property="reviewScore" column="REVIEW_SCORE"/>
 		<result property="reviewDate" column="REVIEW_DATE"/>
-		<result property="" column=""/>
-				<association property="prodMngProduct" javaType="ProdMngProductDTO">
+		<association property="prodMngProduct" javaType="ProdMngProductDTO">
 			<id property="prodNo" column="PROD_NO"/>
 			<result property="prodName" column="PROD_NAME"/>
 			<result property="corpNo" column="CORP_NO"/>
