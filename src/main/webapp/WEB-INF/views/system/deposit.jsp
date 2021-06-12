@@ -109,6 +109,8 @@
          	border: 1px solid  rgb(119, 94, 238); 
             color: rgb(47, 16, 201);
             padding: 5px;
+            margin-bottom : 50px;
+           
         }
 
 
@@ -118,11 +120,12 @@
 </head>
 <body>
    <header>
-		<jsp:include page="../common/systemHeader.jsp"></jsp:include>
+		<jsp:include page="../common/corpMngHeader.jsp"/>
     </header>
-		
+		<div style="overflow:hidden; display: flex;">	
     <aside>
-		<jsp:include page="../common/systemNavi.jsp"></jsp:include>
+		<%-- <jsp:include page="../common/systemNavi.jsp"></jsp:include> --%>
+		<jsp:include page="../common/corpMngNavi.jsp"/>
     </aside>
     <section>
         <div class="system-deposit-head">예치금 내역</div>
@@ -177,7 +180,7 @@
         </div>
 
         <br>
-
+		
           <div class="pagingArea" align="center">
           
           			<c:if test="${empty depositList }">
@@ -212,7 +215,12 @@
 					<button id="maxPage">>></button>
 					</c:if>
 		</div><!-- pagingArea end -->
+		
     </section>
+    </div>
+     <footer>
+		<jsp:include page="../common/footer.jsp"/>
+	</footer> 
     
     <script >
     const link = "${ pageContext.servletContext.contextPath }/system/depositInfo";

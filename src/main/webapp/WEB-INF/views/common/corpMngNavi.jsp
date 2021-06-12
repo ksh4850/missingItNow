@@ -7,7 +7,7 @@
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin/bootstrap.css">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <style>
@@ -91,6 +91,7 @@
                 <div class="btn" data-toggle="collapse" data-target="#subMenuOne">정산관리</div>
                 <div id="subMenuOne" class="collapse subMenu" data-parent=".nav">
                     <div class="link-btn" id="settlementBreakdown">정산현황</div>
+                    <div class="link-btn" id="depositBtn">예치금관리</div>
                 </div>
             </li>
             <li class="menu" id="member">
@@ -98,6 +99,13 @@
                 <div id="subMenuTwo" class="collapse subMenu" data-parent=".nav">
                     <div class="link-btn" id="userManage">일반회원</div>
                     <div class="link-btn" id="corpManage">기업회원</div>
+                </div>
+            </li>
+              <li class="menu" id="order">
+                <div class="btn" data-toggle="collapse" data-target="#subMenuFour">매출관리</div>
+                <div id="subMenuFour" class="collapse subMenu" data-parent=".nav">
+                    <div class="link-btn" id="SalesInfoBtn">기업매출관리</div>
+                    <div class="link-btn" id="orderInfobtn">주문내역관리</div>
                 </div>
             </li>
             <li class="menu" id="QNA">
@@ -123,6 +131,24 @@
 		
 		location.href="${ pageContext.servletContext.contextPath }/admin/settlement/breakdown";
 		
+	});
+	
+	$("#depositBtn").click(function(){
+		
+		location.href="${ pageContext.servletContext.contextPath }/system/depositInfo";
+		
+	});
+	
+	$("#SalesInfoBtn").click(function(){
+			
+		location.href="${ pageContext.servletContext.contextPath }/system/corpSalesInfo";
+			
+	});
+	
+	$("#orderInfobtn").click(function(){
+	
+		location.href="${ pageContext.servletContext.contextPath }/system/orderInfo";
+	
 	});
 	
 	$("#userManage").click(function(){

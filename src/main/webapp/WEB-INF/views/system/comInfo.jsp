@@ -24,7 +24,7 @@
         .system-comp-searchBar{
             margin-top: 20px;
             margin-bottom: 20px;
-            margin-left:  5px ;
+            margin-left:  130px ;
             font-size: 20px;
            
         }
@@ -49,6 +49,7 @@
         
 
         .system-comp-info{
+             margin-left:  130px ;
              text-align: center; 
              line-height: 2;
              
@@ -95,6 +96,7 @@
          	border: 1px solid  rgb(119, 94, 238); 
             color: rgb(47, 16, 201);
             padding: 5px;
+            margin-bottom : 50px;
         }
         
 
@@ -103,11 +105,12 @@
 </head>
 <body>
     <header>
-		<jsp:include page="../common/systemHeader.jsp"></jsp:include>
+		<jsp:include page="../common/corpMngHeader.jsp"/>
     </header>
-		
+	<div style="overflow:hidden; display: flex;">	
     <aside>
-		<jsp:include page="../common/systemNavi.jsp"></jsp:include>
+		<%-- <jsp:include page="../common/systemNavi.jsp"></jsp:include> --%>
+		<jsp:include page="../common/corpMngNavi.jsp"/>
     </aside>
     <section>
         <div class="system-comp-head">기업 회원정보</div>
@@ -225,6 +228,11 @@
         			
         
     </section>
+    </div>
+    <footer>
+		<jsp:include page="../common/footer.jsp"/>
+	</footer>  
+    
     
     <script>
     

@@ -12,6 +12,7 @@
     <title>Document</title>
      <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <style>
@@ -243,10 +244,11 @@
    <header>
 		<jsp:include page="../common/systemHeader.jsp"></jsp:include>
     </header>
+		 <div style="overflow:hidden; display: flex;">
+  	 <aside>
 		
-    <aside>
-		<jsp:include page="../common/systemNavi.jsp"></jsp:include>
-    </aside>
+		 <jsp:include page="../common/corpMngNavi.jsp"/>  
+	</aside>
     <section >
         <div class="system-comSell-head">기업 매출내역</div>
 
@@ -352,11 +354,21 @@
         
         
 
- 
+ 			<br>
+ 			<br>
+ 			<br>
 		
      </section>
+    </div> 
     
-    <script >
+    
+   
+    <footer>
+		<jsp:include page="../common/footer.jsp"/>
+	</footer> 
+    
+    
+        <script >
     
     const link = "${ pageContext.servletContext.contextPath }/system/corpSalesInfo";
     
@@ -869,15 +881,9 @@
          } 
           
         }
-      
-      
-      
-      
-		
-		
-       
     
     </script>
+   
     
 </body>
 </html>

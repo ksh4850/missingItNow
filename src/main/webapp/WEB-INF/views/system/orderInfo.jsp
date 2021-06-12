@@ -109,6 +109,7 @@
          	border: 1px solid  rgb(119, 94, 238); 
             color: rgb(47, 16, 201);
             padding: 5px;
+            margin-bottom : 50px;
         }
         
 
@@ -119,10 +120,11 @@
    <header>
 		<jsp:include page="../common/systemHeader.jsp"></jsp:include>
     </header>
-		
-    <aside>
-		<jsp:include page="../common/systemNavi.jsp"></jsp:include>
-    </aside>
+		<div style="overflow:hidden; display: flex;">
+  	 <aside>
+		<%-- <jsp:include page="../common/systemNavi.jsp"></jsp:include> --%>
+		<jsp:include page="../common/corpMngNavi.jsp"/>
+	</aside>
     <section>
         <div class="system-sell-head">주문내역</div>
         <br>
@@ -245,7 +247,13 @@
 
        
     </section>
-    
+    	</div>
+    	
+     <footer>
+		<jsp:include page="../common/footer.jsp"/>
+	</footer> 
+	
+	
     <script >
     
     const link = "${ pageContext.servletContext.contextPath }/system/orderInfo";
