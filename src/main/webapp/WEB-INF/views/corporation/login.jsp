@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/corporation/member-login.css">
     <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
     <title>Document</title> 
 </head>
 <body>
@@ -58,5 +59,32 @@
     	document.getElementById("regist").href = "${ pageContext.servletContext.contextPath}/corporation/regist";
 	}
     </script>
+    
+        <script>
+    	
+
+	    $("#Id").val(Cookies.get('key'));      
+	        if($("#userId").val() != ""){
+	            $("#idMember").attr("checked", true);
+	        }
+	        
+	    $("#idMember").change(function(){
+	        if($("#idMember").is(":checked")){
+	            Cookies.set('key', $("#Id").val(), { expires: 7 });
+	        }else{
+	              Cookies.remove('key');
+	        }
+	    });
+	         
+	    $("#Id").keyup(function(){
+	        if($("#idMember").is(":checked")){
+	            Cookies.set('key', $("#Id").val(), { expires: 7 });
+	        }
+	    });
+    
+    
+    </script>
+    
+    
 </body>
 </html>
