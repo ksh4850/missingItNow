@@ -307,10 +307,8 @@
 				function preview(arr){
 					if(arr.length <= 10){
 						arr.forEach(function(f){
-							//div에 이미지 추가
 							var str = '<div class="previewImgDiv">';
 						
-							//이미지 파일 미리보기
 							if(f.type.match('image.*')){
 								var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
 								
@@ -325,7 +323,7 @@
 							}
 						}); //arr.forEach
 						
-					} else {
+					} else if (arr.length > 10){
 						alert('업로드 확장자 또는 수량을 확인하여 주세요.');
 					}
 		      	};
@@ -333,6 +331,13 @@
 	  
 		$(document).on('click','.delBtn',function(){
 			$(this).parent().remove();
+			
+			var addBtn = '<div class="previewImgDiv"><label for="prodImg" id="prodImgUploadBtnLabel"><img src="${ pageContext.servletContext.contextPath }/resources/images/insertButton.png" class="previewImgs"></label></div>';
+			
+			if($('#previewDiv').is(':empty')){
+				$("#prodImg").val(""); 
+				$(addBtn).appendTo('#previewDiv'); 
+			}
 		});
 		
 		

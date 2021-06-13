@@ -205,9 +205,9 @@
                             <p style="margin: 0; font-size: 14px;">(최소 1개/최대 10개)&nbsp;</p>
                         </td>
                         <td style="min-height: 300px;">
-                        	<input type="file" id="prodImg" name="prodImg" multiple required>
+                        	<input type="file" id="prodImg" name="prodImg" multiple required hidden>
                         	<div id="previewDiv" class="previewDiv">
-                        		<div class="previewImgDiv" id="prodImgUploadBtnDiv">
+                        		<div class="previewImgDiv">
 	                        		<label for="prodImg" id="prodImgUploadBtnLabel"><img src="${ pageContext.servletContext.contextPath }/resources/images/insertButton.png" class="previewImgs"></label>
                         		</div>
 							</div>
@@ -331,20 +331,56 @@
 		      	};
 		}); */
 	  
+		$(document).on('click','#prodImg',function(){
+			$("input[id='prodImg']").change(function(e){
+	
+		          $('#previewDiv').empty();
+		    
+		          var files = e.target.files;
+		          var arr = Array.prototype.slice.call(files);
+		          
+		          preview(arr);
+		          
+		        });
+	
+				function preview(arr){
+					if(arr.length <= 10){
+						arr.forEach(function(f){
+							var str = '<div class="previewImgDiv">';
+						
+							if(f.type.match('image.*')){
+								var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
+								
+								reader.onload = function (e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+									str += '<img id="preview" class="previewImgs" src="'+e.target.result+'"/>';
+									str += '<button type="button" class="delBtn">x</button>';
+									str += '</div>';
+									$(str).appendTo('#previewDiv');
+									
+								} 
+								reader.readAsDataURL(f);
+							}
+						}); //arr.forEach
+						
+					} else if (arr.length > 10){
+						alert('업로드 확장자 또는 수량을 확인하여 주세요.');
+					}
+		      	};
+		});
+
 		$(document).on('click','.delBtn',function(){
-			//$(this).parent().remove();
-			$('#previewDiv').empty();
-			$("#prodImg").val("");
+			$(this).parent().remove();
+			/* $('#previewDiv').empty(); */
 			
 			var addBtn = '<div class="previewImgDiv"><label for="prodImg" id="prodImgUploadBtnLabel"><img src="${ pageContext.servletContext.contextPath }/resources/images/insertButton.png" class="previewImgs"></label></div>';
-			
 			if($('#previewDiv').is(':empty')){
+				$("#prodImg").val(""); 
 				$(addBtn).appendTo('#previewDiv'); 
 			}
 			
-			if($('#prodImgUploadBtnLabel').parents().is('div') == false){
+			/* if($('#prodImgUploadBtnLabel').parents().is('div') == false){
 				$(addBtn).appendTo('#previewDiv');
-			}
+			} */
 		});
 		
 		$(document).on('click','.prodDetailImgBtn',function(){
