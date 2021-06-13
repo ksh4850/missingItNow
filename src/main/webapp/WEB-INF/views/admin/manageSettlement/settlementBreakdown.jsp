@@ -119,7 +119,8 @@
 		
 		}
         
-        #settlementButton{
+        #settlementButton,
+        #allSettlementButton{
         
         	background-color: rgb(119, 94, 238); 
 			color: white;
@@ -162,6 +163,7 @@
 		            <br>
 		            <br>
 		        </form>
+		        <button type="button" id="allSettlementButton" style="margin-left: 92.5%">정산하기</button>
 	        </div>
 	        <div class="system-settlement-info" >
 	            <table>
@@ -208,7 +210,7 @@
 
         	<br>
 
-			<button type="button" id="allSettlementButton">정산하기</button>
+			
 
 	        <div>
 	            <table class="system-settlement-page">

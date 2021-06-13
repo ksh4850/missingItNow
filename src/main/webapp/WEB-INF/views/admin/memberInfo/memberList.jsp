@@ -243,11 +243,14 @@
 		<jsp:include page="../../common/footer.jsp"/>
 	</footer>
 <script>
+var link = "${ pageContext.servletContext.contextPath }/admin/userManage/list"
+
 function pageButtonAction(text){
 	location.href = link + "?currentPage=" + text + "&searchWriteDateStart="
 	+ document.getElementsByName("searchWriteDateStart")[0].value
 	+ "&searchWriteDateEnd=" + document.getElementsByName("searchWriteDateEnd")[0].value
-	+ "&searchCondition=" + document.getElementsByName("searchCondition")[0].value
+	+ "&largeSearchCondition=" + document.getElementsByName("largeSearchCondition")[0].value
+	+ "&smallSearchCondition=" + document.getElementsByName("smallSearchCondition")[0].value
 	+ "&searchValue=" + document.getElementsByName("searchValue")[0].value;
 };
 

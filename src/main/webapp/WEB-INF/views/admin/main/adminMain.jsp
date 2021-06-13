@@ -39,10 +39,6 @@
            			<!-- 전체 구매횟수중 환불/반품 비율이 높은 유저 숫자 -->
            			<td>환불/반품 고비율 이용자 : ${ datas.highRateRefundUserCount }명</td>
            		</tr>
-           		<tr>
-           			<!-- 신고된 유저 숫자 -->
-           			<td>신고된 이용자 : ???명</td>
-           		</tr>
            	</table>
         </div>
         <div class="corpDiv contentDiv">
@@ -58,12 +54,6 @@
            		<tr>
            			<!-- 오늘 가입신청한 기업 숫자 -->
            			<td>금일 가입신청 기업회원 : ${ datas.todayRegistCorpUserCount }명</td>
-           			<!-- 신고된 기업 숫자 -->
-           			<td>신고된 기업회원 : ???명</td>
-           		</tr>
-           		<tr>
-           			<!-- 블랙리스트에 등록된 기업 숫자 -->
-           			<td>블랙리스트 기업회원 : ${ datas.blackListCorpUserCount }명</td>
            		</tr>
            	</table>
         </div>

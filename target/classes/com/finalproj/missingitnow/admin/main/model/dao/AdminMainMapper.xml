@@ -32,27 +32,35 @@
 	</select>
 	<select id="selectHighRateRefundUserCount" resultType="_int">
 	    SELECT
-		       COUNT(*)
-		  FROM TBL_USER A
-		 WHERE A.USER_NO IN (SELECT
-		                            B.USER_NO
-		                       FROM TBL_USER B
-		                       JOIN V_ALL_ORDER_COUNT C ON(B.USER_NO = C.유저)
-		                       JOIN V_ALL_RETURN_COUNT D ON(B.USER_NO = D.유저)
-		                       JOIN V_ALL_REFUND_COUNT E ON(B.USER_NO = E.유저)
-		                      WHERE B.USER_NO NOT IN(SELECT
-									                        A.USER_NO
-									                   FROM TBL_USER A
-									          
-									                 MINUS
-									        
-									                 SELECT
-									                        A.USER_NO
-									                   FROM TBL_ORDER A
-									                  GROUP BY A.USER_NO
-									                )
-		                        AND ((E.환불횟수 + D.반품횟수) / C.주문횟수) >= 0.3
-		                    )
+	           COUNT(A.USER_NO)
+		  FROM ( SELECT
+		                B.USER_NO
+		           FROM TBL_USER B
+		          WHERE B.USER_NO NOT IN((SELECT
+		                                         A.USER_NO
+		                                    FROM TBL_USER A
+		                  
+		                                  MINUS
+		                
+		                                  SELECT
+		                                         A.USER_NO
+		                                    FROM TBL_ORDER A
+		                                   GROUP BY A.USER_NO)
+		                                   
+		                                 UNION
+		                                   
+		                                 SELECT
+		                                        A.USER_NO
+		                                   FROM TBL_USER A
+		                                   JOIN V_ALL_RETURN_COUNT B ON(A.USER_NO = B.유저)
+		                                   JOIN V_ALL_REFUND_COUNT C ON(A.USER_NO = C.유저)
+		                                  WHERE (C.환불횟수 + B.반품횟수) = 0
+		                                 )
+		        ) A
+		   JOIN V_ALL_ORDER_COUNT B ON(A.USER_NO = B.유저)
+		   JOIN V_ALL_RETURN_COUNT C ON(A.USER_NO = C.유저)
+		   JOIN V_ALL_REFUND_COUNT D ON(A.USER_NO = D.유저)
+		  WHERE ((D.환불횟수 + C.반품횟수) / B.주문횟수) >= 0.3
 	</select>
 	<select id="selectReportedUserCount" resultType="_int">
 	
