@@ -206,17 +206,16 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right; padding-right: 20px;">상품 이미지 : <br>
+                        <td style="text-align: right; padding-right: 20px;">* 상품 이미지 : <br>
                             <p style="margin: 0; font-size: 14px;">(최소 1개/최대 10개)&nbsp;</p>
                         </td>
-                        <td style="min-height: 300px;">
+                        <td style="min-height: 300px; padding-top: 20px;">
                         	<input type="file" id="prodImg" name="prodImg" multiple required hidden>
+                       		<label for="prodImg" id="prodImgUploadBtn">이미지 업로드</label>
                         	<div id="previewDiv" class="previewDiv">
-                        		<div class="previewImgDiv">
-	                        		<label for="prodImg" id="prodImgUploadBtnLabel"><img src="${ pageContext.servletContext.contextPath }/resources/images/insertButton.png" class="previewImgs"></label>
-                        		</div>
-							</div>
-                        </td>
+                        		<div class="previewImgDiv"></div>
+                        	</div>
+                       </td>
                     </tr>
                     <tr>
                         <td style="text-align: right; color: red;">* 등록 판매가 : </td>
@@ -292,81 +291,69 @@
 		const dateInput = document.getElementById('prodDiscountPeriod');
 		dateInput.valueAsDate = new Date();
 		
-		$(document).on('click','#prodImg',function(){
+		$('#prodImgUploadBtn').off('click').on('click',function(){
+			$('#prodImgUploadBtn').unbind('click');
+			
 			$("input[id='prodImg']").change(function(e){
-	
-		          $('#previewDiv').empty();
-		    
-		          var files = e.target.files;
-		          var arr = Array.prototype.slice.call(files);
-		          
-		          preview(arr);
-		          
-		        });
-	
-				function preview(arr){
-					if(arr.length <= 10){
-						arr.forEach(function(f){
-							var str = '<div class="previewImgDiv">';
-						
-							if(f.type.match('image.*')){
-								var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
-								
-								reader.onload = function (e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
-									str += '<img id="preview" class="previewImgs" src="'+e.target.result+'"/>';
-									str += '<button type="button" class="delBtn">x</button>';
-									str += '</div>';
-									$(str).appendTo('#previewDiv');
-									
-								} 
-								reader.readAsDataURL(f);
-							}
-						}); //arr.forEach
-						
-					} else if (arr.length > 10){
-						alert('업로드 확장자 또는 수량을 확인하여 주세요.');
+				$('#previewDiv').empty();
+				var addDiv = '<div class="previewImgDiv"></div>';
+				
+				if($('#previewDiv').is(':empty')){
+					$(addDiv).appendTo('#previewDiv'); 
+				}
+				var files = e.target.files;
+				var arr = Array.prototype.slice.call(files);
+				preview(arr);
+			});
+			
+			function preview(arr){
+				$('#previewDiv').empty();
+
+				if(arr.length >= 1 && arr.length <= 10){
+					
+					arr.forEach(function(f){
+						var str = '<div class="previewImgDiv">';
+						var reader = new FileReader();
+						reader.onload = function (e) {
+							str += '<img id="preview" class="previewImgs" src="'+e.target.result+'"/>';
+							str += '</div>';
+							$(str).appendTo('#previewDiv');
+						}
+						reader.readAsDataURL(f);
+					}); /* for문 종료 */
+					
+				} else if (arr.length > 10){
+					alert('이미지 업로드 수량을 확인하여 주세요.');
+					var addDiv = '<div class="previewImgDiv"></div>';
+					
+					if($('#previewDiv').is(':empty')){
+						$(addDiv).appendTo('#previewDiv'); 
 					}
-		      	};
-		});
-	  
-		$(document).on('click','.delBtn',function(){
-			$(this).parent().remove();
-			
-			var addBtn = '<div class="previewImgDiv"><label for="prodImg" id="prodImgUploadBtnLabel"><img src="${ pageContext.servletContext.contextPath }/resources/images/insertButton.png" class="previewImgs"></label></div>';
-			
-			if($('#previewDiv').is(':empty')){
-				$("#prodImg").val(""); 
-				$(addBtn).appendTo('#previewDiv'); 
-			}
-		});
+				}
+			};
+		});	
 		
 		
 		$(document).on('click','.prodDetailImgBtn',function(){
-			$("input[id='prodDetailImg']").change(function(e){
 			
+			$("input[id='prodDetailImg']").change(function(e){
 				$('#prodDetailPreviewDiv').empty();
 				var value = e.target;
-				
 				uploadProdDetailImg(value);
 			});
 			
 			function uploadProdDetailImg(value){
 				
-				  if (value.files && value.files[0]) {
-					  
-		             var reader2 = new FileReader();
-		             
-		             reader2.onload = function (e) {
-		                 $('#prodDetailPreview').attr('src', e.target.result);
-		             }
-		             
-		             reader2.readAsDataURL(value.files[0]);
-			      }
+				if (value.files && value.files[0]) {
+					var reader = new FileReader();
+				         
+					reader.onload = function (e) {
+						$('#prodDetailPreview').attr('src', e.target.result);
+					}
+					reader.readAsDataURL(value.files[0]);
+				}
 			};
 		});
-		
-		
-		
 	</script>	
 	
 </body>

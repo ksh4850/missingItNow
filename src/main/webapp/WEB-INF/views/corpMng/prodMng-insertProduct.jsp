@@ -42,7 +42,7 @@
     	height: 40px;
     }
     
-    .prodImgUploadBtn{
+    #prodImgUploadBtn{
     	position: relative; 
     	width: 150px;
     	height: 40px;
@@ -54,6 +54,9 @@
     	border-radius: 10px;
     	text-align: center;
     	padding-top: 10px;
+    	padding-bottom: 10px;
+    	padding-right: 20px;
+    	padding-left: 20px;
     	margin: 0;
     	margin-left: 20px;
     }
@@ -173,7 +176,7 @@
                 <table class="insertProductTable">
                     <tr>
                         <td style="text-align: right; width: 200px; padding-right: 20px;">* 카테고리 : </td>
-                        <td style="width: 1200px; text-indent: 20px;">
+                        <td style="width: 1300px; text-indent: 20px;">
                             <select name="prodCtgNo" style="width: 400px; height: 40px; font-size: 20px; font-family: 'SCDream-Regular';">
                                 <option value="PRCT0001">거실/침실가구</option>
                                 <option value="PRCT0002">학생/서재가구</option>
@@ -204,19 +207,19 @@
                         <td style="text-align: right; padding-right: 20px;">* 상품 이미지 : <br>
                             <p style="margin: 0; font-size: 14px;">(최소 1개/최대 10개)&nbsp;</p>
                         </td>
-                        <td style="min-height: 300px;">
+                        <td style="min-height: 300px; padding-top: 20px;">
                         	<input type="file" id="prodImg" name="prodImg" multiple required hidden>
+                       		<label for="prodImg" id="prodImgUploadBtn">이미지 업로드</label>
                         	<div id="previewDiv" class="previewDiv">
-                        		<div class="previewImgDiv">
-	                        		<label for="prodImg" id="prodImgUploadBtnLabel"><img src="${ pageContext.servletContext.contextPath }/resources/images/insertButton.png" class="previewImgs"></label>
-                        		</div>
-							</div>
-                        </td>
+                        		<div class="previewImgDiv"></div>
+                        	</div>
+                       </td>
                     </tr>
                     <tr>
                         <td style="text-align: right; padding-right: 20px;">* 판매가 : </td>
                         <td style="text-indent: 20px;">
-                            <input type="number" min="10" name="prodPrice" style="width: 200px; font-size: 20px; text-align: right;" required> 원
+                            <input type="number" min="10" name="prodPrice" style="width: 250px; font-size: 20px; text-align: right;" 
+                            		placeholder="판매가를 입력하세요." required> 원
                         </td>
                     </tr>
                     <tr>
@@ -236,7 +239,9 @@
                     <tr>
                         <td style="text-align: right; padding-right: 20px;">* 현재 재고 수량 : </td>
                         <td style="text-indent: 20px;">
-                            <input type="text" name="stockQuantity" style="width: 200px; text-align: right;" required> 개
+                            <input type="text" name="stockQuantity" style="width: 250px; text-align: right;" 
+                            		placeholder="재고수량을 입력하세요." required> 개
+                            		
                         </td>
                     </tr>
                     <tr>
@@ -265,6 +270,48 @@
 	</div>
 	
 	<script>
+		$('#prodImgUploadBtn').off('click').on('click',function(){
+			$('#prodImgUploadBtn').unbind('click');
+			
+			$("input[id='prodImg']").change(function(e){
+				$('#previewDiv').empty();
+				var addDiv = '<div class="previewImgDiv"></div>';
+				
+				if($('#previewDiv').is(':empty')){
+					$(addDiv).appendTo('#previewDiv'); 
+				}
+				var files = e.target.files;
+				var arr = Array.prototype.slice.call(files);
+				preview(arr);
+			});
+			
+			function preview(arr){
+				$('#previewDiv').empty();
+
+				if(arr.length >= 1 && arr.length <= 10){
+					
+					arr.forEach(function(f){
+						var str = '<div class="previewImgDiv">';
+						var reader = new FileReader();
+						reader.onload = function (e) {
+							str += '<img id="preview" class="previewImgs" src="'+e.target.result+'"/>';
+							str += '</div>';
+							$(str).appendTo('#previewDiv');
+						}
+						reader.readAsDataURL(f);
+					}); /* for문 종료 */
+					
+				} else if (arr.length > 10){
+					alert('이미지 업로드 수량을 확인하여 주세요.');
+					var addDiv = '<div class="previewImgDiv"></div>';
+					
+					if($('#previewDiv').is(':empty')){
+						$(addDiv).appendTo('#previewDiv'); 
+					}
+				}
+			};
+		});	
+			
 		/* $(document).on('click','#prodImg',function(){
 			$("input[id='prodImg']").change(function(e){
 				$('#previewDiv').empty();
@@ -330,8 +377,9 @@
 					}
 		      	};
 		}); */
-	  
-		$(document).on('click','#prodImg',function(){
+		
+		
+		/* $(document).on('click','#prodImg',function(){
 			$("input[id='prodImg']").change(function(e){
 	
 		          $('#previewDiv').empty();
@@ -366,48 +414,46 @@
 						alert('업로드 확장자 또는 수량을 확인하여 주세요.');
 					}
 		      	};
-		});
+		}); */
 
-		$(document).on('click','.delBtn',function(){
-			$(this).parent().remove();
-			/* $('#previewDiv').empty(); */
+		/* $(document).on('click','.delBtn',function(){
+			console.log('ss : ' + $(this).parent())
+			$(this).parent().attr()
+			$(this).parent().is('img').remove();
+			$('#previewDiv').empty();
+			$("#prodImg").val("");
 			
-			var addBtn = '<div class="previewImgDiv"><label for="prodImg" id="prodImgUploadBtnLabel"><img src="${ pageContext.servletContext.contextPath }/resources/images/insertButton.png" class="previewImgs"></label></div>';
+			var addBtn = '<div class="previewImgDiv"><label for="prodImg" id="prodImgUploadBtnLabel"><img src="${ pageContext.servletContext.contextPath }/resources/images/insertButton.png" id="previewImgs"></label></div>';
 			if($('#previewDiv').is(':empty')){
-				$("#prodImg").val(""); 
+				$("#prodImg").val("");
 				$(addBtn).appendTo('#previewDiv'); 
 			}
 			
-			/* if($('#prodImgUploadBtnLabel').parents().is('div') == false){
+			if($('#prodImgUploadBtnLabel').parents().is('div') == false){
 				$(addBtn).appendTo('#previewDiv');
-			} */
-		});
+			}
+		}); */
 		
 		$(document).on('click','.prodDetailImgBtn',function(){
-			$("input[id='prodDetailImg']").change(function(e){
 			
+			$("input[id='prodDetailImg']").change(function(e){
 				$('#prodDetailPreviewDiv').empty();
 				var value = e.target;
-				
 				uploadProdDetailImg(value);
 			});
 			
 			function uploadProdDetailImg(value){
 				
-				  if (value.files && value.files[0]) {
-					  
-		             var reader = new FileReader();
-		             
-		             reader.onload = function (e) {
-		                 $('#prodDetailPreview').attr('src', e.target.result);
-		             }
-		             
-		             reader.readAsDataURL(value.files[0]);
-			      }
+				if (value.files && value.files[0]) {
+					var reader = new FileReader();
+				         
+					reader.onload = function (e) {
+						$('#prodDetailPreview').attr('src', e.target.result);
+					}
+					reader.readAsDataURL(value.files[0]);
+				}
 			};
 		});
-		
-		
 	  
   </script>
 	
