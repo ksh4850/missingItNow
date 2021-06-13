@@ -383,9 +383,11 @@ public class ProductController {
 		productService.orderInsert(OrderList);
 		
 		/* 구매 내역 */
+		OrderPaymentDTO orderNo = productService.selectorderNo(orderDTO.getProdNo());
+		String noOrder = orderNo.getOrderNo();
 		HashMap<String, Object> purchasedList = new HashMap<String, Object>(); 
 		purchasedList.put("userNo", orderDTO.getUserNo());
-		purchasedList.put("orderNo",orderDTO.getOrderNo());
+		purchasedList.put("orderNo",noOrder);
 		purchasedList.put("prodNo", orderDTO.getProdNo()); 
 		
 		productService.orderpurchasedInsert(purchasedList);
@@ -396,6 +398,7 @@ public class ProductController {
 		stockUpdate.put("number",1);
 		productService.stockUpdate(stockUpdate);
 		
+		
 		/* 결재 내역 */
 		HashMap<String, Object> paymentInsert = new HashMap<String, Object>(); 
 		paymentInsert.put("userNo",orderDTO.getUserNo());
@@ -403,8 +406,6 @@ public class ProductController {
 		productService.paymentInsert(paymentInsert);
 		
 		/* 구매결재 중간다리 역활 테이블 추가하기 */
-		OrderPaymentDTO orderNo = productService.selectorderNo(orderDTO.getProdNo());
-		String noOrder = orderNo.getOrderNo();
 		
 		OrderPaymentDTO orderPayment = productService.orderPayment(noOrder);
 		System.out.println(orderPayment.getPaymentNo()+"productService");

@@ -338,7 +338,7 @@
 		 )
 	</insert>
 	
-	<insert  id="orderpurchasedInsert" parameterType="hashmap" >
+ 	<insert  id="orderpurchasedInsert" parameterType="hashmap" >
 		 INSERT 
 		        INTO TBL_PURCHASED
 		 (
@@ -360,7 +360,7 @@
 		 , #{prodNo}
 		 , 'Y'
 		 )
-	</insert>
+	</insert> 
 	
 	<update id="stockUpdate" parameterType="hashmap">
 	  UPDATE TBL_STOCK
@@ -389,12 +389,12 @@
 	
 	<select id="selectorderNo" resultMap="OrderPaymentResultSet"  parameterType="string">
 	<![CDATA[
-	SELECT
-           A.ORDER_NO
-      FROM TBL_ORDER A
-     WHERE A.PROD_NO = #{prodNo}
-       AND ROWNUM <= 1
-     ORDER BY A.ORDER_NO DESC
+	SELECT 
+ 		       	A.*
+ 	       FROM TBL_ORDER A 
+		  WHERE A.PROD_NO = #{prodNo}
+		    AND A.USER_NO = 'USER1001'
+    
        ]]>
 	</select>
 	
