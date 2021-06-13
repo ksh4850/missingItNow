@@ -15,6 +15,13 @@
 
 <body>
 
+	<form name="cartPaging">
+		
+		 <input type="hidden" name="userNo" value="${loginMember.userNo}">
+		 
+	</form>
+
+
     <header>
         <div class="nav">
 
