@@ -29,7 +29,7 @@
         ) 
 		VALUES
 		(
-		'USER' || LPAD(SEQ_USER_NO.NEXTVAL,4,0) , #{ userId }, #{ userPwd }
+		'USER' || LPAD(SEQ_USER.NEXTVAL,4,0) , #{ userId }, #{ userPwd }
 		, #{ userName }, #{ userBirth }, #{ userAddress }
 		, #{ userContacts }, #{ userEmail }, #{ user_Mkt_Accepct_Chk }
 		, SYSDATE , DEFAULT

@@ -115,6 +115,78 @@
 	           ) A
 	     WHERE A.RNUM BETWEEN #{ search.pageInfo.startRow } AND #{ search.pageInfo.endRow }
 	</select>
+	<select id="selectAdminTotalCount" resultType="_int">
+       SELECT
+              COUNT(*)
+         FROM TBL_QNA A
+         LEFT JOIN TBL_USER B ON(A.USER_NO = B.USER_NO)
+         LEFT JOIN TBL_CORP_USER C ON(A.USER_NO = C.CORP_NO)
+        WHERE A.QNA_STATUS = 'Y'
+        <choose>
+         <when test="searchCondition == 'writer'">
+            AND (B.USER_NAME LIKE '%' || #{ searchValue } || '%'
+             OR C.CORP_NAME LIKE '%' || #{ searchValue } || '%')
+       </when> 
+       <when test="searchCondition == 'title'">
+         AND A.QNA_TITLE LIKE '%' || #{ searchValue } || '%'
+       </when>
+       </choose>
+   </select>
+   <select id="selectAdminList" resultMap="QNAResultSet" >
+       SELECT
+              A.RNUM
+            , A.QNA_NO
+            , A.USER_NO
+             , A.USER_NAME
+             , A.CORP_NAME
+            , A.QNA_TITLE
+            , A.QNA_DETAILS
+            , A.QNA_DATE
+            , A.QNA_REPLY
+            , A.QNA_REPLY_DATE
+            , A.QNA_REPLY_CHK
+            , A.QNA_STATUS
+         FROM (SELECT ROWNUM RNUM
+                    , B.QNA_NO
+                     , B.USER_NO
+                     , B.USER_NAME
+                     , B.CORP_NAME
+                    , B.QNA_TITLE
+                    , B.QNA_DETAILS
+                    , B.QNA_DATE
+                    , B.QNA_REPLY
+                    , B.QNA_REPLY_DATE
+                    , B.QNA_REPLY_CHK
+                    , B.QNA_STATUS
+                 FROM ( SELECT C.QNA_NO
+                             , C.USER_NO
+                             , D.USER_NAME
+                             , E.CORP_NAME
+                             , C.QNA_TITLE
+                             , C.QNA_DETAILS
+                             , C.QNA_DATE
+                             , C.QNA_REPLY
+                             , C.QNA_REPLY_DATE
+                             , C.QNA_REPLY_CHK
+                             , C.QNA_STATUS
+                          FROM TBL_QNA C
+                           LEFT JOIN TBL_USER D ON(C.USER_NO = D.USER_NO)
+                           LEFT JOIN TBL_CORP_USER E ON(C.USER_NO = E.CORP_NO)
+                         WHERE C.QNA_STATUS = 'Y'
+                         ORDER BY C.QNA_NO DESC
+                      )B
+                <choose>
+                <when test="searchCondition == 'writer'">
+                    WHERE (B.USER_NAME LIKE '%' || #{ searchValue } || '%'
+                       OR B.CORP_NAME LIKE '%' || #{ searchValue } || '%')
+             </when> 
+             <when test="searchCondition == 'title'">
+               WHERE B.QNA_TITLE LIKE '%' || #{ searchValue } || '%'
+             </when>
+             </choose>
+              ) A
+        WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }
+   </select>
 	<select id="selectSearchTotalCount" resultType="_int">
 	    SELECT
                 (SELECT

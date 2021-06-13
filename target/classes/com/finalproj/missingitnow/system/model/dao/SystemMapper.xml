@@ -16,7 +16,7 @@
 		<result property="corpCommission" column="CORP_COMMISSION"/>
 		<result property="depositAtm" column="DEPOSIT_AMT"/>
 		<result property="corpRegstDate" column="CORP_REGST_DATE"/>
-		<result property="corpRegstAccpeted" column="CORP_REGST_ACCPETED"/>
+		<result property="corpRegstAccpeted" column="CORP_REGST_ACCEPTED"/>
 		<result property="corpLeaveChk" column="CORP_LEAVE_CHK"/>
 		<association property="corpLv" resultMap="ScorpLvResultMap"></association>
 	</resultMap>
@@ -44,7 +44,7 @@
 		             , A.CORP_COMMISSION
 		             , A.DEPOSIT_AMT
 		             , A.CORP_REGST_DATE
-		             , A.CORP_REGST_ACCPETED
+		             , A.CORP_REGST_ACCEPTED
 		             , A.CORP_LEAVE_CHK
 		             , B.CORP_LV_NO
 		             , B.CORP_LV_NAME
@@ -53,10 +53,10 @@
 		          WHERE A.CORP_NO NOT IN ('ADMEN')
 		            AND A.CORP_LEAVE_CHK = 'N'
 		            <if test='corpLv == "Y"'>
-			    	  	AND A.CORP_REGST_ACCPETED = 'Y'
+			    	  	AND A.CORP_REGST_ACCEPTED = 'Y'
 			    	</if>
 			    	<if test='corpLv == "N"'>
-			    	  	AND A.CORP_REGST_ACCPETED = 'N'
+			    	  	AND A.CORP_REGST_ACCEPTED = 'N'
 			    	</if>  
 			    	<if test='corpLv != "Y" and  corpLv != "N" and corpLv != null and corpLv != ""' >
 			    	  	 AND B.CORP_LV_NAME = #{corpLv}
@@ -73,7 +73,7 @@
 			 		<if test="corpCondition == 'contacts'">
 			 		  	 AND A.CORP_CONTACTS LIKE '%' || #{ corpSearchText } || '%'
 			 		</if>
-		          ORDER BY A.CORP_REGST_ACCPETED , A.CORP_NO DESC
+		          ORDER BY A.CORP_REGST_ACCEPTED , A.CORP_NO DESC
 		          )B
 		        )C
 		    WHERE C.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
@@ -86,10 +86,10 @@
    		   JOIN TBL_CORP_LV B ON(A.CORP_LV_NO = B.CORP_LV_NO)
  		  WHERE A.CORP_LEAVE_CHK = 'N'
     	   <if test='corpLv == "Y"'>
-    	  	AND A.CORP_REGST_ACCPETED = 'Y'
+    	  	AND A.CORP_REGST_ACCEPTED = 'Y'
     	  </if>
     	  <if test='corpLv == "N"'>
-    	  	AND A.CORP_REGST_ACCPETED = 'N'
+    	  	AND A.CORP_REGST_ACCEPTED = 'N'
     	  </if>  
     	  <if test='corpLv != "Y" and  corpLv != "N" and corpLv != null and corpLv != ""'>
     	  	 AND B.CORP_LV_NAME = #{corpLv}
@@ -112,7 +112,7 @@
 	
 	<update id="modifyRegstAccpet" parameterType="string">
 		UPDATE TBL_CORP_USER A
-		   SET A.CORP_REGST_ACCPETED = 'Y'
+		   SET A.CORP_REGST_ACCEPTED = 'Y'
 		 WHERE A.CORP_NO = #{corpNo}
 	</update>
 	
@@ -124,10 +124,10 @@
    		   JOIN TBL_CORP_LV B ON(A.CORP_LV_NO = B.CORP_LV_NO)
  		  WHERE A.CORP_LEAVE_CHK = 'N'
     	   <if test='corpLv == "Y"'>
-    	  	AND A.CORP_REGST_ACCPETED = 'Y'
+    	  	AND A.CORP_REGST_ACCEPTED = 'Y'
     	  </if>
     	  <if test='corpLv == "N"'>
-    	  	AND A.CORP_REGST_ACCPETED = 'N'
+    	  	AND A.CORP_REGST_ACCEPTED = 'N'
     	  </if>  
     	  <if test='corpLv != "Y" and  corpLv != "N" and corpLv != null and corpLv != ""'>
     	  	 AND B.CORP_LV_NAME = #{corpLv}
@@ -160,7 +160,7 @@
      		, A.CORP_COMMISSION
      		, A.DEPOSIT_AMT
      		, A.CORP_REGST_DATE
-     		, A.CORP_REGST_ACCPETED
+     		, A.CORP_REGST_ACCEPTED
      		, A.CORP_LEAVE_CHK
      		, B.CORP_LV_NO
      		, B.CORP_LV_NAME
@@ -169,10 +169,10 @@
   		WHERE A.CORP_NO NOT IN ('ADMEN')
 		 AND A.CORP_LEAVE_CHK = 'N'
 		 <if test='corpLv == "Y"'>
-			 AND A.CORP_REGST_ACCPETED = 'Y'
+			 AND A.CORP_REGST_ACCEPTED = 'Y'
 		</if>
 		<if test='corpLv == "N"'>
-			 AND A.CORP_REGST_ACCPETED = 'N'
+			 AND A.CORP_REGST_ACCEPTED = 'N'
 		</if>  
 		<if test='corpLv != "Y" and  corpLv != "N" and corpLv != null and corpLv != ""' >
 			 AND B.CORP_LV_NAME = #{corpLv}
@@ -189,7 +189,7 @@
 		<if test="corpCondition == 'contacts'">
 			 AND A.CORP_CONTACTS LIKE '%' || #{ corpSearchText } || '%'
 		</if>
-	   ORDER BY A.CORP_REGST_ACCPETED , A.CORP_NO DESC
+	   ORDER BY A.CORP_REGST_ACCEPTED , A.CORP_NO DESC
  
 	</select>
 	
