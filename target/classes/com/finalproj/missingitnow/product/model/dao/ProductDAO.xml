@@ -344,6 +344,7 @@
 		 (
 		   PURCHASED_NO
          , USER_NO
+         , ORDER_NO
          , PURCHASED_DATE
          , PURCHASED_STATUS
          , PROD_NO
@@ -353,6 +354,7 @@
 		 (
 		   'CPON' || LPAD(SEQ_PURCHASED.NEXTVAL,4,0)
 		 , #{userNo}
+		 , #{orderNo}
 		 , SYSDATE
 		 , 'Y'
 		 , #{prodNo}

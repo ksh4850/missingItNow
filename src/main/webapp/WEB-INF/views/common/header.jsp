@@ -9,7 +9,7 @@
     <title>Insert title here</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/header.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
-    
+    <script src="/missingitnow/resources/js/member/main.js"></script>
     
 </head>
 

@@ -384,7 +384,8 @@ public class ProductController {
 		
 		/* 구매 내역 */
 		HashMap<String, Object> purchasedList = new HashMap<String, Object>(); 
-		purchasedList.put("userNo", orderDTO.getUserNo()); 
+		purchasedList.put("userNo", orderDTO.getUserNo());
+		purchasedList.put("orderNo",orderDTO.getOrderNo());
 		purchasedList.put("prodNo", orderDTO.getProdNo()); 
 		
 		productService.orderpurchasedInsert(purchasedList);
