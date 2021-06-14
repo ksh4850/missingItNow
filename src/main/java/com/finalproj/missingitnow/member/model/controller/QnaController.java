@@ -68,7 +68,7 @@ public class QnaController {
 		int startRow = pageInfo.getStartRow();
 		int endRow = pageInfo.getEndRow();
 		
-		System.out.println("세션상의 userNo : " + userNo);
+
 		
 		List<QnaBoardDTO> boardList = qnaService.selectBoardList(pageInfo, userNo, startRow, endRow);
 		

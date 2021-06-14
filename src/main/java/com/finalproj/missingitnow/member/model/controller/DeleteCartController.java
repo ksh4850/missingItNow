@@ -31,14 +31,14 @@ public class DeleteCartController {
 	@ResponseBody 
 	public int deleteCart(@RequestParam(value="valueArr[]") List<String> valueArr, CartDTO cart, PrivateMemberDTO member, HttpSession session) {
 		
-		System.out.println("deleteCart");
+		
 		
 		member = (PrivateMemberDTO) session.getAttribute("loginMember");
 		
 		String userNo = member.getUserNo();
 		
 		
-		System.out.println("userNo : " + userNo);
+		
 		
 		int result = 0;
 		

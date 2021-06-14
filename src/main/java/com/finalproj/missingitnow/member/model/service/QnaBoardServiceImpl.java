@@ -30,7 +30,7 @@ public class QnaBoardServiceImpl implements QnaBoardService{
 	@Override
 	public List<QnaBoardDTO> selectBoardList(PageInfoDTO pageInfo, String userNo, int startRow, int endRow) {
 		
-		System.out.println(userNo);
+		
 		
 		return mapper.selectBoardList(pageInfo,userNo, startRow, endRow);
 	}

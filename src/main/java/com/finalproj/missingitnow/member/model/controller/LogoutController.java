@@ -13,8 +13,7 @@ public class LogoutController {
 	@GetMapping
 	public String logout(HttpSession session) {
 		
-		
-		System.out.println("logout");
+
 		
 		if(!(session==null)) {
 			

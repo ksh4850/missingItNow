@@ -55,10 +55,7 @@ public class MyPagePasswordFindController {
 		
 		String RegistEmail = member.getUserEmail();
 		
-		System.out.println("가입된 이메일 : " + RegistEmail);
-		
-		System.out.println(id);
-		System.out.println("입력받은 이메일 : " + inputEmail);
+
 		
 		if(inputEmail.equals(RegistEmail)) {
 			

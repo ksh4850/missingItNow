@@ -39,9 +39,7 @@ public class LoginPageController {
 		int result = memberService.loginCheck(member);
 		int leaveCheck = memberService.leaveCheck(member);
 		
-		System.out.println("result : " + result);
-		
-		System.out.println("leaveCheck : " + leaveCheck);
+
 		
 		if(leaveCheck==0) {
 			

@@ -56,7 +56,7 @@
     	document.getElementById("memberLoginForm").action = "${ pageContext.servletContext.contextPath }/corporation/login";
     	document.getElementById("Id").name = "corpId";
     	document.getElementById("Pwd").name = "corpPwd";
-    	document.getElementById("regist").href = "${ pageContext.servletContext.contextPath}/corporation/regist";
+    	document.getElementById("regist").href = "${ pageContext.servletContext.contextPath}/member/registBranch";
 	}
     </script>
     

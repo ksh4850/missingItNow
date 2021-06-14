@@ -48,24 +48,19 @@ public class PasswordChangeController {
 		
 		if(checkNewPassword.equals(checkNewPasswordRetype)) {
 			
-			System.out.println("변경하려는 비번 일치");
+
 			
 			realNewPassword = checkNewPassword;
 
 			member.setUserPwd(passwordEncoder.encode(realNewPassword));
 			
-			System.out.println(member.getUserPwd());
 
-			
-			System.out.println(pwdChange.toString());
-			System.out.println(member.toString());
-			
 			
 			memberService.pwdChange(member);
 			
 		} else if(!(checkNewPassword.equals(checkNewPasswordRetype))) {
 			
-			System.out.println("변경하려는 비번 불일치");
+
 			
 			return "redirect:/member/pwdChange";
 		}

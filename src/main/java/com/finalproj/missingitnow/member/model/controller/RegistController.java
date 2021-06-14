@@ -37,10 +37,7 @@ public class RegistController {
 	@PostMapping
 	public String registProcess(@ModelAttribute PrivateMemberDTO member, PasswordInputDTO pass, BCryptPasswordEncoder passwordEncoder
 			,RedirectAttributes rttr) {
-		
-		System.out.println(pass.getUserPwd());
-		System.out.println(pass.getPwConfirm());
-		System.out.println(member.getUserId());
+
 		
 		
 		String inputId = member.getUserId();
@@ -79,13 +76,13 @@ public class RegistController {
 		} else {
 			
 			
-			//System.out.println(member); 
+
 			
 			/* 비번 암호화 처리 */
 			
 			member.setUserPwd(passwordEncoder.encode(member.getUserPwd()));
 			
-			//System.out.println("암호화 이후 : " + member); 
+
 			
 			
 			

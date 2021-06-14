@@ -31,11 +31,11 @@ public class IdCheckController {
 	@ResponseBody
 	public int idCheck(@RequestParam(value="userId") String userId, @ModelAttribute PrivateMemberDTO member) {
 		
-		System.out.println(userId);
+		
 		
 		member.setUserId(userId);
 		
-		System.out.println(memberService.loginCheck(member));
+		
 		
 		return memberService.loginCheck(member);
 	}

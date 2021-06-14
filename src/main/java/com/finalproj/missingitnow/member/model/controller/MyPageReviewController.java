@@ -67,7 +67,7 @@ public class MyPageReviewController {
 		
 		String userNo = member.getUserNo();
 		
-		System.out.println(userNo);
+
 		
 		int startRow = pageInfo.getStartRow();
 		

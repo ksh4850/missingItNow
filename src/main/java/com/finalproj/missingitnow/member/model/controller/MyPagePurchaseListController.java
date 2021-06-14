@@ -63,8 +63,7 @@ private final PurchaseListService purchaseService;
 		
 		
 		String userNo = member.getUserNo();
-		
-		System.out.println(userNo);
+
 		
 		int startRow = pageInfo.getStartRow();
 		
