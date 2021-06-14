@@ -49,7 +49,7 @@ public class prodCmtRevMngController {
 		}
 		
 		int totalCount = prodCmtRevMngService.selectTotalProductCmtList(CorpUserSession);
-		System.out.println("totalCount : " + totalCount);
+//		System.out.println("totalCount : " + totalCount);
 		int limit = 15;
 		int buttonAmount = 5;
 		
@@ -86,7 +86,7 @@ public class prodCmtRevMngController {
 		}
 		
 		int totalCount = prodCmtRevMngService.selectTotalProductRevList(CorpUserSession);
-		System.out.println("totalCount : " + totalCount);
+//		System.out.println("totalCount : " + totalCount);
 		int limit = 15;
 		int buttonAmount = 5;
 		

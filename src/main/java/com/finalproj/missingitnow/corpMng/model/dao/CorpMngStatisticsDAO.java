@@ -19,6 +19,11 @@ public interface CorpMngStatisticsDAO {
 	// 카테고리별 매출 통계(ajax)
 	List<CorpMngStatisticsDTO> selectCategoryStatistics(CorpUserDTO corpUserSession);
 
-	
+	// 상품별 매출 통계(ajax)
+	List<CorpMngStatisticsDTO> selectProductStatistics(CorpUserDTO corpUserSession);
+
+	// 지역별 매출 통계(ajax)
+	List<CorpMngStatisticsDTO> selectAreaStatistics(CorpUserDTO corpUserSession);
+
 	
 }

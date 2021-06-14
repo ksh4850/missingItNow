@@ -6,6 +6,7 @@ import java.util.Map;
 import com.finalproj.missingitnow.common.page.PageInfoDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SalesMngOrderDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.SalesMngReturnExchangeDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SalesMngSalesDTO;
 
 public interface SalesMngSalesDAO {
@@ -28,6 +29,10 @@ public interface SalesMngSalesDAO {
 	
 	// 예상 정산금 조회
 	SalesMngSalesDTO expectedSettlementList(SalesMngSalesDTO salesMngSalesList);
+	
+	// 반품/교환 내역 조회	
+	int selectTotalReturnExchange(CorpUserDTO corpUserSession);
+	List<SalesMngReturnExchangeDTO> selectReturnExchangeList(Map<String, Object> params);
 
 
 	

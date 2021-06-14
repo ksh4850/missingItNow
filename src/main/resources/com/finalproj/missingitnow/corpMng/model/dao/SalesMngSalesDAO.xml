@@ -177,4 +177,84 @@
 		        ) D
 	</select>
 	
+	<resultMap id="returnExchangeResultSet" type="SalesMngReturnExchangeDTO">
+		<id property="retnExchNo" column="RETN_EXCH_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="retnExchDate" column="RETN_EXCH_DATE"/>
+		<result property="retnExchChk" column="RETN_EXCH_CHK"/>
+		<result property="prodNo" column="PROD_NO"/>
+		<result property="prodName" column="PROD_NAME"/>
+		<association property="user" javaType="UserDTO(forCorpMng)">
+			<id property="userNo" column="USER_NO"/>
+			<result property="userId" column="USER_ID"/>
+		</association>
+		<association property="prodMngProduct" javaType="ProdMngProductDTO">
+			<id property="prodNo" column="PROD_NO"/>
+			<result property="prodName" column="PROD_NAME"/>
+		</association>
+		<association property="salesMngOrder" javaType="SalesMngOrderDTO">
+			<id property="orderNo" column="ORDER_NO"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectTotalReturnExchange" resultType="_int">
+		SELECT COUNT(*)
+		  FROM (SELECT C.*
+		             , E.ORDER_NO
+		             , F.PROD_NO
+		             , F.PROD_NAME
+		             , G.USER_ID
+		          FROM (SELECT A.RETURN_NO AS RETN_EXCH_NO
+		                     , A.USER_NO
+		                     , A.RETURN_DATE AS RETN_EXCH_DATE
+		                     , A.RETURN_CHK AS RETN_EXCH_CHK
+		                     , A.DELIVERY_NO
+		                  FROM TBL_RETURN A
+		                UNION
+		                SELECT B.EXCHANGE_NO
+		                     , B.USER_NO
+		                     , B.EXCHANGE_DATE
+		                     , B.EXCHANGE_CHK
+		                     , B.DELIVERY_NO
+		                  FROM TBL_EXCHANGE B) C
+		          JOIN TBL_DELIVERY D ON (C.DELIVERY_NO = D.DELIVERY_NO)
+		          JOIN TBL_ORDER E ON (D.ORDER_NO = E.ORDER_NO)
+		          JOIN TBL_PRODUCT F ON (E.PROD_NO = F.PROD_NO)
+		          JOIN TBL_USER G ON (E.USER_NO = G.USER_NO)
+		         WHERE F.CORP_NO = #{corpNo})
+	</select>
+	
+	<select id="selectReturnExchangeList" resultMap="returnExchangeResultSet" parameterType="hashmap">
+		SELECT *
+		  FROM (SELECT ROWNUM RNUM
+		             , H.*
+		          FROM (SELECT C.*
+		                     , E.ORDER_NO
+		                     , F.PROD_NO
+		                     , F.PROD_NAME
+		                     , G.USER_ID
+		                  FROM (SELECT A.RETURN_NO AS RETN_EXCH_NO
+		                             , A.USER_NO
+		                             , A.RETURN_DATE AS RETN_EXCH_DATE
+		                             , A.RETURN_CHK AS RETN_EXCH_CHK
+		                             , A.DELIVERY_NO
+		                          FROM TBL_RETURN A
+		                        UNION
+		                        SELECT B.EXCHANGE_NO
+		                             , B.USER_NO
+		                             , B.EXCHANGE_DATE
+		                             , B.EXCHANGE_CHK
+		                             , B.DELIVERY_NO
+		                          FROM TBL_EXCHANGE B) C
+		                  JOIN TBL_DELIVERY D ON (C.DELIVERY_NO = D.DELIVERY_NO)
+		                  JOIN TBL_ORDER E ON (D.ORDER_NO = E.ORDER_NO)
+		                  JOIN TBL_PRODUCT F ON (E.PROD_NO = F.PROD_NO)
+		                  JOIN TBL_USER G ON (E.USER_NO = G.USER_NO)
+		                 WHERE F.CORP_NO = #{corpNo}
+		                 ORDER BY C.RETN_EXCH_DATE DESC     
+		                ) H
+		        ) I
+		WHERE I.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+	</select>
+	
 </mapper>

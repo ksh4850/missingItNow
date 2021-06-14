@@ -49,10 +49,8 @@ public class Pagenation {
 		startRow = (pageNo - 1) * limit + 1;
 		endRow = startRow + limit - 1;
 		
-		
-		
-		System.out.println("시작열 : " + startRow);
-		System.out.println("종료열 : " + endRow);
+//		System.out.println("시작열 : " + startRow);
+//		System.out.println("종료열 : " + endRow);
 		
 		if(endRow > totalCount) {
 			

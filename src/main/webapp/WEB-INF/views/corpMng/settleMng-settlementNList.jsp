@@ -20,7 +20,7 @@
         float: right;
         width: 1650px;
         min-height: 1100px;
-        /* border: 1px solid black; */
+        border: 1px solid black;
     }
     
     #selectExpectedSettlementBtn{

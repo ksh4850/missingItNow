@@ -39,5 +39,15 @@ public class CorpMngStatisticsServiceImpl implements CorpMngStatisticsService {
 		return corpMngStatisticsDAO.selectCategoryStatistics(corpUserSession);
 	}
 
+	@Override
+	public List<CorpMngStatisticsDTO> selectProductStatistics(CorpUserDTO corpUserSession) {
+		return corpMngStatisticsDAO.selectProductStatistics(corpUserSession);
+	}
+
+	@Override
+	public List<CorpMngStatisticsDTO> selectAreaStatistics(CorpUserDTO corpUserSession) {
+		return corpMngStatisticsDAO.selectAreaStatistics(corpUserSession);
+	}
+
 
 }

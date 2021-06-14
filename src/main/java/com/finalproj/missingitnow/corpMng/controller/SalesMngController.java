@@ -19,6 +19,7 @@ import com.finalproj.missingitnow.common.page.PageInfoDTO;
 import com.finalproj.missingitnow.common.page.Pagenation;
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SalesMngOrderDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.SalesMngReturnExchangeDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SalesMngSalesDTO;
 import com.finalproj.missingitnow.corpMng.model.service.SalesMngService;
 import com.google.gson.Gson;
@@ -52,7 +53,7 @@ public class SalesMngController {
 		}
 		
 		int totalCount = salesMngService.selectTotalOrderList(CorpUserSession);
-		System.out.println("totalCount : " + totalCount);
+//		System.out.println("totalCount : " + totalCount);
 		
 		int limit = 15;
 		int buttonAmount = 5;
@@ -94,7 +95,7 @@ public class SalesMngController {
 		}
 		
 		int totalCount = salesMngService.searchTotalOrderList(salesMngOrderList);
-		System.out.println("totalCount : " + totalCount);
+//		System.out.println("totalCount : " + totalCount);
 		
 		int limit = 15;
 		int buttonAmount = 5;
@@ -128,7 +129,6 @@ public class SalesMngController {
 		String corpNo = CorpUserSession.getCorpNo();
 		
 		int pageNo = 1;
-		
 		if(currentPage != null && !"".equals(currentPage)) {
 			pageNo = Integer.valueOf(currentPage);
 			if(pageNo <= 0) {
@@ -137,7 +137,7 @@ public class SalesMngController {
 		}
 		
 		int totalCount = salesMngService.selectTotalSalesList(CorpUserSession);
-		System.out.println("totalCount : " + totalCount);
+//		System.out.println("totalCount : " + totalCount);
 		
 		int limit = 15;
 		int buttonAmount = 5;
@@ -178,7 +178,7 @@ public class SalesMngController {
 		}
 		
 		int totalCount = salesMngService.searchTotalSalesList(salesMngSalesList);
-		System.out.println("totalCount : " + totalCount);
+//		System.out.println("totalCount : " + totalCount);
 		
 		int limit = 15;
 		int buttonAmount = 5;
@@ -217,6 +217,45 @@ public class SalesMngController {
 		SalesMngSalesDTO expectedSettlement = salesMngService.expectedSettlementList(salesMngSalesList);
 		
 		return gson.toJson(expectedSettlement);
+	}
+	
+	// 반품/교환 내역 조회
+	@GetMapping("/selectReturnExchange")
+	public String selectReturnExchange(Model model, @RequestParam(required=false) String currentPage) {
+		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
+		String corpNo = CorpUserSession.getCorpNo();
+		
+		int pageNo = 1;
+		if(currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			if(pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+		
+		int totalCount = salesMngService.selectTotalReturnExchange(CorpUserSession);
+//		System.out.println("totalCount : " + totalCount);
+		
+		int limit = 15;
+		int buttonAmount = 5;
+		
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("corpNo", corpNo);
+		params.put("pageInfo", pageInfo);
+		
+		List<SalesMngReturnExchangeDTO> returnExchangeList = salesMngService.selectReturnExchangeList(params);
+		
+//		for(SalesMngReturnExchangeDTO a : returnExchangeList) {
+//			System.out.println("reEx : " + a);
+//		}
+		
+		model.addAttribute("returnExchangeList", returnExchangeList);
+		model.addAttribute("pageInfo", pageInfo);
+		
+		return "/corpMng/salesMng-returnExchangeList";
 	}
 	
 }

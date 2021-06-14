@@ -54,9 +54,9 @@ public class SettleMngController {
 		}
 		
 		int totalCount = settleMngService.selectTotalSettlementList(CorpUserSession);
-		System.out.println("totalCount : " + totalCount);
+//		System.out.println("totalCount : " + totalCount);
 		
-		int limit = 15;
+		int limit = 10;
 		int buttonAmount = 5;
 		
 		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
@@ -85,9 +85,9 @@ public class SettleMngController {
 									@RequestParam(required=false) String settlementAmt,
 									@ModelAttribute SettleMngSettlementDTO settleMngSettlement) {
 		
-		System.out.println("totalSales : " + totalSales);
-		System.out.println("commissionBySales : " + commissionBySales);
-		System.out.println("settlementAmt : " + settlementAmt);
+//		System.out.println("totalSales : " + totalSales);
+//		System.out.println("commissionBySales : " + commissionBySales);
+//		System.out.println("settlementAmt : " + settlementAmt);
 		
 		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
 		settleMngSettlement.setCorpNo(CorpUserSession.getCorpNo());
@@ -135,9 +135,9 @@ public class SettleMngController {
 		}
 		
 		int totalCount = settleMngService.selectTotalDepositList(CorpUserSession);
-		System.out.println("totalCount : " + totalCount);
+//		System.out.println("totalCount : " + totalCount);
 		
-		int limit = 15;
+		int limit = 10;
 		int buttonAmount = 5;
 		
 		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
@@ -226,7 +226,7 @@ public class SettleMngController {
 		}
 		
 		int totalCount = settleMngService.selectTotalPaymentList(CorpUserSession);
-		System.out.println("totalCount : " + totalCount);
+//		System.out.println("totalCount : " + totalCount);
 		
 		int limit = 15;
 		int buttonAmount = 5;
@@ -250,21 +250,5 @@ public class SettleMngController {
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

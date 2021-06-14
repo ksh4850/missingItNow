@@ -14,6 +14,11 @@
 		<result property="prodCtgNo" column="PROD_CTG_NO"/>
 		<result property="prodCtgName" column="PROD_CTG_NAME"/>
 		<result property="ctgTotalAmt" column="CTG_TOTAL_AMT"/>
+		<result property="prodNo" column="PROD_NO"/>
+		<result property="prodName" column="PROD_NAME"/>
+		<result property="prodTotalAmt" column="PROD_TOTAL_AMT"/>
+		<result property="userArea" column="USER_AREA"/>
+		<result property="areaTotalAmt" column="AREA_TOTAL_AMT"/>
 	</resultMap>
 
 	<select id="selectDailyStatistics" resultMap="statisticsResultSet">
@@ -68,9 +73,8 @@
 	
 	<select id="selectCategoryStatistics" resultMap="statisticsResultSet">
 		SELECT *
-		  FROM (SELECT 
-		                ROWNUM RNUM
-		              , E.*
+		  FROM (SELECT ROWNUM RNUM
+		             , E.*
 		          FROM (SELECT #{corpNo} AS CORP_NO
 		                     , D.PROD_CTG_NAME AS PROD_CTG_NAME
 		                     , NVL(SUM(C.SALES_AMT),0) AS CTG_TOTAL_AMT
@@ -87,10 +91,63 @@
 		                 ORDER BY CTG_TOTAL_AMT DESC     
 		                ) E
 		        ) F
-		WHERE F.RNUM BETWEEN 1 AND 5
+		 WHERE F.RNUM BETWEEN 1 AND 5
 	</select>
 
+	<select id="selectProductStatistics" resultMap="statisticsResultSet">
+		SELECT *
+		  FROM (SELECT ROWNUM RNUM
+		             , E.*
+		          FROM (SELECT C.PROD_NO AS PROD_NO
+		                     , C.PROD_NAME AS PROD_NAME
+		                     , NVL(SUM(C.SALES_AMT),0) AS PROD_TOTAL_AMT
+		                  FROM (SELECT A.CORP_NO
+		                             , A.PROD_NO
+		                             , B.PROD_NAME
+		                             , A.SALES_AMT
+		                          FROM TBL_SALES A
+		                          JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+		                         WHERE A.CORP_NO = #{corpNo}
+		                        ) C
+		                 GROUP BY C.PROD_NO, C.PROD_NAME
+		                 ORDER BY PROD_TOTAL_AMT DESC
+		               ) E 
+		        ) F
+		 WHERE F.RNUM BETWEEN 1 AND 5
+	</select>
 	
+	<select id="selectAreaStatistics" resultMap="statisticsResultSet">
+		SELECT *
+		  FROM (SELECT ROWNUM RNUM
+		             , E.*
+		          FROM (SELECT D.USER_AREA
+		                     , NVL(SUM(D.SALES_AMT),0) AS AREA_TOTAL_AMT
+		                  FROM (SELECT A.SALES_AMT
+		                             , B.ORDER_NO
+		                             , B.USER_NO
+		                             , (CASE WHEN SUBSTR(C.USER_ADDRESS,7) LIKE '서울%' THEN '서울'
+		                                     WHEN SUBSTR(C.USER_ADDRESS,7) LIKE '경기%' THEN '경기'
+		                                     WHEN SUBSTR(C.USER_ADDRESS,7) LIKE '인천%' THEN '인천'
+		                                     WHEN SUBSTR(C.USER_ADDRESS,7) LIKE '강원%' THEN '강원'
+		                                     WHEN SUBSTR(C.USER_ADDRESS,7) LIKE '충북%' THEN '충북'
+		                                     WHEN SUBSTR(C.USER_ADDRESS,7) LIKE '충남%' THEN '충남'
+		                                     WHEN SUBSTR(C.USER_ADDRESS,7) LIKE '전북%' THEN '전북'
+		                                     WHEN SUBSTR(C.USER_ADDRESS,7) LIKE '전남%' THEN '전남'
+		                                     WHEN SUBSTR(C.USER_ADDRESS,7) LIKE '경북%' THEN '경북'
+		                                     WHEN SUBSTR(C.USER_ADDRESS,7) LIKE '경남%' THEN '경남'
+		                                     WHEN SUBSTR(C.USER_ADDRESS,7) LIKE '제주%' THEN '제주'
+		                                END) AS USER_AREA     
+		                          FROM TBL_SALES A
+		                          JOIN TBL_ORDER B ON (A.ORDER_NO = B.ORDER_NO)  
+		                          JOIN TBL_USER C ON (B.USER_NO = C.USER_NO)
+		                         WHERE A.CORP_NO = #{corpNo}
+		                        )D
+		                  GROUP BY D.USER_AREA
+		                  ORDER BY AREA_TOTAL_AMT DESC     
+		                ) E
+		        ) F
+		WHERE F.RNUM BETWEEN 1 AND 5
+	</select>
 
 
 

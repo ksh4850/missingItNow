@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
 	body{
         width: 1920px;
@@ -23,17 +23,17 @@
         /* border: 1px solid black; */
     }
     
-    .prodCmtListTable{
+    .returnExchangeListTable{
         border: hidden;
-        border-top: 2px solid darkgray;
-        border-bottom: 2px solid darkgray;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
         border-collapse: collapse;
         text-align: center;
         width: 1500px;
         table-layout:fixed;
     }
 
-    .prodCmtListTable td{
+    .returnExchangeListTable td{
         border: 2px solid darkgray;
         font-family: 'SCDream-Regular';
         font-size: 16px;
@@ -61,17 +61,6 @@
     	font-weight: bold;
     }
     
-    .prodComtReplyBtn {
-    	width: 100px; 
-    	height: 30px; 
-    	font-family: 'SCDream-Regular';
-    	font-size: 16px;
-    	color: white;
-    	background-color: #8877DA;
-    	border: none;
-    	border-radius: 10px;
-    }
-    
     .footer{
         width: 1920px;
         height: 100px;
@@ -84,50 +73,47 @@
 	<jsp:include page="corpMngHeader.jsp"/>
 	<!-- navi jsp -->
 	<jsp:include page="corpMngNavi.jsp"/>
-	
+
 	<div class="section">
-        <h1 style="position: relative; left: 20px; font-family: 'SCDream-Medium'; font-size: 40px;">상품 문의</h1>
+        <h1 style="position: relative; left: 20px; font-family: 'SCDream-Medium'; font-size: 40px;">교환/반품 내역</h1>
         <hr width="1600px" align="left">
         <br><br>
 
-        <div class="prodCmtListDiv" align="center">
-            <table class="prodCmtListTable">
+        <div class="returnExchangeListDiv" align="center">
+            <table class="returnExchangeListTable">
                 <tr>
-                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">상품번호</td>
-                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 250px">상품명</td>
-                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 180px">작성자</td>
-                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; ">문의 내용</td> 
-                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">문의 등록일</td>
-                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">답변여부</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 100px">구분</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">회원번호</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; ">상품명</td> 
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">요청일자</td>
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 100px">처리여부</td>
                 </tr>
-                <c:if test="${ empty productCmtList }">
+                <c:if test="${ empty returnExchangeList }">
                 	<tr>
-                		<td colspan="6" style="font-family: 'SCDream-Regular'; font-size: 20px; height: 100px;">문의 내역이 없습니다.</td>
+                		<td colspan="5" style="font-family: 'SCDream-Regular'; font-size: 20px; height: 100px;">반품/교환 내역이 없습니다.</td>
                 	</tr>
                 </c:if>
                 
-                <c:forEach var="list" items="${ productCmtList }">
+                <c:forEach var="list" items="${ returnExchangeList }">
                 <tr>
-                    <td><c:out value="${ list.prodNo }"/></td>
-                    <td style="text-align: left; padding-left: 20px;"><nobr><c:out value="${ list.prodMngProduct.prodName }"/></nobr></td>
-                    <td><c:out value="${ list.user.userId }"/></td>
-                    <td style="text-align: left; padding-left: 20px;"><nobr><c:out value="${ list.prodComtDetails }"/></nobr></td>
-                    <td><c:out value="${ list.prodComtDate }"/></td>
                     <td>
-                    	<c:if test="${ list.prodComtReplyChk eq 'Y' }">완료</c:if>
-                    	<c:if test="${ list.prodComtReplyChk eq 'N' }">
-                    		<button class="prodComtReplyBtn" 
-                    			onclick="location.href='${ pageContext.servletContext.contextPath }/product/product?prodNo=${ list.prodNo }&corpNo=${ list.prodMngProduct.corpNo }'" --%> >답변하기</button>
-                    	</c:if>
+                    	<c:if test="${ fn:contains(list.retnExchNo,'RETN') }">반품</c:if> 
+                    	<c:if test="${ fn:contains(list.retnExchNo,'EXCH') }">교환</c:if>
+                    </td>	 
+                    <td><c:out value="${ list.userNo }"/></td>
+                    <td style="text-align: left; padding-left: 20px;"><nobr><c:out value="${ list.prodMngProduct.prodName }"/></nobr></td>
+                    <td><c:out value="${ list.retnExchDate }"/></td>
+                    <td>
+                    	<c:if test="${ list.retnExchChk eq 'Y' }">완료</c:if>
+                    	<c:if test="${ list.retnExchChk eq 'N' || null }">예정</c:if>
                     </td>
                 </tr>
                 </c:forEach>
-                
             </table>
-        </div>       <!-- prodCmtListDiv 종료 -->
+        </div>       <!-- returnExchangeListDiv 종료 -->
 		
 		<br><br><br><br>
-		<div class="pagingArea" align="center">
+        <div class="pagingArea" align="center">
 			<button id="startPage">◀◀</button>
 	
 			<c:if test="${ pageInfo.pageNo == 1 }">
@@ -155,17 +141,17 @@
 	
 			<button id="maxPage">▶▶</button>
 		</div> <!-- pagingAreaDiv 종료 -->
-		
+
 		
 	</div>	<!-- sectionDiv 종료 -->
-	
+
     <br clear=both>
 	<!-- <div class="footer">
 		<h1 align="center">FOOTER</h1>
 	</div> -->
-	
+
 	<script>
-		const link = "${ pageContext.servletContext.contextPath }/prodCmtRevMng/productCmtList";
+		const link = "${ pageContext.servletContext.contextPath }/salesMng/selectReturnExchange";
 		
 		function pageButtonAction(text) {
 			location.href = link + "?currentPage=" + text;
@@ -198,8 +184,28 @@
 				location.href = link + "?currentPage=${ pageInfo.pageNo + 1 }";
 			}
 		}
-	
 	</script>
+
+	<script>
+		$(document).ready(function() {
+			resizeContent();
+		});
+		$(window).resize(function() {
+			resizeContent();
+		});
+		function resizeContent() {
+			/* var windowHeight = $(window).height(); */
+			var sectionHeight = $(".section").height();
+			$('.nav').css({'height':(sectionHeight)+'px'});
+		}
+	</script>
+
+
+
+
+
+
+
 
 </body>
 </html>

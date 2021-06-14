@@ -96,7 +96,7 @@
 						  FROM TBL_PROD_REVIEW A
 						  JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
 						  JOIN TBL_USER C ON (A.USER_NO = C.USER_NO)
-						 WHERE B.CORP_NO = 'CORP0001'
+						 WHERE B.CORP_NO = #{corpNo}
 						 ORDER BY A.REVIEW_DATE DESC) D
 		          ) E
 		 WHERE E.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}

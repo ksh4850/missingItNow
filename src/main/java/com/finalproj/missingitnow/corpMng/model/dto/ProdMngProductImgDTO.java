@@ -75,9 +75,9 @@ public class ProdMngProductImgDTO implements Serializable{
 
 	@Override
 	public String toString() {
-		return "[prodImgNo=" + prodImgNo + ", prodNo=" + prodNo + ", prodImgOriginName="
+		return "prodImgNo=" + prodImgNo + ", prodNo=" + prodNo + ", prodImgOriginName="
 				+ prodImgOriginName + ", prodImgRename=" + prodImgRename + ", prodImgThnName=" + prodImgThnName
-				+ ", prodImgPath=" + prodImgPath + "]";
+				+ ", prodImgPath=" + prodImgPath;
 	}
 	
 	

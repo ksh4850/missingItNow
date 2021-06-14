@@ -106,6 +106,43 @@ public class StatisticsController {
 		return gson.toJson(categoryStatistics);
 	}
 	
+	// 상품별 매출 통계(ajax)
+	@PostMapping(value="/selectProductStatistics", produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public String selectProductStatistics(Model model) {
+		
+		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
+		
+		Gson gson = new Gson();
+		
+		List<CorpMngStatisticsDTO> productStatistics = corpMngStatisticsService.selectProductStatistics(CorpUserSession);
+		
+//		for(CorpMngStatisticsDTO a : productStatistics) {
+//			System.out.println("prodStat : " + a);
+//		}
+		
+		return gson.toJson(productStatistics);
+	}
+	
+	// 지역별 매출 통계(ajax)
+		@PostMapping(value="/selectAreaStatistics", produces="application/json; charset=UTF-8")
+		@ResponseBody
+		public String selectAreaStatistics(Model model) {
+			
+			CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
+			
+			Gson gson = new Gson();
+			
+			List<CorpMngStatisticsDTO> areaStatistics = corpMngStatisticsService.selectAreaStatistics(CorpUserSession);
+			
+//			for(CorpMngStatisticsDTO a : areaStatistics) {
+//				System.out.println("prodStat : " + a);
+//			}
+			
+			return gson.toJson(areaStatistics);
+		}
+	
+	
 }
 
 

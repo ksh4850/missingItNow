@@ -116,6 +116,7 @@
             </table>
         </div>       <!-- prodCmtListDiv 종료 -->
 		
+		<br><br><br><br>
 		<div class="pagingArea" align="center">
 			<button id="startPage">◀◀</button>
 	

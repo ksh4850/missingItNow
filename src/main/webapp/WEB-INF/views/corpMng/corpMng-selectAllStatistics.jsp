@@ -115,18 +115,7 @@
             </div>
             <br>
             <div class="salesStatDetails">
-                <h1 align="center"> 데이터 insert 이후 작업 예정 </h1>
-            </div>
-        </div>
-        <br>
-        
-        <div class="salesStatDiv">
-            <div class="salesStatTitle">
-                <p>나이대별 매출 통계</p>
-            </div>
-            <br>
-            <div class="salesStatDetails">
-                <h1 align="center"> 데이터 insert 이후 작업 예정 </h1>
+                <div id="productStatDiv" style="width: 1200px; height: 600px; margin: 0 auto; padding-top: 10px;"></div>
             </div>
         </div>
         <br>
@@ -137,7 +126,7 @@
             </div>
             <br>
             <div class="salesStatDetails">
-                <h1 align="center"> 데이터 insert 이후 작업 예정 </h1>
+                <div id="areaStatDiv" style="width: 1200px; height: 600px; margin: 0 auto; padding-top: 10px;"></div>
             </div>
         </div>
         <br>
@@ -257,7 +246,7 @@
 						var data = google.visualization.arrayToDataTable(arr);
 						var options = {
 						  vAxis: {title: '매출액 (원)'},
-						  hAxis: {title: '일요일 일자 기준'},
+						  hAxis: {title: '주별 (일요일 일자 기준)'},
 						  seriesType: 'bars',
 						};
 					
@@ -351,6 +340,67 @@
 		});	/* 카테고리별 매출 통계 종료*/
 		
 		/* 상품별 매출 통계 */
+		$.ajax({
+			url:'/missingitnow/statistics/selectProductStatistics',
+			type:'post',
+			success: function(stat){
+				
+				google.charts.load('current', {'packages':['corechart']});
+			    google.charts.setOnLoadCallback(drawVisualization);
+			    
+				var arr = [['Product', 'Total']];
+				for(var i = 0; i < stat.length; i++){
+					arr.push([stat[i].prodName, stat[i].prodTotalAmt]);
+				}
+	
+		    	function drawVisualization() {
+					var data = google.visualization.arrayToDataTable(arr);
+					var options = {
+					  vAxis: {title: '매출액 (원)'},
+					  hAxis: {title: '상품명'},
+					  seriesType: 'bars',
+					};
+				
+				var chart = new google.visualization.ComboChart(document.getElementById('productStatDiv'));
+				chart.draw(data, options);
+				}
+			},
+			error: function(error){
+				console.log(error)
+			}
+		});
+		
+		/* 지역별 매출 통계 */
+		$.ajax({
+			url:'/missingitnow/statistics/selectAreaStatistics',
+			type:'post',
+			success: function(stat){
+				
+				google.charts.load('current', {'packages':['corechart']});
+			    google.charts.setOnLoadCallback(drawVisualization);
+			    
+				var arr = [['Area', 'Total']];
+				for(var i = 0; i < stat.length; i++){
+					arr.push([stat[i].userArea, stat[i].areaTotalAmt]);
+				}
+	
+		    	function drawVisualization() {
+					var data = google.visualization.arrayToDataTable(arr);
+					var options = {
+					  vAxis: {title: '매출액 (원)'},
+					  hAxis: {title: '지역'},
+					  seriesType: 'bars',
+					};
+				
+				var chart = new google.visualization.ComboChart(document.getElementById('areaStatDiv'));
+				chart.draw(data, options);
+				}
+			},
+			error: function(error){
+				console.log(error)
+			}
+		});
+		
 	
 	</script>
 	

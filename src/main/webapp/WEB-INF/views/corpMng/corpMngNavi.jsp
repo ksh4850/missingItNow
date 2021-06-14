@@ -98,7 +98,7 @@
             <div class="naviListDetails">                
                 <li id="selectOrderList">주문내역</li>
                 <li id="selectSalesList">매출내역</li>
-                <li id="selectCancelReturnList" style="color: red;">취소/반품/교환 내역</li>
+                <li id="selectReturnExchangeList"">교환/반품 내역</li>
             </div>
             <div class="naviListTitle">
                 <h2>정산관리</h2>
@@ -137,6 +137,10 @@
 		
 		$("#selectSalesList").click(function(){
 			location.href="${ pageContext.servletContext.contextPath }/salesMng/selectSalesList";
+		})
+		
+		$("#selectReturnExchangeList").click(function(){
+			location.href="${ pageContext.servletContext.contextPath }/salesMng/selectReturnExchange";
 		})
 		
 		$("#settlementNList").click(function(){

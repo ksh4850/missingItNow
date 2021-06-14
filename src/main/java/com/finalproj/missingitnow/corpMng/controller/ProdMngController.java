@@ -57,7 +57,7 @@ public class ProdMngController {
 		}
 		
 		int totalCount = prodMngService.selectTotalProductList(CorpUserSession);
-		System.out.println("totalCount : " + totalCount);
+//		System.out.println("totalCount : " + totalCount);
 		int limit = 15;
 		int buttonAmount = 5;
 		
@@ -104,7 +104,7 @@ public class ProdMngController {
 		params.put("prodName", prodName);
 		
 		int totalCount = prodMngService.searchTotalProductList(params);
-		System.out.println("totalCount : " + totalCount);
+//		System.out.println("totalCount : " + totalCount);
 		
 		int limit = 15;
 		int buttonAmount = 5;
@@ -219,9 +219,9 @@ public class ProdMngController {
 		prodMngProduct.setCorpNo(CorpUserSession.getCorpNo());
 		
 		List<ProdMngProductDTO> productList = prodMngService.selectProductForUpdate(prodMngProduct);
-		for(ProdMngProductDTO ListForUpdate : productList) {
-			System.out.println("ListForUpdate : " + ListForUpdate);
-		}
+//		for(ProdMngProductDTO ListForUpdate : productList) {
+//			System.out.println("ListForUpdate : " + ListForUpdate);
+//		}
 		model.addAttribute("productList", productList);
 		
 		return "/corpMng/prodMng-updateProduct";
@@ -230,63 +230,62 @@ public class ProdMngController {
 	// 상품별 정보 수정
 	@PostMapping("/updateProduct")
 	public String updateProduct(Model model, @RequestParam("prodNo") String prodNo, HttpServletRequest request, 
-								@ModelAttribute ProdMngProductDTO prodMngProduct,
-								@RequestParam(required=false) List<MultipartFile> prodImg) {
+								@ModelAttribute ProdMngProductDTO prodMngProduct) {
 		
 		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
 		prodMngProduct.setCorpNo(CorpUserSession.getCorpNo());
 		
 		// 상품 정보 update
 		int updateProductInfo = prodMngService.updateProductInfo(prodMngProduct);
-		System.out.println("updateProductInfo : " + updateProductInfo);
+//		System.out.println("updateProductInfo : " + updateProductInfo);
 		
-		int updateProdImg = 0;
-		if(!prodImg.isEmpty()) {
+//		int updateProdImg = 0;
+//		if(!prodImg.isEmpty()) {
 			// 기존 상품 이미지 delete
-			int deleteProdImg = prodMngService.deleteProdImg(prodMngProduct);
-			System.out.println("deleteProdImg : " + deleteProdImg);
+//			int deleteProdImg = prodMngService.deleteProdImg(prodMngProduct);
+//			System.out.println("deleteProdImg : " + deleteProdImg);
 			
 			// 상품 이미지 insert
-			String root = request.getSession().getServletContext().getRealPath("resources");
+//			String root = request.getSession().getServletContext().getRealPath("resources");
 //			System.out.println(root);
-			String filePath = root + "/uploadFiles";
-			
-			File mkdir = new File(filePath);
-			if(!mkdir.exists()) {
-				mkdir.mkdirs();
-			}
-			
-			List<Map<String, String>> files = new ArrayList<>();
-			for(int i = 0 ; i < prodImg.size() ; i++) {
-				String originFileName = prodImg.get(i).getOriginalFilename(); 
-				String ext = originFileName.substring(originFileName.lastIndexOf("."));
-				String changeName = UUID.randomUUID().toString().replace("-", "") + ext;
-				
-				Map<String, String> file = new HashMap<>();
-				file.put("originFileName", originFileName);
-				file.put("changeName", changeName);
-				file.put("filePath", filePath);
-				file.put("prodNo", prodNo);
-				files.add(file);
-			}
-		
-			try {
-				for(int i = 0 ; i < prodImg.size() ; i++) {
-					Map<String, String> file = files.get(i);
-					prodImg.get(i).transferTo(new File(filePath + "/" + file.get("changeName")));
-					updateProdImg = prodMngService.updateProdImg(file);
-				}
-			} catch (IllegalStateException | IOException e) {
-				e.printStackTrace();
-				for(int i = 0 ; i < prodImg.size(); i++) {
-					Map<String, String> file = files.get(i);
-					new File(filePath + "/" + file.get("changeName")).delete();
-				}
-			}
-		}
+//			String filePath = root + "/uploadFiles";
+//			
+//			File mkdir = new File(filePath);
+//			if(!mkdir.exists()) {
+//				mkdir.mkdirs();
+//			}
+//			
+//			List<Map<String, String>> files = new ArrayList<>();
+//			for(int i = 0 ; i < prodImg.size() ; i++) {
+//				String originFileName = prodImg.get(i).getOriginalFilename(); 
+//				String ext = originFileName.substring(originFileName.lastIndexOf("."));
+//				String changeName = UUID.randomUUID().toString().replace("-", "") + ext;
+//				
+//				Map<String, String> file = new HashMap<>();
+//				file.put("originFileName", originFileName);
+//				file.put("changeName", changeName);
+//				file.put("filePath", filePath);
+//				file.put("prodNo", prodNo);
+//				files.add(file);
+//			}
+//		
+//			try {
+//				for(int i = 0 ; i < prodImg.size() ; i++) {
+//					Map<String, String> file = files.get(i);
+//					prodImg.get(i).transferTo(new File(filePath + "/" + file.get("changeName")));
+//					updateProdImg = prodMngService.updateProdImg(file);
+//				}
+//			} catch (IllegalStateException | IOException e) {
+//				e.printStackTrace();
+//				for(int i = 0 ; i < prodImg.size(); i++) {
+//					Map<String, String> file = files.get(i);
+//					new File(filePath + "/" + file.get("changeName")).delete();
+//				}
+//			}
+//		}
 //		System.out.println("updateProdImg : " + updateProdImg);
 		
-		if (updateProductInfo > 0 || updateProdImg > 0) {
+		if (updateProductInfo > 0) {
 			model.addAttribute("successCode", "updateProduct");
 			return "/common/success";
 			

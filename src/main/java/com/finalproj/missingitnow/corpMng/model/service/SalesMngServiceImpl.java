@@ -10,6 +10,7 @@ import com.finalproj.missingitnow.common.page.PageInfoDTO;
 import com.finalproj.missingitnow.corpMng.model.dao.SalesMngSalesDAO;
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SalesMngOrderDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.SalesMngReturnExchangeDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.SalesMngSalesDTO;
 
 @Service
@@ -65,6 +66,16 @@ public class SalesMngServiceImpl implements SalesMngService {
 	@Override
 	public SalesMngSalesDTO expectedSettlementList(SalesMngSalesDTO salesMngSalesList) {
 		return salesMngSalesDAO.expectedSettlementList(salesMngSalesList);
+	}
+
+	@Override
+	public int selectTotalReturnExchange(CorpUserDTO corpUserSession) {
+		return salesMngSalesDAO.selectTotalReturnExchange(corpUserSession);
+	}
+
+	@Override
+	public List<SalesMngReturnExchangeDTO> selectReturnExchangeList(Map<String, Object> params) {
+		return salesMngSalesDAO.selectReturnExchangeList(params);
 	}
 
 	

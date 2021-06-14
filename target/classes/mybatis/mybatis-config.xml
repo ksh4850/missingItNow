@@ -24,6 +24,7 @@
  		<typeAlias alias="ProdCmtListDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdCmtListDTO"/>
  		<typeAlias alias="ProdRevListDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdRevListDTO"/>
  		<typeAlias alias="CorpMngNoticeDTO" type="com.finalproj.missingitnow.corpMng.model.dto.CorpMngNoticeDTO"/>
+ 		<typeAlias alias="SalesMngReturnExchangeDTO" type="com.finalproj.missingitnow.corpMng.model.dto.SalesMngReturnExchangeDTO"/>
  		
  		
  		<!-- systemAdmin -->

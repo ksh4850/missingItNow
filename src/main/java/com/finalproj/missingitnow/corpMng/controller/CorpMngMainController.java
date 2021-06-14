@@ -53,7 +53,6 @@ public class CorpMngMainController {
 	}
 	
 	
-	
 	@PostMapping(value="/selectCorpUserInfoForNavi", produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public String selectCorpUserInfoForNavi(Model model) {
@@ -201,7 +200,7 @@ public class CorpMngMainController {
 		}
 		
 		int totalCount = corpMngMainService.selectTotalNoticeList();
-		System.out.println("totalCount : " + totalCount);
+//		System.out.println("totalCount : " + totalCount);
 		
 		int limit = 15;
 		int buttonAmount = 5;

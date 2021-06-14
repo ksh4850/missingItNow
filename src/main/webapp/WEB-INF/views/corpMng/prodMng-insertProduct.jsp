@@ -27,6 +27,14 @@
         left: 50px;
         width: 1500px;
     }
+    
+    .insertProductTable {
+    	/* border: 1px solid black; */
+    	position: relative;
+    	top: 30px;
+        left: 30px;
+        width: 1500px;
+    }
 
     .insertProductTable td{
     	/* border: 1px solid black; */

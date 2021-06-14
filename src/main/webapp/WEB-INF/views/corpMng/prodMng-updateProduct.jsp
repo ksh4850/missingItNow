@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +52,7 @@
     	height: 40px;
     }
     
-    .prodImgUploadBtn{
+    #prodImgUploadBtn{
     	position: relative; 
     	width: 150px;
     	height: 40px;
@@ -62,6 +64,9 @@
     	border-radius: 10px;
     	text-align: center;
     	padding-top: 10px;
+    	padding-bottom: 10px;
+    	padding-right: 20px;
+    	padding-left: 20px;
     	margin: 0;
     	margin-left: 20px;
     }
@@ -173,7 +178,7 @@
 	<jsp:include page="corpMngNavi.jsp"/>
 	
 	<div class="section">
-        <h1 style="position: relative; left: 20px;">등록 상품 수정</h1>
+        <h1 style="position: relative; left: 20px; font-family: 'SCDream-Medium'; font-size: 40px;">상품정보 수정</h1>
         <hr width="1600px" align="left">
         <div class="updateProductDiv">
             <form action="${ pageContext.servletContext.contextPath }/prodMng/updateProduct" method="POST" enctype="multipart/form-data">    <!-- form action 명시 필요 -->
@@ -200,21 +205,34 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right; color: red;">* 상품명 : </td>
+                        <td style="text-align: right; padding-right: 20px;">상품명 : </td>
                         <td style="text-indent: 20px;">
-                            <input type="text" name="prodName" style="width: 500px;" value="${productList[0].prodName}" readonly>
+                            <input type="text" name="prodName" style="width: 500px;" value="${productList[0].prodName}">
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right; padding-right: 20px;">* 상품 이미지 : <br>
-                            <p style="margin: 0; font-size: 14px;">(최소 1개/최대 10개)&nbsp;</p>
+                        <td style="text-align: right; padding-right: 20px; color: red;">* 제조사 : </td>
+                        <td style="text-indent: 20px;">
+                            <input type="text" name="prodManufacturer" style="width: 500px;" value="${productList[0].prodManufacturer}" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; padding-right: 20px; color: red;">* 상품 이미지 : <br>
+                        <!--     <p style="margin: 0; font-size: 14px;">(최소 1개/최대 10개)&nbsp;</p> -->
                         </td>
                         <td style="min-height: 300px; padding-top: 20px;">
-                        	<input type="file" id="prodImg" name="prodImg" multiple required hidden>
-                       		<label for="prodImg" id="prodImgUploadBtn">이미지 업로드</label>
+                         	<!-- <input type="file" id="prodImg" name="prodImg" multiple hidden>
+                       		<label for="prodImg" id="prodImgUploadBtn">이미지 업로드</label> -->
                         	<div id="previewDiv" class="previewDiv">
-                        		<div class="previewImgDiv"></div>
+                        		<c:forEach var="list" items="${ productList[0].prodImgList }" varStatus="status">
+                        			<c:if test="${!status.last}">
+	                        			<div class="previewImgDiv">
+	                        				<img id="preview" class="previewImgs" src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/${ list.prodImgRename }"/>
+	                       				</div>
+                        			</c:if>
+                        		</c:forEach>
                         	</div>
+                        	<!-- <p style="color: red; padding-left: 20px;">* 미리보기에 나타난 사진은 업로드 되지 않습니다.</p> -->
                        </td>
                     </tr>
                     <tr>
@@ -247,13 +265,20 @@
                     <tr>
                         <td style="text-align: right; padding-right: 20px;">상품 상세설명 : </td>
                         <td>
-                            <input type="file" name="prodImg" id="prodDetailImg" required hidden>
-                            <div class="prodDetailImgBtn"><label for="prodDetailImg"> 상세 이미지 선택</label></div>
-                            <div class="prodDetailPreviewDiv"> <img class="prodDetailPreview" id="prodDetailPreview"> </div>
+                            <!-- <input type="file" name="prodImg" id="prodDetailImg" hidden>
+                            <div class="prodDetailImgBtn"><label for="prodDetailImg"> 상세 이미지 선택</label></div> -->
+                            <div class="prodDetailPreviewDiv">
+                            	<c:forEach var="list" items="${ productList[0].prodImgList }" varStatus="status">
+                        			<c:if test="${status.last}">
+	                       				<img class="prodDetailPreview" id="prodDetailPreview" src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/${ list.prodImgRename }">
+                        			</c:if>
+                        		</c:forEach>
+                            </div>
+                            <!-- <p style="color: red; padding-left: 20px;">* 미리보기에 나타난 사진은 업로드 되지 않습니다.</p> -->
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right; color: red;">* 판매 종료일 : </td>
+                        <td style="text-align: right;">판매 종료일 : </td>
                         <td style="text-indent: 20px;">
                             <input type="date" name="prodTerminateDate" style="width: 200px; text-align: center;" value="${productList[0].prodTerminateDate}">
                         </td>
