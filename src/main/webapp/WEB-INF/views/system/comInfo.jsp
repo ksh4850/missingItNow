@@ -295,6 +295,13 @@
 		location.href = "${ pageContext.servletContext.contextPath }/system/corpSalesInfo?condition=corpNo&corpSellText=" + corpNo;
 	})
 	
+	 $(document).on('click',".corpSettlement" , function(){
+		
+		var corpId = $(this).parent().parent().children().eq(1).text();
+		
+		location.href = "${ pageContext.servletContext.contextPath }/admin/settlement/breakdown?smallSearchCondition=id?searchValue=" + corpId;
+	}) 
+	
 	
 	$(document).on('click',".RegstAccpet" , function(){
                 var corpLv = $("#corpLv").val();
