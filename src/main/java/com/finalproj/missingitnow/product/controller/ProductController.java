@@ -237,7 +237,7 @@ public class ProductController {
 			  HashMap<String, Object> insertComment = new HashMap<String, Object>(); 
 			  insertComment.put("text", context); 
 			  insertComment.put("prodNo",prodNo);
-			  insertComment.put("user", userNo);
+			  insertComment.put("userNo", userNo);
 			  productService.commentInsert(insertComment);
 			  
 			  List<CommentDTO> commentList = productService.comment(prodNo);
