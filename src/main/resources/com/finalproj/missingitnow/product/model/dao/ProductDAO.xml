@@ -113,6 +113,19 @@
 		 WHERE A.PROD_CTG_NO = #{prodCtgNo}
 	</select>
 	
+	<select id="productImgListPrice" resultMap="ProductImgResultSet" parameterType="string">
+		SELECT 
+		       A.PROD_IMG_NO
+             , A.PROD_NO
+             , A.PROD_IMG_ORIGIN_NAME
+             , A.PROD_IMG_RENAME
+             , A.PROD_IMG_THN_NAME
+             , A.PROD_IMG_PATH
+		  FROM TBL_PROD_IMG A
+          JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+		 WHERE B.PROD_PRICE BETWEEN  #{lowPrice} AND #{highPrice}
+		 ORDER BY A.PROD_IMG_NO
+	</select>
 	<select id="productImgList" resultMap="ProductImgResultSet" parameterType="string">
 		SELECT 
 		       A.PROD_IMG_NO
@@ -129,58 +142,95 @@
 	
 	<select id="selectProductHigh" resultMap="ProductResultSet" parameterType="string">
 		SELECT 
-		       A.*
-             , B.PROD_IMG_RENAME
-             , B.PROD_IMG_PATH
-             , c.CORP_NAME
+		       A.PROD_NO
+             , A.PROD_NAME
+             , A.PROD_PRICE
+             , A.PROD_DETAILS
+             , A.PROD_UPLOAD_DATE
+             , A.PROD_TERMINATE_DATE
+             , A.PROD_DISCOUNT_RATE
+             , A.PROD_DISCOUNT_PERIOD
+             , A.PROD_MANUFACTURER
+             , A.STOCK_QUANTITY
+             , A.PROD_DISPLAY_CHK
+             , A.PROD_CTG_NO
+             , A.CORP_NO
+             , A.PROD_HITS
+             , B.CORP_NAME
 		  FROM TBL_PRODUCT A
-          JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
-          JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
+          JOIN TBL_CORP_USER B ON (A.CORP_NO = B.CORP_NO)
 		 WHERE A.PROD_CTG_NO = #{prodCtgNo}
-		   AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
 		 ORDER BY A.PROD_PRICE DESC
 	</select>
 	
 	<select id="selectProductLow" resultMap="ProductResultSet" parameterType="string">
 		SELECT 
-		       A.*
-             , B.PROD_IMG_RENAME
-             , B.PROD_IMG_PATH
-             , c.CORP_NAME
+		       A.PROD_NO
+             , A.PROD_NAME
+             , A.PROD_PRICE
+             , A.PROD_DETAILS
+             , A.PROD_UPLOAD_DATE
+             , A.PROD_TERMINATE_DATE
+             , A.PROD_DISCOUNT_RATE
+             , A.PROD_DISCOUNT_PERIOD
+             , A.PROD_MANUFACTURER
+             , A.STOCK_QUANTITY
+             , A.PROD_DISPLAY_CHK
+             , A.PROD_CTG_NO
+             , A.CORP_NO
+             , A.PROD_HITS
+             , C.CORP_NAME
 		  FROM TBL_PRODUCT A
-          JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
           JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
 		 WHERE A.PROD_CTG_NO = #{prodCtgNo}
-		   AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
 		 ORDER BY A.PROD_PRICE
 	</select>
 	
 	<select id="selectProductPopularity" resultMap="ProductResultSet" parameterType="string">
 		SELECT 
-		       A.*
-             , B.PROD_IMG_RENAME
-             , B.PROD_IMG_PATH
-             , c.CORP_NAME
+		       A.PROD_NO
+             , A.PROD_NAME
+             , A.PROD_PRICE
+             , A.PROD_DETAILS
+             , A.PROD_UPLOAD_DATE
+             , A.PROD_TERMINATE_DATE
+             , A.PROD_DISCOUNT_RATE
+             , A.PROD_DISCOUNT_PERIOD
+             , A.PROD_MANUFACTURER
+             , A.STOCK_QUANTITY
+             , A.PROD_DISPLAY_CHK
+             , A.PROD_CTG_NO
+             , A.CORP_NO
+             , A.PROD_HITS
+             , C.CORP_NAME
 		  FROM TBL_PRODUCT A
-          JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
           JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
 		 WHERE A.PROD_CTG_NO = #{prodCtgNo}
-		   AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
 		 ORDER BY A.PROD_HITS DESC
 	</select>
 	
 	<select id="selectProductPriceChoice" resultMap="ProductResultSet" parameterType="hashmap">
 		SELECT 
-		       A.*
-             , B.PROD_IMG_RENAME
-             , B.PROD_IMG_PATH
-             , c.CORP_NAME
+		       A.PROD_NO
+             , A.PROD_NAME
+             , A.PROD_PRICE
+             , A.PROD_DETAILS
+             , A.PROD_UPLOAD_DATE
+             , A.PROD_TERMINATE_DATE
+             , A.PROD_DISCOUNT_RATE
+             , A.PROD_DISCOUNT_PERIOD
+             , A.PROD_MANUFACTURER
+             , A.STOCK_QUANTITY
+             , A.PROD_DISPLAY_CHK
+             , A.PROD_CTG_NO
+             , A.CORP_NO
+             , A.PROD_HITS
+             , C.CORP_NAME
 		  FROM TBL_PRODUCT A
-          JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
           JOIN TBL_CORP_USER C ON (A.CORP_NO = C.CORP_NO)
 		 WHERE A.PROD_CTG_NO = #{prodCtgNo}
            AND  A.PROD_PRICE BETWEEN  #{lowPrice} AND #{highPrice}
-		   AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
+
 	</select>
 	
 	<select id="product" resultMap="ProductResultSet" parameterType="string">
@@ -224,8 +274,6 @@
 		  WHERE A.PROD_NO = #{prodNo}
 	</select>
 	
-	
-	
 	<select id="reviewCtgNo" resultMap="ReviewResultSet" parameterType="string">
 		 SELECT 
 		        A.REVIEW_NO
@@ -240,7 +288,22 @@
            JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
            JOIN TBL_PRODUCT C ON (A.PROD_NO = C.PROD_NO)
 		  WHERE C.PROD_CTG_NO = #{prodCtgNo}
-
+	</select> 
+	
+	<select id="reviewPrice" resultMap="ReviewResultSet" parameterType="string">
+		 SELECT 
+		        A.REVIEW_NO
+              , A.ORDER_NO
+              , A.PROD_NO
+              , A.USER_NO
+              , A.REVIEW_DETAILS
+              , A.REVIEW_SCORE
+              , A.REVIEW_DATE
+              , B.USER_NAME
+           FROM TBL_PROD_REVIEW A
+           JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
+           JOIN TBL_PRODUCT C ON (A.PROD_NO = C.PROD_NO)
+          WHERE  C.PROD_PRICE BETWEEN  #{lowPrice} AND #{highPrice}
 	</select> 
 	
  	<insert  id="reviewStar" parameterType="hashmap" >
@@ -286,7 +349,7 @@
 		 (
 		   'PRDC' || LPAD(SEQ_PROD_COMMENT.NEXTVAL,4,0)
 		 , #{prodNo}
-		 , #{user}
+		 , #{userNo}
 		 , #{text}
 		 , SYSDATE
 		 , 'Y'
@@ -387,29 +450,70 @@
 		 )
 	</insert>
 	
-	<select id="selectorderNo" resultMap="OrderPaymentResultSet"  parameterType="string">
+	<select id="selectorderNo" resultMap="OrderPaymentResultSet"  parameterType="hashmap">
 	<![CDATA[
 	SELECT 
  		       	A.*
  	       FROM TBL_ORDER A 
 		  WHERE A.PROD_NO = #{prodNo}
-		    AND A.USER_NO = 'USER1001'
-    
+		    AND A.USER_NO = #{userNo}
+            AND ROWNUM <= 1
        ]]>
 	</select>
 	
-	<select id="orderPayment" resultMap="OrderPaymentResultSet"  parameterType="string">
+	<select id="orderPayment" resultMap="OrderPaymentResultSet"  parameterType="hashmap">
 	<![CDATA[
 	SELECT
            A.ORDER_NO
          , B.PAYMENT_NO
       FROM TBL_ORDER A
       JOIN TBL_PAYMENT B ON (A.USER_NO = B.USER_NO)
-     WHERE A.ORDER_NO = #{noOrder}
-       AND A.ORDER_DATE = B.PAYMENT_DATE
+     WHERE A.ORDER_NO = #{orderNo}
+       AND A.PROD_NO = #{prodNo}
+       AND A.USER_NO = #{userNo}
        AND ROWNUM <= 1
-     ORDER BY B.PAYMENT_NO
+       ORDER BY PAYMENT_NO DESC
        ]]>
+	</select>
+	
+	<select id="ketSearchTopList" resultMap="ProductResultSet"  parameterType="string">
+	<![CDATA[
+		SELECT 
+		       A.PROD_NO
+             , A.PROD_NAME
+             , A.PROD_PRICE
+             , A.PROD_DETAILS
+             , A.PROD_UPLOAD_DATE
+             , A.PROD_TERMINATE_DATE
+             , A.PROD_DISCOUNT_RATE
+             , A.PROD_DISCOUNT_PERIOD
+             , A.PROD_MANUFACTURER
+             , A.STOCK_QUANTITY
+             , A.PROD_DISPLAY_CHK
+             , A.PROD_CTG_NO
+             , A.CORP_NO
+             , A.PROD_HITS
+		  FROM TBL_PRODUCT A
+		 WHERE A.PROD_NAME like '%' ||  #{search} || '%'
+		  AND ROWNUM <= 5
+        ORDER BY A.PROD_HITS DESC
+       ]]>
+	</select>
+	
+	<select id="productImgSearch" resultMap="ProductImgResultSet"  parameterType="string">
+		<![CDATA[
+		SELECT 
+		       A.PROD_IMG_NO
+             , A.PROD_NO
+             , A.PROD_IMG_ORIGIN_NAME
+             , A.PROD_IMG_RENAME
+             , A.PROD_IMG_THN_NAME
+             , A.PROD_IMG_PATH
+		  FROM TBL_PROD_IMG A
+		 WHERE A.PROD_NO = #{prodNo}
+		  AND ROWNUM <= 1
+        ORDER BY A.PROD_IMG_NO
+         ]]>
 	</select>
 	
 	<insert  id="orderPaymentInsert"  parameterType="hashmap" >
@@ -429,13 +533,22 @@
 	<select id="allproductTotSix" resultMap="ProductResultSet" >
 	<![CDATA[
 	 SELECT 
-		    A.*
-          , B.PROD_IMG_RENAME
-          , B.PROD_IMG_PATH
+		    A.PROD_NO
+          , A.PROD_NAME
+          , A.PROD_PRICE
+          , A.PROD_DETAILS
+          , A.PROD_UPLOAD_DATE
+          , A.PROD_TERMINATE_DATE
+          , A.PROD_DISCOUNT_RATE
+          , A.PROD_DISCOUNT_PERIOD
+          , A.PROD_MANUFACTURER
+          , A.STOCK_QUANTITY
+          , A.PROD_DISPLAY_CHK
+          , A.PROD_CTG_NO
+          , A.CORP_NO
+          , A.PROD_HITS
        FROM TBL_PRODUCT A
-       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 6
-        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
        ]]>
 	</select>
 	
@@ -443,21 +556,54 @@
 	<select id="selectProduct0001" resultMap="ProductResultSet" >
 	<![CDATA[
 	 SELECT 
-		    A.*
-          , B.PROD_IMG_RENAME
-          , B.PROD_IMG_PATH
+		    A.PROD_NO
+          , A.PROD_NAME
+          , A.PROD_PRICE
+          , A.PROD_DETAILS
+          , A.PROD_UPLOAD_DATE
+          , A.PROD_TERMINATE_DATE
+          , A.PROD_DISCOUNT_RATE
+          , A.PROD_DISCOUNT_PERIOD
+          , A.PROD_MANUFACTURER
+          , A.STOCK_QUANTITY
+          , A.PROD_DISPLAY_CHK
+          , A.PROD_CTG_NO
+          , A.CORP_NO
+          , A.PROD_HITS
        FROM TBL_PRODUCT A
-       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 6
         AND A.PROD_CTG_NO = 'PRCT0001'
-        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
+       ]]>
+	</select>
+	
+	<select id="productImgCatg" resultMap="ProductImgResultSet" parameterType="string">
+	<![CDATA[
+	 SELECT 
+		    A.*
+       FROM TBL_PROD_IMG A
+       JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
+      WHERE B.PROD_NO = #{prodNo}
+        AND ROWNUM <= 1
        ]]>
 	</select>
 	
 	<select id="selectProduct0002" resultMap="ProductResultSet" >
 	<![CDATA[
 	 SELECT 
-		    A.*
+		    A.PROD_NO
+          , A.PROD_NAME
+          , A.PROD_PRICE
+          , A.PROD_DETAILS
+          , A.PROD_UPLOAD_DATE
+          , A.PROD_TERMINATE_DATE
+          , A.PROD_DISCOUNT_RATE
+          , A.PROD_DISCOUNT_PERIOD
+          , A.PROD_MANUFACTURER
+          , A.STOCK_QUANTITY
+          , A.PROD_DISPLAY_CHK
+          , A.PROD_CTG_NO
+          , A.CORP_NO
+          , A.PROD_HITS
           , B.PROD_IMG_RENAME
           , B.PROD_IMG_PATH
        FROM TBL_PRODUCT A
@@ -471,7 +617,20 @@
 	<select id="selectProduct0003" resultMap="ProductResultSet" >
 	<![CDATA[
 	 SELECT 
-		    A.*
+		    A.PROD_NO
+          , A.PROD_NAME
+          , A.PROD_PRICE
+          , A.PROD_DETAILS
+          , A.PROD_UPLOAD_DATE
+          , A.PROD_TERMINATE_DATE
+          , A.PROD_DISCOUNT_RATE
+          , A.PROD_DISCOUNT_PERIOD
+          , A.PROD_MANUFACTURER
+          , A.STOCK_QUANTITY
+          , A.PROD_DISPLAY_CHK
+          , A.PROD_CTG_NO
+          , A.CORP_NO
+          , A.PROD_HITS
           , B.PROD_IMG_RENAME
           , B.PROD_IMG_PATH
        FROM TBL_PRODUCT A
@@ -485,7 +644,20 @@
 	<select id="selectProduct0004" resultMap="ProductResultSet" >
 	<![CDATA[
 	 SELECT 
-		    A.*
+		    A.PROD_NO
+          , A.PROD_NAME
+          , A.PROD_PRICE
+          , A.PROD_DETAILS
+          , A.PROD_UPLOAD_DATE
+          , A.PROD_TERMINATE_DATE
+          , A.PROD_DISCOUNT_RATE
+          , A.PROD_DISCOUNT_PERIOD
+          , A.PROD_MANUFACTURER
+          , A.STOCK_QUANTITY
+          , A.PROD_DISPLAY_CHK
+          , A.PROD_CTG_NO
+          , A.CORP_NO
+          , A.PROD_HITS
           , B.PROD_IMG_RENAME
           , B.PROD_IMG_PATH
        FROM TBL_PRODUCT A
@@ -499,7 +671,20 @@
 	<select id="selectProduct0005" resultMap="ProductResultSet" >
 	<![CDATA[
 	 SELECT 
-		    A.*
+		    A.PROD_NO
+          , A.PROD_NAME
+          , A.PROD_PRICE
+          , A.PROD_DETAILS
+          , A.PROD_UPLOAD_DATE
+          , A.PROD_TERMINATE_DATE
+          , A.PROD_DISCOUNT_RATE
+          , A.PROD_DISCOUNT_PERIOD
+          , A.PROD_MANUFACTURER
+          , A.STOCK_QUANTITY
+          , A.PROD_DISPLAY_CHK
+          , A.PROD_CTG_NO
+          , A.CORP_NO
+          , A.PROD_HITS
           , B.PROD_IMG_RENAME
           , B.PROD_IMG_PATH
        FROM TBL_PRODUCT A
@@ -513,7 +698,20 @@
 	<select id="selectProduct0006" resultMap="ProductResultSet" >
 	<![CDATA[
 	 SELECT 
-		    A.*
+		    A.PROD_NO
+          , A.PROD_NAME
+          , A.PROD_PRICE
+          , A.PROD_DETAILS
+          , A.PROD_UPLOAD_DATE
+          , A.PROD_TERMINATE_DATE
+          , A.PROD_DISCOUNT_RATE
+          , A.PROD_DISCOUNT_PERIOD
+          , A.PROD_MANUFACTURER
+          , A.STOCK_QUANTITY
+          , A.PROD_DISPLAY_CHK
+          , A.PROD_CTG_NO
+          , A.CORP_NO
+          , A.PROD_HITS
           , B.PROD_IMG_RENAME
           , B.PROD_IMG_PATH
        FROM TBL_PRODUCT A
@@ -527,7 +725,20 @@
 	<select id="selectProduct0007" resultMap="ProductResultSet" >
 	<![CDATA[
 	 SELECT 
-		    A.*
+		    A.PROD_NO
+          , A.PROD_NAME
+          , A.PROD_PRICE
+          , A.PROD_DETAILS
+          , A.PROD_UPLOAD_DATE
+          , A.PROD_TERMINATE_DATE
+          , A.PROD_DISCOUNT_RATE
+          , A.PROD_DISCOUNT_PERIOD
+          , A.PROD_MANUFACTURER
+          , A.STOCK_QUANTITY
+          , A.PROD_DISPLAY_CHK
+          , A.PROD_CTG_NO
+          , A.CORP_NO
+          , A.PROD_HITS
           , B.PROD_IMG_RENAME
           , B.PROD_IMG_PATH
        FROM TBL_PRODUCT A
@@ -541,7 +752,20 @@
 	<select id="selectProduct0008" resultMap="ProductResultSet" >
 	<![CDATA[
 	 SELECT 
-		    A.*
+		    A.PROD_NO
+          , A.PROD_NAME
+          , A.PROD_PRICE
+          , A.PROD_DETAILS
+          , A.PROD_UPLOAD_DATE
+          , A.PROD_TERMINATE_DATE
+          , A.PROD_DISCOUNT_RATE
+          , A.PROD_DISCOUNT_PERIOD
+          , A.PROD_MANUFACTURER
+          , A.STOCK_QUANTITY
+          , A.PROD_DISPLAY_CHK
+          , A.PROD_CTG_NO
+          , A.CORP_NO
+          , A.PROD_HITS
           , B.PROD_IMG_RENAME
           , B.PROD_IMG_PATH
        FROM TBL_PRODUCT A
@@ -554,7 +778,20 @@
 	<select id="selectProduct0009" resultMap="ProductResultSet" >
 	<![CDATA[
 	 SELECT 
-		    A.*
+		    A.PROD_NO
+          , A.PROD_NAME
+          , A.PROD_PRICE
+          , A.PROD_DETAILS
+          , A.PROD_UPLOAD_DATE
+          , A.PROD_TERMINATE_DATE
+          , A.PROD_DISCOUNT_RATE
+          , A.PROD_DISCOUNT_PERIOD
+          , A.PROD_MANUFACTURER
+          , A.STOCK_QUANTITY
+          , A.PROD_DISPLAY_CHK
+          , A.PROD_CTG_NO
+          , A.CORP_NO
+          , A.PROD_HITS
           , B.PROD_IMG_RENAME
           , B.PROD_IMG_PATH
        FROM TBL_PRODUCT A
@@ -567,7 +804,20 @@
 	<select id="selectProduct0010" resultMap="ProductResultSet" >
 	<![CDATA[
 	 SELECT 
-		    A.*
+		    A.PROD_NO
+          , A.PROD_NAME
+          , A.PROD_PRICE
+          , A.PROD_DETAILS
+          , A.PROD_UPLOAD_DATE
+          , A.PROD_TERMINATE_DATE
+          , A.PROD_DISCOUNT_RATE
+          , A.PROD_DISCOUNT_PERIOD
+          , A.PROD_MANUFACTURER
+          , A.STOCK_QUANTITY
+          , A.PROD_DISPLAY_CHK
+          , A.PROD_CTG_NO
+          , A.CORP_NO
+          , A.PROD_HITS
           , B.PROD_IMG_RENAME
           , B.PROD_IMG_PATH
        FROM TBL_PRODUCT A
@@ -581,13 +831,22 @@
 	<select id="allproductTopSeven" resultMap="ProductResultSet" >
 	<![CDATA[
 	 SELECT 
-		    A.*
-          , B.PROD_IMG_RENAME
-          , B.PROD_IMG_PATH
+		    A.PROD_NO
+          , A.PROD_NAME
+          , A.PROD_PRICE
+          , A.PROD_DETAILS
+          , A.PROD_UPLOAD_DATE
+          , A.PROD_TERMINATE_DATE
+          , A.PROD_DISCOUNT_RATE
+          , A.PROD_DISCOUNT_PERIOD
+          , A.PROD_MANUFACTURER
+          , A.STOCK_QUANTITY
+          , A.PROD_DISPLAY_CHK
+          , A.PROD_CTG_NO
+          , A.CORP_NO
+          , A.PROD_HITS
        FROM TBL_PRODUCT A
-       JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
       WHERE ROWNUM <= 7
-        AND B.PROD_IMG_THN_NAME = 'THUMBNAIL'
       ORDER BY A.PROD_HITS DESC
        ]]>
 	</select>
@@ -595,7 +854,20 @@
 	 <select id="selectketSearch" resultMap="ProductResultSet" >
 	<![CDATA[
 	 SELECT 
-	        A.*
+	        A.PROD_NO
+          , A.PROD_NAME
+          , A.PROD_PRICE
+          , A.PROD_DETAILS
+          , A.PROD_UPLOAD_DATE
+          , A.PROD_TERMINATE_DATE
+          , A.PROD_DISCOUNT_RATE
+          , A.PROD_DISCOUNT_PERIOD
+          , A.PROD_MANUFACTURER
+          , A.STOCK_QUANTITY
+          , A.PROD_DISPLAY_CHK
+          , A.PROD_CTG_NO
+          , A.CORP_NO
+          , A.PROD_HITS
 	      , B.PROD_IMG_RENAME
        FROM TBL_PRODUCT A
        JOIN TBL_PROD_IMG B ON (A.PROD_NO = B.PROD_NO)
@@ -637,7 +909,7 @@
              , A.PROD_IMG_PATH
 		  FROM TBL_PROD_IMG A
           JOIN TBL_PRODUCT B ON (A.PROD_NO = B.PROD_NO)
-		 WHERE A.PROD_NAME = #{search}
+		 WHERE B.PROD_NAME = #{search}
 		 ORDER BY A.PROD_IMG_NO
 	</select>
 	
@@ -653,11 +925,10 @@
            FROM TBL_PROD_REVIEW A
            JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
            JOIN TBL_PRODUCT C ON (A.PROD_NO = C.PROD_NO)
-		  WHERE A.PROD_NAME = #{search}
+		  WHERE C.PROD_NAME = #{search}
 	</select> 
 	
 	<insert  id="cart" parameterType="hashmap" >
-	 	
 		 INSERT 
 		        INTO TBL_WISHLIST
 		 (

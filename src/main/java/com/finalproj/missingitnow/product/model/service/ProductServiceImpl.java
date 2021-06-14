@@ -69,18 +69,120 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductDTO> selectProductHigh(String prodCtgNo) {
-		return productDAO.selectProductHigh(prodCtgNo);
+	public List<ProductListDTO> selectProductHigh(String prodCtgNo) {
+		List<ProductDTO> selectProduct = productDAO.selectProductHigh(prodCtgNo);
+		List<ReviewDTO> reviewCtgNo = productDAO.reviewCtgNo(prodCtgNo);
+		List<ProductImgDTO> productImg = productDAO.productImgList(prodCtgNo);
+		List<ProductListDTO> productList = new ArrayList<>();
+		int count = 0;
+		double score = 0.0;
+		for(ProductDTO product : selectProduct) {
+			ProductListDTO productDTO = new ProductListDTO();
+			starsScoreDTO starsScore = new starsScoreDTO();
+			productDTO.setProduct(product);
+			
+			for(ProductImgDTO img : productImg) {
+				if(product.getProdNo().equals(img.getProdNo())) {
+					productDTO.setProductImg(img);
+					break;
+				}
+			}
+			
+			for(ReviewDTO review : reviewCtgNo) {
+				if(product.getProdNo().equals(review.getProdNo())){
+					count += 1;
+					score += review.getReviewScore();
+				}
+			}
+			score = score / count;
+			starsScore.setCount(count);
+			starsScore.setStarsScore((int)score);
+			
+			
+			productDTO.setStarsScore(starsScore);
+			score = 0.0;
+			count = 0;
+			productList.add(productDTO);
+		}
+		return productList;
 	}
 
 	@Override
-	public List<ProductDTO> selectProductLow(String prodCtgNo) {
-		return productDAO.selectProductLow(prodCtgNo);
+	public List<ProductListDTO> selectProductLow(String prodCtgNo) {
+		List<ProductDTO> selectProduct = productDAO.selectProductLow(prodCtgNo);
+		List<ReviewDTO> reviewCtgNo = productDAO.reviewCtgNo(prodCtgNo);
+		List<ProductImgDTO> productImg = productDAO.productImgList(prodCtgNo);
+		List<ProductListDTO> productList = new ArrayList<>();
+		int count = 0;
+		double score = 0.0;
+		for(ProductDTO product : selectProduct) {
+			ProductListDTO productDTO = new ProductListDTO();
+			starsScoreDTO starsScore = new starsScoreDTO();
+			productDTO.setProduct(product);
+			
+			for(ProductImgDTO img : productImg) {
+				if(product.getProdNo().equals(img.getProdNo())) {
+					productDTO.setProductImg(img);
+					break;
+				}
+			}
+			
+			for(ReviewDTO review : reviewCtgNo) {
+				if(product.getProdNo().equals(review.getProdNo())){
+					count += 1;
+					score += review.getReviewScore();
+				}
+			}
+			score = score / count;
+			starsScore.setCount(count);
+			starsScore.setStarsScore((int)score);
+			
+			
+			productDTO.setStarsScore(starsScore);
+			score = 0.0;
+			count = 0;
+			productList.add(productDTO);
+		}
+		return productList;
 	}
 
 	@Override
-	public List<ProductDTO> selectProductPopularity(String prodCtgNo) {
-		return productDAO.selectProductPopularity(prodCtgNo);
+	public List<ProductListDTO> selectProductPopularity(String prodCtgNo) {
+		List<ProductDTO> selectProduct = productDAO.selectProductPopularity(prodCtgNo);
+		List<ReviewDTO> reviewCtgNo = productDAO.reviewCtgNo(prodCtgNo);
+		List<ProductImgDTO> productImg = productDAO.productImgList(prodCtgNo);
+		List<ProductListDTO> productList = new ArrayList<>();
+		int count = 0;
+		double score = 0.0;
+		for(ProductDTO product : selectProduct) {
+			ProductListDTO productDTO = new ProductListDTO();
+			starsScoreDTO starsScore = new starsScoreDTO();
+			productDTO.setProduct(product);
+			
+			for(ProductImgDTO img : productImg) {
+				if(product.getProdNo().equals(img.getProdNo())) {
+					productDTO.setProductImg(img);
+					break;
+				}
+			}
+			
+			for(ReviewDTO review : reviewCtgNo) {
+				if(product.getProdNo().equals(review.getProdNo())){
+					count += 1;
+					score += review.getReviewScore();
+				}
+			}
+			score = score / count;
+			starsScore.setCount(count);
+			starsScore.setStarsScore((int)score);
+			
+			
+			productDTO.setStarsScore(starsScore);
+			score = 0.0;
+			count = 0;
+			productList.add(productDTO);
+		}
+		return productList;
 	}
 
 	/* 상품 상세페이지 */
@@ -111,12 +213,47 @@ public class ProductServiceImpl implements ProductService {
 	/* 상품 리뷰 등록 */
 	@Override
 	public void reviewStar(HashMap<String, Object> insertReview) {
+		productDAO.reviewStar(insertReview);
 	}
 
-
+	/* 가격에 맞는 상품 선택 */
 	@Override
-	public List<ProductDTO> selectProductPriceChoice(HashMap<String, Object> price) {
-		return productDAO.selectProductPriceChoice(price);
+	public List<ProductListDTO> selectProductPriceChoice(HashMap<String, Object> price) {
+		List<ProductDTO> selectProduct = productDAO.selectProductPriceChoice(price);
+		List<ReviewDTO> reviewCtgNo = productDAO.reviewPrice(price);
+		List<ProductImgDTO> productImg = productDAO.productImgListPrice(price);
+		List<ProductListDTO> productList = new ArrayList<>();
+		int count = 0;
+		double score = 0.0;
+		for(ProductDTO product : selectProduct) {
+			ProductListDTO productDTO = new ProductListDTO();
+			starsScoreDTO starsScore = new starsScoreDTO();
+			productDTO.setProduct(product);
+			
+			for(ProductImgDTO img : productImg) {
+				if(product.getProdNo().equals(img.getProdNo())) {
+					productDTO.setProductImg(img);
+					break;
+				}
+			}
+			
+			for(ReviewDTO review : reviewCtgNo) {
+				if(product.getProdNo().equals(review.getProdNo())){
+					count += 1;
+					score += review.getReviewScore();
+				}
+			}
+			score = score / count;
+			starsScore.setCount(count);
+			starsScore.setStarsScore((int)score);
+			
+			
+			productDTO.setStarsScore(starsScore);
+			score = 0.0;
+			count = 0;
+			productList.add(productDTO);
+		}
+		return productList;
 	}
 
 	/* 상품 문의 등록 */
@@ -146,7 +283,6 @@ public class ProductServiceImpl implements ProductService {
 	/* 결재시 재고 업데이트 */
 	@Override
 	public void stockUpdate(HashMap<String, Object> stockUpdate) {
-		System.out.println(stockUpdate);
 		productDAO.stockUpdate(stockUpdate);		
 	}
 	
@@ -158,13 +294,13 @@ public class ProductServiceImpl implements ProductService {
 	
 	/* 구매결재 코드번호 셀렉 작업 */
 	@Override
-	public OrderPaymentDTO selectorderNo(String prodNo) {
-		return productDAO.selectorderNo(prodNo);
+	public OrderPaymentDTO selectorderNo(HashMap<String, Object> orderList) {
+		return productDAO.selectorderNo(orderList);
 	}
 	/* 구매결재 코드번호 셀렉 작업 */
 	@Override
-	public OrderPaymentDTO orderPayment(String noOrder) {
-		return productDAO.orderPayment(noOrder);
+	public OrderPaymentDTO orderPayment(HashMap<String, Object> purchasedList) {
+		return productDAO.orderPayment(purchasedList);
 	}
 	
 	/* 구매 결재 중간다리 테이블 인설트 작업 */
@@ -175,74 +311,206 @@ public class ProductServiceImpl implements ProductService {
 
 	/* 메인페이지 상품 6개 전체보기 */
 	@Override
-	public List<ProductDTO> allproductTotSix() {
-		return productDAO.allproductTotSix();
+	public List<ProductListDTO> allproductTotSix() {
+		
+		List<ProductListDTO> allproductTotSix = new ArrayList<ProductListDTO>();
+		List<ProductDTO> list = productDAO.allproductTotSix();
+		for(ProductDTO proList : list) {
+			ProductListDTO productListDTO = new ProductListDTO();
+			productListDTO.setProduct(proList);
+			ProductImgDTO productImgDTO = productDAO.productImgCatg(proList.getProdNo());
+			productListDTO.setProductImg(productImgDTO);
+			
+			allproductTotSix.add(productListDTO);
+			
+		}
+		return allproductTotSix;
 	}
 	
 	/* 메인페이지 상품 6개 거실 침실 */
 	@Override
-	public List<ProductDTO> selectProduct0001() {
-		return productDAO.selectProduct0001();
+	public List<ProductListDTO> selectProduct0001() {
+		List<ProductListDTO> selectProduct0001 = new ArrayList<ProductListDTO>();
+		List<ProductDTO> list = productDAO.selectProduct0001();
+		for(ProductDTO proList : list) {
+			ProductListDTO productListDTO = new ProductListDTO();
+			productListDTO.setProduct(proList);
+			ProductImgDTO productImgDTO = productDAO.productImgCatg(proList.getProdNo());
+			productListDTO.setProductImg(productImgDTO);
+			
+			selectProduct0001.add(productListDTO);
+			
+		}
+		return selectProduct0001;
 	}
 
 	/* 메인페이지 상품 6개 학생/서재가구 */
 	@Override
-	public List<ProductDTO> selectProduct0002() {
-		return productDAO.selectProduct0002();
+	public List<ProductListDTO> selectProduct0002() {
+		List<ProductListDTO> selectProduct0002 = new ArrayList<ProductListDTO>();
+		List<ProductDTO> list = productDAO.selectProduct0002();
+		for(ProductDTO proList : list) {
+			ProductListDTO productListDTO = new ProductListDTO();
+			productListDTO.setProduct(proList);
+			ProductImgDTO productImgDTO = productDAO.productImgCatg(proList.getProdNo());
+			productListDTO.setProductImg(productImgDTO);
+			
+			selectProduct0002.add(productListDTO);
+			
+		}
+		return selectProduct0002;
 	}
 
 	/* 메인페이지 상품 6개 테이블/의자 */
 	@Override
-	public List<ProductDTO> selectProduct0003() {
-		return productDAO.selectProduct0003();
+	public List<ProductListDTO> selectProduct0003() {
+		List<ProductListDTO> selectProduct0003 = new ArrayList<ProductListDTO>();
+		List<ProductDTO> list = productDAO.selectProduct0003();
+		for(ProductDTO proList : list) {
+			ProductListDTO productListDTO = new ProductListDTO();
+			productListDTO.setProduct(proList);
+			ProductImgDTO productImgDTO = productDAO.productImgCatg(proList.getProdNo());
+			productListDTO.setProductImg(productImgDTO);
+			
+			selectProduct0003.add(productListDTO);
+			
+		}
+		return selectProduct0003;
 	}
-
 	/* 메인페이지 상품 6개 침구/커튼 */
 	@Override
-	public List<ProductDTO> selectProduct0004() {
-		return productDAO.selectProduct0004();
+	public List<ProductListDTO> selectProduct0004() {
+		List<ProductListDTO> selectProduct0004 = new ArrayList<ProductListDTO>();
+		List<ProductDTO> list = productDAO.selectProduct0004();
+		for(ProductDTO proList : list) {
+			ProductListDTO productListDTO = new ProductListDTO();
+			productListDTO.setProduct(proList);
+			ProductImgDTO productImgDTO = productDAO.productImgCatg(proList.getProdNo());
+			productListDTO.setProductImg(productImgDTO);
+			
+			selectProduct0004.add(productListDTO);
+			
+		}
+		return selectProduct0004;
 	}
 
 	/* 메인페이지 상품 6개 쿠션/방석 */
 	@Override
-	public List<ProductDTO> selectProduct0005() {
-		return productDAO.selectProduct0005();
+	public List<ProductListDTO> selectProduct0005() {
+		List<ProductListDTO> selectProduct0005 = new ArrayList<ProductListDTO>();
+		List<ProductDTO> list = productDAO.selectProduct0005();
+		for(ProductDTO proList : list) {
+			ProductListDTO productListDTO = new ProductListDTO();
+			productListDTO.setProduct(proList);
+			ProductImgDTO productImgDTO = productDAO.productImgCatg(proList.getProdNo());
+			productListDTO.setProductImg(productImgDTO);
+			
+			selectProduct0005.add(productListDTO);
+			
+		}
+		return selectProduct0005;
 	}
 
 	/* 메인페이지 상품 6개 가전 */
 	@Override
-	public List<ProductDTO> selectProduct0006() {
-		return productDAO.selectProduct0006();
+	public List<ProductListDTO> selectProduct0006() {
+		List<ProductListDTO> selectProduct0006 = new ArrayList<ProductListDTO>();
+		List<ProductDTO> list = productDAO.selectProduct0006();
+		for(ProductDTO proList : list) {
+			ProductListDTO productListDTO = new ProductListDTO();
+			productListDTO.setProduct(proList);
+			ProductImgDTO productImgDTO = productDAO.productImgCatg(proList.getProdNo());
+			productListDTO.setProductImg(productImgDTO);
+			
+			selectProduct0006.add(productListDTO);
+			
+		}
+		return selectProduct0006;
 	}
 
 	/* 메인페이지 상품 6개 수납/정리 */
 	@Override
-	public List<ProductDTO> selectProduct0007() {
-		return productDAO.selectProduct0007();
+	public List<ProductListDTO> selectProduct0007() {
+		List<ProductListDTO> selectProduct0007= new ArrayList<ProductListDTO>();
+		List<ProductDTO> list = productDAO.selectProduct0007();
+		for(ProductDTO proList : list) {
+			ProductListDTO productListDTO = new ProductListDTO();
+			productListDTO.setProduct(proList);
+			ProductImgDTO productImgDTO = productDAO.productImgCatg(proList.getProdNo());
+			productListDTO.setProductImg(productImgDTO);
+			
+			selectProduct0007.add(productListDTO);
+			
+		}
+		return selectProduct0007;
 	}
 
 	/* 메인페이지 상품 6개 조명 */
 	@Override
-	public List<ProductDTO> selectProduct0008() {
-		return productDAO.selectProduct0008();
+	public List<ProductListDTO> selectProduct0008() {
+		List<ProductListDTO> selectProduct0008 = new ArrayList<ProductListDTO>();
+		List<ProductDTO> list = productDAO.selectProduct0008();
+		for(ProductDTO proList : list) {
+			ProductListDTO productListDTO = new ProductListDTO();
+			productListDTO.setProduct(proList);
+			ProductImgDTO productImgDTO = productDAO.productImgCatg(proList.getProdNo());
+			productListDTO.setProductImg(productImgDTO);
+			
+			selectProduct0008.add(productListDTO);
+			
+		}
+		return selectProduct0008;
 	}
 
 	/* 메인페이지 상품 6개 홈데코 */
 	@Override
-	public List<ProductDTO> selectProduct0009() {
-		return productDAO.selectProduct0009();
+	public List<ProductListDTO> selectProduct0009() {
+		List<ProductListDTO> selectProduct0009 = new ArrayList<ProductListDTO>();
+		List<ProductDTO> list = productDAO.selectProduct0009();
+		for(ProductDTO proList : list) {
+			ProductListDTO productListDTO = new ProductListDTO();
+			productListDTO.setProduct(proList);
+			ProductImgDTO productImgDTO = productDAO.productImgCatg(proList.getProdNo());
+			productListDTO.setProductImg(productImgDTO);
+			
+			selectProduct0009.add(productListDTO);
+			
+		}
+		return selectProduct0009;
 	}
 
 	/* 메인페이지 상품 6개 생활용품 */
 	@Override
-	public List<ProductDTO> selectProduct0010() {
-		return productDAO.selectProduct0010();
+	public List<ProductListDTO> selectProduct0010() {
+		List<ProductListDTO> selectProduct0010 = new ArrayList<ProductListDTO>();
+		List<ProductDTO> list = productDAO.selectProduct0010();
+		for(ProductDTO proList : list) {
+			ProductListDTO productListDTO = new ProductListDTO();
+			productListDTO.setProduct(proList);
+			ProductImgDTO productImgDTO = productDAO.productImgCatg(proList.getProdNo());
+			productListDTO.setProductImg(productImgDTO);
+			
+			selectProduct0010.add(productListDTO);
+			
+		}
+		return selectProduct0010;
 	}
 	
 	/* 인기상품 TOP 7 */
 	@Override
-	public List<ProductDTO> allproductTopSeven() {
-		return productDAO.allproductTopSeven();
+	public List<ProductListDTO> allproductTopSeven() {
+		List<ProductListDTO> allproductTopSeven = new ArrayList<ProductListDTO>();
+		List<ProductDTO> list = productDAO.allproductTopSeven();
+		for(ProductDTO proList : list) {
+			ProductListDTO productListDTO = new ProductListDTO();
+			productListDTO.setProduct(proList);
+			ProductImgDTO productImgDTO = productDAO.productImgCatg(proList.getProdNo());
+			productListDTO.setProductImg(productImgDTO);
+			
+			allproductTopSeven.add(productListDTO);
+			
+		}
+		return allproductTopSeven;
 	}
 	/* 자동 검색 기능 */
 	@Override
@@ -256,7 +524,6 @@ public class ProductServiceImpl implements ProductService {
 		List<ProductDTO> selectProduct = productDAO.productSearch(search);
 		List<ReviewDTO> reviewCtgNo = productDAO.reviewSearchCtgNo(search);
 		List<ProductImgDTO> productImg = productDAO.productSearchImgList(search);
-		System.out.println(productImg);
 		List<ProductListDTO> productList = new ArrayList<>();
 		int count = 0;
 		double score = 0.0;
@@ -296,6 +563,24 @@ public class ProductServiceImpl implements ProductService {
 	public boolean cart(HashMap<String, Object> myPageCart) {
 		return productDAO.cart(myPageCart) > 0? true: false;
 	}
+	
+	/* 검색기능 */
+	@Override
+	public List<ProductListDTO> ketSearchTopList(String search) {
+		List<ProductDTO> list = productDAO.ketSearchTopList(search);
+		List<ProductListDTO> ketSearchTopList = new ArrayList<ProductListDTO>();
+		for(ProductDTO proList : list) {
+			ProductListDTO productListDTO = new ProductListDTO();
+			productListDTO.setProduct(proList);
+			ProductImgDTO productImgDTO = productDAO.productImgSearch(proList.getProdNo());
+			productListDTO.setProductImg(productImgDTO);
+			
+			ketSearchTopList.add(productListDTO);
+			
+		}
+		return ketSearchTopList;
+	}
+
 
 //	/* 댓글 이미지 */
 //	@Override

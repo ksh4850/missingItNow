@@ -51,9 +51,9 @@ public interface ProductDAO {
 
 	void paymentInsert(HashMap<String, Object> paymentInsert);
 
-	OrderPaymentDTO selectorderNo(String prodNo);
+	OrderPaymentDTO selectorderNo(HashMap<String, Object> orderList);
 	
-	OrderPaymentDTO orderPayment(String noOrder);
+	OrderPaymentDTO orderPayment(HashMap<String, Object> purchasedList);
 
 	void orderPaymentInsert(HashMap<String, Object> orderPaymentInsert);
 
@@ -104,6 +104,21 @@ public interface ProductDAO {
 	
 	/* 검색 상품 이미지 */
 	List<ProductImgDTO> productSearchImgList(String search);
+
+	List<ProductImgDTO> productImgListPrice(HashMap<String, Object> price);
+
+	List<ReviewDTO> reviewPrice(HashMap<String, Object> price);
+	
+	/* 검색기능 */
+	List<ProductDTO> ketSearchTopList(String search);
+	
+	/* 검색기능 이미지 */
+	ProductImgDTO productImgSearch(String prodNo);
+	
+	/* 메인 카테고리 별 이미지 셀렉 */
+	ProductImgDTO productImgCatg(String prodNo);
+	
+	
 	
 	/* 댓글 이미지 */
 //	void reviewImgInsert(Map<String, String> file);

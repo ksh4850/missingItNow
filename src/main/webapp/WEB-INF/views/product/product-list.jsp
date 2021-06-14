@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -58,7 +59,8 @@
             </div>
             <div class="right">
                 <div class="right-header">
-                    <div class="right-header-search">검색결과 303,303건</div>
+                 
+                    <div class="right-header-search">검색결과 ${ productListSize }건</div>
                     <input type="hidden" id="prodCtgNo" value="${ productList[0].product.prodCtgNo }">
                     <div class="right-header-button">
                         <a id="button3" href="#">
@@ -80,8 +82,8 @@
                         <a href="#">
                             <div class="right-contest-recommendation-box">
                                 <img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/${ List.productImg.prodImgRename }" alt="">
-                                <div class="product-font-1"><c:out value="${ List.product.prodName }"/></div>
-                                <div class="product-font-2"><c:out value="${ List.product.prodPrice }"/>원</div>
+                                <div class="product-font-1">${ List.product.prodName }</div>
+                                <div class="product-font-2"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ List.product.prodPrice }"/>원</div>
                                 <div class="product-font-1">무료배송</div>
                             </div>
                         </a>
@@ -121,11 +123,11 @@
                                 		☆☆☆☆☆
                                 	</c:if>
                                 	</span>리뷰 ${ List.starsScore.count }건</div>
-                                <div class="product-contest-2"><c:out value="${ List.product.prodPrice }"/> 할인가 <c:out value="${ List.product.prodDiscountRate }"/>% 
+                                <div class="product-contest-2"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ List.product.prodPrice }"/> 할인가 <c:out value="${ List.product.prodDiscountRate }"/>% 
                                 
                                 <c:forEach var="price" items="${ price }">
                                 	<c:if test="${ price.prodNo == List.product.prodNo }">
-                                		<c:out value="${ price.prodPrice }"/>원
+                                		<fmt:formatNumber type="number" maxFractionDigits="3" value="${ price.prodPrice }"/>원
                                 	</c:if>
                                 </c:forEach>  
                                 </div>
@@ -165,23 +167,38 @@
                 for (var index in data) {
 
 
-                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+                	var price = AddComma(data[index].product.prodPrice);
+                	var prodDiscountRate = data[index].product.prodDiscountRate / 100;
+        			var salePrice2 =  data[index].product.prodPrice * ( 1 - prodDiscountRate);
+                	var sale = AddComma(Math.round(salePrice2));
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].product.prodNo + "&corpNo=" + data[index].corpNo);
 
                     $floatDiv = $("<div>").attr("class", "right-contest-advertisement-product");
                     $rightImgDiv = $("<div>").attr("class", "right-contest-advertisement-product-img");
-                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
+                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].productImg.prodImgRename);
 
                     $centerDiv = $("<div>").attr("class", "right-contest-advertisement-text");
-                    $prodName = $("<div>").text(data[index].prodName).attr("class", "product-contest-1");
+                    $prodName = $("<div>").text(data[index].product.prodName).attr("class", "product-contest-1");
                     $review = $("<div>").attr("class", "product-font-review");
-                    $span = $("<span>").text("★★★★★").attr("class", "color-yellow");
-                    $span2 = $("<span>").text("리뷰 40건");
-                    $price = $("<div>").text(data[index].prodPrice).attr("class", "product-contest-2");
+                    if(data[index].starsScore.starsScore == 5){
+                        $span = $("<span>").text("★★★★★").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 4){
+                        $span = $("<span>").text("★★★★☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 3){
+                        $span = $("<span>").text("★★★☆☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 2){
+                        $span = $("<span>").text("★★☆☆☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 1){
+                        $span = $("<span>").text("★☆☆☆☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 0){
+                        $span = $("<span>").text("☆☆☆☆☆").attr("class", "color-yellow");
+                		}
+                    $span2 = $("<span>").text("리뷰 "+ data[index].starsScore.count +"건");
+                    $price = $("<div>").text(price+ "할인가" + sale + "/" + data[index].product.prodDiscountRate +"%" ).attr("class", "product-contest-2");
                     $free = $("<div>").text("무료배송").attr("class", "product-contest-1");
-                   
-                   
+
                     $leftDiv = $("<div>").attr("class", "right-contest-advertisement-company");
-                    $corpName = $("<div>").text(data[index].corpName).attr("class", "product-contest-1");
+                    $corpName = $("<div>").text(data[index].product.corpName).attr("class", "product-contest-1");
 
                     $rightImgDiv.append($img);
 
@@ -212,7 +229,6 @@
         });
     });
     $("#button3").click(function () {
-
         const prodCtgNo = document.getElementById("prodCtgNo").value;
         $.ajax({
             url: "lowProductList",
@@ -227,22 +243,38 @@
                 for (var index in data) {
 
 
-                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+                	var price = AddComma(data[index].product.prodPrice);
+                	var prodDiscountRate = data[index].product.prodDiscountRate / 100;
+        			var salePrice2 =  data[index].product.prodPrice * ( 1 - prodDiscountRate);
+                	var sale = AddComma(salePrice2);
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].product.prodNo + "&corpNo=" + data[index].corpNo);
 
                     $floatDiv = $("<div>").attr("class", "right-contest-advertisement-product");
                     $rightImgDiv = $("<div>").attr("class", "right-contest-advertisement-product-img");
-                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
+                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].productImg.prodImgRename);
 
                     $centerDiv = $("<div>").attr("class", "right-contest-advertisement-text");
-                    $prodName = $("<div>").text(data[index].prodName).attr("class", "product-contest-1");
+                    $prodName = $("<div>").text(data[index].product.prodName).attr("class", "product-contest-1");
                     $review = $("<div>").attr("class", "product-font-review");
-                    $span = $("<span>").text("★★★★★").attr("class", "color-yellow");
-                    $span2 = $("<span>").text("리뷰 40건");
-                    $price = $("<div>").text(data[index].prodPrice).attr("class", "product-contest-2");
+                    if(data[index].starsScore.starsScore == 5){
+                        $span = $("<span>").text("★★★★★").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 4){
+                        $span = $("<span>").text("★★★★☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 3){
+                        $span = $("<span>").text("★★★☆☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 2){
+                        $span = $("<span>").text("★★☆☆☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 1){
+                        $span = $("<span>").text("★☆☆☆☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 0){
+                        $span = $("<span>").text("☆☆☆☆☆").attr("class", "color-yellow");
+                		}
+                    $span2 = $("<span>").text("리뷰 "+ data[index].starsScore.count +"건");
+                    $price = $("<div>").text(price+ "할인가" + sale + data[index].product.prodDiscountRate +"%" ).attr("class", "product-contest-2");
                     $free = $("<div>").text("무료배송").attr("class", "product-contest-1");
 
                     $leftDiv = $("<div>").attr("class", "right-contest-advertisement-company");
-                    $corpName = $("<div>").text(data[index].corpName).attr("class", "product-contest-1");
+                    $corpName = $("<div>").text(data[index].product.corpName).attr("class", "product-contest-1");
 
                     $rightImgDiv.append($img);
 
@@ -273,7 +305,6 @@
         });
     });
     $("#button2").click(function () {
-
         const prodCtgNo = document.getElementById("prodCtgNo").value;
         $.ajax({
             url: "highProductList",
@@ -286,24 +317,38 @@
                 $div.html("");
 
                 for (var index in data) {
-
-
-                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+                	var price = AddComma(data[index].product.prodPrice);
+                	var prodDiscountRate = data[index].product.prodDiscountRate / 100;
+        			var salePrice2 =  data[index].product.prodPrice * ( 1 - prodDiscountRate);
+                	var sale = AddComma(salePrice2);
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].product.prodNo + "&corpNo=" + data[index].corpNo);
 
                     $floatDiv = $("<div>").attr("class", "right-contest-advertisement-product");
                     $rightImgDiv = $("<div>").attr("class", "right-contest-advertisement-product-img");
-                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
+                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].productImg.prodImgRename);
 
                     $centerDiv = $("<div>").attr("class", "right-contest-advertisement-text");
-                    $prodName = $("<div>").text(data[index].prodName).attr("class", "product-contest-1");
+                    $prodName = $("<div>").text(data[index].product.prodName).attr("class", "product-contest-1");
                     $review = $("<div>").attr("class", "product-font-review");
-                    $span = $("<span>").text("★★★★★").attr("class", "color-yellow");
-                    $span2 = $("<span>").text("리뷰 40건");
-                    $price = $("<div>").text(data[index].prodPrice).attr("class", "product-contest-2");
+                    if(data[index].starsScore.starsScore == 5){
+                        $span = $("<span>").text("★★★★★").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 4){
+                        $span = $("<span>").text("★★★★☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 3){
+                        $span = $("<span>").text("★★★☆☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 2){
+                        $span = $("<span>").text("★★☆☆☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 1){
+                        $span = $("<span>").text("★☆☆☆☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 0){
+                        $span = $("<span>").text("☆☆☆☆☆").attr("class", "color-yellow");
+                		}
+                    $span2 = $("<span>").text("리뷰 "+ data[index].starsScore.count +"건");
+                    $price = $("<div>").text(price+"원 "+ "할인가" + data[index].product.prodDiscountRate +"% " + sale +"원" ).attr("class", "product-contest-2");
                     $free = $("<div>").text("무료배송").attr("class", "product-contest-1");
 
                     $leftDiv = $("<div>").attr("class", "right-contest-advertisement-company");
-                    $corpName = $("<div>").text(data[index].corpName).attr("class", "product-contest-1");
+                    $corpName = $("<div>").text(data[index].product.corpName).attr("class", "product-contest-1");
 
                     $rightImgDiv.append($img);
 
@@ -347,24 +392,38 @@
                 $div.html("");
 
                 for (var index in data) {
-
-
-                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+                	var price = AddComma(data[index].product.prodPrice);
+                	var prodDiscountRate = data[index].product.prodDiscountRate / 100;
+        			var salePrice2 =  data[index].product.prodPrice * ( 1 - prodDiscountRate);
+                	var sale = AddComma(salePrice2);
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].product.prodNo + "&corpNo=" + data[index].corpNo);
 
                     $floatDiv = $("<div>").attr("class", "right-contest-advertisement-product");
                     $rightImgDiv = $("<div>").attr("class", "right-contest-advertisement-product-img");
-                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
+                    $img = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].productImg.prodImgRename);
 
                     $centerDiv = $("<div>").attr("class", "right-contest-advertisement-text");
-                    $prodName = $("<div>").text(data[index].prodName).attr("class", "product-contest-1");
+                    $prodName = $("<div>").text(data[index].product.prodName).attr("class", "product-contest-1");
                     $review = $("<div>").attr("class", "product-font-review");
-                    $span = $("<span>").text("★★★★★").attr("class", "color-yellow");
-                    $span2 = $("<span>").text("리뷰 40건");
-                    $price = $("<div>").text(data[index].prodPrice).attr("class", "product-contest-2");
+                    if(data[index].starsScore.starsScore == 5){
+                        $span = $("<span>").text("★★★★★").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 4){
+                        $span = $("<span>").text("★★★★☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 3){
+                        $span = $("<span>").text("★★★☆☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 2){
+                        $span = $("<span>").text("★★☆☆☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 1){
+                        $span = $("<span>").text("★☆☆☆☆").attr("class", "color-yellow");
+                		} else if (data[index].starsScore.starsScore == 0){
+                        $span = $("<span>").text("☆☆☆☆☆").attr("class", "color-yellow");
+                		}
+                    $span2 = $("<span>").text("리뷰 "+ data[index].starsScore.count +"건");
+                    $price = $("<div>").text(price+"원 "+ "할인가" + data[index].product.prodDiscountRate +"% " + sale +"원" ).attr("class", "product-contest-2");
                     $free = $("<div>").text("무료배송").attr("class", "product-contest-1");
 
                     $leftDiv = $("<div>").attr("class", "right-contest-advertisement-company");
-                    $corpName = $("<div>").text(data[index].corpName).attr("class", "product-contest-1");
+                    $corpName = $("<div>").text(data[index].product.corpName).attr("class", "product-contest-1");
 
                     $rightImgDiv.append($img);
 
@@ -394,6 +453,15 @@
             }
         });
     });
+    function AddComma(num)
+    {
+    var regexp = /\B(?=(\d{3})+(?!\d))/g;
+    return num.toString().replace(regexp, ',');
+    }
+
+    
+
+
 
 
 </script>

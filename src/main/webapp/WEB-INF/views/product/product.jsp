@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -29,9 +30,9 @@
                         <c:out value="${ productList[0].prodDiscountRate }" />%
                     </div>
                     <div class="cost-price"><s>
-                            <c:out value="${ productList[0].prodPrice }" />원
+                            <fmt:formatNumber type="number" maxFractionDigits="3" value="${ productList[0].prodPrice }"/>원
                         </s></div>
-                    <div class="sales">${ salePrice }원</div>
+                    <div class="sales"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ salePrice }"/>원</div>
                 </div>
                 <div class="parcel">
                     <div class="name">
@@ -48,10 +49,10 @@
                 <div class="final-price">
                     <div class="final-left final-top">총 상품 금액</div>
                     <div class="final-right final-top">
-                        <c:out value="${ productList[0].prodPrice }" />원
+                        <fmt:formatNumber type="number" maxFractionDigits="3" value="${ productList[0].prodPrice }"/>원
                     </div>
                     <div class="final-left final-bottom">할인가</div>
-                    <div class="final-right final-bottom">${ salePrice }원</div>
+                    <div class="final-right final-bottom"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ salePrice }"/>원</div>
                 </div>
 
                 <div class="product-button">
@@ -73,7 +74,6 @@
             <div>
             <input type="hidden" value="${ imgSize }" id="imgSize">
             			
-            		<button onclick="aaaa()"> <img src="${ pageContext.servletContext.contextPath }/resources/images/product/leftButton.jpg" alt="" class="thumbnail-button-img" > </button>
             		
             		<c:if test="${ imgSize-1 != 0 }">
             			<button onclick="Sumname1()"><img id="imgButton1" src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[0].prodImgRename }" />" alt="" class="thumbnail-img"></button>
@@ -90,49 +90,10 @@
                		<c:if test="${ imgSize-1 != 4 }">
                			<button onclick="Sumname5()"><img id="imgButton5" src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[4].prodImgRename }" />" alt="" class="thumbnail-img"></button>
            			</c:if>
-           			<c:if test="${ imgSize-1 != 5 }">
-           			<button onclick="cccc()"> <img src="${ pageContext.servletContext.contextPath }/resources/images/product/rightButton.jpg" alt="" class="thumbnail-button-img"></button>
-          			</c:if>
  			</div>
         </div>
         <script>
-        
         /* 상품 문의 */
-        	 function aaaa() {
-                document.getElementById("imgButton1").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[0].prodImgRename } " />";
-                document.getElementById("imgButton2").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[1].prodImgRename } " />";
-                document.getElementById("imgButton3").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[2].prodImgRename } " />";
-                document.getElementById("imgButton4").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[3].prodImgRename } " />";
-                document.getElementById("imgButton5").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[4].prodImgRename } " />";
-            };
-        	 function cccc() {
-        		const imgSize = document.getElementById("imgSize").value;
-        		if(!(imgSize-1 <= 5)){
-                document.getElementById("imgButton1").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[5].prodImgRename } " />";
-        		}else {
-        		document.getElementById("imgButton1").src = "${ pageContext.servletContext.contextPath }/resources/images/product/ready.jpg";
-        		 }
-        		if(!(imgSize-1 <= 6)){
-                document.getElementById("imgButton2").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[6].prodImgRename } " />";
-        		 }else {
-        		document.getElementById("imgButton2").src = "${ pageContext.servletContext.contextPath }/resources/images/product/ready.jpg";
-        		 }
-        		if(!(imgSize-1 <= 7)){
-                document.getElementById("imgButton3").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[7].prodImgRename } " />";
-        		 }else {
-        		document.getElementById("imgButton3").src = "${ pageContext.servletContext.contextPath }/resources/images/product/ready.jpg";
-        		 }
-        		if(!(imgSize-1 <= 8)){
-                document.getElementById("imgButton4").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[8].prodImgRename } " />";
-        		 }else {
-        		document.getElementById("imgButton4").src = "${ pageContext.servletContext.contextPath }/resources/images/product/ready.jpg";
-        		 }
-        		if(!(imgSize-1 <= 9)){
-                document.getElementById("imgButton5").src = "${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ productList[9].prodImgRename } " />";
-        		 }else {
-        		document.getElementById("imgButton5").src = "${ pageContext.servletContext.contextPath }/resources/images/product/ready.jpg";
-        		 }
-            };
         	function Sumname1() {
         		const imgButton1 = document.getElementById("imgButton1").src;
                 document.getElementById("img").src = imgButton1;
@@ -614,7 +575,8 @@
         </div>
         <div class="section3">
             <div class="section4_rv">전체 리뷰 총 <c:out value="${ count }" />건</div>
-            
+            	<br>&nbsp;
+            	<div class="section4_name">
 				<span>
    					<button onclick="Img1()" type="button"><img id="star1" src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg" alt="" ></button>
     				<button onclick="Img2()" type="button"><img id="star2" src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg" alt="" ></button>
@@ -623,15 +585,33 @@
     				<button onclick="Img5()" type="button"><img id="star5" src="${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg" alt="" ></button>
 				</span>
 
-				별점 :  <input type="text" value="0" name="stars" id="starsValue"><br>
-				글내용 : <input type="text" name="reviewDetails" id="reviewDetails"><br><br>
+				<span class="stars_class" id="starsValue">별점 :  <span name="stars" id="starsValueBox" value="0">0</span></span>
+				<br>&nbsp;<br>
+				<c:if test="${ !empty loginMember }">
+	           			<c:out value="${ loginMember.userName }"/>님
+	            </c:if>
+	            <c:if test="${ !empty CorpUserSession }">
+	            		<c:out value="${ CorpUserSession.corpName }"/>님
+	            </c:if>
+	             <c:if test="${ empty CorpUserSession && empty loginMember }">
+	             	로그인하고 이용해주시기 바랍니다
+	             </c:if>
+	              <span class="section4_name_left">40</span>
+	             </div>
+	            <br>
+	            &nbsp;&nbsp;<input type="text" name="reviewDetails" id="reviewDetails" class="textareaStringOne" maxlength="40"  placeholder="내용을 입력해주세요"><br><br>
                       <input type="hidden" id="productNo" value="${productList[0].prodNo}">
-                      <!-- <input type="file" name="multiFiles" id="multiFilesImg" multiple><br><br> -->
-				<button id="insertReview" > 댓글 등록</button>
-			
+                      <form id="uploadForm" enctype="multipart/form-data" method="POST" action="insertReview"> 
+                      <input type="file" name="multiFiles" id="multiFilesImg" multiple><br><br> 
+					  </form>
+				<c:if test="${ empty CorpUserSession && empty loginMember && !empty CorpUserSession }">
+				<button class="section4_button login"> 댓글 등록</button>
+				</c:if>
+				<c:if test="${ !empty loginMember }">
+				<button id="insertReview" class="section4_button" > 댓글 등록</button>
+				</c:if>
+				</div>
             <table>
-                <thead><tr><td>zz</td><td>zz</td></tr>
-                </thead>
                 <tbody class="tbodyReview">
                     <c:forEach var="reviewList" items="${ reviewList }">
                         <tr>
@@ -667,11 +647,31 @@
     
     <div class="section3">
             <div class="section4_rv">상품 문의</div>
+            	<div class="section4_text">
 				<input type="hidden" id="prodNames" value="${productList[0].prodManufacturer}">
 				<input type="hidden" id="userNo" value="${loginMember.userNo}">
-				문의 내용 : <input type="text" name="pordComtDetails" id="pordComtDetails"><br>
-				<button id="insertComment" > 댓글 등록</button>
-			
+				<div class="section4_name">
+				<br>&nbsp;
+				<c:if test="${ !empty loginMember }">
+	           			<c:out value="${ loginMember.userName }"/>님
+	            </c:if>
+	            <c:if test="${ !empty CorpUserSession }">
+	            		<c:out value="${ CorpUserSession.corpName }"/>님
+	            </c:if>
+	             <c:if test="${ empty CorpUserSession && empty loginMember }">
+	             	로그인하고 이용해주시기 바랍니다
+	             </c:if>
+	              <span class="section4_name_right">40</span>
+	             </div>
+	            <br>
+	            &nbsp;&nbsp;<input type="text" name="pordComtDetails" id="pordComtDetails" class="textareaString" maxlength="40"  placeholder="내용을 입력해주세요"><br>
+				<c:if test="${ empty CorpUserSession && empty loginMember && !empty CorpUserSession}">
+				<button class="section4_button login"> 댓글 등록</button>
+				</c:if>
+				<c:if test="${ !empty loginMember }">
+				<button id="insertComment" class="section4_button"> 댓글 등록</button>
+				</c:if>
+			</div>	
             <table>
                 </thead>
                 <tbody class="tbodyComment">
@@ -708,6 +708,45 @@
     </section4>
     <jsp:include page="../common/footer.jsp" />
     <script>
+    
+    /* 댓글 입력창 */
+    	  $(".textareaStringOne").keyup(function() {
+    	   const textength = document.getElementById("reviewDetails").value;
+    	   var remain = 40 - textength.length ;
+    	   $(".section4_name_left").html(remain+'/40');
+
+    	  if(remain<=0){
+    	    alert("더 이상 글자입력 불가능!");
+    	  } else if(remain<=10){
+    	   $(".section4_name_left").css('color','red');
+    	  } else if(remain<=20){
+    	   $(".section4_name_left").css('color','orange');
+    	  } else if(remain<=30){
+    	   $(".section4_name_left").css('color','blue');
+    	  } else {
+    	   $(".section4_name_left").css('color','black');
+    	  }
+    	});
+    /* 문의 입력창 */
+    	  $(".textareaString").keyup(function() {
+    	   const textength = document.getElementById("pordComtDetails").value;
+    	   var remain = 40 - textength.length ;
+    	   $(".section4_name_right").html(remain+'/40');
+
+    	  if(remain<=0){
+    	    alert("더 이상 글자입력 불가능!");
+    	  } else if(remain<=10){
+    	   $(".section4_name_right").css('color','red');
+    	  } else if(remain<=20){
+    	   $(".section4_name_right").css('color','orange');
+    	  } else if(remain<=30){
+    	   $(".section4_name_right").css('color','blue');
+    	  } else {
+    	   $(".section4_name_right").css('color','black');
+    	  }
+    	});
+    	
+    
 		$("#insertReview").click(function(){
 			const context = document.getElementById("reviewDetails").value;
 			const starValue = document.getElementById("starsValue").value;
@@ -772,8 +811,10 @@
 				});
 			
 		});
-
-		
+		/* 로그인을 해주세요 */
+		$(".login").click(function(){
+			alert("로그인 상태가 아니거나 기업아이디는 이용하실수 없습니다");
+		});
 		/* 상품 문의 */
 		$("#insertComment").click(function(){
 			const context = document.getElementById("pordComtDetails").value;
@@ -840,6 +881,7 @@
         document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
         document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
         document.getElementById("starsValue").value = "1";
+        $("#starsValueBox").text("1");
     }
     function Img2() {
         document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
@@ -848,6 +890,7 @@
         document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
         document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
         document.getElementById("starsValue").value = "2";
+        $("#starsValueBox").text("2");
     }
     function Img3() {
         document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
@@ -856,6 +899,7 @@
         document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
         document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
         document.getElementById("starsValue").value = "3";
+        $("#starsValueBox").text("3");
     }
     function Img4() {
         document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
@@ -864,6 +908,7 @@
         document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
         document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars2.jpg";
         document.getElementById("starsValue").value = "4";
+        $("#starsValueBox").text("4");
     }
     function Img5() {
         document.getElementById("star1").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
@@ -872,6 +917,7 @@
         document.getElementById("star4").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
         document.getElementById("star5").src = "${ pageContext.servletContext.contextPath }/resources/images/product/stars1.jpg";
         document.getElementById("starsValue").value = "5";
+        $("#starsValueBox").text("5");
     }
 </script>
 </body>

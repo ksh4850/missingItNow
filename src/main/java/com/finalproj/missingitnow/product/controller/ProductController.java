@@ -49,10 +49,8 @@ public class ProductController {
 	/* 메인 화면 상품 불러오기 */
 	@GetMapping("main")
 	public String main(Model model) {
-		List<ProductDTO> allproductTotSix = productService.allproductTotSix();
-		List<ProductDTO> allproductTopSeven = productService.allproductTopSeven();
-		
-		
+		List<ProductListDTO> allproductTotSix = productService.allproductTotSix();
+		List<ProductListDTO> allproductTopSeven = productService.allproductTopSeven();
 		
 		model.addAttribute("allproductTotSix", allproductTotSix);
 		model.addAttribute("allproductTopSeven", allproductTopSeven);
@@ -80,6 +78,7 @@ public class ProductController {
 			}
 		  model.addAttribute("productList", productList);
 		  model.addAttribute("price", price);
+		  model.addAttribute("productListSize", productList.size());
 		  
 	      return "/product/product-list";
 	   }
@@ -207,18 +206,16 @@ public class ProductController {
 	@PostMapping(value="/insertReview", produces ="application/json; charset=UTF-8")
 	@ResponseBody public String insertProduct(Model model, HttpServletRequest request,
 	@RequestParam("starValue") int starValue,@RequestParam("context") String context,@RequestParam("productNo") String productNo
-	, @RequestParam("userNo") String userNo  /*, List<MultipartFile> multiFilesImg*/) {
-		
+	, @RequestParam("userNo") String userNo  , @RequestParam("multiFilesImg") List<MultipartFile> multiFilesImg) {
 		HashMap<String, Object> insertReview = new HashMap<String, Object>(); 
 		  insertReview.put("starValue", starValue);
 		  insertReview.put("context", context); 
 		  insertReview.put("productNo",productNo);
 		  insertReview.put("userNo", userNo);
 		  
-		  productService.reviewStar(insertReview);
+//		  productService.reviewStar(insertReview);
 		  
 		  List<ReviewDTO> reviewList = productService.review(productNo);
-		  
 		  String reviewNo = "";
 		  
 		  for(ReviewDTO list : reviewList) {
@@ -226,47 +223,7 @@ public class ProductController {
 				  reviewNo = list.getReviewNo();
 			  }
 		  }
-		  
 		  Gson gson = new	GsonBuilder().setDateFormat("").create();
-//	
-//		  String root = request.getSession().getServletContext().getRealPath("resources");
-//			String filePath = root + "\\uploadFiles";
-//			
-//			List<Map<String, String>> files = new ArrayList<>();
-//			for(int i = 0 ; i < multiFilesImg.size() ; i++) {
-//				String originFileName = multiFilesImg.get(i).getOriginalFilename();
-//				String ext = originFileName.substring(originFileName.lastIndexOf("."));
-//				String saveName = UUID.randomUUID().toString().replace("-", "") + ext;
-//				
-//				Map<String, String> file = new HashMap<>();
-//				file.put("originFileName", originFileName);
-//				file.put("saveName", saveName);
-//				file.put("filePath", filePath);
-//				
-//				files.add(file);
-//			}
-//			
-//			/* 파일을 저장한다. */
-//			try {
-//				for(int i = 0 ; i < multiFilesImg.size() ; i++) {
-//					Map<String, String> file = files.get(i);
-//					file.put("productNo", productNo);
-//					file.put("reviewNo", reviewNo);
-//					
-//					multiFilesImg.get(i).transferTo(new File(filePath + "\\" + file.get("saveName")));
-//					
-//					productService.reviewImgInsert(file);
-//				}
-//				
-//			} catch (IllegalStateException | IOException e) {
-//				e.printStackTrace();
-//				
-//				/* 실패시 파일 삭제 */
-//				for(int i = 0 ; i < multiFilesImg.size(); i++) {
-//					Map<String, String> file = files.get(i);
-//					new File(filePath + "\\" + file.get("saveName")).delete();
-//				}
-//			}
 		  
 		  return gson.toJson(reviewList); 
 	}
@@ -277,16 +234,13 @@ public class ProductController {
 		@RequestParam("context") String context,@RequestParam("prodNo") String prodNo
 		, @RequestParam("userNo") String userNo) {
 			
-			System.out.println(prodNo);
 			  HashMap<String, Object> insertComment = new HashMap<String, Object>(); 
 			  insertComment.put("text", context); 
 			  insertComment.put("prodNo",prodNo);
 			  insertComment.put("user", userNo);
-			  System.out.println(insertComment);
 			  productService.commentInsert(insertComment);
 			  
 			  List<CommentDTO> commentList = productService.comment(prodNo);
-			  System.out.println(commentList); 
 			  Gson gson = new	GsonBuilder().setDateFormat("").create();
 		
 			  return gson.toJson(commentList); 
@@ -297,9 +251,8 @@ public class ProductController {
 	@ResponseBody
 	public String lowProductList(Model model, HttpServletRequest request ,
 	@RequestParam("prodCtgNo") String prodCtgNo) {
-		List<ProductDTO> lowProductList = productService.selectProductLow(prodCtgNo);
+		List<ProductListDTO> lowProductList = productService.selectProductLow(prodCtgNo);
 
-		System.out.println(lowProductList);
 		Gson gson = new GsonBuilder().setDateFormat("").create();
 
 		return gson.toJson(lowProductList);
@@ -309,23 +262,21 @@ public class ProductController {
 	@ResponseBody
 	public String highProductList(Model model, HttpServletRequest request,
 			@RequestParam("prodCtgNo") String prodCtgNo) {
-		System.out.println("오나요 여기는 에초에" + prodCtgNo);
-		List<ProductDTO> highProductList = productService.selectProductHigh(prodCtgNo);
+		List<ProductListDTO> highProductList = productService.selectProductHigh(prodCtgNo);
 		
-		System.out.println(highProductList);
 		Gson gson = new GsonBuilder().setDateFormat("").create();
 		
 		return gson.toJson(highProductList);
 	}
 	
+	/* 상품 리스트 인기상품 */
 	@PostMapping(value = "/productPopularity", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String productPopularity(Model model, HttpServletRequest request 
-			/*@RequestParam("prodCtgNo") String prodCtgNo*/) {
-		String prodCtgNo = "PRCT0001";
-		List<ProductDTO> productPopularity = productService.selectProductPopularity(prodCtgNo);
+			, @RequestParam("prodCtgNo") String prodCtgNo) {
 		
-		System.out.println(productPopularity);
+		List<ProductListDTO> productPopularity = productService.selectProductPopularity(prodCtgNo);
+		
 		Gson gson = new GsonBuilder().setDateFormat("").create();
 		
 		return gson.toJson(productPopularity);
@@ -340,9 +291,8 @@ public class ProductController {
 		price.put("prodCtgNo", prodCtgNo);
 		price.put("highPrice", highPrice);
 		price.put("lowPrice", lowPrice);
-		List<ProductDTO> productPopularity = productService.selectProductPriceChoice(price);
+		List<ProductListDTO> productPopularity = productService.selectProductPriceChoice(price);
 		
-		System.out.println(productPopularity);
 		Gson gson = new GsonBuilder().setDateFormat("").create();
 		
 		return gson.toJson(productPopularity);
@@ -368,7 +318,6 @@ public class ProductController {
 		String prodNo = orderDTO.getProdNo();
 		List<ProductImgDTO> productImgList = productService.ProductImg(prodNo);
 		List<ProductDTO> productList = productService.Product(prodNo);
-		
 		/* 주문내역 */
 		HashMap<String, Object> OrderList = new HashMap<String, Object>(); 
 		OrderList.put("corpNo", orderDTO.getCorpNo()); 
@@ -381,9 +330,8 @@ public class ProductController {
 		OrderList.put("orderDate", "SYSDATE");
 		
 		productService.orderInsert(OrderList);
-		
 		/* 구매 내역 */
-		OrderPaymentDTO orderNo = productService.selectorderNo(orderDTO.getProdNo());
+		OrderPaymentDTO orderNo = productService.selectorderNo(OrderList);
 		String noOrder = orderNo.getOrderNo();
 		HashMap<String, Object> purchasedList = new HashMap<String, Object>(); 
 		purchasedList.put("userNo", orderDTO.getUserNo());
@@ -391,31 +339,25 @@ public class ProductController {
 		purchasedList.put("prodNo", orderDTO.getProdNo()); 
 		
 		productService.orderpurchasedInsert(purchasedList);
-		
 		/* 재고 수정  */
 		HashMap<String, Object> stockUpdate = new HashMap<String, Object>(); 
 		stockUpdate.put("prodNo",orderDTO.getProdNo());
 		stockUpdate.put("number",1);
 		productService.stockUpdate(stockUpdate);
 		
-		
 		/* 결재 내역 */
 		HashMap<String, Object> paymentInsert = new HashMap<String, Object>(); 
 		paymentInsert.put("userNo",orderDTO.getUserNo());
 		paymentInsert.put("price",orderDTO.getOrderPrice());
 		productService.paymentInsert(paymentInsert);
-		
 		/* 구매결재 중간다리 역활 테이블 추가하기 */
 		
-		OrderPaymentDTO orderPayment = productService.orderPayment(noOrder);
-		System.out.println(orderPayment.getPaymentNo()+"productService");
+		OrderPaymentDTO orderPayment = productService.orderPayment(purchasedList);
 		
 		HashMap<String, Object> orderPaymentInsert = new HashMap<String, Object>(); 
 		orderPaymentInsert.put("orderNo",orderNo.getOrderNo());
 		orderPaymentInsert.put("paymentNo",orderPayment.getPaymentNo());
-		System.out.println(orderPaymentInsert);
 		productService.orderPaymentInsert(orderPaymentInsert);
-		
 		
 		 model.addAttribute("productList", productList);
 		 model.addAttribute("productImgList", productImgList);
@@ -426,7 +368,6 @@ public class ProductController {
 	/* 검색해서 상품 리스트 출력 페이지 */
 	@GetMapping("/productSearch")
 	public String productSearch(Model model, @RequestParam(required=false) String search) {
-
 		  List<ProductListDTO> productList = productService.productSearch(search);
 		  List<ProductDTO> price = new ArrayList<ProductDTO>(); 
 		  int salePrice = 0;
@@ -447,28 +388,75 @@ public class ProductController {
 		return "/product/product-list";
 	}
 	
-	@PostMapping(value = "/myPageCart", produces = "application/json; charset=UTF-8")
+	@PostMapping(value = "/ketSearch", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public String myPageCart(Model model, HttpServletRequest request, 
-			@RequestParam("prodNo") String prodNo , @RequestParam("userNo") String userNo
-			) {
-		int count = 1;
+	public String ketSearch(Model model, HttpServletRequest request, @RequestParam("search") String search) {
+		List<ProductDTO> ketSearchList = new ArrayList<ProductDTO>();
 		
-		HashMap<String, Object> myPageCart = new	HashMap<String, Object>(); 
-		myPageCart.put("userNo", userNo);
-		myPageCart.put("prodNo", prodNo);
-		myPageCart.put("count", count);
-		boolean cart = productService.cart(myPageCart);
-		System.out.println(cart);
-		String myCart = "";
-		if(cart) {
-			myCart = "장바구니 등록 성공";
-		} else {
-			myCart = "장바구니 등록 실패";	
+		int ketTrue = 0;
+		int count = 0;
+		int one = 0;
+		int listconut = 0;
+
+		List<ProductDTO> ketSearch = productService.selectketSearch();
+		List<ProductListDTO> ketSearchTopList = productService.ketSearchTopList(search);
+		
+//		for (ProductDTO list : ketSearch) { // 리스트 많큼 돌려라
+//			if (listconut == 5) { // 리스트 5개 차면 그만
+//				break;
+//			}
+//			for (int a = 0; a < search.length(); a++) { // 가져올 글자수 많큼 돌려라
+//				for (int i = 0; i < list.getProdName().length(); i++) { // 리스트 안에있는 물건 이름 글자수 많큼 돌려라
+//
+//					if (search.length() == 1) { // 친 글자가 하나일 경우
+//						if (list.getProdName().charAt(i) == search.charAt(a)) {
+//							ProductDTO product = new ProductDTO();
+//							product.setProdName(list.getProdName());
+//							product.setProdImgRename(list.getProdImgRename());
+//							product.setProdNo(list.getProdNo());
+//							product.setCorpNo(list.getCorpNo());
+//							ketSearchList.add(product);
+//							listconut += 1;
+//						}
+//					} else if (search.length() != 1) { // 친글자가 두개 이상일 경우
+//
+//						if (list.getProdName().charAt(i) == search.charAt(a)) { // 글자 비교
+//							if (one == 0) { // 글자 비교 두개이상해야해서 첫번째는 비교를 원할하게 하기위해
+//								ketTrue += 1;
+//								one = 2;
+//								count = i;
+//							} else if (one == 2) { // 글자 비교 두개이상해야해서 첫번째는 비교를 원할하게 하기위해
+//								if (i == (count + 1)) { // 글자 비교할때 2개 이상 값들이 붙어 있는지 확인작업
+//									ketTrue += 1;
+//									count = i;
+//								}
+//							}
+//						}
+//						if (ketTrue == search.length()) {
+//							ProductDTO product = new ProductDTO();
+//							product.setProdImgRename(list.getProdImgRename());
+//							product.setProdName(list.getProdName());
+//							product.setProdNo(list.getProdNo());
+//							product.setCorpNo(list.getCorpNo());
+//							ketSearchList.add(product);
+//							listconut += 1;
+//							ketTrue = 0;
+//							one = 0;
+//						}
+//					}
+//				}
+//			}
+//		}
+		if (ketSearchTopList.size() == 0) {
+			ProductDTO product = new ProductDTO();
+			product.setProdName("검색결과가 없습니다");
+			ProductListDTO productListDTO = new ProductListDTO();
+			productListDTO.setProduct(product);
+			ketSearchTopList.add(productListDTO);
 		}
 		Gson gson = new GsonBuilder().setDateFormat("").create();
-		
-		return gson.toJson(myCart);
-	}
+		return gson.toJson(ketSearchTopList);
+	}	
+
 	
 }

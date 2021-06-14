@@ -19,16 +19,16 @@ public interface ProductService {
 	List<ProductListDTO> selectProduct(String prodCtgNo);
 	
 	/* 가격 높은순 상품 */
-	List<ProductDTO> selectProductHigh(String prodCtgNo);
+	List<ProductListDTO> selectProductHigh(String prodCtgNo);
 
 	/* 가격 낮은순 상품 */
-	List<ProductDTO> selectProductLow(String prodCtgNo);
+	List<ProductListDTO> selectProductLow(String prodCtgNo);
 
 	/* 인기순 상품 */
-	List<ProductDTO> selectProductPopularity(String prodCtgNo);
+	List<ProductListDTO> selectProductPopularity(String prodCtgNo);
 
 	/* 가격선택 리스트 */
-	List<ProductDTO> selectProductPriceChoice(HashMap<String, Object> price);
+	List<ProductListDTO> selectProductPriceChoice(HashMap<String, Object> price);
 	
 	/* 상품 정보 */
 	List<ProductDTO> Product(String prodNo);
@@ -64,47 +64,46 @@ public interface ProductService {
 	void paymentInsert(HashMap<String, Object> paymentInsert);
 	
 	/* 구매결재 코드번호 셀렉 작업 */
-	OrderPaymentDTO selectorderNo(String prodNo);
-	OrderPaymentDTO orderPayment(String noOrder);
+	OrderPaymentDTO orderPayment(HashMap<String, Object> purchasedList);
 	
 	/* 구매 결재 중간다리 테이블 인설트 작업 */
 	void orderPaymentInsert(HashMap<String, Object> orderPaymentInsert);
 
 	/* 메인페이지 상품 6개 전체보기 */
-	List<ProductDTO> allproductTotSix();
+	List<ProductListDTO> allproductTotSix();
 	
 	/* 메인페이지 상품 6개 거실 침실 */
-	List<ProductDTO> selectProduct0001();
+	List<ProductListDTO> selectProduct0001();
 	
 	/* 메인페이지 상품 6개 학생/서재가구 */
-	List<ProductDTO> selectProduct0002();
+	List<ProductListDTO> selectProduct0002();
 
 	/* 메인페이지 상품 6개 테이블/의자 */
-	List<ProductDTO> selectProduct0003();
+	List<ProductListDTO> selectProduct0003();
 	
 	/* 메인페이지 상품 6개 침구/커튼 */
-	List<ProductDTO> selectProduct0004();
+	List<ProductListDTO> selectProduct0004();
 	
 	/* 메인페이지 상품 6개 쿠션/방석 */
-	List<ProductDTO> selectProduct0005();
+	List<ProductListDTO> selectProduct0005();
 	
 	/* 메인페이지 상품 6개 가전 */
-	List<ProductDTO> selectProduct0006();
+	List<ProductListDTO> selectProduct0006();
 	
 	/* 메인페이지 상품 6개 수납/정리 */
-	List<ProductDTO> selectProduct0007();
+	List<ProductListDTO> selectProduct0007();
 	
 	/* 메인페이지 상품 6개 조명 */
-	List<ProductDTO> selectProduct0008();
+	List<ProductListDTO> selectProduct0008();
 	
 	/* 메인페이지 상품 6개 홈데코 */
-	List<ProductDTO> selectProduct0009();
+	List<ProductListDTO> selectProduct0009();
 	
 	/* 메인페이지 상품 6개 생활용품 */
-	List<ProductDTO> selectProduct0010();
+	List<ProductListDTO> selectProduct0010();
 	
 	/* 인기상품 TOP7 */
-	List<ProductDTO> allproductTopSeven();
+	List<ProductListDTO> allproductTopSeven();
 	
 	/* 자동 검색 기능 */
 	List<ProductDTO> selectketSearch();
@@ -114,6 +113,11 @@ public interface ProductService {
 	
 	/* 장바구니에 등록하기 */
 	boolean cart(HashMap<String, Object> myPageCart);
+
+	OrderPaymentDTO selectorderNo(HashMap<String, Object> orderList);
+	
+	/* 검색 기능 */
+	List<ProductListDTO> ketSearchTopList(String search);
 	
 	/* 댓글 이미지 올리기 */
 //	void reviewImgInsert(Map<String, String> file);

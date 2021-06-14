@@ -124,11 +124,11 @@
 	 }, function(rsp) {
 	     if ( rsp.success ) {
 	    	 alert('결제성공');
-		     	
+	    	 submit.click();
 	    		
 	     } else {
 	         alert('결제실패');
-	         submit.click();
+	         
 	     }
 	     alert(msg);
 	 });
