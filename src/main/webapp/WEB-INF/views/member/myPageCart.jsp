@@ -17,6 +17,7 @@
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="/missingitnow/resources/js/member/myPageNav.js"></script>
+            <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 		 <!-- <script src="/missingitnow/resources/js/member/myPageCart.js"></script> -->
     
 </head>
@@ -52,11 +53,13 @@
    
 	   <table class="titleTable">
 		   	<tr>
-		   		<td class="titleColorBox"><br><br><br><br>&nbsp;<c:out value="${loginMember.userName}"/> 회원님의&nbsp; </td> 
+		   		<td class="titleColorBox"><br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<c:out value="${loginMember.userName}"/> 회원님의</td> 
 		   		<td class="titleNonColor">장바구니입니다.</td>
 		   	</tr>
 		   	<tr><td><br></td></tr>
-		   	<tr><td colspan="2" class="titleNonColor2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;어떤 물건을 구매하시겠습니까</td></tr>
+		   	<tr><td colspan="2" class="titleNonColor2">장바구니 결제는 준비중입니다.</td></tr>
+		   	<tr><td><br></td></tr>
+		   	<tr><td colspan="2" class="titleNonColor2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상품명을 눌러 상품페이지에서 결제가 가능합니다.</td></tr>
 	   </table>           
    
      	
@@ -145,8 +148,8 @@
         <div id="rightDiv">
 
             <section>
-            
             	<c:if test="${!empty cartList}"> 
+            	<form action="#" method="post">
                 <table class="cartTable" border="1">
 					<tr><td><br></td></tr>
                     <tr>
@@ -156,7 +159,7 @@
                         <th>수량</th>
                         <th>
                         
-                        	<button type="button" class="selectDeleteBtn">선택 삭제<i class="far fa-trash-alt"></i></button>
+                        	<!-- <button type="button" class="selectDeleteBtn">선택 삭제<i class="far fa-trash-alt"></i></button> -->
                         
                         </th>
 
@@ -167,9 +170,15 @@
                     <c:forEach items="${cartList}" var="cart">
                     	<tr>
                     	<td align="center"><input type=checkbox class="chk" value="${cart.wishListNo}"></td>
-                    	<td><c:out value="${cart.productDTO.prodName}"/></td>
-                    	<td><c:out value="${cart.productDTO.prodPrice}"/></td>
-                    	<td><c:out value="${cart.prodAmount}"/> </td>
+                    	<td id="prodName">
+                    	
+                    	<a href="${ pageContext.servletContext.contextPath}/product/product?prodNo=<c:out value="${cart.productDTO.prodNo}"/>&corpNo=<c:out value="${cart.productDTO.corpNo}"/>">
+                    	
+                    	<c:out value="${cart.productDTO.prodName}"/></a></td>
+                    	
+                    	
+                    	<td id="prodPrice"><c:out value="${cart.productDTO.prodPrice}"/></td>
+                    	<td id="prodAmount"><c:out value="${cart.prodAmount}"/> </td>
                     	<td>
                     	<button type="button" class="deleteBtn"><i class="far fa-trash-alt"></i></button>
                     	</td>
@@ -183,17 +192,17 @@
 					
                     <tr>
                     	<td></td>
-                        <td colspan="4" class="calculateTd">총계 : <c:out value="${total}"/>원 </td>
+                        <%-- <td colspan="4" class="calculateTd">총계 : <c:out value="${total}"/>원 </td> --%>
 
                     </tr>
                     <tr>
 						<td></td>
-                        <td colspan="4" class="calculateTd">할인 금액 : <a class="pointColorFont"> xxxx원</a></td>
+                        <!-- <td colspan="4" class="calculateTd">할인 금액 : <a class="pointColorFont"> xxxx원</a></td> -->
 
                     </tr>
                     <tr>
 						<td></td>
-                        <td colspan="4" class="calculateTd">최종 결제 금액 : <a class="redColorFont">xxxx원</a></td>
+                        <!-- <td colspan="4" class="calculateTd">최종 결제 금액 : <a class="redColorFont">xxxx원</a></td> -->
                     </tr>
 					
 					<tr><td class="upperPaymentTd">&nbsp;</td></tr>
@@ -202,7 +211,7 @@
 					<td></td>
 					<td colspan="4" class="paymentTd">
 						
-						<button class="paymentBtn" type="submit">결제하기 </button> 
+						<!-- <button class="paymentBtn" type="submit" onclick="goOrder()">결제하기 </button> --> 
 					
 					
 					</td>
@@ -211,6 +220,7 @@
 
 
         </table>
+        </form>
         </c:if>
         
         
@@ -243,6 +253,8 @@
         
         </section>
         
+       
+        
         
         
         </div>
@@ -256,7 +268,9 @@
     <jsp:include page="../common/footer.jsp"/>
     
 	</div> 
+	
 
+	
 
 
     <script>
