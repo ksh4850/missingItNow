@@ -7,13 +7,13 @@ import com.finalproj.missingitnow.common.search.MoreSearchDTO;
 
 public interface NoticeMapper {
 
-	int deleteNTC(int no);
+	int deleteNTC(String no);
 
 	int updateNTC(NoticeDTO ntcDTO);
 
-	NoticeDTO selectDetail(int no);
+	NoticeDTO selectDetail(String no);
 
-	int increamentBoardCount(int no);
+	int increamentBoardCount(String no);
 
 	int insertNTC(NoticeDTO ntcDTO);
 

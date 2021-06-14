@@ -59,13 +59,11 @@ private final NoticeService ntcService;
 		if(searchCondition == null || "".equals(searchCondition)) {
 			
 			searchCondition = "all";
-			System.out.println(searchCondition);
 			
 		}
 		String currentPage = request.getParameter("currentPage");
 		
 		int pageNo = 1;
-		System.out.println(currentPage);
 		if (currentPage != null && !"".equals(currentPage)) {
 
 			pageNo = Integer.valueOf(currentPage);
@@ -79,8 +77,6 @@ private final NoticeService ntcService;
 
 		int totalCount = ntcService.selectTotalCount();
 		
-		System.out.println(totalCount);
-		
 		int limit = 10;
 
 		int buttonAmount = 10;
@@ -89,9 +85,6 @@ private final NoticeService ntcService;
 		MoreSearchDTO search = new MoreSearchDTO(pageInfo, searchWriteDateStart, searchWriteDateEnd, searchCondition, searchValue);
 
 		List<NoticeDTO> boardList = ntcService.selectList(search);
-		
-		System.out.println(boardList);
-		System.out.println(search);
 		
 		model.addAttribute("ntcList", boardList);
 		model.addAttribute("search", search);
@@ -110,8 +103,6 @@ private final NoticeService ntcService;
 	@PostMapping("/regist")
 	public String adminNTCRegist(@ModelAttribute NoticeDTO ntcDTO, HttpServletRequest request, RedirectAttributes rttr) {
 		
-		HttpSession session = request.getSession();
-		System.out.println(ntcDTO);
 		if(ntcService.insertNTC(ntcDTO)) {
 			
 			rttr.addFlashAttribute("message", "공지사항 작성에 성공하셨습니다!");
@@ -129,9 +120,7 @@ private final NoticeService ntcService;
 	@GetMapping("/detail")
 	public String adminNTCDetail(HttpServletRequest request, Model model) {
 		
-		System.out.println(request.getParameter("no"));
-		
-		int no = Integer.valueOf(request.getParameter("no"));
+		String no = request.getParameter("no");
 		
 		NoticeDTO notice = ntcService.selectDetail(no);
 		
@@ -173,7 +162,7 @@ private final NoticeService ntcService;
 	@GetMapping("/delete")
 	public String adminNTCDelete(@ModelAttribute NoticeDTO ntcDTO, RedirectAttributes rttr) {
 		
-		int no = Integer.valueOf(ntcDTO.getNo());
+		String no = ntcDTO.getNo();
 		
 		if(ntcService.deleteNTC(no) == 1) {
 			

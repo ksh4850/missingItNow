@@ -101,8 +101,6 @@ public class QNAServiceImpl implements QNAService{
 			
 		}
 		
-		System.out.println(result);
-		
 		return result;
 		
 	}

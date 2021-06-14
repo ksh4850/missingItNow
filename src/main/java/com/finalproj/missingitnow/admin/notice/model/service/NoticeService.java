@@ -7,11 +7,11 @@ import com.finalproj.missingitnow.common.search.MoreSearchDTO;
 
 public interface NoticeService {
 
-	int deleteNTC(int no);
+	int deleteNTC(String no);
 
 	NoticeDTO updateNTC(NoticeDTO ntcDTO);
 
-	NoticeDTO selectDetail(int no);
+	NoticeDTO selectDetail(String no);
 
 	boolean insertNTC(NoticeDTO ntcDTO);
 

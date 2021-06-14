@@ -56,7 +56,6 @@ public class SettlementManageController {
 		}
 		
 		int pageNo = 1;
-		System.out.println(currentPage);
 		if (currentPage != null && !"".equals(currentPage)) {
 
 			pageNo = Integer.valueOf(currentPage);

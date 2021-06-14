@@ -132,14 +132,25 @@
 									
 							  </c:if>
 
-                              <!-- 기업회원으로 로그인했을때 표시되는 마이페이지 링크 -->  
+						      <!-- 기업회원으로 로그인했을때 표시되는 마이페이지 링크 -->  
 									
 						      <c:if test="${!empty CorpUserSession }">
-		                                <a href="${ pageContext.servletContext.contextPath}/corpMng/main">
-		                                    <li class="category-title">
-		                                        <div class="category-title-style">MY PAGE</div>
-		                                    </li>
-		                                </a>
+						      			<c:choose>
+						      				<c:when test="${ CorpUserSession.corpNo eq 'ADMIN' }">
+						      					<a href="${ pageContext.servletContext.contextPath}/admin/main">
+				                                    <li class="category-title">
+				                                        <div class="category-title-style">관리자 페이지</div>
+				                                    </li>
+				                                </a>
+						      				</c:when>
+						      				<c:when test="${ CorpUserSession.corpNo ne 'ADMIN' }">
+						      					<a href="${ pageContext.servletContext.contextPath}/corpMng/main">
+				                                    <li class="category-title">
+				                                        <div class="category-title-style">MY PAGE</div>
+				                                    </li>
+				                                </a>
+						      				</c:when>
+						      			</c:choose>
 							  </c:if>
 									
 										
@@ -204,7 +215,14 @@
             	<c:if test="${!empty loginMember || !empty CorpUserSession}">
 	            	<div class="icons">
 	            		<c:if test="${!empty CorpUserSession}">
-			                <a href="${ pageContext.servletContext.contextPath}/corpMng/main"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu1.png" class="icons_img" alt=""></a>
+		            		<c:choose>
+			      				<c:when test="${ CorpUserSession.corpNo eq 'ADMIN' }">
+			      					<a href="${ pageContext.servletContext.contextPath}/admin/main"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu1.png" class="icons_img" alt=""></a>
+			      				</c:when>
+			      				<c:when test="${ CorpUserSession.corpNo ne 'ADMIN' }">
+			      					<a href="${ pageContext.servletContext.contextPath}/corpMng/main"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu1.png" class="icons_img" alt=""></a>
+			      				</c:when>
+			      			</c:choose>
 			        	</c:if>
 			         	<c:if test="${!empty loginMember}">
 			                <a href="javascript:goCartPaging('${loginMember.userNo}');"><img src="${ pageContext.servletContext.contextPath }/resources/images/main/menu/menu1.png" class="icons_img" alt=""></a>

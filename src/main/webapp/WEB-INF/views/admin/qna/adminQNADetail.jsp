@@ -57,7 +57,7 @@
         .system-qnaDetail-detail{
             border: 2px solid rgb(119, 94, 238);
             width: 600px;
-            height: auto;
+            min-height: 300px;
             margin-top: 10px;
         }
 

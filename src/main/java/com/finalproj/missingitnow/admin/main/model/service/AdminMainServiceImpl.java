@@ -30,14 +30,11 @@ public class AdminMainServiceImpl implements AdminMainService {
 		datas.put("todayRegistUserCount", mapper.selectTodayRegistUserCount());
 		datas.put("unpurchasedUserCount", mapper.selectUnpurchasedUserCount());
 		datas.put("highRateRefundUserCount", mapper.selectHighRateRefundUserCount());
-		/* datas.put("reportedUserCount", mapper.selectReportedUserCount()); */
 		
 		// 기업회원 관련 데이터 셀렉
 		datas.put("totalCorpUserCount", mapper.selectTotalCorpUserCount());
 		datas.put("unacceptedCorpUserCount", mapper.selectUnacceptedCorpUserCount());
 		datas.put("todayRegistCorpUserCount", mapper.selectTodayRegistCorpUserCount());
-		/* datas.put("reportedCorpUserCount", mapper.selectReportedCorpUserCount()); */
-		datas.put("blackListCorpUserCount", mapper.selectBlackListCorpUserCount());
 		
 		// Q&A 관련 데이터 셀렉 
 		datas.put("totalQNACount", mapper.selectTotalQNACount());
@@ -62,7 +59,6 @@ public class AdminMainServiceImpl implements AdminMainService {
 		 
 		// 수수료 관련 데이터 셀렉 
 		datas.put("totalCommission", mapper.selectTotalCommission());
-		/* datas.put("commissionRate", mapper.selectCommissionRate()); */
 		datas.put("lastMonthCommission", mapper.selectLastMonthCommission());
 		datas.put("lastWeekCommission", mapper.selectLastWeekCommission());
 		datas.put("lastDayCommission", mapper.selectLastDayCommission());

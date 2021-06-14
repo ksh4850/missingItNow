@@ -112,7 +112,6 @@ public class AdminQNAController {
 			no = loginMember.getCorpNo();
 			
 		}
-		System.out.println(no);
 		SearchDTO search = new SearchDTO(null, condition, value);
 		
 		Map<String, Object> mapperMap = new HashMap<>();
@@ -121,7 +120,6 @@ public class AdminQNAController {
 		mapperMap.put("search", search);
 		
 		int totalCount = qnaService.selectTotalCount(mapperMap);
-		System.out.println(totalCount);
 		int limit = 10;
 
 		int buttonAmount = 10;
@@ -130,9 +128,6 @@ public class AdminQNAController {
 		search.setPageInfo(pageInfo);
 		
 		List<QNADTO> boardList = qnaService.selectList(mapperMap);
-		
-		System.out.println(boardList);
-		System.out.println(search);
 		
 		model.addAttribute("qnaList", boardList);
 		model.addAttribute("search", search);
@@ -151,11 +146,7 @@ public class AdminQNAController {
 	@PostMapping("/regist")
 	public String adminQNARegist(@ModelAttribute QNADTO qnaDTO, HttpServletRequest request, RedirectAttributes rttr) {
 		
-		System.out.println(qnaDTO);
-		
 		String no = null;
-		
-		System.out.println(request.getSession().getAttribute("loginMember"));
 		
 		if(request.getSession().getAttribute("loginMember") != null) {
 			
@@ -170,8 +161,6 @@ public class AdminQNAController {
 		}
 		
 		qnaDTO.setUserNo(no);
-		
-		System.out.println(qnaDTO);
 		
 		if(qnaService.insertQNA(qnaDTO)) {
 			
@@ -198,30 +187,24 @@ public class AdminQNAController {
 		String currentPage = request.getParameter("currentPage");
 		if(request.getParameter("searchWriteDateStart") != null && !"".equals(request.getParameter("searchWriteDateStart"))) {
 			searchWriteDateStart = java.sql.Date.valueOf(request.getParameter("searchWriteDateStart"));
-			System.out.println(searchWriteDateStart);
 		}
 		if(request.getParameter("searchWriteDateEnd") != null && !"".equals(request.getParameter("searchWriteDateEnd"))) {
 			searchWriteDateEnd = java.sql.Date.valueOf(request.getParameter("searchWriteDateEnd"));
-			System.out.println(searchWriteDateEnd);
 		}
 		if(searchValue == null || "".equals(searchValue)) {
 			searchValue = "";
 		}
 		if(smallSearchCondition == null || "".equals(smallSearchCondition)) {
 			smallSearchCondition = "id";
-			System.out.println(smallSearchCondition);
 		}
 		if(largeSearchCondition == null || "".equals(largeSearchCondition)) {
 			largeSearchCondition = "all";
-			System.out.println(smallSearchCondition);
 		}
 		int pageNo = 1;
 		if (currentPage != null && !"".equals(currentPage)) {
 
 			pageNo = Integer.valueOf(currentPage);
 			
-			System.out.println("pageNo : " + pageNo);
-
 			if (pageNo < 1) {
 
 				pageNo = 1;
@@ -232,8 +215,6 @@ public class AdminQNAController {
 
 		int totalCount = qnaService.selectSearchTotalCount(search);
 		
-		System.out.println("totalCount : " + totalCount);
-		
 		int limit = 10;
 
 		int buttonAmount = 10;
@@ -242,9 +223,6 @@ public class AdminQNAController {
 		search.setPageInfo(pageInfo);
 		
 		List<QNADTO> boardList = qnaService.selectAllList(search);
-		
-		System.out.println(boardList);
-		System.out.println(search);
 		
 		model.addAttribute("qnaList", boardList);
 		model.addAttribute("search", search);
@@ -269,8 +247,6 @@ public class AdminQNAController {
 		
 		String message = null;
 		
-		System.out.println(qnaDTO);
-		
 		if(qnaService.updateResponse(qnaDTO) == 2) {
 			
 			message = "답변 작성에 성공하셨습니다.";
@@ -289,8 +265,6 @@ public class AdminQNAController {
 	
 	@GetMapping("/detail")
 	public String adminQNADetail(HttpServletRequest request, Model model) {
-		
-		System.out.println(request.getParameter("qnaNo"));
 		
 		String no = request.getParameter("qnaNo");
 		
@@ -354,12 +328,8 @@ public class AdminQNAController {
 	public void maltiFileUploadAjax(
 			@ModelAttribute List<MultipartFile> uploadFiles,
 			HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println(uploadFiles);
-
 		/* 경로 설정 */
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		
-		System.out.println(root);
 		
 		String path = root + "\\uploadFiles";
 		

@@ -22,7 +22,7 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 	
 	@Override
-	public int deleteNTC(int no) {
+	public int deleteNTC(String no) {
 
 		return mapper.deleteNTC(no);
 		
@@ -31,7 +31,7 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public NoticeDTO updateNTC(NoticeDTO ntcDTO) {
 
-		int no = Integer.valueOf(ntcDTO.getNo());
+		String no = ntcDTO.getNo();
 		
 		NoticeDTO ntc = null;
 		
@@ -46,7 +46,7 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public NoticeDTO selectDetail(int no) {
+	public NoticeDTO selectDetail(String no) {
 
 		NoticeDTO ntc = null;
 		if(mapper.increamentBoardCount(no) == 1) {

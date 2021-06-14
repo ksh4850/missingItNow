@@ -265,7 +265,7 @@
         <div class="system-qnaDetail-form">
         <form action="${pageContext.request.contextPath}/admin/qna/regist" method="post">
             <label for="">Q&amp;A 제목</label><br>
-            <input type="text" name="title" class="title">
+            <input type="text" name="title" id="title">
             <br>
             <label for="">Q&amp;A 내용</label>
             <br>
@@ -469,8 +469,7 @@
 		});
     	
     	$("#qnaSubmit").click(function(){
-       	 if($("#detail").val() == "" || $(".title").val() == ""){
-       		 
+       	 if($("#detail").html() == "" || $("#title").val() == ""){
        		 alert("제목 혹은 내용이 비어있습니다!");
        		 return false;
        		 
@@ -483,7 +482,7 @@
        	var originNameArr = new Array() ;
       	 $(".detailImg").filter(function(){
       		var reName = $(this).attr("src");
-      		 var originName = $(this).attr("data-filename"); 
+      		 var originName = $(this).attr("data-filename");
       		var re = reName.substring(reName.lastIndexOf("/"));
       		
       		
@@ -491,8 +490,6 @@
       		 originNameArr.push(originName);    
         }) 
         
-	     	console.log(reNameArr);
-	     	 console.log(originNameArr); 
        	 
        	  $("#reName").val(reNameArr);
        	  $("#originName").val(originNameArr); 
@@ -501,12 +498,14 @@
        		$("#communtyRegist").submit();
        	  }else{
        		  alert("사진을 등록해주세요");
+       		  return false;
        	  }
+       	  
        	  
        	 
        	 
 
-        })
+        });
         
         $("#tt").click(function(){
         	
@@ -520,10 +519,8 @@
            		arr.push(re.substring(1));         
              }) 
              
-          console.log(arr);
            	 
            	 $("#imgName").val(arr);
-           	 console.log($("#imgName").val());
         })
         
         
@@ -578,30 +575,17 @@
 				    	const $img = $(this); 
 				    	const imgsrc =  $img.attr('src');
 				    	
-				    	console.log(imgsrc);
 				    	
 				    	arrImg1.unshift(imgsrc);
-				    	
-				    	console.log(arrImg1);
-				    	
-				    	
-				    		
 				    	
 		            	 var isTrue = false;
 		            	 
 		            	 x = e.pageX;
 		                 y = e.pageY; 
 		                 
-		                 
 		                 $("#imgMenuBar").css('top',y).css('left',x).css('display','inline-block'); 
-		                 
- 						
-				    	
 				             
 				    });
-    		
-    		
-    		
     		
     		$('.communty-regist-datail').click(function(){
     			$("#imgMenuBar").css('top','0').css('left','0').css('display','none');
@@ -706,19 +690,11 @@
     		                return $(this).attr("src") == reName;          
     		       }).parent().remove(); 
     		        
-    		         
-    	            
-    	    		 console.log(reName);
-    	    		
-    	    	
-    	    		 
     	            $.ajax({
     	           	 type:"GET",
     	         	   	  url: "${ pageContext.servletContext.contextPath}/communty/ajaxDelete",
     	         	      data: {reName:reName},
     	         	   success:function(data){
-    	         		   
-    	         		   console.log(data);
     	         		   
     	         		  var length =  $(".thumbImg").length;
     	         		  

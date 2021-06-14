@@ -130,15 +130,10 @@ public class MemberManageController {
 		DetailSearchDTO search = new DetailSearchDTO(null, searchWriteDateStart, searchWriteDateEnd, largeSearchCondition, smallSearchCondition, searchValue);
 		
 		Map<String, Object> orderSearch = new HashMap<>();
-		System.out.println(request.getParameter("no"));
 		orderSearch.put("no", request.getParameter("no"));
 		orderSearch.put("search", search);
 		
-		System.out.println(orderSearch);
-		
 		int totalCount = memberService.selectOrderTotalCount(orderSearch);
-		
-		System.out.println(totalCount);
 		
 		int limit = 10;
 
@@ -148,8 +143,6 @@ public class MemberManageController {
 		search.setPageInfo(pageInfo);
 
 		List<OrderDTO> orderList = memberService.selectOrderList(orderSearch);
-		
-		System.out.println(orderList);
 		
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("orderSearch", orderSearch);
