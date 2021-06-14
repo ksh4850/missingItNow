@@ -232,7 +232,7 @@
          	<tr><td><br><br></td></tr>
          	<tr>
          		<td align="center">
-         			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="paymentBtn" type="button" onclick="${pageContext.servletContext.contextPath}/">상품 보러가기</button>
+         			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="paymentBtn" type="button" onclick="location.href='${pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0001'">상품 보러가기</button>
          		</td>
          	</tr>
          	
