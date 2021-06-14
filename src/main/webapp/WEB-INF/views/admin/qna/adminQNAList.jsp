@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin_main.css">
     <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
 
     <style>
@@ -93,13 +92,9 @@
 <body>
 
     <header>
-		<jsp:include page="../../common/corpMngHeader.jsp"/>
+    	<jsp:include page="../../common/header.jsp"/>
     </header>
-	<div style="overflow:hidden; display: flex;">
-    <aside>
-		<jsp:include page="../../common/corpMngNavi.jsp"/>
-    </aside>
-    <section>
+    <section style="margin-bottom: 100px; padding-top: 100px;">
         <div class="system-qnaList-list">
 	        <div class="system-qnaList-head">Q&amp;A 리스트</div>
 	        <br>
@@ -155,7 +150,6 @@
 	        </div>
         </div>
     </section>
-	</div>
 	<footer>
 		<jsp:include page="../../common/footer.jsp"/>
 	</footer>

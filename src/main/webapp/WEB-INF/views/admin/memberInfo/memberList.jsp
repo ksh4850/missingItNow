@@ -162,7 +162,7 @@
         	<label>가입일 : </label>
         	<input type="date" id="searchWriteDateStart" name="searchWriteDateStart" value=<c:if test="${ search.searchWriteDateStart ne null }">"${ search.searchWriteDateStart }"</c:if>> ~
             <input type="date" id="searchWriteDateEnd" name="searchWriteDateEnd" value=<c:if test="${ search.searchWriteDateEnd ne null }">"${ search.searchWriteDateEnd }"</c:if>>
-            <select name="largeSearchCondition" style="margin-left: 500px;">
+            <select name="largeSearchCondition" style="margin-left:470px;">
                 <option value="all" <c:if test="${ search.largeSearchCondition eq 'all' }">selected</c:if>>전체</option>
                 <option value="active" <c:if test="${ search.largeSearchCondition eq 'active' }">selected</c:if>>일반회원</option>
                 <option value="leave" <c:if test="${ search.largeSearchCondition eq 'leave' }">selected</c:if>>탈퇴회원</option>

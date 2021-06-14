@@ -276,7 +276,7 @@
 	    INSERT
 	      INTO TBL_QNA A
 	    (
-	      A.QNA_NO
+	         A.QNA_NO
 	       , A.USER_NO
 	       , A.QNA_TITLE
 	       , A.QNA_DETAILS
@@ -288,8 +288,8 @@
 	    )
 	    VALUES
 	    (
-	      SEQ_QNA.NEXTVAL
-	    , 1
+	      'QNAN' || LPAD(SEQ_QNA.NEXTVAL,4,0)
+	    , #{ userNo }
 	    , #{ title }
 	    , #{ details }
 	    , SYSDATE

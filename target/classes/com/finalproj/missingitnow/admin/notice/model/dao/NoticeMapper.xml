@@ -63,7 +63,7 @@
 	    )
 	    VALUES
 	    (
-	      SEQ_NOTICE.NEXTVAL
+	      'NOTI' || LPAD(SEQ_NOTICE.NEXTVAL,4,0)
 	    , #{ title }
 	    , #{ details }
 	    , SYSDATE

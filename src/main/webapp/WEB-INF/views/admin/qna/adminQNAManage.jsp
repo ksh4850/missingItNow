@@ -244,7 +244,7 @@
 			
 			$btns[i].onclick = function(){
 				
-				const no = this.parentNode.parentNode.children[0].innerText;
+				const no = this.parentNode.parentNode.children[0].children[0].value;
 
 				location.href = responseLink + "?no=" + no;
 				

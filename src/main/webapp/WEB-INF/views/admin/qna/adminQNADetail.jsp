@@ -6,11 +6,24 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin_main.css">
-
+	<script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
+	
     <style>
-          .system-qnaDetail-head{
-            margin-left: 20px;
+    	section{
+    	
+    		padding-top: 100px;
+    		margin-bottom: 100px;
+    	
+    	}
+    
+    	.wrap-detail{
+    	
+    		margin: 0 auto;
+    		width: 605px;
+    	
+    	}
+    	
+        .system-qnaDetail-head{
             font-size: 30px;
             padding: 15px;
             border-bottom: 2px solid rgb(119, 94, 238) ;
@@ -21,7 +34,6 @@
         .system-qnaDetail-form{
             
             margin-top: 30px;
-            margin-left: 500px;
         }
 
         .system-qnaDetail-form label{
@@ -45,7 +57,7 @@
         .system-qnaDetail-detail{
             border: 2px solid rgb(119, 94, 238);
             width: 600px;
-            height: 600px;
+            height: auto;
             margin-top: 10px;
         }
 
@@ -68,14 +80,12 @@
 </head>
 <body>
     <header>
-		<jsp:include page="../../common/corpMngHeader.jsp"/>
+		<jsp:include page="../../common/header.jsp"/>
     </header>
 
-    <aside>
-		<jsp:include page="../../common/corpMngNavi.jsp"/>
-    </aside>
     <section>
-        <div class="system-qnaDetail-head">Q&amp;A 작성하기</div>
+    	<div class="wrap-detail">
+        <div class="system-qnaDetail-head">Q&amp;A 상세</div>
         <br>
 
         <form class="system-qnaDetail-form" action="${pageContext.request.contextPath}/admin/qna/update" method="get">
@@ -91,14 +101,15 @@
             <div class="system-qnaDetail-detail">
             	${ qna.details }
             </div>
-            <input type="hidden" name="details" value="${ qna.details }">
+            <input type="hidden" name="details" value='${ qna.details }'>
             <br>
-	        <div class="system-qnaDetail-bottom">
+	        <div class="system-qnaDetail-bottom" style="border: none;">
 	            <input type="submit" id="updateButton" value="수정">
 	            <input type="button" id="deleteButton" value="삭제">
 	            <input type="button" id="returnButton" value="목록으로">
 	        </div>
         </form>
+        </div>
     </section>
 <script>
 	$("#deleteButton").click(function(){

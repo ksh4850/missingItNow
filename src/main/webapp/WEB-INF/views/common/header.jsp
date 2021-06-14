@@ -148,6 +148,11 @@
                                         <div class="category-title-style">커뮤니티</div>
                                     </li>
                                 </a>
+                                 <a href="${ pageContext.servletContext.contextPath}/admin/qna/list">
+                                    <li class="category-title">
+                                        <div class="category-title-style">Q&amp;A</div>
+                                    </li>
+                                </a>
                             </ul>
                         </div>
 
