@@ -48,7 +48,7 @@
     <div id="wrap">
 <jsp:include page="../common/header.jsp"/>
 
-	<form name="cartPaging">
+	<form name="goCartPaging">
 		
 		 <input type="hidden" name="userNo" value="${loginMember.userNo}">
 		 
