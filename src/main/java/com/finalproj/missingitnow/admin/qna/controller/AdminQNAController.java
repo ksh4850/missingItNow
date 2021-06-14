@@ -152,7 +152,26 @@ public class AdminQNAController {
 	public String adminQNARegist(@ModelAttribute QNADTO qnaDTO, HttpServletRequest request, RedirectAttributes rttr) {
 		
 		System.out.println(qnaDTO);
-		/* HttpSession session = request.getSession().getAttribute("loginMember"); */
+		
+		String no = null;
+		
+		System.out.println(request.getSession().getAttribute("loginMember"));
+		
+		if(request.getSession().getAttribute("loginMember") != null) {
+			
+			PrivateMemberDTO loginMember = (PrivateMemberDTO)request.getSession().getAttribute("loginMember");
+			no = loginMember.getUserNo();
+			
+		} else if(request.getSession().getAttribute("CorpUserSession") != null) {
+			
+			CorpUserDTO loginMember = (CorpUserDTO)request.getSession().getAttribute("CorpUserSession");
+			no = loginMember.getCorpNo();
+			
+		}
+		
+		qnaDTO.setUserNo(no);
+		
+		System.out.println(qnaDTO);
 		
 		if(qnaService.insertQNA(qnaDTO)) {
 			
@@ -383,8 +402,7 @@ public class AdminQNAController {
 			}
 			
 		} catch (IllegalStateException | IOException e) {
-			
-			e.printStackTrace();
+						e.printStackTrace();
 			
 			/* 실패시 파일 삭제 */
 			for(int i = 0 ; i < uploadFiles.size() ; i++) {
