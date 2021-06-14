@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +49,7 @@
     <div id="wrap">
 <jsp:include page="../common/header.jsp"/>
 
-	<form name="goCartPaging">
+	<form name="cartPaging">
 		
 		 <input type="hidden" name="userNo" value="${loginMember.userNo}">
 		 
@@ -194,11 +195,14 @@
                                             <h3><%= count %></h3>
                                             <% count += 1; %>
                                         </div>
+                                        	<a href="${ pageContext.servletContext.contextPath}/product/product?prodNo=${ List.product.prodNo }&corpNo=${ List.product.corpNo }">
                                             <div class="img-wrap">
-                                            <img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/${ List.prodImgRename }" alt="">
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/${ List.productImg.prodImgRename }" alt="">
                                             </div>
-                                            <p><c:out value="${ List.prodName }" /></p>
-                                            <span>제품가격<h4><c:out value="${ List.prodPrice }" />원</h4></span>
+                                            </a>
+                                            <p><c:out value="${ List.product.prodName }" /></p>
+                                            <span>제품가격<h4><fmt:formatNumber type="number" maxFractionDigits="3" value="${ List.product.prodPrice }"/>원</h4></span>
+                                    	
                                     </li>
                                     </c:forEach>
                                 </ul>
@@ -424,11 +428,11 @@
                             <ul class="box-container cf">
                            		<c:forEach var="List" items="${ allproductTotSix }">
                                 <li class="box-content">
-                           		<a href="${ pageContext.servletContext.contextPath}/product/product?prodNo=<c:out value="${ List.prodNo }"/>&corpNo=<c:out value="${ List.corpNo }"/>">
+                           		<a href="${ pageContext.servletContext.contextPath}/product/product?prodNo=<c:out value="${ List.product.prodNo }"/>&corpNo=<c:out value="${ List.product.corpNo }"/>">
                                     <div class="container-wrap">
                                         <div class="img-wrap">
                                             <div class="img">
-                                            	<img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ List.prodImgRename }"/>" alt="">
+                                            	<img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/<c:out value="${ List.productImg.prodImgRename }"/>" alt="">
                                             </div>
                                         </div>
                                        <!--  <div class="halin">
@@ -436,13 +440,13 @@
                                         </div> -->
                                         <div class="text-wrap">
                                             <div class="text-gap">
-                                                <h3><c:out value="${ List.prodName }"/></h3>
-                                                <div class="cf"><h3>할인가</h3> <p>9900</p> <h4>원가</h4><h5><c:out value="${ List.prodPrice }"/>원</h5></div>
+                                                <h3><c:out value="${ List.product.prodName }"/></h3>
+                                                <div class="cf"><h3>할인가</h3> <p>999</p> <h4>원가</h4><h5><c:out value="${ List.product.prodPrice }"/>원</h5></div>
                                                 <!-- <span>51.436개 구매</span> -->
                                             </div>
                                         </div>
                                         <div class="bottom-info">
-                                            <p><c:out value="${ List.prodDetails }"/></p>
+                                            <p><c:out value="${ List.product.prodDetails }"/></p>
                                         </div>
                                     </div>
                                 </a>
@@ -472,29 +476,31 @@
                 $ul.html("");
 
                 for (var index in data) {
+                	var price = AddComma(data[index].product.prodPrice);
+                	var prodDiscountRate = data[index].product.prodDiscountRate / 100;
+        			var salePrice2 =  data[index].product.prodPrice * ( 1 - prodDiscountRate);
+                	var sale = AddComma(Math.round(salePrice2));
                     $li = $("<li>").attr("class", "box-content");
                 	
-                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].product.prodNo + "&corpNo=" + data[index].product.corpNo);
 
                     $containerWrap = $("<div>").attr("class", "container-wrap");
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
-					
-                   
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].productImg.prodImgRename);
 					
                     $textWrap = $("<div>").attr("class", "text-wrap");
                     $textGap = $("<div>").attr("class", "text-gap");
-                    $prodName = $("<h3>").text(data[index].prodName);
+                    $prodName = $("<h3>").text(data[index].product.prodName);
                     $cf = $("<div>").attr("class", "cf");
                     $prodSale = $("<h3>").text("할인가");
-                    $prodSalePrice = $("<p>").text("9900");
+                    $prodSalePrice = $("<p>").text(AddComma(sale));
                     $h4 = $("<h4>").text("원가");
-                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    $h5 = $("<h5>").text(AddComma(data[index].product.prodPrice));
                     
                     $bottomInfo = $("<div>").attr("class", "bottom-info");
-                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    $prodDetails = $("<p>").text(data[index].product.prodDetails);
                     
                     $img.append($images);
                     $imgwrap.append($img);
@@ -538,29 +544,31 @@
                 $ul.html("");
 
                 for (var index in data) {
+                	var price = AddComma(data[index].product.prodPrice);
+                	var prodDiscountRate = data[index].product.prodDiscountRate / 100;
+        			var salePrice2 =  data[index].product.prodPrice * ( 1 - prodDiscountRate);
+                	var sale = AddComma(Math.round(salePrice2));
                     $li = $("<li>").attr("class", "box-content");
                 	
-                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].product.prodNo + "&corpNo=" + data[index].product.corpNo);
 
                     $containerWrap = $("<div>").attr("class", "container-wrap");
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
-					
-                   
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].productImg.prodImgRename);
 					
                     $textWrap = $("<div>").attr("class", "text-wrap");
                     $textGap = $("<div>").attr("class", "text-gap");
-                    $prodName = $("<h3>").text(data[index].prodName);
+                    $prodName = $("<h3>").text(data[index].product.prodName);
                     $cf = $("<div>").attr("class", "cf");
                     $prodSale = $("<h3>").text("할인가");
-                    $prodSalePrice = $("<p>").text("9900");
+                    $prodSalePrice = $("<p>").text(AddComma(sale));
                     $h4 = $("<h4>").text("원가");
-                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    $h5 = $("<h5>").text(AddComma(data[index].product.prodPrice));
                     
                     $bottomInfo = $("<div>").attr("class", "bottom-info");
-                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    $prodDetails = $("<p>").text(data[index].product.prodDetails);
                     
                     $img.append($images);
                     $imgwrap.append($img);
@@ -604,29 +612,31 @@
                 $ul.html("");
 
                 for (var index in data) {
+                	var price = AddComma(data[index].product.prodPrice);
+                	var prodDiscountRate = data[index].product.prodDiscountRate / 100;
+        			var salePrice2 =  data[index].product.prodPrice * ( 1 - prodDiscountRate);
+                	var sale = AddComma(Math.round(salePrice2));
                     $li = $("<li>").attr("class", "box-content");
                 	
-                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].product.prodNo + "&corpNo=" + data[index].product.corpNo);
 
                     $containerWrap = $("<div>").attr("class", "container-wrap");
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
-					
-                   
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].productImg.prodImgRename);
 					
                     $textWrap = $("<div>").attr("class", "text-wrap");
                     $textGap = $("<div>").attr("class", "text-gap");
-                    $prodName = $("<h3>").text(data[index].prodName);
+                    $prodName = $("<h3>").text(data[index].product.prodName);
                     $cf = $("<div>").attr("class", "cf");
                     $prodSale = $("<h3>").text("할인가");
-                    $prodSalePrice = $("<p>").text("9900");
+                    $prodSalePrice = $("<p>").text(AddComma(sale));
                     $h4 = $("<h4>").text("원가");
-                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    $h5 = $("<h5>").text(AddComma(data[index].product.prodPrice));
                     
                     $bottomInfo = $("<div>").attr("class", "bottom-info");
-                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    $prodDetails = $("<p>").text(data[index].product.prodDetails);
                     
                     $img.append($images);
                     $imgwrap.append($img);
@@ -670,29 +680,31 @@
                 $ul.html("");
 
                 for (var index in data) {
+                	var price = AddComma(data[index].product.prodPrice);
+                	var prodDiscountRate = data[index].product.prodDiscountRate / 100;
+        			var salePrice2 =  data[index].product.prodPrice * ( 1 - prodDiscountRate);
+                	var sale = AddComma(Math.round(salePrice2));
                     $li = $("<li>").attr("class", "box-content");
                 	
-                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].product.prodNo + "&corpNo=" + data[index].product.corpNo);
 
                     $containerWrap = $("<div>").attr("class", "container-wrap");
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
-					
-                   
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].productImg.prodImgRename);
 					
                     $textWrap = $("<div>").attr("class", "text-wrap");
                     $textGap = $("<div>").attr("class", "text-gap");
-                    $prodName = $("<h3>").text(data[index].prodName);
+                    $prodName = $("<h3>").text(data[index].product.prodName);
                     $cf = $("<div>").attr("class", "cf");
                     $prodSale = $("<h3>").text("할인가");
-                    $prodSalePrice = $("<p>").text("9900");
+                    $prodSalePrice = $("<p>").text(AddComma(sale));
                     $h4 = $("<h4>").text("원가");
-                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    $h5 = $("<h5>").text(AddComma(data[index].product.prodPrice));
                     
                     $bottomInfo = $("<div>").attr("class", "bottom-info");
-                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    $prodDetails = $("<p>").text(data[index].product.prodDetails);
                     
                     $img.append($images);
                     $imgwrap.append($img);
@@ -736,29 +748,31 @@
                 $ul.html("");
 
                 for (var index in data) {
+                	var price = AddComma(data[index].product.prodPrice);
+                	var prodDiscountRate = data[index].product.prodDiscountRate / 100;
+        			var salePrice2 =  data[index].product.prodPrice * ( 1 - prodDiscountRate);
+                	var sale = AddComma(Math.round(salePrice2));
                     $li = $("<li>").attr("class", "box-content");
                 	
-                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].product.prodNo + "&corpNo=" + data[index].product.corpNo);
 
                     $containerWrap = $("<div>").attr("class", "container-wrap");
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
-					
-                   
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].productImg.prodImgRename);
 					
                     $textWrap = $("<div>").attr("class", "text-wrap");
                     $textGap = $("<div>").attr("class", "text-gap");
-                    $prodName = $("<h3>").text(data[index].prodName);
+                    $prodName = $("<h3>").text(data[index].product.prodName);
                     $cf = $("<div>").attr("class", "cf");
                     $prodSale = $("<h3>").text("할인가");
-                    $prodSalePrice = $("<p>").text("9900");
+                    $prodSalePrice = $("<p>").text(AddComma(sale));
                     $h4 = $("<h4>").text("원가");
-                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    $h5 = $("<h5>").text(AddComma(data[index].product.prodPrice));
                     
                     $bottomInfo = $("<div>").attr("class", "bottom-info");
-                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    $prodDetails = $("<p>").text(data[index].product.prodDetails);
                     
                     $img.append($images);
                     $imgwrap.append($img);
@@ -802,29 +816,31 @@
                 $ul.html("");
 
                 for (var index in data) {
+                	var price = AddComma(data[index].product.prodPrice);
+                	var prodDiscountRate = data[index].product.prodDiscountRate / 100;
+        			var salePrice2 =  data[index].product.prodPrice * ( 1 - prodDiscountRate);
+                	var sale = AddComma(Math.round(salePrice2));
                     $li = $("<li>").attr("class", "box-content");
                 	
-                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].product.prodNo + "&corpNo=" + data[index].product.corpNo);
 
                     $containerWrap = $("<div>").attr("class", "container-wrap");
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
-					
-                   
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].productImg.prodImgRename);
 					
                     $textWrap = $("<div>").attr("class", "text-wrap");
                     $textGap = $("<div>").attr("class", "text-gap");
-                    $prodName = $("<h3>").text(data[index].prodName);
+                    $prodName = $("<h3>").text(data[index].product.prodName);
                     $cf = $("<div>").attr("class", "cf");
                     $prodSale = $("<h3>").text("할인가");
-                    $prodSalePrice = $("<p>").text("9900");
+                    $prodSalePrice = $("<p>").text(AddComma(sale));
                     $h4 = $("<h4>").text("원가");
-                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    $h5 = $("<h5>").text(AddComma(data[index].product.prodPrice));
                     
                     $bottomInfo = $("<div>").attr("class", "bottom-info");
-                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    $prodDetails = $("<p>").text(data[index].product.prodDetails);
                     
                     $img.append($images);
                     $imgwrap.append($img);
@@ -868,29 +884,31 @@
                 $ul.html("");
 
                 for (var index in data) {
+                	var price = AddComma(data[index].product.prodPrice);
+                	var prodDiscountRate = data[index].product.prodDiscountRate / 100;
+        			var salePrice2 =  data[index].product.prodPrice * ( 1 - prodDiscountRate);
+                	var sale = AddComma(Math.round(salePrice2));
                     $li = $("<li>").attr("class", "box-content");
                 	
-                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].product.prodNo + "&corpNo=" + data[index].product.corpNo);
 
                     $containerWrap = $("<div>").attr("class", "container-wrap");
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
-					
-                   
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].productImg.prodImgRename);
 					
                     $textWrap = $("<div>").attr("class", "text-wrap");
                     $textGap = $("<div>").attr("class", "text-gap");
-                    $prodName = $("<h3>").text(data[index].prodName);
+                    $prodName = $("<h3>").text(data[index].product.prodName);
                     $cf = $("<div>").attr("class", "cf");
                     $prodSale = $("<h3>").text("할인가");
-                    $prodSalePrice = $("<p>").text("9900");
+                    $prodSalePrice = $("<p>").text(AddComma(sale));
                     $h4 = $("<h4>").text("원가");
-                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    $h5 = $("<h5>").text(AddComma(data[index].product.prodPrice));
                     
                     $bottomInfo = $("<div>").attr("class", "bottom-info");
-                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    $prodDetails = $("<p>").text(data[index].product.prodDetails);
                     
                     $img.append($images);
                     $imgwrap.append($img);
@@ -934,29 +952,31 @@
                 $ul.html("");
 
                 for (var index in data) {
+                	var price = AddComma(data[index].product.prodPrice);
+                	var prodDiscountRate = data[index].product.prodDiscountRate / 100;
+        			var salePrice2 =  data[index].product.prodPrice * ( 1 - prodDiscountRate);
+                	var sale = AddComma(Math.round(salePrice2));
                     $li = $("<li>").attr("class", "box-content");
                 	
-                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].product.prodNo + "&corpNo=" + data[index].product.corpNo);
 
                     $containerWrap = $("<div>").attr("class", "container-wrap");
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
-					
-                   
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].productImg.prodImgRename);
 					
                     $textWrap = $("<div>").attr("class", "text-wrap");
                     $textGap = $("<div>").attr("class", "text-gap");
-                    $prodName = $("<h3>").text(data[index].prodName);
+                    $prodName = $("<h3>").text(data[index].product.prodName);
                     $cf = $("<div>").attr("class", "cf");
                     $prodSale = $("<h3>").text("할인가");
-                    $prodSalePrice = $("<p>").text("9900");
+                    $prodSalePrice = $("<p>").text(AddComma(sale));
                     $h4 = $("<h4>").text("원가");
-                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    $h5 = $("<h5>").text(AddComma(data[index].product.prodPrice));
                     
                     $bottomInfo = $("<div>").attr("class", "bottom-info");
-                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    $prodDetails = $("<p>").text(data[index].product.prodDetails);
                     
                     $img.append($images);
                     $imgwrap.append($img);
@@ -1000,29 +1020,31 @@
                 $ul.html("");
 
                 for (var index in data) {
+                	var price = AddComma(data[index].product.prodPrice);
+                	var prodDiscountRate = data[index].product.prodDiscountRate / 100;
+        			var salePrice2 =  data[index].product.prodPrice * ( 1 - prodDiscountRate);
+                	var sale = AddComma(Math.round(salePrice2));
                     $li = $("<li>").attr("class", "box-content");
                 	
-                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].product.prodNo + "&corpNo=" + data[index].product.corpNo);
 
                     $containerWrap = $("<div>").attr("class", "container-wrap");
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
-					
-                   
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].productImg.prodImgRename);
 					
                     $textWrap = $("<div>").attr("class", "text-wrap");
                     $textGap = $("<div>").attr("class", "text-gap");
-                    $prodName = $("<h3>").text(data[index].prodName);
+                    $prodName = $("<h3>").text(data[index].product.prodName);
                     $cf = $("<div>").attr("class", "cf");
                     $prodSale = $("<h3>").text("할인가");
-                    $prodSalePrice = $("<p>").text("9900");
+                    $prodSalePrice = $("<p>").text(AddComma(sale));
                     $h4 = $("<h4>").text("원가");
-                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    $h5 = $("<h5>").text(AddComma(data[index].product.prodPrice));
                     
                     $bottomInfo = $("<div>").attr("class", "bottom-info");
-                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    $prodDetails = $("<p>").text(data[index].product.prodDetails);
                     
                     $img.append($images);
                     $imgwrap.append($img);
@@ -1066,29 +1088,31 @@
                 $ul.html("");
 
                 for (var index in data) {
+                	var price = AddComma(data[index].product.prodPrice);
+                	var prodDiscountRate = data[index].product.prodDiscountRate / 100;
+        			var salePrice2 =  data[index].product.prodPrice * ( 1 - prodDiscountRate);
+                	var sale = AddComma(Math.round(salePrice2));
                     $li = $("<li>").attr("class", "box-content");
                 	
-                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].prodNo + "&corpNo=" + data[index].corpNo);
+                    $link = $("<a>").attr("href", "${ pageContext.servletContext.contextPath}/product/product?prodNo=" + data[index].product.prodNo + "&corpNo=" + data[index].product.corpNo);
 
                     $containerWrap = $("<div>").attr("class", "container-wrap");
                     
                     $imgwrap = $("<div>").attr("class", "img-wrap");
                     $img = $("<div>").attr("class", "img");
-                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].prodImgRename);
-					
-                   
+                    $images = $("<img>").attr("src", "${ pageContext.servletContext.contextPath }/resources/uploadFiles/" + data[index].productImg.prodImgRename);
 					
                     $textWrap = $("<div>").attr("class", "text-wrap");
                     $textGap = $("<div>").attr("class", "text-gap");
-                    $prodName = $("<h3>").text(data[index].prodName);
+                    $prodName = $("<h3>").text(data[index].product.prodName);
                     $cf = $("<div>").attr("class", "cf");
                     $prodSale = $("<h3>").text("할인가");
-                    $prodSalePrice = $("<p>").text("9900");
+                    $prodSalePrice = $("<p>").text(AddComma(sale));
                     $h4 = $("<h4>").text("원가");
-                    $h5 = $("<h5>").text(data[index].prodPrice);
+                    $h5 = $("<h5>").text(AddComma(data[index].product.prodPrice));
                     
                     $bottomInfo = $("<div>").attr("class", "bottom-info");
-                    $prodDetails = $("<p>").text(data[index].prodDetails);
+                    $prodDetails = $("<p>").text(data[index].product.prodDetails);
                     
                     $img.append($images);
                     $imgwrap.append($img);
@@ -1119,6 +1143,12 @@
             }
         });
     });
+    
+    function AddComma(num)
+    {
+    var regexp = /\B(?=(\d{3})+(?!\d))/g;
+    return num.toString().replace(regexp, ',');
+    }
     </script>
 </body>
 </html>
