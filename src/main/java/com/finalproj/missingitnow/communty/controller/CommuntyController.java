@@ -88,7 +88,7 @@ public class CommuntyController {
 	 
 	 	System.out.println("user" + user);
 		
-		post.setUser(user);
+//		post.setUser(user);
 		
 		post.setPostDate(new java.sql.Timestamp(System.currentTimeMillis()));
 		
@@ -180,7 +180,7 @@ public class CommuntyController {
 		
 		String deleteName = reName.substring(reName.lastIndexOf("/"));
 		
-		System.out.println(reName);
+//		System.out.println(reName);
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
@@ -230,7 +230,7 @@ public class CommuntyController {
 	@ResponseBody
 	public String getAjaxCommuntyList(@RequestParam int pageNo , HttpServletRequest request) {
 		
-		System.out.println("pageNo"+pageNo);
+//		System.out.println("pageNo"+pageNo);
 		
 		int startNum = (pageNo - 1 ) * 3 + 1;
 		int endNum = pageNo * 3;

@@ -896,40 +896,6 @@
     
        }
     
-       function pageBtn(page){
-    	  var $page = $(".pagingArea");
-    	  
-    	   $page.append('<button id="startPage"><<</button>');
-    	   
-    	   if(page.pageNo == 1){
-    		   $page.append('<button disabled><</button>');
-    	   }else if(page.pageNo > 0){
-    		   $page.append('<button id="prevPage"><</button>');
-    	   }
-    	   
-		  
-		   for(var i = 0 ; i < page.pageNo ; i++ ){
-			  
-			   if( i+1 == 1 ){
-				   
-     				$page.append('<button disabled>1</button>');
-     				   
-     			}else{
-     				$page.append('<button onclick="pageButtonAction(this.innerText);">'+ (i+1) +'</button>');
-     			}
-		   }
-		   
-		 
-		   
-		   if(page.pageNo == pageNo.maxPage){
-			   $page.append('<button disabled>></button>');
-		   }else if(page.pageNo < page.maxPage){
-			   $page.append('<button id="nextPage">></button>');
-		   }
-		  
-		   $page.append('<button id="maxPage">>></button>');
-       } 
-       
         
        // 댓글 append function
        function comment(data){
@@ -1102,7 +1068,7 @@
 	  	 
 	  	
 	  })
-	  
+	  //에작스 댓글 불러오기
 	   function commentList(){
     	 
     	  var postNo = "${post.postNo}"; 
@@ -1125,7 +1091,7 @@
     	 
      } 
      
-     
+     //ajax 페이징 버튼 추가
      function pageBtn(page){
     	   $('.pagingArea').html("");
     	   $pageInfo = $('.pagingArea');
@@ -1173,7 +1139,7 @@
 	   }
     	 
      
-     
+		
 	   
 	  
     

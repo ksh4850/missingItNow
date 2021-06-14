@@ -296,7 +296,7 @@
 			  
 
             <div class="communty-regist-btn">
-                <input type="button" name="" id="tt" value="등록취소">
+                <input type="button" name="" id="postCan" value="등록취소">
                 <input type="button" name="" id="postSubmit" value="등록하기">
             </div>
 
@@ -468,12 +468,12 @@
       		var re = reName.substring(reName.lastIndexOf("/"));
       		
       		
-      		reNameArr.push(re.substring(1));         
-      		 originNameArr.push(originName);    
-        }) 
+/*       		reNameArr.push(re.substring(1));         
+      		 originNameArr.push(originName);     */
+        	}) 
         
-	     	console.log(reNameArr);
-	     	 console.log(originNameArr); 
+/* 	     	console.log(reNameArr);
+	     	 console.log(originNameArr);  */
        	 
        	  $("#reName").val(reNameArr);
        	  $("#originName").val(originNameArr); 
@@ -489,23 +489,25 @@
 
         })
         
-        $("#tt").click(function(){
+        $("#postCan").click(function(){
         	
-			
-        	 /* originFileName.substring(originFileName.lastIndexOf(".")) */
-        	 
-        	 var arr = new Array() ;
-           	 $(".detailImg").filter(function(){
-           		var i = $(this).attr("src");
-           		var re = i.substring(i.lastIndexOf("/"));
-           		
-           		arr.push(re.substring(1));         
-             }) 
-             
-          console.log(arr);
-           	 
-           	 $("#imgName").val(arr);
-           	 console.log($("#imgName").val());
+        	 var thumbImgArr = new Array();         	         			
+			 var thumbImgLength =  $(".thumbImg").length;
+			 
+			 console.log(thumbImgLength)
+			 
+			 
+			 for(var i = 0 ; i < thumbImgLength ; i++){
+				 thumbImgArr.push( $('.thumbImg').eq(i).attr('src') );
+  			}
+			 
+			  for(i = 0 ; i < thumbImgLength ; i++){
+				 keyImgDelete(thumbImgArr[i]);
+			 } 
+				
+				
+			location.href="${ pageContext.servletContext.contextPath}/communty/communtyList";	
+        	
         })
         
         
@@ -560,11 +562,11 @@
 				    	const $img = $(this); 
 				    	const imgsrc =  $img.attr('src');
 				    	
-				    	console.log(imgsrc);
+				    	/* console.log(imgsrc); */
 				    	
 				    	arrImg1.unshift(imgsrc);
 				    	
-				    	console.log(arrImg1);
+				    	/* console.log(arrImg1); */
 				    	
 				    	
 				    		
@@ -584,12 +586,12 @@
     		
     		
     		
-    		
+    		//이미지 매뉴바 다른대 누르면 닫기
     		$('.communty-regist-datail').click(function(){
     			$("#imgMenuBar").css('top','0').css('left','0').css('display','none');
     		})
     		
-    		
+    		//이미지 매뉴바 왼쪽정렬
     		$("#imgMenuLeft").click(function(e){
        		 
 				
@@ -602,11 +604,9 @@
      		
      	 	}) 
      	 
-     	 
+     	 	//이미지 메뉴바 센터
      	 	$("#imgMenucenter").click(function(e){
         		 
-					
-
   			  $(".detailImg").filter(function(){
                     return $(this).attr("src") == arrImg1[0];          
                  }).css('margin-left','auto').css('margin-right','auto');
@@ -617,7 +617,7 @@
          	 
          	 $("#imgMenuRight").click(function(e){
         		 
-
+         		//이미지 매뉴바 이미지 왼쪼 정렬
    			  $(".detailImg").filter(function(){
                      return $(this).attr("src") == arrImg1[0];          
                   }).css('float','right');
@@ -626,7 +626,7 @@
          		
          	 }) 
     		
-    		
+    		//이미지 매뉴바 50%
     		$("#imgMenu50").click(function(e){
         		 
     			$(".detailImg").filter(function(){
@@ -637,8 +637,8 @@
          		
          	 }) 
              
-             
-				$("#imgMenu100").click(function(e){
+            //이미지 매뉴바 원본 크기 
+			$("#imgMenu100").click(function(e){
          		 
          		
          		 
@@ -649,7 +649,7 @@
          		
          	 }) 
              
-             
+             //이미지 매뉴바 풀크기
         	 $("#imgMenuFull").click(function(e){
          		 
 
@@ -688,12 +688,7 @@
     		                return $(this).attr("src") == reName;          
     		       }).parent().remove(); 
     		        
-    		         
-    	            
-    	    		 console.log(reName);
-    	    		
-    	    	
-    	    		 
+    	    		/*  console.log(reName); */
     	            $.ajax({
     	           	 type:"GET",
     	         	   	  url: "${ pageContext.servletContext.contextPath}/communty/ajaxDelete",
@@ -720,25 +715,98 @@
          	 }) 
        
 			
+    	 //키업 이미지 관련
+	 	 $(".communty-regist-datail").keyup(function(e){
+	 		 
+	 		 
+	            var detailImgLength = $('.detailImg').length;
+				 /* var detailImgArr = new Array();    */      			
+				 var thumbImgArr = new Array();         			
+				 var thumbImgLength =  $(".thumbImg").length;
+	     		 
+				 	//딜리트 키로 이미지 지울때
+	     		 if(e.keyCode == 46){
+	     	
+	     			 if(detailImgLength != thumbImgLength && thumbImgLength > 0){
+	     				 
+	     				for(var i = 0 ; i < thumbImgLength ; i++){
+	     					thumbImgArr.push( $('.thumbImg').eq(i).attr('src') );
+	         				 
+	         			}
+	     				
+	     				for(var i = 0; i < detailImgLength ; i++ ){
+	     					var img = thumbImgArr.indexOf($('.detailImg').eq(i).attr('src'));
+	     					thumbImgArr.splice(img,1);
+	     				}
+	     				
+	     				keyImgDelete(thumbImgArr[0]);
+	     				 
+	     			 }
+	         			
+	     			 
+	     			
+	     			 
+	     			
+	     		 }
+	     	    //백스페이스로 이미지 지울때
+	     		if(e.keyCode == 8){
+	     			 
+	     			 if(detailImgLength != thumbImgLength && thumbImgLength > 0){
+	     				 
+	         				for(var i = 0 ; i < thumbImgLength ; i++){
+	         					thumbImgArr.push( $('.thumbImg').eq(i).attr('src') );
+		         				 
+		         			}
+	         				
+	         				for(var i = 0; i < detailImgLength ; i++ ){
+	         					var img = thumbImgArr.indexOf($('.detailImg').eq(i).attr('src'));
+	         					thumbImgArr.splice(img,1);
+	         				}
+	         				
+	         				keyImgDelete(thumbImgArr[0]);
+	         				 
+	         			 }
+	     			 
+	     		 }
+	 	 })
+	 	 
+	 	 
+	 	 // 키이벤트 img삭제
+	 	 function keyImgDelete(re){
+			
+			
+			   var reName =  re;
+			
+	    	   $(".thumbImg").filter(function(){
+		                return $(this).attr("src") == reName;          
+		       }).parent().remove(); 
+		        
+	    		 
+	            $.ajax({
+	           	 type:"GET",
+	         	   	  url: "${ pageContext.servletContext.contextPath}/communty/ajaxDelete",
+	         	      data: {reName:reName},
+	         	   success:function(data){
+	         		   
+	         		   console.log(data);
+	         		   
+	         		  var length =  $(".thumbImg").length;
+	         		  
+	        		  if(length == 0 ){
+	        		    	$(".communty-regist-thumb").css("display","none");
+	        		    }
+	         		  
+	         		   
+	         		   $("#imgMenuBar").css('top','0').css('left','0').css('display','none');
+	         		  	arrImg1=[];
+	         	   },
+	         	   error:function(error){
+	         		   
+	         	   }
+	            }) 
+		}
     	
-    	
-    	
-    	
-       
-       
 
-            	
- 
-            
-            
-            
-
-            
-            
-            
-        
-        
-        
         
         
     </script>
