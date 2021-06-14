@@ -788,7 +788,7 @@
 	         	      data: {reName:reName},
 	         	   success:function(data){
 	         		   
-	         		   console.log(data);
+	         		   /* console.log(data); */
 	         		   
 	         		  var length =  $(".thumbImg").length;
 	         		  

@@ -251,9 +251,9 @@
 		var corpCondition = $("#corpCondition").val();
 		var corpSearchText = $("#corpSearchText").val(); 
 		
-		console.log(corpLv); 
+/* 		console.log(corpLv); 
 	 	console.log(corpCondition);
-		console.log(corpSearchText); 
+		console.log(corpSearchText);  */
 	 location.href = link + "?currentPage=1&corpLv=" + corpLv +  "&corpCondition=" + corpCondition + "&corpSearchText=" + corpSearchText ;
 	})
 	
@@ -309,7 +309,7 @@
        			var corpSearchText = $("#corpSearchText").val();
        			var corpNo = $(this).parent().parent().children().eq(0).text();
        			var corpName = $(this).parent().parent().children().eq(2).text();
-       			console.log(corpNo);
+       			
        			
                
                $.ajax({
@@ -336,7 +336,7 @@
             			   $table.html("");
                 		   $page.html("");
                 		   
-                		   console.table(data);
+                		   
             		   
             		   for(var i in data){
             			   
@@ -388,7 +388,7 @@
             			   
             			   var pageNo = Math.ceil(data.length / 10) ; 
             			   
-            			   console.log(pageNo);
+            			  
             			   
             			   $page.append('<button id="startPage"><<</button>');
             			   $page.append('<button disabled><</button>');

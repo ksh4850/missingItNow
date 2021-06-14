@@ -608,7 +608,7 @@
         	 var comtNo = $(this).parent().parent().children(".postDetatil-comtNo").text();
         	 var reposeRegistText =  $(this).parent().find(".reposeRegistText").val();
 
-        	 console.log(comtNo)
+        	/*  console.log(comtNo) */
         	  if(reposeRegistText){
              	$.ajax({
              		url : '${pageContext.servletContext.contextPath}/communty/ajaxresponseRegist',
@@ -698,7 +698,7 @@
      		        		},
      		        success : function(data) {
      		        	
-     		        	 console.log(data); 
+     		        	 /* console.log(data);  */
      		        	 
      		        	if(data > 0){
 	       		        	 $(".communty-comment-div").html("");

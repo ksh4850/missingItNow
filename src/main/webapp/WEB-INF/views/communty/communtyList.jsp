@@ -310,14 +310,14 @@
     <script>
 		    $(function(){
 				var pageNo = 1;
-				console.log('pageNo : ' + pageNo);
+				
 					
 				$(window).scroll(function(){   
 					
 					if($(window).scrollTop() >= $(document).height() - $(window).height()){
 
 						pageNo++;	
-						console.log('pageNo : ' + pageNo);
+						
 		
 		     			$.ajax({
 		     				url : '${pageContext.servletContext.contextPath}/communty/ajaxCommuntyList',
@@ -444,7 +444,7 @@
 		    $(document).on('click',".communty-list-div" , function(){
 		    	var postNo = $(this).find('.postNo').text();
 		    	
-		    	console.log(postNo)
+		    	
 		    	
 		    	 location.href="${ pageContext.servletContext.contextPath }/communty/communtyDetail?postNo=" +postNo; 
 		    })
@@ -459,7 +459,7 @@
 		    	  var $likeItg = $(this);
 		    	  
 		    	  var $login = "${sessionScope.loginMember}";
-		    	  console.log(likeStatus);
+		    	 
 		      	   if($login != ""){
 		      		
 		    	  if(likeStatus == 'Y' || likeStatus == 'N'){
@@ -494,7 +494,7 @@
 	                 	}) 
 		    		  
 		    	  }else{
-		    		  console.log("인설트");
+		    		 
 		    		  
 		    		  $.ajax({
 	                 		url : '${pageContext.servletContext.contextPath}/communty/ajaxLikeinsert',

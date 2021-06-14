@@ -382,7 +382,7 @@ public class CommuntyController {
 		
 		int result = communtyService.deleteAjaxComment(comtNo);
 		
-		System.out.println(result);
+//		System.out.println(result);
 		
 		String gson = result + "";
 		 
@@ -459,7 +459,7 @@ public class CommuntyController {
 	public String getAjaxLikeStatusModify(@RequestParam String likeStatus , @RequestParam String postNo , HttpServletRequest request) {
 		
 		
-		System.out.println(likeStatus);
+//		System.out.println(likeStatus);
 		
 		if(likeStatus.equals("Y")) {
 			likeStatus = "N";
