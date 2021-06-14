@@ -11,7 +11,7 @@
 <style>
 	body{
         width: 1920px;
-        min-height: 1900px;
+        /* min-height: 1900px; */
         margin: 0 auto;
 	}
 	
@@ -105,6 +105,7 @@
     	left: 50%;
     	transform: translateX(-50%);
     	bottom: 0px;
+    	padding-bottom: 20px;
     }
         
     .pagingArea button{
@@ -246,10 +247,10 @@
 	</div>	<!-- sectionDiv 종료-->
 	
     <br clear=both>
-	<div class="footer">
+<!-- 	<div class="footer">
 		<h1 align="center">FOOTER</h1>
 	</div>
-	
+ -->	
 	<script>
 		$('#selectExpectedSettlementBtn').click(function(){
 			const startDate = $('#startDate').val();

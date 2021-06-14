@@ -9,7 +9,7 @@
 <style>
  	body{
         width: 1920px;
-        min-height: 1900px;
+        /* min-height: 1900px; */
         margin: 0 auto;
     }
 	
@@ -17,7 +17,7 @@
         position: relative;
         float: left;
         width: 260px;
-        min-height: 1200px;
+		min-height: 1100px;
         text-align: center;
         font-family: 'SCDream-Regular';
         color: white;
@@ -195,6 +195,20 @@
                 }
             });
         });
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+			resizeContent();
+		});
+		$(window).resize(function() {
+			resizeContent();
+		});
+		function resizeContent() {
+			/* var windowHeight = $(window).height(); */
+			var sectionHeight = $(".section").height();
+			$('.nav').css({'height':(sectionHeight)+'px'});
+		}
 	</script>
 	
 </body>

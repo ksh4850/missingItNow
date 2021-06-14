@@ -11,7 +11,7 @@
 <style>
 	body{
         width: 1920px;
-        min-height: 1900px;
+        /* min-height: 1900px; */
         margin: 0 auto;
 	}
 	
@@ -60,6 +60,7 @@
     	left: 50%;
     	transform: translateX(-50%);
     	bottom: 0px;
+    	padding-bottom: 20px;
     }
         
     .pagingArea button{
@@ -137,7 +138,7 @@
             </table>
         </div>       <!-- salesListDiv 종료 -->
 		
-		<br><br><br>
+		<br><br><br><br>
 		<div class="pagingArea" align="center">
         	<c:choose>
 				<c:when test="${ !empty params.startDate && !empty params.endDate }">
@@ -203,10 +204,10 @@
 	</div>	<!-- sectionDiv 종료 -->
 	
     <br clear=both>
-	<div class="footer">
+<!-- 	<div class="footer">
 		<h1 align="center">FOOTER</h1>
 	</div>
-	
+ -->	
 	<script>
 		const link = "${ pageContext.servletContext.contextPath }/salesMng/selectSalesList";
 		const searchLink = "${ pageContext.servletContext.contextPath }/salesMng/searchSalesListByDate";

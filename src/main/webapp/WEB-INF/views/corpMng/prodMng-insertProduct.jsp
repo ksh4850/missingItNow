@@ -9,7 +9,7 @@
 <style>
 	body{
         width: 1920px;
-        min-height: 1900px;
+        /* min-height: 1900px; */
         margin: 0 auto;
 	}
 	
@@ -265,9 +265,9 @@
     </div>  <!-- sectionDiv 종료 -->
     
 	<br clear=both>
-	<div class="footer">
+	<!-- <div class="footer">
 		<h1 align="center">FOOTER</h1>
-	</div>
+	</div> -->
 	
 	<script>
 		$('#prodImgUploadBtn').off('click').on('click',function(){

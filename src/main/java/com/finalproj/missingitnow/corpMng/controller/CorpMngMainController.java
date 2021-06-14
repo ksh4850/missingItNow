@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finalproj.missingitnow.common.exception.LoginFailedException;
+import com.finalproj.missingitnow.common.page.PageInfoDTO;
+import com.finalproj.missingitnow.common.page.Pagenation;
+import com.finalproj.missingitnow.corpMng.model.dto.CorpMngNoticeDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdCmtListDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductDTO;
@@ -74,6 +77,8 @@ public class CorpMngMainController {
 		if(CorpUserSession == null) {
 			return "redirect:/";
 		}
+		// 최근 공지 리스트
+		List<CorpMngNoticeDTO> recentNoticeList = corpMngMainService.selectRecentNoticeList();
 		
 		// 판매자 정보
 		CorpUserDTO corpUserInfo = corpMngMainService.selectCorpUserInfo(CorpUserSession);
@@ -92,6 +97,7 @@ public class CorpMngMainController {
 		// 최근 상품 리뷰
 		List<ProdRevListDTO> recentProdRevList = corpMngMainService.selectRecentProductRevList(CorpUserSession);
 		
+		model.addAttribute("recentNoticeList", recentNoticeList);
 		model.addAttribute("corpUserInfo", corpUserInfo);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("depositTotal", depositTotal);
@@ -110,7 +116,7 @@ public class CorpMngMainController {
 		CorpUserDTO CorpUserSession = (CorpUserDTO)model.getAttribute("CorpUserSession");
 		
 		CorpUserDTO corpUserInfo = corpMngMainService.selectCorpUserInfo(CorpUserSession);
-		System.out.println("corpUserInfo :" + corpUserInfo);
+//		System.out.println("corpUserInfo :" + corpUserInfo);
 		
 		model.addAttribute("corpUserInfo", corpUserInfo);
 		
@@ -133,7 +139,7 @@ public class CorpMngMainController {
 		if(!corpUserImg.isEmpty()) {
 			// 기존 프로필 이미지 삭제
 			int deleteCorpUserImg = corpMngMainService.deleteCorpUserImg(corpUser);
-			System.out.println("deleteCorpUserImg : " + deleteCorpUserImg);
+//			System.out.println("deleteCorpUserImg : " + deleteCorpUserImg);
 			
 			String root = request.getSession().getServletContext().getRealPath("resources");
 			String filePath = root + "\\corpUserImages";
@@ -183,7 +189,32 @@ public class CorpMngMainController {
 	
 	// 기업회원 공지사항 List
 	@GetMapping("/noticeList")
-	public String selectNoticeList(Model model) {
+	public String selectNoticeList(Model model, @RequestParam(required=false) String currentPage) {
+		
+		int pageNo = 1;
+		
+		if(currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			if(pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+		
+		int totalCount = corpMngMainService.selectTotalNoticeList();
+		System.out.println("totalCount : " + totalCount);
+		
+		int limit = 15;
+		int buttonAmount = 5;
+		
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		List<CorpMngNoticeDTO> noticeList = corpMngMainService.selectNoticeList(pageInfo);
+//		for(CorpMngNoticeDTO a : noticeList) {
+//			System.out.println("noticeList : " + a );
+//		}
+		
+		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("pageInfo", pageInfo);
 		
 		return "/corpMng/corpMng-noticeList";
 	}

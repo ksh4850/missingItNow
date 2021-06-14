@@ -23,6 +23,7 @@
  		<typeAlias alias="PageInfoDTO" type="com.finalproj.missingitnow.common.page.PageInfoDTO"/>
  		<typeAlias alias="ProdCmtListDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdCmtListDTO"/>
  		<typeAlias alias="ProdRevListDTO" type="com.finalproj.missingitnow.corpMng.model.dto.ProdRevListDTO"/>
+ 		<typeAlias alias="CorpMngNoticeDTO" type="com.finalproj.missingitnow.corpMng.model.dto.CorpMngNoticeDTO"/>
  		
  		
  		<!-- systemAdmin -->

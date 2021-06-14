@@ -6,7 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.finalproj.missingitnow.common.page.PageInfoDTO;
 import com.finalproj.missingitnow.corpMng.model.dao.CorpMngMainDAO;
+import com.finalproj.missingitnow.corpMng.model.dto.CorpMngNoticeDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdCmtListDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductDTO;
@@ -66,6 +68,21 @@ public class CorpMngMainServiceImpl implements CorpMngMainService {
 	@Override
 	public int updateCorpUserImg(Map<String, String> file) {
 		return corpMngMainDAO.updateCorpUserImg(file);
+	}
+
+	@Override
+	public int selectTotalNoticeList() {
+		return corpMngMainDAO.selectTotalNoticeList();
+	}
+
+	@Override
+	public List<CorpMngNoticeDTO> selectNoticeList(PageInfoDTO pageInfo) {
+		return corpMngMainDAO.selectNoticeList(pageInfo);
+	}
+
+	@Override
+	public List<CorpMngNoticeDTO> selectRecentNoticeList() {
+		return corpMngMainDAO.selectRecentNoticeList();
 	}
 
 }

@@ -10,7 +10,7 @@
 <style>
 	body{
         width: 1920px;
-        min-height: 1900px;
+        /* min-height: 1900px; */
         margin: 0 auto;
 	}
 	
@@ -19,7 +19,7 @@
         float: right;
         width: 1650px;
         min-height: 1100px;
-        /* border: 1px solid black; */
+        /* border: 1px solid blue; */
     }
     
     .noticeListTable{
@@ -41,11 +41,28 @@
         overflow: hidden;
     }
     
+    .noticeTitles{
+        cursor: pointer;
+   	}
+
+	.noticeDetails{
+		display: none;
+	}
+	
+	.noticeDetails td{
+		padding-left: 100px;
+		padding-right: 100px;
+		padding-top: 30px;
+		padding-bottom: 30px;
+		background-color: #F0F0F0;
+	}
+    
     .pagingArea{
     	position: absolute;
     	left: 50%;
     	transform: translateX(-50%);
     	bottom: 0px;
+    	padding-bottom: 20px;
     }
         
     .pagingArea button{
@@ -82,27 +99,29 @@
                 <tr>
                     <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">공지번호</td>
                     <td style="font-family: 'SCDream-Medium'; font-size: 20px;">제목</td>
-                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 250px">등록일자</td> 
+                    <td style="font-family: 'SCDream-Medium'; font-size: 20px; width: 150px">등록일자</td> 
                 </tr>
                 
-                <!-- * 수정부분 * -->
-                <%-- <c:if test="${ empty  }">
+                <c:if test="${ empty noticeList }">
                 	<tr>
                 		<td colspan="3"style="font-family: 'SCDream-Regular'; font-size: 20px; height: 100px;">공지사항이 없습니다.</td>
                 	</tr>
                 </c:if>
                 
-                <c:forEach var="list" items="${  }">	<!-- 컨트롤러에서 넘어오는 리스트 키 -->
-                <tr>
-                    <td><c:out value="${ list. }"/></td>	<!-- 공지번호 -->
-                    <td style="text-align: left; padding-left: 20px;"><nobr><c:out value="${ list. }"/></nobr></td>	<!-- 제목 -->
-                    <td><c:out value="${ list. }"/></td>	<!-- 등록일자 -->
+                <c:forEach var="list" items="${ noticeList }">
+                <tr class="noticeTitles">
+                    <td><c:out value="${ list.noticeNo }"/></td>
+                    <td style="text-align: left; padding-left: 20px;"><nobr><c:out value="${ list.noticeTitle }"/></nobr></td>	<!-- 제목 -->
+                    <td><c:out value="${ list.noticeDate }"/></td>
                 </tr>
-                </c:forEach> --%>
-                
+                <tr class="noticeDetails">
+                	<td colspan="3">${ list.noticeDetails }</td>
+                </tr>
+                </c:forEach>
             </table>
         </div>       <!-- noticeListDiv 종료 -->
         
+        <br><br><br><br>
         <div class="pagingArea" align="center">
 			<button id="startPage">◀◀</button>
 	
@@ -133,14 +152,25 @@
 		</div> <!-- pagingAreaDiv 종료 -->
 	
 	</div>	<!-- sectionDiv 종료 -->
-	
+
     <br clear=both>
-	<div class="footer">
-		<h1 align="center">FOOTER</h1>
-	</div>
 	
 	<script>
-		const link = "${ pageContext.servletContext.contextPath }/settleMng/paymentList";
+		$(document).ready(function(){
+	        $(".noticeTitles").click(function(){
+	            var submenu = $(this).next("tr");
+	            
+	            if( submenu.is(":visible") ){
+	                submenu.slideUp();
+	                resizeContent();
+	            } else {
+	                submenu.slideDown();
+	                resizeContent();
+	            }
+	        });
+	    });
+	
+		const link = "${ pageContext.servletContext.contextPath }/corpMng/noticeList";
 		
 		function pageButtonAction(text) {
 			location.href = link + "?currentPage=" + text;
@@ -174,6 +204,19 @@
 			}
 		}
 	
+	</script>
+	<script>
+		$(document).ready(function() {
+			resizeContent();
+		});
+		$(window).resize(function() {
+			resizeContent();
+		});
+		function resizeContent() {
+			/* var windowHeight = $(window).height(); */
+			var sectionHeight = $(".section").height();
+			$('.nav').css({'height':(sectionHeight)+'px'});
+		}
 	</script>
 
 </body>

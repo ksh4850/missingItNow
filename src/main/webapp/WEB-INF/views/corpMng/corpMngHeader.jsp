@@ -27,7 +27,7 @@
 
     body{
         width: 1920px;
-        min-height: 1900px;
+        /* min-height: 1900px; */
         margin: 0 auto;
     }
 
@@ -86,7 +86,7 @@
         font-family: 'SCDream-Regular'; 
         font-weight: bold;
         color: white;
-        right: 120px;
+        right: 115px;
         top: 50px;
         background: transparent;
         border: none;

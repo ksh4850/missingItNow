@@ -3,6 +3,8 @@ package com.finalproj.missingitnow.corpMng.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.finalproj.missingitnow.common.page.PageInfoDTO;
+import com.finalproj.missingitnow.corpMng.model.dto.CorpMngNoticeDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.CorpUserDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdCmtListDTO;
 import com.finalproj.missingitnow.corpMng.model.dto.ProdMngProductDTO;
@@ -19,6 +21,9 @@ public interface CorpMngMainDAO {
 	int deleteCorpUserImg(CorpUserDTO corpUser);
 	int updateCorpUserImg(Map<String, String> file);
 	
+	// 최근 공지 
+	List<CorpMngNoticeDTO> selectRecentNoticeList();
+	
 	// 판매자정보 - 예치금 잔액 조회 
 	int selectDepositTotal(CorpUserDTO corpUserSession);
 
@@ -33,8 +38,11 @@ public interface CorpMngMainDAO {
 
 	// 최근 상품 리뷰
 	List<ProdRevListDTO> selectRecentProductRevList(CorpUserDTO corpUserSession);
-
 	
+	// 공지사항 조회
+	int selectTotalNoticeList();
+	List<CorpMngNoticeDTO> selectNoticeList(PageInfoDTO pageInfo);
+
 	
 
 }

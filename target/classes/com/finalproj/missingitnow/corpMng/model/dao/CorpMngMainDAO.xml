@@ -153,6 +153,41 @@
 		)
 	</insert>
 	
+	<resultMap id="noticeListResultSet" type="CorpMngNoticeDTO">
+		<id property="noticeNo" column="NOTICE_NO"/>
+		<result property="noticeTitle" column="NOTICE_TITLE"/>
+		<result property="noticeDetails" column="NOTICE_DETAILS"/>
+		<result property="noticeDate" column="NOTICE_DATE"/>
+		<result property="noticeDisplayChk" column="NOTICE_DISPLAY_CHK"/>
+		<result property="noticeStatus" column="NOTICE_STATUS"/>
+		<result property="noticeHits" column="NOTICE_HITS"/>
+	</resultMap>
+
+	<select id="selectTotalNoticeList" resultType="_int">
+		SELECT COUNT(*)
+ 		  FROM TBL_NOTICE
+	</select>
+	
+	<select id="selectNoticeList" resultMap="noticeListResultSet" parameterType="PageInfoDTO">
+		SELECT E.*
+		  FROM (SELECT ROWNUM RNUM
+		             , D.*
+		          FROM (SELECT A.*
+		                  FROM TBL_NOTICE A
+		                 WHERE A.NOTICE_DISPLAY_CHK = 'Y'
+		                 ORDER BY A.NOTICE_NO DESC
+		                ) D
+		          ) E
+		 WHERE E.RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="selectRecentNoticeList" resultMap="noticeListResultSet">
+		SELECT A.*
+          FROM TBL_NOTICE A
+         WHERE A.NOTICE_DISPLAY_CHK = 'Y'
+         ORDER BY A.NOTICE_NO DESC
+	</select>
+	
 </mapper>
 
 
