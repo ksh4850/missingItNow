@@ -448,15 +448,17 @@
 							
 							idFlag = true;
 							
+			    		    $("#registBtn").attr("disabled", false);
+			    		    $('#registBtn').css('background-color', '#775EEE');
 							
 							
 						    
-						     /* if((idFlag == true) && (pwdFlag == true) && (nameFlag == true)){
+						      if((idFlag == true) && (pwdFlag == true) && (nameFlag == true)){
 						    	
 							    $("#registBtn").attr("disabled", false);
 							    $('#registBtn').css('background-color', '#775EEE');
 						    	
-						    }  */
+						    }  
 							
 							
 						}
@@ -527,9 +529,8 @@
 
 	            pwdFlag = true;
 	            
-	            
-	            /* $("#registBtn").attr("disabled", true);
-	    	    $('#registBtn').css('background-color', 'black');
+    		    $("#registBtn").attr("disabled", false);
+    		    $('#registBtn').css('background-color', '#775EEE');
 	    	    
 	    	     if((idFlag == true) && (pwdFlag == true) && (nameFlag == true)){
 	    	    	
@@ -537,7 +538,7 @@
 	    		    $('#registBtn').css('background-color', '#775EEE');
 	    	    	
 	            return; 
-	    	    } */ 
+	    	    } 
 	            
 	        }
 	        
