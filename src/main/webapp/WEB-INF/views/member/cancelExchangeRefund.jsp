@@ -258,7 +258,7 @@
     
         </div>
 		
-		
+	
 		
 		
         <div id="rightDiv">
@@ -267,7 +267,7 @@
                     
                     <!-- DB와 트랜젝션 완성후 foreach 구문으로 바꿀 것 -->
                     
-                    <c:if test="${!empty purchaseList }">
+                     <c:if test="${!empty cancelExchangeRefundList }">
                 <table class="purchaseListTable" border="1">
 					<tr><td><br></td></tr>
                     <tr class="bottomLineTr">                        
@@ -277,7 +277,7 @@
                         <th>주문상품명</th>
                         <th>주문금액</th>
                     </tr>
-                    <c:forEach items="${purchaseList}" var="purchase">
+                    <c:forEach items="${cancelExchangeRefundList}" var="cancelExchangeRefund">
                     	<tr class="bottomLineTr" align="center">                    	
                     	<td><c:out value="${cancelExchangeRefund.exchangeNo}"/></td>
                     	<td><c:out value="${cancelExchangeRefund.privateMemberDTO.userName}"/></td>            							
@@ -291,9 +291,9 @@
                     </c:forEach>                    
 			     </table>
                     
-               </c:if>
+               </c:if> 
                     
-               <c:if test="${empty purchaseList}"> 
+               <c:if test="${empty cancelExchangeRefundList}"> 
                		
                		<table class="emptyTable">
 			         	<tr><td><br><br></td></tr>
@@ -313,7 +313,7 @@
 			         	
 			         </table>
                
-               </c:if>     
+               </c:if>    
                     
 				
 
