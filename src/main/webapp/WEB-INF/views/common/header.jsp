@@ -159,7 +159,7 @@
                                         <div class="category-title-style">커뮤니티</div>
                                     </li>
                                 </a>
-                                 <a href="${ pageContext.servletContext.contextPath}/admin/qna/list">
+                                 <a onclick="loginCheck()">
                                     <li class="category-title">
                                         <div class="category-title-style">Q&amp;A</div>
                                     </li>
@@ -323,7 +323,24 @@
 			
 		});
 		
-		
+		function loginCheck(){
+			
+			if(${ CorpUserSession ne null}){
+				
+				location.href = "${ pageContext.servletContext.contextPath }/admin/qna/list";
+				
+			} else if(${ loginMember ne null}){
+				
+				location.href = "${ pageContext.servletContext.contextPath }/admin/qna/list";
+				
+			} else {
+				
+				alert("로그인이 필요한 서비스입니다!");
+				return false;
+				
+			}
+			
+		}
 	</script>
 </body>
 </html>

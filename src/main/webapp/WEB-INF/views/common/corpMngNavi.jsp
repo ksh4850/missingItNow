@@ -114,9 +114,6 @@
                     <div class="link-btn" id="QNAManage">Q&amp;A관리</div>
                 </div>
             </li>
-            <li class="menu" id="subMenuFour" class="collapse subMenu" data-parent=".nav">
-                <div class="btn" id="noticeList">공지사항</div>
-            </li>
         </ul>
     </div>
 <script>

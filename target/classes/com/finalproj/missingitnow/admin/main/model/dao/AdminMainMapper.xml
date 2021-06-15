@@ -62,9 +62,6 @@
 		   JOIN V_ALL_REFUND_COUNT D ON(A.USER_NO = D.유저)
 		  WHERE ((D.환불횟수 + C.반품횟수) / B.주문횟수) >= 0.3
 	</select>
-	<select id="selectReportedUserCount" resultType="_int">
-	
-	</select>
 	
 	<!-- 기업회원 셀렉 -->
 	<select id="selectTotalCorpUserCount" resultType="_int">
@@ -83,9 +80,6 @@
 	           COUNT(*)
 	      FROM TBL_CORP_USER A
 	     WHERE A.CORP_REGST_DATE = SYSDATE
-	</select>
-	<select id="selectReportedCorpUserCount" resultType="_int">
-	
 	</select>
 	<select id="selectBlackListCorpUserCount" resultType="_int">
 	    SELECT
@@ -201,10 +195,7 @@
 	    SELECT
 	           NVL(SUM(COMMISSION_BY_SALES), 0)
 	      FROM TBL_SETTLEMENT A
-	     WHERE A.SETTLEMENT_CHK = 'Y' 
-	</select>
-	<select id="selectCommissionRate" resultType="_int">
-	    
+	     WHERE A.SETTLEMENT_CHK = 'Y'
 	</select>
 	<select id="selectLastMonthCommission" resultType="_int">
 	    SELECT

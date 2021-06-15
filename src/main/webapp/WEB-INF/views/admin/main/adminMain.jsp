@@ -102,7 +102,7 @@
            	</table>
         </div>
         <div class="orderDiv contentDiv">
-            <button class="titleBtn" onclick="location.href=''"> 주문내역 현황 > </button>
+            <button class="titleBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/system/orderInfo'"> 주문내역 현황 > </button>
             <hr style="margin-top: 0px;	margin-bottom: 0px;">
             <table class="orderInfoTable infoTables">
            		<tr>
@@ -124,7 +124,7 @@
            	</table>
         </div>
         <div class="adminCommissionDiv contentDiv">
-            <button class="titleBtn" onclick="location.href=''"> 수수료 현황 > </button>
+            <button class="titleBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/settlement/breakdown'"> 수수료 현황 > </button>
             <hr style="margin-top: 0px;	margin-bottom: 0px;">
             <table class="commissionInfoTable infoTables">
            		<tr>
