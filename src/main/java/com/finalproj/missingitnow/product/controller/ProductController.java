@@ -365,6 +365,34 @@ public class ProductController {
 		return "product/productPaymentCompletion"; 
 	}
 	
+	/* 장바구니 등록하기 */
+	
+	@PostMapping(value = "/myPageCart", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String myPageCart(Model model, HttpServletRequest request, 
+			@RequestParam("prodNo") String prodNo , @RequestParam("userNo") String userNo
+			) {
+		int count = 1;
+
+		HashMap<String, Object> myPageCart = new	HashMap<String, Object>(); 
+		myPageCart.put("userNo", userNo);
+		myPageCart.put("prodNo", prodNo);
+		myPageCart.put("count", count);
+		boolean cart = productService.cart(myPageCart);
+		System.out.println(cart);
+		String myCart = "";
+		if(cart) {
+			myCart = "장바구니 등록 성공";
+		} else {
+			myCart = "장바구니 등록 실패";	
+		}
+		Gson gson = new GsonBuilder().setDateFormat("").create();
+
+		return gson.toJson(myCart);
+	}
+	
+	
+	
 	/* 검색해서 상품 리스트 출력 페이지 */
 	@GetMapping("/productSearch")
 	public String productSearch(Model model, @RequestParam(required=false) String search) {
