@@ -601,8 +601,7 @@
 	            <br>
 	            &nbsp;&nbsp;<input type="text" name="reviewDetails" id="reviewDetails" class="textareaStringOne" maxlength="40"  placeholder="내용을 입력해주세요"><br><br>
                       <input type="hidden" id="productNo" value="${productList[0].prodNo}">
-                      <form id="uploadForm" enctype="multipart/form-data" method="POST" action="insertReview"> 
-					  </form>
+					  
 				<c:if test="${ empty CorpUserSession && empty loginMember && !empty CorpUserSession }">
 				<button class="section4_button login"> 댓글 등록</button>
 				</c:if>
@@ -636,7 +635,7 @@
                             </td>
                         </tr>
                         <tr class="table_bottom">
-                            <td colspan="2"><span><img src="${ pageContext.servletContext.contextPath }/resources/images/product/2.jpg" alt="" width="200px"></span></td>
+                           
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -666,6 +665,7 @@
 	            &nbsp;&nbsp;<input type="text" name="pordComtDetails" id="pordComtDetails" class="textareaString" maxlength="40"  placeholder="내용을 입력해주세요"><br>
 				<c:if test="${ empty CorpUserSession && empty loginMember && !empty CorpUserSession}">
 				<button class="section4_button login"> 댓글 등록</button>
+				<input type="hidden" value="" id="hiddenImg">
 				</c:if>
 				<c:if test="${ !empty loginMember }">
 				<button id="insertComment" class="section4_button"> 댓글 등록</button>
@@ -745,23 +745,22 @@
     	  }
     	});
     	
-    
-		$("#insertReview").click(function(){
-			const context = document.getElementById("reviewDetails").value;
-			const starValue = document.getElementById("starsValue").value;
-			const productNo = document.getElementById("productNo").value;
-			const userNo = document.getElementById("userNo").value;
-			const multiFilesImg = document.getElementById("multiFilesImg").value;
-			alert("성공");
+    /* 이미지 댓글 */
+		 $("#insertReview").click(function(){
+			const  context = document.getElementById("reviewDetails").value;
+			const  starValue = document.getElementById("starsValue").value; 
+			const  prodNo = document.getElementById("productNo").value;
+			const  userNo = document.getElementById("userNo").value;
+			alert(context+starValue+prodNo+userNo);
+             
 			$.ajax({
 				url : "insertReview",
 				method : "post",
 				data : {
 					context : context,
 					starValue :starValue,
-					productNo : productNo,
-					userNo : userNo,
-					multiFilesImg : multiFilesImg
+					prodNo : prodNo,
+					userNo : userNo
 				},
 				success : function(data){
 					console.log(data)
@@ -786,18 +785,23 @@
 						$tr2 = $("<tr>");
 						$reviewDetails = $("<td>").text(data[index].reviewDetails);
 						
+						$tr3 = $("<tr>");
+						$border_bottom = $("<td>").attr("class", "table_bottom");
+                        
+						
 						$span.append($img);
 						$td1.append($span);
 						$td1.append($stScore);
 						$tr1.append($td1);
-
 						
 						$tr2.append($reviewDetails);
+						$tr3.append($border_bottom);
 						
 						
 						$tbody.append($tr);
 						$tbody.append($tr1); 
 						$tbody.append($tr2); 
+						$tbody.append($tr3); 
 						} 	
 					document.getElementById("Img1()").click();
 					document.getElementById("reviewDetails").value = "";
@@ -808,8 +812,10 @@
 					console.log(error);
 				}
 				});
-			
-		});
+			  
+		}); 
+    
+		  
 		/* 로그인을 해주세요 */
 		$(".login").click(function(){
 			alert("로그인 상태가 아니거나 기업아이디는 이용하실수 없습니다");
@@ -820,7 +826,8 @@
 			const prodNo = document.getElementById("productNo").value;
 			const userNo = document.getElementById("userNo").value;
 			
-			alert("문의 성공");
+	         alert("문의 성공");
+			
 			$.ajax({
 				url : "insertComment",
 				method : "post",
