@@ -751,7 +751,6 @@
 			const  starValue = document.getElementById("starsValue").value; 
 			const  prodNo = document.getElementById("productNo").value;
 			const  userNo = document.getElementById("userNo").value;
-			alert(context+starValue+prodNo+userNo);
              
 			$.ajax({
 				url : "insertReview",
