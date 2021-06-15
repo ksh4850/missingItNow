@@ -325,11 +325,14 @@
 		
 		function loginCheck(){
 			
-			if(${ CorpUserSession ne null}){
+			var userSession = '${loginMember}';
+			var corpSession = '${CorpUserSession}';
+			
+			if(corpSession){
 				
 				location.href = "${ pageContext.servletContext.contextPath }/admin/qna/list";
 				
-			} else if(${ loginMember ne null}){
+			} else if(userSession){
 				
 				location.href = "${ pageContext.servletContext.contextPath }/admin/qna/list";
 				
