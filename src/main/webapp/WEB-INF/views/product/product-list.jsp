@@ -81,7 +81,7 @@
                          <c:forEach var="List" items="${ productList }" begin="0" end="4" step="1">
                         <a href="#">
                             <div class="right-contest-recommendation-box">
-                                <img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/${ List.productImg.prodImgRename }" alt="">
+                                <img src="${ pageContext.servletContext.contextPath }/resources/uploadFiles/${ List.productImg.prodImgRename }" alt="" width="200px" height="200px">
                                 <div class="product-font-1">${ List.product.prodName }</div>
                                 <div class="product-font-2"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ List.product.prodPrice }"/>원</div>
                                 <div class="product-font-1">무료배송</div>

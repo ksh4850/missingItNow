@@ -4,7 +4,7 @@
 /* 상단 css */
 /* 상품 상단 정보 부분 */
 .information{width: 660px; height: 540px; float: left;}
-.title{width: 580px; height:90px; line-height: 90px;margin: 0 auto; font-size: 20pt; font-weight: 530;}
+.title{width: 580px; height:90px; line-height: 90px;margin: 0 auto; font-size: 20pt; font-weight: 530; overflow: hidden;}
 .price{width: 580px; height:90px; margin: 0 auto; font-size: 20pt; font-weight: 530;}
 .sale{width: 115px; height:90px; color: #EF3F43; font-size: 30pt; font-weight: 600; line-height: 90px;float: left;}
 .cost-price{width: 465px; height: 25px; float: left; font-size: 13pt; color: #A0A0A0;}
