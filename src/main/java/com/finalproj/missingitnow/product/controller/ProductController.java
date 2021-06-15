@@ -206,7 +206,7 @@ public class ProductController {
 	@PostMapping(value="/insertReview", produces ="application/json; charset=UTF-8")
 	@ResponseBody public String insertProduct(Model model, HttpServletRequest request,
 	@RequestParam("starValue") int starValue,@RequestParam("context") String context,@RequestParam("productNo") String productNo
-	, @RequestParam("userNo") String userNo  , @RequestParam("multiFilesImg") List<MultipartFile> multiFilesImg) {
+	, @RequestParam("userNo") String userNo ) {
 		HashMap<String, Object> insertReview = new HashMap<String, Object>(); 
 		  insertReview.put("starValue", starValue);
 		  insertReview.put("context", context); 

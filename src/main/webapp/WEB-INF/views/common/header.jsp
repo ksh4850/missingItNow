@@ -66,37 +66,37 @@
                                         <div class="category-title-style">테이블/의자</div>
                                     </li>
                                 </a>
-                                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0004">
+                                <a href="#">
                                     <li class="category-title">
                                         <div class="category-title-style">침구/커튼</div>
                                     </li>
                                 </a>
-                                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0005">
+                                <a href="#">
                                     <li class="category-title">
                                         <div class="category-title-style">쿠션/방석</div>
                                     </li>
                                 </a>
-                                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0006">
+                                <a href="#">
                                     <li class="category-title">
                                         <div class="category-title-style">가전</div>
                                     </li>
                                 </a>
-                                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0007">
+                                <a href="#">
                                     <li class="category-title">
                                         <div class="category-title-style">수납/정리</div>
                                     </li>
                                 </a>
-                                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0008">
+                                <a href="#">
                                     <li class="category-title">
                                         <div class="category-title-style">조명</div>
                                     </li>
                                 </a>
-                                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT0009">
+                                <a href="#">
                                     <li class="category-title">
                                         <div class="category-title-style">홈데코</div>
                                     </li>
                                 </a>
-                                <a href="${ pageContext.servletContext.contextPath}/product/productList?prodCtgNo=PRCT00010">
+                                <a href="#">
                                     <li class="category-title">
                                         <div class="category-title-style">생활용품</div>
                                     </li>
@@ -109,7 +109,7 @@
 
                         <div class="category">
                             <div class="category-name">주요서비스</div>
-                            <ul><a href="${ pageContext.servletContext.contextPath}/corporation/test">
+                            <ul><a href="#">
                                     <li class="category-title">
                                         <div class="category-title-style">쿠폰존</div>
                                     </li>

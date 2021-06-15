@@ -602,7 +602,6 @@
 	            &nbsp;&nbsp;<input type="text" name="reviewDetails" id="reviewDetails" class="textareaStringOne" maxlength="40"  placeholder="내용을 입력해주세요"><br><br>
                       <input type="hidden" id="productNo" value="${productList[0].prodNo}">
                       <form id="uploadForm" enctype="multipart/form-data" method="POST" action="insertReview"> 
-                      <input type="file" name="multiFiles" id="multiFilesImg" multiple><br><br> 
 					  </form>
 				<c:if test="${ empty CorpUserSession && empty loginMember && !empty CorpUserSession }">
 				<button class="section4_button login"> 댓글 등록</button>

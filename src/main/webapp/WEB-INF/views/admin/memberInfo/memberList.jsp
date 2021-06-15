@@ -206,7 +206,7 @@
                      <td><c:out value="${ user.email }"/></td>
                      <td><c:out value="${ user.registDate }"/></td>
                      <td><c:if test="${ user.leaveChk eq 'N' }">활동중</c:if><c:if test="${ user.leaveChk eq 'Y' }">탈퇴</c:if></td>
-                     <td><input type="button" class="purchaseListButton" value="구매내역" style="margin-right: 5px;"><input type="button" class="userDataUpdateButton" value="회원정보 수정"></td>
+                     <td><input type="button" class="purchaseListButton" value="구매내역" style="margin-right: 5px;"></td>
                  </tr>
                  </c:forEach>
             </table>
