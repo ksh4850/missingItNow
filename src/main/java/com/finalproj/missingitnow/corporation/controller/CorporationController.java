@@ -106,7 +106,7 @@ public class CorporationController {
 	@PostMapping(value = "/idCheck", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String idCheck(Model model, HttpServletRequest request, @RequestParam("idText") String idText) {
-		System.out.println("와주세요 제발요 ㅠㅠ" + idText);
+//		System.out.println("와주세요 제발요 ㅠㅠ" + idText);
 		String idCheckText = "";
 		
 		if(idText.length() > 5) {
@@ -204,7 +204,7 @@ public class CorporationController {
 			}
 		    passworRegularExpression = "사용 가능한 비밀번호 입니다";
 		} while (false);
-		System.out.println(passworRegularExpression);
+//		System.out.println(passworRegularExpression);
 		Gson gson = new GsonBuilder().setDateFormat("").create();
 		
 		return gson.toJson(passworRegularExpression);
