@@ -118,7 +118,7 @@
 </head>
 <body>
    <header>
-		<jsp:include page="../common/systemHeader.jsp"></jsp:include>
+		<jsp:include page="../common/corpMngHeader.jsp"></jsp:include>
     </header>
 		<div style="overflow:hidden; display: flex;">
   	 <aside>
