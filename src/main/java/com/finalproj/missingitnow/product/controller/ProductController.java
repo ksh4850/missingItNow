@@ -379,7 +379,6 @@ public class ProductController {
 		myPageCart.put("prodNo", prodNo);
 		myPageCart.put("count", count);
 		boolean cart = productService.cart(myPageCart);
-		System.out.println(cart);
 		String myCart = "";
 		if(cart) {
 			myCart = "장바구니 등록 성공";
