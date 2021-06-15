@@ -115,7 +115,7 @@
                     <td><c:out value="${ list.noticeDate }"/></td>
                 </tr>
                 <tr class="noticeDetails">
-                	<td colspan="3">${ list.noticeDetails }</td>
+                	<td colspan="3" style="text-align: left; padding: 40px;">${ list.noticeDetails }</td>
                 </tr>
                 </c:forEach>
             </table>

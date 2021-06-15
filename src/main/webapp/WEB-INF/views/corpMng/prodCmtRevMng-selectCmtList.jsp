@@ -117,7 +117,7 @@
                     	<c:if test="${ list.prodComtReplyChk eq 'Y' }">완료</c:if>
                     	<c:if test="${ list.prodComtReplyChk eq 'N' }">
                     		<button class="prodComtReplyBtn" 
-                    			onclick="location.href='${ pageContext.servletContext.contextPath }/product/product?prodNo=${ list.prodNo }&corpNo=${ list.prodMngProduct.corpNo }'" --%> >답변하기</button>
+                    			onclick="location.href='${ pageContext.servletContext.contextPath }/product/product?prodNo=${ list.prodNo }&corpNo=${ list.prodMngProduct.corpNo }'">답변하기</button>
                     	</c:if>
                     </td>
                 </tr>
