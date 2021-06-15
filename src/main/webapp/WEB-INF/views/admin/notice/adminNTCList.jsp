@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin_main.css">
     <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
 
     <style>
@@ -104,15 +103,11 @@
 <body>
 
     <header>
-		<jsp:include page="../../common/corpMngHeader.jsp"/>
+		<jsp:include page="../../common/header.jsp"/>
     </header>
-	<div style="overflow:hidden; display: flex;">
-    <aside>
-		<jsp:include page="../../common/corpMngNavi.jsp"/>
-    </aside>
     <section>
     <div class="system-noticeList">
-        <div class="system-notice-head">공지사항 관리</div>
+        <div class="system-notice-head">공지사항</div>
         <br>
         <div class="system-notice-searchBar" >
         	<form action="${ pageContext.servletContext.contextPath }/admin/ntc/list" id="noticeSearchForm" method="post">
@@ -128,7 +123,9 @@
 	            <input type="button" id="searchButton" value="검색"/>
             </form>
         </div>
-        <input type="button" value="작성하기" class="notice-regist" id="ntcRegistButton"/>
+        <c:if test="${ CorpUserSession.corpNo eq 'ADMIN' }">
+        	<input type="button" value="작성하기" class="notice-regist" id="ntcRegistButton"/>
+		</c:if>
         <div class="system-notice-list">
             <table>
                 <tr class="first-tr">
@@ -162,7 +159,6 @@
         </div>
         </div>
     </section>
-    </div>
     <footer>
 		<jsp:include page="../../common/footer.jsp"/>
 	</footer>

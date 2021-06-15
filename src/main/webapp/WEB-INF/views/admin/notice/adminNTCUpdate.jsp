@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reset.css">
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin_main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <style>
          .system-ntcDetail-head{
@@ -67,12 +67,8 @@
 </head>
 <body>
     <header>
-		<jsp:include page="../../common/corpMngHeader.jsp"/>
+		<jsp:include page="../../common/header.jsp"/>
     </header>
-
-    <aside>
-		<jsp:include page="../../common/corpMngNavi.jsp"/>
-    </aside>
     <section>
         <div class="system-ntcDetail-head">공지사항 수정하기</div>
         <br>

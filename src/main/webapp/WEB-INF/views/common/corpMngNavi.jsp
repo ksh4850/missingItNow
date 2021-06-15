@@ -111,7 +111,6 @@
             <li class="menu" id="QNA">
                 <div class="btn" data-toggle="collapse" data-target="#subMenuThree">Q&amp;A</div>
                 <div id="subMenuThree" class="collapse subMenu" data-parent=".nav">
-                    <div class="link-btn" id="QNAList">Q&amp;A리스트</div>
                     <div class="link-btn" id="QNAManage">Q&amp;A관리</div>
                 </div>
             </li>

@@ -69,8 +69,7 @@
         <img src="${pageContext.servletContext.contextPath }/resources/images/corpMngHeaderLogo.png" 
         		onclick="location.href='${pageContext.servletContext.contextPath }/main'" 
         		style="position: relative; left: 20px; top: 5px; float: left;">
-        <p class="headerTitle">기업회원 관리자 센터</p>
-        <button class="headerLogoutBtn" onclick="location.href=''">로그아웃</button>
+        <p class="headerTitle">시스템 관리자 센터</p>
     </div>
 </body>
 </html>

@@ -12,7 +12,7 @@
 		<result column="NOTICE_STATUS" property="status"/>
 		<result column="NOTICE_HITS" property="hits"/>
 	</resultMap>
-	<update id="deleteNTC" parameterType="_int">
+	<update id="deleteNTC">
 	    UPDATE
 	           TBL_NOTICE A
 	       SET A.NOTICE_STATUS = 'N'
@@ -27,7 +27,7 @@
 	     WHERE A.NOTICE_NO = #{ no }
 	       AND A.NOTICE_STATUS = 'Y'
 	</update>
-	<select id="selectDetail" parameterType="_int" resultMap="NTCResultSet">
+	<select id="selectDetail" resultMap="NTCResultSet">
 	    SELECT
 	           A.NOTICE_NO
 	         , A.NOTICE_TITLE
@@ -40,7 +40,7 @@
 	     WHERE A.NOTICE_NO = #{ no }
 	       AND A.NOTICE_STATUS = 'Y'
 	</select>
-	<update id="increamentBoardCount" parameterType="_int">
+	<update id="increamentBoardCount">
 	    UPDATE
 	           TBL_NOTICE A
 	       SET A.NOTICE_HITS = (SELECT B.NOTICE_HITS + 1
@@ -99,7 +99,7 @@
 	                          , C.NOTICE_HITS
 	                       FROM TBL_NOTICE C
 	                      WHERE C.NOTICE_STATUS = 'Y'
-	                      ORDER BY TO_NUMBER(C.NOTICE_NO) DESC
+	                      ORDER BY C.NOTICE_NO DESC
 	                   )B
 	             <trim prefix="WHERE" prefixOverrides="AND | OR">
 	             	 <choose>

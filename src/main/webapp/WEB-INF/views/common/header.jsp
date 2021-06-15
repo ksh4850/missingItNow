@@ -164,6 +164,11 @@
                                         <div class="category-title-style">Q&amp;A</div>
                                     </li>
                                 </a>
+                                 <a href="${ pageContext.servletContext.contextPath }/admin/ntc/list">
+                                    <li class="category-title">
+                                        <div class="category-title-style">공지사항</div>
+                                    </li>
+                                </a>
                             </ul>
                         </div>
 
