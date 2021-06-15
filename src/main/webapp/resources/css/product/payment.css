@@ -41,7 +41,7 @@ input[type="radio"]:checked + label span {
 .product-table-row-5{width: 120px; height: 130px; text-align: center; line-height: 130px;}
 .product-price{font-size: 15px; color: rgb(150, 150, 150);}
 
-
+.buttom-box-hiddin{width: 1px; height: 1px; overflow: hidden;}
 /* 오른쪽 영수증 부분 */
 .receipt{width: 300px; height: 400px; border: 1px solid rgb(53, 53, 53); margin-left: 20px; margin-top: 60px; position: fixed;}
 .receipt-top{width: 260px; height: 60px;  margin: 0 auto; line-height: 60px; font-weight: 700; font-size: 20px;}

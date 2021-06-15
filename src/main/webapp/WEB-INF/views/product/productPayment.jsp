@@ -95,6 +95,7 @@
             </div>
         </div>
     </section>
+     <div class="buttom-box-hiddin">
     <form action="${ pageContext.servletContext.contextPath }/product/completioninster" method="post" enctype="multipart/form-data">
 		<input  name="userNo" value="${ sessionScope.loginMember.userNo }">
 		<input  name="prodNo" value="${ productList[0].prodNo }"> 
@@ -103,6 +104,7 @@
     
     <button class="buttom-box" type="submit" id="submit" >결제하기</button>
     </form>
+    </div>
     <script>
 	 var IMP = window.IMP; 
 	 IMP.init('imp45810764'); 
