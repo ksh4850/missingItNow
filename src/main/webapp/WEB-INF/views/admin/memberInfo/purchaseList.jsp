@@ -155,7 +155,7 @@
                 <option value="corpName" <c:if test="${ orderSearch.search.smallSearchCondition eq 'corpName' }">selected</c:if>>판매기업명</option>
             </select>
             <input type="search" name="searchValue" value="${ orderSearch.search.searchValue }">
-            <input type="submit" id="searchButton" value="검색"/>
+            <input type="button" id="searchButton" value="검색"/>
             </form>
         </div>
     
@@ -240,6 +240,20 @@ function pageButtonAction(text){
 	+ "&smallSearchCondition=" + document.getElementsByName("smallSearchCondition")[0].value
 	+ "&searchValue=" + document.getElementsByName("searchValue")[0].value;
 };
+
+$("#searchButton").click(function(){
+	var searchWriteDateStart = $("#searchWriteDateStart").val();
+	var searchWriteDateEnd = $("#searchWriteDateEnd").val();
+	if(searchWriteDateStart > searchWriteDateEnd){
+		
+		alert("시작일이 종료일보다 클 수 없습니다.");
+		return false;
+		
+	}
+	
+	$("#purchaseSearchForm").submit();
+	
+});
 </script>
 </body>
 </html>

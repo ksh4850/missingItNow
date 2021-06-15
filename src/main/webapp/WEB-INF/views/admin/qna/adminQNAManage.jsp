@@ -126,8 +126,8 @@
         <div class="system-qna-searchBar">
         	<form action="${pageContext.request.contextPath}/admin/qna/manage" id="manageSearchForm">
         		<label>작성일 : </label>
-	            <input type="date" name="searchWriteDateStart" value=<c:if test="${ search.searchWriteDateStart ne null }">"${ search.searchWriteDateStart }"</c:if>> ~
-	            <input type="date" name="searchWriteDateEnd" value=<c:if test="${ search.searchWriteDateEnd ne null }">"${ search.searchWriteDateEnd }"</c:if>>
+	            <input type="date" id="searchWriteDateStart" name="searchWriteDateStart" value=<c:if test="${ search.searchWriteDateStart ne null }">"${ search.searchWriteDateStart }"</c:if>> ~
+	            <input type="date" id="searchWriteDateEnd" name="searchWriteDateEnd" value=<c:if test="${ search.searchWriteDateEnd ne null }">"${ search.searchWriteDateEnd }"</c:if>>
 	            <select name="largeSearchCondition" style="margin-left: 350px;">
 	                <option value="all" <c:if test="${ search.largeSearchCondition eq 'all' }">selected</c:if>>전체</option>
 	                <option value="answer" <c:if test="${ search.largeSearchCondition eq 'answer' }">selected</c:if>>답변</option>
@@ -223,6 +223,14 @@
 	const responseLink = "${ pageContext.servletContext.contextPath }/admin/qna/response";
 
 	$("#manageSearchButton").click(function(){
+		var searchWriteDateStart = $("#searchWriteDateStart").val();
+		var searchWriteDateEnd = $("#searchWriteDateEnd").val();
+		if(searchWriteDateStart > searchWriteDateEnd){
+			
+			alert("시작일이 종료일보다 클 수 없습니다.");
+			return false;
+			
+		}
 		
 		$("#manageSearchForm").submit();
 		

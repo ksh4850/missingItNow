@@ -218,6 +218,14 @@
 	}
 	
 	$("#searchButton").click(function(){
+		var searchWriteDateStart = $("#searchWriteDateStart").val();
+		var searchWriteDateEnd = $("#searchWriteDateEnd").val();
+		if(searchWriteDateStart > searchWriteDateEnd){
+			
+			alert("시작일이 종료일보다 클 수 없습니다.");
+			return false;
+			
+		}
 		
 		$("#noticeSearchForm").submit();
 		
